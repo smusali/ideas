@@ -17,13 +17,17 @@
 - [`aerolyze`](./oss/aerolyze.md)
 - [`echoverse`](./oss/echoverse.md)
 - [`harmora`](./oss/harmora.md)
+- [`nexoria`](./oss/nexoria.md)
+- [`rekursia`](./oss/rekursia.md)
 - [`resonix`](./oss/resonix.md)
 - [`zestiq`](./oss/zestiq.md)
 
 ## MicroSaaS Project Ideas
 - [`grable`](./microsaas/grable.md)
+- [`lumindra`](./microsaas/lumindra.md)
 - [`pluvion`](./microsaas/pluvion.md)
 - [`prandium`](./microsaas/prandium.md)
 - [`resonatr`](./microsaas/resonatr.md)
 - [`serevo`](./microsaas/serevo.md)
 - [`versilo`](./microsaas/versilo.md)
+- [`zephra`](./microsaas/zephra.md)
