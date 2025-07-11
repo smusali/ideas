@@ -14,5 +14,7 @@
 - [`grafana`](https://github.com/smusali/grafana)
 
 ## Open-Source Project Ideas
+- [`resonix`](./oss/resonix.md)
 
 ## MicroSaaS Project Ideas
+- [`resonatr`](./microsaas/resonatr.md)
