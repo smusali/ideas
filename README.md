@@ -16,9 +16,14 @@
 ## Open-Source Project Ideas
 - [`aerolyze`](./oss/aerolyze.md)
 - [`echoverse`](./oss/echoverse.md)
+- [`harmora`](./oss/harmora.md)
 - [`resonix`](./oss/resonix.md)
+- [`zestiq`](./oss/zestiq.md)
 
 ## MicroSaaS Project Ideas
+- [`grable`](./microsaas/grable.md)
 - [`pluvion`](./microsaas/pluvion.md)
+- [`prandium`](./microsaas/prandium.md)
 - [`resonatr`](./microsaas/resonatr.md)
 - [`serevo`](./microsaas/serevo.md)
+- [`versilo`](./microsaas/versilo.md)
