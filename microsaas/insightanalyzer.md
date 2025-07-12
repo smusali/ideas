@@ -1,33 +1,33 @@
-# **DataFlow** — *Simple CSV Cleaner & Analyzer*
+# **InsightAnalyzer** — *Simple Data Insight Generator*
 
-*A lightweight web application that helps you clean messy CSV files and get instant insights with minimal effort.*
+*A lightweight web application that helps you extract trends, patterns, and actionable insights from logs, feedback, and survey data.*
 
 ---
 
-## **What is DataFlow?**
+## **What is InsightAnalyzer?**
 
-DataFlow is a simple web application that helps you clean messy CSV files, remove duplicates, fix formatting issues, and get basic insights from your data. Built for small businesses, researchers, and anyone who works with spreadsheet data without needing technical skills.
+InsightAnalyzer is a simple web application that helps you analyze unstructured text data like logs, user feedback, and survey responses to find trends, patterns, and actionable insights. Built for small businesses, developers, and anyone who wants to make sense of their data without complex analytics tools.
 
 ---
 
 ## **Core Features (MVP - 7 Days)**
 
 ### **Day 1-2: Basic Setup**
-- Simple web interface for CSV file upload
-- Basic database to store file processing results
+- Simple web interface for data upload and analysis
+- Basic database to store analysis results
 - User registration and login
 
 ### **Day 3-4: Core Functionality**
-- CSV file upload and parsing
-- Automatic duplicate removal
-- Missing value handling
-- Basic statistics generation
+- File upload support (CSV, TXT, JSON)
+- Basic text analysis and pattern recognition
+- Sentiment analysis and trend detection
+- Simple dashboard with charts
 
 ### **Day 5-6: Enhanced Features**
-- Data quality reports
-- Export cleaned data to various formats
+- Key issue extraction and categorization
+- Downloadable reports and insights
+- Analysis history and comparison
 - Basic data visualization
-- Share results via links
 
 ### **Day 7: Polish & Deploy**
 - Responsive design for mobile
@@ -42,22 +42,22 @@ DataFlow is a simple web application that helps you clean messy CSV files, remov
 User:
 - id, email, password_hash, created_at
 
-FileUpload:
-- id, user_id, filename, original_size, processed_size, status, created_at
+Analysis:
+- id, user_id, filename, file_type, status, created_at
 
-ProcessingResult:
-- id, file_id, duplicates_removed, missing_values_fixed, statistics_json, created_at
+AnalysisResult:
+- id, analysis_id, insight_type, content, confidence_score, created_at
 
-Statistics:
-- id, result_id, column_name, data_type, count, average, min, max, created_at
+Insight Types:
+- Trend Analysis, Sentiment Analysis, Issue Detection, Pattern Recognition
 ```
 
 ---
 
 ## **Why This Works**
 
-- **High Demand**: Everyone works with CSV data that needs cleaning
-- **Clear Value**: Save hours of manual data cleaning work
+- **High Demand**: Everyone has data that needs analysis
+- **Clear Value**: Turn messy data into actionable insights
 - **Low Barrier**: Simple web interface, no technical skills required
 - **Scalable**: Can start with basic features and add advanced capabilities
 
@@ -95,14 +95,14 @@ Statistics:
 ## **Marketing Strategy**
 
 ### **Target Audience**
-- **Primary**: Small business owners, researchers, data analysts
-- **Secondary**: Marketing teams, students
-- **Tertiary**: Anyone who works with spreadsheets
+- **Primary**: Small business owners, developers, data analysts
+- **Secondary**: Marketers, researchers, consultants
+- **Tertiary**: Anyone who works with text data
 
 ### **Key Messages**
-- "Clean your CSV data in seconds"
-- "No more manual data cleaning"
-- "Simple data analysis that just works"
+- "Turn your data into actionable insights"
+- "No more manual data analysis"
+- "Simple insights that actually help"
 
 ### **Distribution Channels**
 - **Product Hunt**: Launch for immediate visibility
@@ -112,10 +112,10 @@ Statistics:
 - **Email Marketing**: Cold outreach to small businesses
 
 ### **Pricing Strategy**
-- **Freemium**: Free for 5 files/month, paid for unlimited
-- **Monthly**: $11.99/month for unlimited files
-- **Annual**: $119/year (17% discount)
-- **Team**: $29.99/month for up to 5 users
+- **Freemium**: Free for 5 analyses/month, paid for unlimited
+- **Monthly**: $14.99/month for unlimited analyses
+- **Annual**: $149/year (17% discount)
+- **Business**: $39.99/month for team collaboration
 
 ---
 
@@ -128,13 +128,13 @@ Statistics:
 
 ### **Revenue Streams**
 1. **Subscription Revenue**: Monthly/annual plans
-2. **Premium Features**: Advanced cleaning algorithms
+2. **Premium Features**: Advanced analytics and insights
 3. **API Access**: For developers wanting to integrate
-4. **Custom Solutions**: For specific business needs
+4. **Custom Analysis**: For specific business needs
 
 ### **Quick Wins**
 - Offer 7-day free trial for all paid plans
-- Create viral demos with messy data examples
+- Create viral demos with sample data
 - Partner with data analysis influencers
 - Build referral program
 
@@ -145,29 +145,28 @@ Statistics:
 - **Week 1**: 100+ signups, 10+ paid users
 - **Month 1**: 500+ signups, 50+ paid users
 - **Month 3**: 2000+ signups, 200+ paid users
-- **Revenue Target**: $600+ in first month
+- **Revenue Target**: $750+ in first month
 
 ---
 
 ## **Future Enhancements**
 
-- Support for other file formats (Excel, JSON)
-- Advanced data visualization
-- Machine learning for data cleaning
+- Advanced machine learning insights
+- Integration with popular platforms (Slack, email)
+- Real-time data analysis
+- Custom analysis rules and templates
 - Team collaboration features
-- Mobile app
-- Custom cleaning rules
+- Mobile app for quick insights
 
 ---
 
 ## **Getting Started**
 
 1. **Sign up** for free account
-2. **Upload your first CSV file**
-3. **Upgrade** to paid plan for unlimited files
-4. **Start cleaning** your data automatically
+2. **Upload your first data file**
+3. **Upgrade** to paid plan for unlimited analyses
+4. **Start discovering** insights in your data
 
 ---
 
 *Built with ❤️ for data workers* 
- 

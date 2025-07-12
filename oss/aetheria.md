@@ -1,65 +1,112 @@
-# **Aetheria** — *Simple Mental Health Tracker*
+# **Aetheria** — *Simple Mental Health Tracking CLI*
 
-*A lightweight, open-source tool that helps people track their mental health and mood with privacy and simplicity.*
+*A lightweight, open-source command-line tool that helps you track your mental health and mood with privacy and simplicity.*
 
 ---
 
 ## **What is Aetheria?**
 
-Aetheria is a simple web application that lets you track your daily mood, mental health symptoms, and wellness activities. Built for people who want to monitor their mental health without complex tools or privacy concerns.
+Aetheria is a simple CLI tool that lets you track your daily mood, mental health symptoms, and wellness activities directly from your terminal. Perfect for people who want to monitor their mental health without complex tools or privacy concerns.
 
 ---
 
 ## **Core Features (MVP - 7 Days)**
 
 ### **Day 1-2: Basic Setup**
-- Simple web interface for daily mood tracking
-- Basic database to store mood and wellness data
-- User registration and login
+- CLI interface with command parsing
+- Local data storage (JSON/SQLite)
+- Basic mood entry system
 
 ### **Day 3-4: Core Functionality**
 - Daily mood rating (1-10 scale)
 - Basic symptom tracking (anxiety, depression, sleep)
 - Wellness activity logging (exercise, meditation, social)
-- Simple dashboard showing mood trends
+- Simple mood visualization in terminal
 
 ### **Day 5-6: Enhanced Features**
 - Notes field for each entry
-- Basic mood visualization (simple charts)
-- Export data to CSV
-- Privacy controls and data deletion
+- Export data to CSV/JSON
+- Basic mood trends and statistics
+- Privacy controls and data encryption
 
 ### **Day 7: Polish & Deploy**
-- Responsive design for mobile
-- Deploy to free hosting platform
-- Write documentation and README
+- Package for npm/pip/cargo
+- Write comprehensive documentation
+- Create installation scripts
 
 ---
 
 ## **Simple Data Model**
 
+```json
+{
+  "entries": [
+    {
+      "id": "uuid",
+      "date": "YYYY-MM-DD",
+      "mood_rating": 1-10,
+      "anxiety_level": 1-10,
+      "depression_level": 1-10,
+      "sleep_hours": 0-24,
+      "activities": ["exercise", "meditation"],
+      "notes": "string",
+      "created_at": "datetime"
+    }
+  ],
+  "config": {
+    "encryption_enabled": true,
+    "data_path": "string"
+  }
+}
 ```
-User:
-- id, email, password_hash, created_at
 
-MoodEntry:
-- id, user_id, date, mood_rating, anxiety_level, depression_level, sleep_hours, notes, created_at
+---
 
-Activity:
-- id, user_id, date, activity_type, duration_minutes, notes, created_at
+## **Installation & Usage**
 
-Activity Types:
-- Exercise, Meditation, Social, Therapy, Medication, Other
+```bash
+# Install via npm
+npm install -g aetheria-cli
+
+# Install via pip
+pip install aetheria-cli
+
+# Install via cargo
+cargo install aetheria-cli
+
+# Basic usage
+aetheria mood 8                    # Log mood rating
+aetheria track --anxiety 3         # Track anxiety level
+aetheria activity exercise 30      # Log 30min exercise
+aetheria view --days 7             # View last 7 days
+aetheria export --format csv       # Export data
+aetheria stats                     # Show statistics
+```
+
+---
+
+## **Configuration**
+
+Create a config file at `~/.aetheria/config.json`:
+
+```json
+{
+  "data_path": "~/.aetheria/data.json",
+  "encryption_enabled": true,
+  "reminder_enabled": true,
+  "reminder_time": "20:00",
+  "export_format": "csv"
+}
 ```
 
 ---
 
 ## **Why Open Source?**
 
-- **Privacy**: Your mental health data stays on your own server
-- **Transparency**: You can see exactly how your data is handled
-- **Customization**: Modify it to fit your specific needs
-- **Learning**: Great project for developers to learn web development
+- **Privacy**: Your mental health data stays on your own machine
+- **Transparency**: See exactly how your data is handled
+- **Customization**: Modify to fit your specific needs
+- **Learning**: Great project for developers to learn CLI development
 - **Community**: Others can contribute features they want
 
 ---
@@ -67,29 +114,29 @@ Activity Types:
 ## **Easy Publishing Plan (7 Days)**
 
 ### **Day 1-3: Build & Test**
-- Build the core application
+- Build the core CLI tool
 - Test all features thoroughly
-- Create simple documentation
+- Create comprehensive documentation
 
 ### **Day 4: Prepare Launch**
-- Create GitHub repository
-- Write compelling README with screenshots
+- Create GitHub repository with clear README
+- Write installation instructions
 - Prepare demo video (2-3 minutes)
 
-### **Day 5: Initial Launch**
+### **Day 5: Package & Publish**
+- Package for npm, pip, and cargo
+- Publish to package registries
+- Create GitHub releases
+
+### **Day 6: Community Launch**
 - Post on Reddit r/opensource, r/mentalhealth
-- Share on Twitter/X with #opensource #mentalhealth
-- Submit to Product Hunt (if ready)
+- Share on Twitter/X with #opensource #mentalhealth #cli
+- Submit to Hacker News
 
-### **Day 6: Community Engagement**
+### **Day 7: Community Engagement**
 - Respond to all comments and feedback
-- Share on LinkedIn with mental health community
-- Post on Hacker News
-
-### **Day 7: Follow-up**
 - Create GitHub issues for feature requests
 - Engage with contributors
-- Plan next iteration based on feedback
 
 ---
 
@@ -97,20 +144,20 @@ Activity Types:
 
 ### **Target Audience**
 - People managing mental health
+- CLI enthusiasts and power users
 - Mental health professionals
-- Wellness enthusiasts
-- Open source enthusiasts
+- Open source contributors
 
 ### **Key Messages**
-- "Track your mental health with privacy"
-- "Built by people, for people"
+- "Track your mental health from the terminal"
+- "Privacy-first mental health tracking"
 - "Your data, your control"
 
 ### **Distribution Channels**
 - GitHub (primary)
+- npm, pip, cargo registries
 - Reddit communities
 - Twitter/X mental health community
-- LinkedIn wellness groups
 - Hacker News
 - Mental health forums
 
@@ -118,32 +165,32 @@ Activity Types:
 
 ## **Success Metrics**
 
-- **GitHub Stars**: 100+ in first week
-- **Forks**: 20+ active forks
-- **Issues**: 10+ feature requests
-- **Contributors**: 5+ community contributors
-- **Deployments**: 50+ people using the app
+- **Downloads**: 500+ in first week
+- **GitHub Stars**: 150+ in first week
+- **Forks**: 25+ active forks
+- **Issues**: 12+ feature requests
+- **Contributors**: 6+ community contributors
 
 ---
 
 ## **Future Enhancements**
 
-- Mood pattern analysis
+- Web dashboard for data visualization
 - Integration with wearable devices
 - Journaling features
 - Goal setting and tracking
 - Community support features
-- Mobile app
+- Mobile app companion
 
 ---
 
 ## **Getting Started**
 
-1. Fork the repository
-2. Set up local development environment
-3. Create your first mood entry
-4. Customize for your needs
-5. Share improvements with the community
+1. Install the CLI tool
+2. Configure your preferences
+3. Start tracking your mood
+4. Explore the features
+5. Contribute to the project
 
 ---
 

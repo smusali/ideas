@@ -1,163 +1,175 @@
-# **Nairavi — API-First Intelligent Orchestration for Hyper-Personalized Travel**
+# **Nairavi** — *Simple Travel Planning Assistant*
 
-> *A headless, LLM-powered MicroSaaS that injects real-time insight, deep personalization, and flawless communication into any travel workflow through a single, elegant API.*
-
----
-
-## 1  Brief Overview
-
-Nairavi is conceived for modern travel-service builders—B2B platforms, OTAs, boutique agencies, and corporate‐travel desks—that crave AI superpowers without maintaining their own machine-learning stack. By exposing a privacy-respectful, rate-limited API layer, Nairavi lets partners:
-
-* **Ingest** raw booking intents, PNR data, loyalty profiles, and unstructured client notes.
-* **Enrich** them with up-to-the-second content (flights, rail, lodging, activities, ancillary services).
-* **Generate** conversationally fluent, brand-consistent messaging and documentation on demand (quotes, day-by-day itineraries, visa guidance, post-trip surveys).
-* **Predict** traveler sentiment and revenue upside so that agents know when to upsell or step in.
-
-All heavy lifting—search aggregation, large-language-model reasoning, content ranking, and compliance checks—happens inside Nairavi’s managed environment. Partners consume the value through stateless HTTPS endpoints and webhooks, keeping their own stacks lean, fast, and future-proof.
+*A lightweight web application that helps you plan trips and create itineraries with minimal effort.*
 
 ---
 
-## 2  Detailed Overview
+## **What is Nairavi?**
 
-| Pillar                  | Description                                                                                                                                                                                                                                                            |
-| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Problem**             | Travel sellers juggle fragmented data sources, repetitive copywriting, and escalating client expectations for immediacy and personalization. Doing this manually erodes margins and causes costly errors.                                                              |
-| **Solution**            | Nairavi stitches disparate supply, enriches it with contextual AI reasoning, and surfaces action-ready objects (Suggestions, Itineraries, Messages, Forecasts) through a unified API that plugs into any CRS, CRM, or CMS.                                             |
-| **North-Star Metric**   | *Average Agent Minutes Saved per Trip* (AAMS/T)                                                                                                                                                                                                                        |
-| **Key Differentiators** | 1) Domain-tuned LLM ensemble for travel jargon and policy nuance. 2) Real-time supplier enrichment with latency SLA. 3) Zero-setup email & chat copy generation that imitates each brand’s tone. 4) Built-in regulatory guardrails (GDPR, PCI-DSS scope minimization). |
+Nairavi is a simple web application that helps you plan trips, create itineraries, and organize travel details. Built for travelers, travel agents, and anyone who wants to plan trips without complex travel management systems.
 
 ---
 
-## 3  Core Capabilities
+## **Core Features (MVP - 7 Days)**
 
-| Capability         | What It Does                                                                                                                                                                    | Primary Consumer                         |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
-| **Intent Fuse**    | Normalizes disparate trip requests (emails, forms, chat transcripts) into a structured *TravelIntent* object with traveler personas, constraints, risk flags, and budget tiers. | Pre-sales chatbots, lead-capture widgets |
-| **Supply Weave**   | Streams live inventory from GDSs, LCC APIs, hotel wholesalers, DMCs, and content partners; deduplicates, scores availability, and returns ranked options.                       | Dynamic packaging engines                |
-| **Context Craft**  | Generates on-brand prose—quotes, follow-up emails, policy briefings, SMS reminders—conditioned on each traveler’s profile and the seller’s style guide.                         | CRM, marketing automation                |
-| **Sentiment Lens** | Predicts traveler satisfaction likelihood and ancillary-purchase propensity, updating after each interaction.                                                                   | Revenue-management dashboards            |
-| **Pulse Hooks**    | Webhook system that pushes enriched objects or alerts (e.g., “passport invalid date,” “weather disruption risk 78%”).                                                           | Custom agent portals, Slack integrations |
+### **Day 1-2: Basic Setup**
+- Simple web interface for trip planning
+- Basic database to store trips and itineraries
+- User registration and login
 
----
+### **Day 3-4: Core Functionality**
+- Trip creation and organization
+- Itinerary planning and scheduling
+- Basic destination and activity management
+- Travel budget tracking
 
-## 4  High-Level API Surface
+### **Day 5-6: Enhanced Features**
+- Travel document storage and organization
+- Trip sharing and collaboration
+- Basic travel recommendations
+- Export itineraries to PDF
 
-*(All objects exchanged as UTF-8 JSON; authentication via OAuth2 bearer tokens.)*
-
-| Endpoint                    | Verb | Request Payload Highlights                                      | Response Artifact                            |
-| --------------------------- | ---- | --------------------------------------------------------------- | -------------------------------------------- |
-| `/v1/intents`               | POST | Raw text or metadata bundle; locale; currency                   | `TravelIntent` UID                           |
-| `/v1/intents/{id}/options`  | GET  | Pricing window; comfort preferences                             | Ranked `OptionSet`                           |
-| `/v1/messages`              | POST | `intent_id`; channel type (email, sms, push); brand style token | Rendered copy + on-send metadata             |
-| `/v1/forecasts/{intent_id}` | GET  | —                                                               | Satisfaction- and revenue-probability vector |
-| `/v1/webhooks`              | POST | Event type subscriptions                                        | Confirmation token                           |
-
-**Rate Limits**: 60 requests/sec per tenant; burst allowances negotiable on enterprise plan.
-**Data Residency**: Multi-region, user-selectable (NA, EU, APAC).
-**Uptime SLA**: 99.9 % monthly.
+### **Day 7: Polish & Deploy**
+- Responsive design for mobile
+- Deploy to free hosting platform
+- Write documentation and README
 
 ---
 
-## 5  Business Model Canvas
+## **Simple Data Model**
 
-| Section                    | Highlights                                                                                                         |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| **Key Partners**           | Global distribution systems, hotel beds banks, ancillary content aggregators, security & compliance auditors       |
-| **Key Activities**         | Model fine-tuning on domain corpora, supplier API maintenance, latency observability, partner onboarding           |
-| **Key Resources**          | Proprietary traveler-intent ontology, multilingual tone-matching dataset, scalable inference clusters              |
-| **Value Propositions**     | • Cut itinerary build time by >70 % • Eliminate copy-paste errors • Inject upsell insights at every stage          |
-| **Customer Relationships** | Self-service docs & sandbox, dedicated CSM for ≥\$4 k / mo plans, community Slack                                  |
-| **Channels**               | Direct sales to mid-size TMCs, marketplace listings in major agency CRMs, word-of-mouth among independent advisors |
-| **Customer Segments**      | 1) Mid-market leisure agencies, 2) Corporate TMCs, 3) Vertical SaaS platforms needing embedded travel intel        |
-| **Cost Structure**         | GPU inference workloads, supplier-API licensing, support engineering, SOC 2 audits                                 |
-| **Revenue Streams**        | Tiered API usage (requests & compute seconds), overage fees, premium regional LLM routing, consulting packages     |
+```
+User:
+- id, email, password_hash, created_at
 
----
+Trip:
+- id, user_id, title, destination, start_date, end_date, budget, status, created_at
 
-## 6  Market & Competitive Landscape
+Itinerary:
+- id, trip_id, day_number, date, activities_json, created_at
 
-| Player                            | Focus                                 | Gap Nairavi Exploits                         |
-| --------------------------------- | ------------------------------------- | -------------------------------------------- |
-| Legacy GDS add-ons                | Static templating, no personalization | Real-time LLM narratives, brand tone cloning |
-| All-in-One SaaS suites            | Monolithic web UI                     | Headless API integrates into any stack       |
-| Point-solution itinerary builders | Manual data entry                     | Automated intent parsing & supply fusion     |
+Activity:
+- id, itinerary_id, title, description, location, time, cost, created_at
 
-Projected **TAM** for AI spend in TravelTech surpasses USD 7 B by 2028. Early mover advantage in pure-API offerings positions Nairavi to capture niche integrator budgets quickly.
+TravelDocument:
+- id, trip_id, name, document_type, file_url, created_at
+```
 
 ---
 
-## 7  Minimum Viable Product (MVP)
+## **Why This Works**
 
-| Layer                    | Scope                                                                            | Success Metric                                                   |
-| ------------------------ | -------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| **Intent & Option APIs** | Parse inbound requests, return top-10 dated flight + hotel combos within 2 s P95 | ≥92 % vendor-verified accuracy                                   |
-| **Context Craft Lite**   | Generate confirmation email in brand tone under 700 ms P95                       | Net-promoter score of generated copy ≥8/10 in blind user testing |
-| **Self-Serve Console**   | API key issuance, usage metering, error logs                                     | ≤15 min avg. setup-to-first-call for public beta cohort          |
-
----
-
-## 8  Roadmap Snapshot
-
-| Quarter | Milestone                                                                                             |
-| ------- | ----------------------------------------------------------------------------------------------------- |
-| **Q1**  | Open beta with leisure-agency cohort, feedback-driven model refinement                                |
-| **Q2**  | Add rail & ground transport connectors, hierarchical role-based access, regional data clusters        |
-| **Q3**  | Marketplace for 3rd-party “tone packs” and niche content feeds (e.g., surf spots, wine tours)         |
-| **Q4**  | Multi-agent co-planning (traveler + agent + LLM) with real-time collaborative editing over WebSockets |
+- **High Demand**: Everyone plans trips and needs organization
+- **Clear Value**: Simplify trip planning and itinerary creation
+- **Low Barrier**: Simple web interface, no technical skills required
+- **Scalable**: Can start with basic features and add advanced capabilities
 
 ---
 
-## 9  Primary KPIs
+## **Easy Publishing Plan (7 Days)**
 
-1. **Agent Minutes Saved per Trip (AAMS/T)**
-2. **Personalization Acceptance Rate** (times partner keeps LLM-suggested copy unedited)
-3. **Option Conversion Lift** vs. partner’s baseline logic
-4. **Average Latency P95** across critical endpoints
-5. **Gross Margin** per thousand intents processed
+### **Day 1-3: Build & Test**
+- Build the core application
+- Test all features thoroughly
+- Create simple documentation
 
----
+### **Day 4: Prepare Launch**
+- Create landing page with demo
+- Set up payment processing
+- Prepare marketing materials
 
-## 10  Risks & Mitigations
+### **Day 5: Initial Launch**
+- Post on Product Hunt
+- Share on LinkedIn and Twitter
+- Reach out to travel bloggers
 
-| Risk                              | Likelihood | Impact | Mitigation                                              |
-| --------------------------------- | ---------- | ------ | ------------------------------------------------------- |
-| Supplier API outages              | Medium     | High   | Multi-provider fallback, cached fare bundles            |
-| Regulatory changes (data privacy) | Medium     | Medium | Regional processing, explicit consent flags             |
-| Hallucinated content              | Low        | High   | Retrieval-augmented generation, fact-checking pipelines |
-| Commoditization of LLM infra      | High       | Medium | Double-down on proprietary domain data & workflow glue  |
+### **Day 6: Community Engagement**
+- Respond to all comments and feedback
+- Share on Reddit r/travel, r/Entrepreneur
+- Engage with early users
 
----
-
-## 11  Personas & Scenarios
-
-### ✈️ **Isabella — Boutique Leisure Agent**
-
-*Pain*: Spends hours crafting bespoke emails.
-*With Nairavi*: Uploads client notes, receives polished proposal in her voice, books twice as many trips per week.
-
-### 🏢 **Marcus — Corporate Travel Ops Lead**
-
-*Pain*: Complex multi-city bookings overflow manual spreadsheet trackers.
-*With Nairavi*: API syncs with internal booking tool, auto-flags policy violations, pushes proactive re-routing during disruptions.
-
-### 🌐 **Avi — Vertical SaaS Founder**
-
-*Pain*: Wants to embed travel planning inside his relocation-services app without hiring ML engineers.
-*With Nairavi*: Adds three webhook handlers; his users now get AI-curated itineraries and visa checklists.
+### **Day 7: Follow-up**
+- Analyze user feedback
+- Plan next iteration
+- Start building user base
 
 ---
 
-## 12  Why Nairavi Now?
+## **Marketing Strategy**
 
-* **Exploding client demand** for frictionless, personalized travel.
-* **LLM capabilities** have reached narrative quality suitable for customer-facing prose.
-* **Regulatory pressure** is making brand-owned data governance critical; a managed neutral layer reduces liability.
-* **API economy** favors composable services; travel sellers seek best-of-breed components rather than monoliths.
+### **Target Audience**
+- **Primary**: Travelers, travel agents, trip planners
+- **Secondary**: Business travelers, vacation planners
+- **Tertiary**: Anyone who plans trips
+
+### **Key Messages**
+- "Plan your trips in minutes"
+- "Simple itinerary creation that works"
+- "Organize your travel without complexity"
+
+### **Distribution Channels**
+- **Product Hunt**: Launch for immediate visibility
+- **LinkedIn**: Target travel professionals
+- **Twitter**: Travel and lifestyle communities
+- **Reddit**: r/travel, r/Entrepreneur, r/lifestyle
+- **Email Marketing**: Cold outreach to travel bloggers
+
+### **Pricing Strategy**
+- **Freemium**: Free for 3 trips, paid for unlimited trips
+- **Monthly**: $12.99/month for unlimited trips
+- **Annual**: $129/year (17% discount)
+- **Pro**: $24.99/month for team collaboration
 
 ---
 
-## 13  Call to Action
+## **Revenue Generation Plan**
 
-Nairavi is opening its **private-alpha** to a select group of innovators ready to redefine travel workflows. Early adopters receive volume discounts, priority roadmap influence, and co-marketing opportunities.
+### **Week 1 Revenue Targets**
+- **Day 1-3**: Focus on building and testing
+- **Day 4**: Launch with freemium model
+- **Day 5-7**: Target 10-20 paid users
 
-*Join the waitlist at* **nairavi.com/alpha** *and start turning raw travel intent into magic.*
+### **Revenue Streams**
+1. **Subscription Revenue**: Monthly/annual plans
+2. **Premium Features**: Advanced planning tools and analytics
+3. **API Access**: For developers wanting to integrate
+4. **Custom Templates**: For specific travel types
+
+### **Quick Wins**
+- Offer 7-day free trial for all paid plans
+- Create viral trip planning templates
+- Partner with travel influencers
+- Build referral program
+
+---
+
+## **Success Metrics**
+
+- **Week 1**: 100+ signups, 10+ paid users
+- **Month 1**: 500+ signups, 50+ paid users
+- **Month 3**: 2000+ signups, 200+ paid users
+- **Revenue Target**: $650+ in first month
+
+---
+
+## **Future Enhancements**
+
+- Integration with travel booking platforms
+- Real-time flight and hotel recommendations
+- Advanced travel analytics and insights
+- Mobile app for trip management
+- Team collaboration features
+- Custom travel itineraries marketplace
+
+---
+
+## **Getting Started**
+
+1. **Sign up** for free account
+2. **Create your first trip**
+3. **Upgrade** to paid plan for unlimited trips
+4. **Start planning** your next adventure
+
+---
+
+*Built with ❤️ for travelers*

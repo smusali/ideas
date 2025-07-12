@@ -1,204 +1,216 @@
-# **Caladri**
+# **Caladri** — *Simple User Authentication CLI*
 
-*A self-architecting, LLM-powered identity backend that writes, secures & documents itself*
-
----
-
-## 1. Vision
-
-Modern apps live or die by the trust users place in their authentication flows. Yet building—and continually hardening—a robust identity service is tedious, error-prone, and distracts teams from core product value. **Caladri** turns the tables by letting a Large Language Model act as your backstage engineer: it bootstraps a production-grade identity API, keeps it compliant, and evolves it with every new threat or requirement—all in the open.
+*A lightweight, open-source command-line tool that helps you manage user authentication, sessions, and security policies with minimal effort.*
 
 ---
 
-## 2. Problem Landscape
+## **What is Caladri?**
 
-| Pain Point               | Why It Hurts Today                                                                                     |
-| ------------------------ | ------------------------------------------------------------------------------------------------------ |
-| **Security Debt**        | Developers copy tutorials that age poorly; zero-day patterns linger in prod.                           |
-| **Boilerplate Overload** | Registration, login, password policies, and role management repeat across projects.                    |
-| **Drift vs. Docs**       | Specs & READMEs fall out of sync with real endpoints and data models.                                  |
-| **Testing Neglect**      | Auth flows need exhaustive edge-case coverage, yet tests are often sparse.                             |
-| **On-Demand Hardening**  | Brute-force throttling, header sanitization, graceful shutdowns—critical but forgotten until breached. |
+Caladri is a simple CLI tool that lets you create, manage, and secure user authentication systems directly from your terminal. Perfect for developers who want to add robust authentication to their applications without complex setup.
 
 ---
 
-## 3. Caladri’s Solution Approach
+## **Core Features (MVP - 7 Days)**
 
-| Capability                         | How Caladri Tackles It                                                                                                                                                                               |
-| ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **LLM-Generated Scaffolds**        | At project initialization, Caladri converses with you to infer entity fields (e.g., *email*, *birthdate*, *lastLogin*). It then generates all routes, schema validators, and persistence blueprints. |
-| **Security-First Blueprints**      | The model reasons over OWASP guidelines and injects rate-limiting, input sanitizers, and JWT lifecycle controls from day one.                                                                        |
-| **Password Policy Synthesizer**    | You describe organizational rules (“12 chars, 1 symbol”), and Caladri produces regex validators, user-facing error strings, and test cases.                                                          |
-| **Automated Seed Data & Fixtures** | Using domain hints, the LLM fabricates realistic users, roles, and audit logs for local runs and CI pipelines.                                                                                       |
-| **Test Suite Generation**          | For every endpoint, Caladri drafts unit and integration tests—including good-path, edge, and malicious scenarios—alongside meaningful fixture data.                                                  |
-| **Continuous Hardening Bot**       | A scheduled agent scans dependency CVEs, authentication heuristics, and brute-force metrics, opening PRs with upgraded configs or new mitigations.                                                   |
-| **Conversational Admin Console**   | Maintainers can chat with Caladri via CLI or web UI to introspect users, tweak policies, or ask “Why did login latency spike yesterday?”—the model queries logs and surfaces insights.               |
-| **Living Documentation**           | Any change to routes, schemas, or policies triggers auto-refresh of Markdown API docs and sequence diagrams, ensuring zero drift.                                                                    |
+### **Day 1-2: Basic Setup**
+- CLI interface with command parsing
+- User management system
+- Basic authentication engine
+
+### **Day 3-4: Core Functionality**
+- Create and manage user accounts
+- Handle login/logout operations
+- Session management and tracking
+- Password policy enforcement
+
+### **Day 5-6: Enhanced Features**
+- Security audit logging
+- User role and permission management
+- Export user data and reports
+- Basic security testing
+
+### **Day 7: Polish & Deploy**
+- Package for npm/pip/cargo
+- Write comprehensive documentation
+- Create installation scripts
 
 ---
 
-## 4. Conceptual Architecture
+## **Simple Data Model**
 
+```json
+{
+  "users": [
+    {
+      "id": "uuid",
+      "email": "string",
+      "password_hash": "string",
+      "full_name": "string",
+      "roles": ["user", "admin"],
+      "created_at": "datetime",
+      "last_login": "datetime"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "uuid",
+      "user_id": "uuid",
+      "token": "string",
+      "created_at": "datetime",
+      "expires_at": "datetime"
+    }
+  ],
+  "audit_logs": [
+    {
+      "id": "uuid",
+      "user_id": "uuid",
+      "action": "login|logout|create|update",
+      "timestamp": "datetime",
+      "ip_address": "string"
+    }
+  ],
+  "config": {
+    "password_min_length": 8,
+    "session_timeout": 3600,
+    "max_login_attempts": 5
+  }
+}
 ```
-                ┌────────────┐
-                │  Clients   │
-                └─────┬──────┘
-                      │
-              ┌───────▼────────┐
-              │   API Gateway  │
-              └───────┬────────┘
-      ┌───────────────┴───────────────┐
-      │        AuthN/AuthZ Core       │
-      └───────┬────────┬──────────────┘
-              │        │
-   ┌──────────▼───┐ ┌──▼───────────┐
-   │  Policy      │ │   LLM        │
-   │  Engine      │ │  Orchestrator│
-   └──────────────┘ └──┬───────────┘
-                       │
-         ┌─────────────▼────────────┐
-         │  Persistence & Telemetry │
-         └──────────────────────────┘
+
+---
+
+## **Installation & Usage**
+
+```bash
+# Install via npm
+npm install -g caladri-cli
+
+# Install via pip
+pip install caladri-cli
+
+# Install via cargo
+cargo install caladri-cli
+
+# Basic usage
+caladri user create john@example.com "John Doe"     # Create user
+caladri user login john@example.com                 # Login user
+caladri user list                                   # List all users
+caladri user update john@example.com --role admin   # Update user
+caladri session list                                # List active sessions
+caladri audit --days 7                              # View audit logs
+caladri security test                               # Run security tests
 ```
 
-### Key Components
+---
 
-1. **API Gateway** – Terminates TLS, negotiates JWTs, and envelopes requests for observability.
-2. **AuthN/AuthZ Core** – Hosts login, registration, token refresh, password reset, and user CRUD.
-3. **Policy Engine** – Evaluates role scopes, password complexity, throttle counters, and feature flags.
-4. **LLM Orchestrator** – Generates code templates, tests, docs, and migration scripts; surfaces chat-style admin tooling.
-5. **Persistence & Telemetry Layer** – Stores users, sessions, audit logs, plus metrics for adaptive rate-limits.
+## **Configuration**
 
-> *Note: Caladri remains runtime-agnostic; adapters map logical components to your tech stack of choice.*
+Create a config file at `~/.caladri/config.json`:
+
+```json
+{
+  "data_path": "~/.caladri/data.json",
+  "password_min_length": 8,
+  "session_timeout": 3600,
+  "max_login_attempts": 5,
+  "audit_logging": true,
+  "encryption_enabled": true
+}
+```
 
 ---
 
-## 5. Data Model (Conceptual)
+## **Why Open Source?**
 
-| Entity       | Purpose                             | Core Attributes                                                     |
-| ------------ | ----------------------------------- | ------------------------------------------------------------------- |
-| **User**     | Principal record for authentication | id, email, hashedPassword, fullName, birthdate, lastLogin, roles\[] |
-| **Session**  | Tracks active JWTs & fingerprinting | id, userId, issuedAt, expiresAt, ipHash, userAgent                  |
-| **Role**     | Groups permissions                  | id, label, scopes\[]                                                |
-| **AuditLog** | Immutable security trail            | id, actorId, action, resource, timestamp, metadata                  |
-
----
-
-## 6. API Surface (Illustrative)
-
-*All payloads JSON; responses follow RFC 7807 problem details for errors.*
-
-| Method    | Path                | Auth   | Description                                                   |
-| --------- | ------------------- | ------ | ------------------------------------------------------------- |
-| **POST**  | `/auth/register`    | Public | Create account, returns access & refresh tokens.              |
-| **POST**  | `/auth/login`       | Public | Password + email → tokens, ‘lastLogin’ update.                |
-| **POST**  | `/auth/logout`      | Bearer | Invalidates refresh token (graceful).                         |
-| **GET**   | `/users/me`         | Bearer | Retrieve own profile.                                         |
-| **PATCH** | `/users/me`         | Bearer | Update own credentials; password change invalidates sessions. |
-| **GET**   | `/admin/users`      | Admin  | Paginated user list with filters.                             |
-| **PATCH** | `/admin/users/{id}` | Admin  | Edit any user record (role assignment, disable, etc.).        |
+- **Transparency**: See exactly how authentication works
+- **Security**: Community-reviewed security practices
+- **Customization**: Modify to fit your specific needs
+- **Learning**: Great project for developers to learn authentication
+- **Standards**: Follow industry best practices
 
 ---
 
-## 7. Security Posture
+## **Easy Publishing Plan (7 Days)**
 
-* **JWT Best Practices**: Short-lived access tokens, rotating refresh tokens, audience & issuer claims, clock-skew guard.
-* **Throttling & Brute-Force Defense**: Sliding-window request caps keyed by IP + userId; adaptive CAPTCHA challenge injection.
-* **Input Sanitization**: Centralized sanitizer removes CRLF, script tags, and known NoSQL injection vectors.
-* **Headers**: HSTS, X-Content-Type-Options, X-Frame-Options, Content-Security-Policy baselines.
-* **Graceful Shutdown**: Drains keep-alive connections, flushes in-flight audit logs, revokes temp tokens.
-* **Secret Hygiene**: Vault-backed config loader; zero secrets in env-agnostic files.
+### **Day 1-3: Build & Test**
+- Build the core CLI tool
+- Test all features thoroughly
+- Create comprehensive documentation
 
----
+### **Day 4: Prepare Launch**
+- Create GitHub repository with clear README
+- Write installation instructions
+- Prepare demo video (2-3 minutes)
 
-## 8. LLM Workflows
+### **Day 5: Package & Publish**
+- Package for npm, pip, and cargo
+- Publish to package registries
+- Create GitHub releases
 
-1. **Bootstrap Wizard**
+### **Day 6: Community Launch**
+- Post on Reddit r/opensource, r/webdev
+- Share on Twitter/X with #opensource #auth #security
+- Submit to Hacker News
 
-   ```text
-   > init caladri
-   LLM: "List required user fields (email, birthdate…)?"
-   You: ...
-   LLM: "Enable two-factor auth? (y/N)"
-   ...
-   ```
-
-   Generates directory tree, CI config, seed data, and `SECURITY.md`.
-
-2. **Policy Evolution**
-
-   * Maintainer chats: “Enforce uppercase letters in passwords.”
-   * Model updates regex, patches tests, opens pull request with explanation.
-
-3. **Threat Report PRs**
-
-   * Daily schedule: “If CVSS ≥ 7 on dependency, open issue + upgrade PR.”
-
-4. **Interactive Debug**
-
-   * “Why are 401 errors spiking for /admin/users?” Model correlates logs, suggests lockout misconfiguration.
+### **Day 7: Community Engagement**
+- Respond to all comments and feedback
+- Create GitHub issues for feature requests
+- Engage with contributors
 
 ---
 
-## 9. Deployment & Ops
+## **Marketing Strategy**
 
-| Aspect                     | Caladri Support                                                                                                            |
-| -------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| **Containerization**       | Auto-generated Dockerfile & compose templates yield turnkey local clusters.                                                |
-| **Infrastructure as Code** | Optional blueprint manifest (cloud-agnostic) mapping services to managed DBs, secrets stores, and CDN edges.               |
-| **Observability**          | Built-in metrics (p99 login latency, auth failures/min), structured logs, and alert rules shipped to your preferred stack. |
-| **Blue-Green Upgrades**    | Health checks & pseudo-traffic warm-ups aid zero-downtime releases orchestrated by Caladri’s scripts.                      |
+### **Target Audience**
+- Developers building applications
+- Security engineers
+- DevOps teams
+- Open source contributors
 
----
+### **Key Messages**
+- "Simple authentication management from the terminal"
+- "Secure user management made easy"
+- "Built by developers, for developers"
 
-## 10. Roadmap
-
-| Quarter     | Milestone         | Outcome                                                          |
-| ----------- | ----------------- | ---------------------------------------------------------------- |
-| **Q3 2025** | v0.1 “Hatchling”  | CLI bootstrap, user/session CRUD, generated tests.               |
-| **Q4 2025** | v0.2 “Feathers”   | Admin console chat, continuous hardening bot, multilingual docs. |
-| **Q1 2026** | v1.0 “Flight”     | Stable API, pluggable MFA, multi-tenant mode, FIDO key support.  |
-| **Beyond**  | Ecosystem plugins | GraphQL proxy, social login adapters, policy pack marketplace.   |
-
----
-
-## 11. Governance & Community
-
-* **License**: Permissive OSI-approved license encouraging commercial adoption while requiring disclosure of derivative security fixes.
-* **Steering Committee**: Rotating maintainers from security, dev-tools, and ML backgrounds.
-* **Decision Process**: RFCs via GitHub Discussions, lazy consensus after 7 days.
-* **Code of Conduct**: Contributor Covenant v2, enforced by neutral ombuds group.
+### **Distribution Channels**
+- GitHub (primary)
+- npm, pip, cargo registries
+- Reddit communities
+- Twitter/X developer community
+- Hacker News
+- Security and dev forums
 
 ---
 
-## 12. Contribution Guide (Excerpt)
+## **Success Metrics**
 
-1. **Fork → Feature Branch** with conventional commits (`feat(auth): add refresh rotation`).
-2. **Run `caladri test`** to ensure LLM-synthesized suites pass.
-3. **Open PR**; CI triggers static analysis plus adversarial auth fuzzing.
-4. **Peer Review + LLM Review**: Human maintainers comment; Caladri bot suggests docs updates.
-5. **Merge & Release** via semantic version tags; docs site auto-deploys.
-
----
-
-## 13. Potential Use Cases
-
-* **Start-ups** accelerating MVP timelines without hiring dedicated security engineers.
-* **Enterprises** standardizing identity across internal microservices with centralized policy control.
-* **Open-Source Projects** wanting turnkey auth to focus on core domain logic.
-* **Educational Bootcamps** demonstrating best-practice identity flows with explain-as-you-go LLM narration.
+- **Downloads**: 3000+ in first week
+- **GitHub Stars**: 400+ in first week
+- **Forks**: 60+ active forks
+- **Issues**: 25+ feature requests
+- **Contributors**: 12+ community contributors
 
 ---
 
-## 14. Glossary
+## **Future Enhancements**
 
-| Term                 | Meaning                                                             |
-| -------------------- | ------------------------------------------------------------------- |
-| **LLM**              | Large Language Model—Caladri’s reasoning & code-generation core.    |
-| **Policy Pack**      | Bundled password rules, throttle configs, and header presets.       |
-| **Adaptive CAPTCHA** | Challenge presented only after suspicious heuristics trip.          |
-| **Audit Log**        | Immutable ledger of sensitive actions for forensics and compliance. |
+- Web dashboard for user management
+- Advanced security features
+- Multi-factor authentication
+- Integration with popular frameworks
+- Custom authentication providers
+- Mobile app companion
 
 ---
 
-> **Caladri**—let an intelligent bird guard your users’ nests while you build the skyline above.
+## **Getting Started**
+
+1. Install the CLI tool
+2. Configure your authentication settings
+3. Create your first user
+4. Test the authentication flow
+5. Contribute to the project
+
+---
+
+*Built with ❤️ for the authentication and security community*

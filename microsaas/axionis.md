@@ -1,237 +1,175 @@
-# **Axionis™**
+# **Axionis** — *Simple Task Automation Platform*
 
-*A Unified API for Intelligent Capital-Market Document Intelligence*
-
----
-
-## ⚡ Executive Summary
-
-Axionis is an LLM-powered, **API-only** MicroSaaS that transforms opaque investment artifacts—Private Placement Memorandums (PPMs), pitch decks, and deal collateral—into structured, searchable, and insight-rich data. By combining advanced extraction, semantic enrichment, retrieval-augmented generation (RAG), and real-time collaboration, Axionis turns thousands of static pages into an always-ready knowledge layer for venture funds, syndicates, family offices, and secondary-market analysts.
+*A lightweight web application that helps you automate repetitive tasks and streamline business processes with minimal setup.*
 
 ---
 
-## 1  Problem Landscape
+## **What is Axionis?**
 
-| Challenge                    | Pain Points for Capital-Market Professionals                                              |
-| ---------------------------- | ----------------------------------------------------------------------------------------- |
-| **Information Deluge**       | Dozens of deals per week, each >40-page PPM + deck; manual review is slow and error-prone |
-| **Inconsistent Formats**     | Layouts vary wildly (scanned PDFs, password-protected decks, image-heavy slides)          |
-| **Siloed Knowledge**         | Insights live in email threads and spreadsheets; no single source of truth                |
-| **Regulatory Pressure**      | Audit trails, disclosure accuracy, and investor reporting require verifiable data lineage |
-| **Time-Sensitive Decisions** | Competitive rounds demand same-day diligence, leaving no room for deep manual analysis    |
+Axionis is a simple web application that helps you create automated workflows for repetitive tasks, saving time and reducing errors. Built for small businesses and professionals who want to automate their work without complex coding or expensive enterprise tools.
 
 ---
 
-## 2  Solution Overview
+## **Core Features (MVP - 7 Days)**
 
-Axionis exposes a single, versioned REST-style API that ingests raw documents and returns:
+### **Day 1-2: Basic Setup**
+- Simple web interface for creating workflows
+- Basic database to store workflows and execution history
+- User registration and login
 
-1. **Normalized JSON** payloads with every detected section, table, figure, and metric
-2. **Fine-grained metadata & tags** (stage, sector, geography, valuation terms…)
-3. **Instant insights**—bullet-point summaries, risk flags, comparable-deal links
-4. **Searchable vectors** for natural-language Q\&A across an entire deal room
-5. **Collaborative hooks** for sharing, commenting, and exporting diligence packets
+### **Day 3-4: Core Functionality**
+- Create simple workflows with triggers and actions
+- Basic automation templates for common tasks
+- Workflow execution and monitoring
+- Simple dashboard showing automation history
 
----
+### **Day 5-6: Enhanced Features**
+- Export workflow data and reports
+- Basic workflow scheduling
+- Error handling and notifications
+- Share workflows with team members
 
-## 3  Unique Value Propositions
-
-* **Purpose-built schema for private markets** (capital tables, liquidation prefs, ESG clauses)
-* **Zero-UI footprint** → drop-in to any CRM, data lake, or internal dashboard
-* **Explainable LLM workflows**: every insight links back to source page + snippet
-* **Reg-grade auditability & tamper-evidence** for compliance reviews
-* **Predictive “deal radar”**: trend analysis across historical portfolios and market benchmarks
-
----
-
-## 4  Target Segments & Primary Use Cases
-
-| Segment                         | High-Value Use Cases                                      |
-| ------------------------------- | --------------------------------------------------------- |
-| Venture Capital & Growth Equity | Rapid screening, partner meetings, LP reporting           |
-| Angel Syndicates & SPVs         | Standardized pitch summaries, risk scoring                |
-| Family Offices                  | Cross-asset comparison, multi-strategy portfolio insights |
-| Secondary-Market Brokers        | Deal memo generation, seller vs. buyer term analytics     |
-| Fund-of-Funds & Consultants     | Benchmarking, aggregation of 3rd-party fund docs          |
+### **Day 7: Polish & Deploy**
+- Responsive design for mobile
+- Deploy to free hosting platform
+- Write documentation and README
 
 ---
 
-## 5  Functional Pillars ↔ Requirement Mapping
+## **Simple Data Model**
 
-| Pillar                            | DF-ID  | Key Capabilities                                                           | Top Requirement IDs Covered\* |
-| --------------------------------- | ------ | -------------------------------------------------------------------------- | ----------------------------- |
-| **Document Extraction Engine**    | DF-001 | OCR, layout-agnostic parsing, encrypted file handling, section detection   | FR-001-01/02/04/06/09         |
-| **Semantic Categorization Core**  | DF-002 | Taxonomy management, auto-tagging, synonym handling, RAG-assisted labeling | FR-002-01/03/04/08/11         |
-| **Insight & Analytics Layer**     | DF-003 | Summaries, trend dashboards, real-time KPI surfacing, recommendation hooks | FR-003-01/02/04/07/08         |
-| **Vector Search & Retrieval API** | DF-004 | Hybrid keyword-semantic queries, faceted filters, result previews          | FR-004-01/02/04/05/08         |
-| **Collaboration & Sharing Hub**   | DF-005 | Granular permissions, comment threads, versioned share links, activity log | FR-005-01/02/03/04/08         |
+```
+User:
+- id, email, password_hash, created_at
 
-\*Full coverage matrix in **Appendix B**.
+Workflow:
+- id, user_id, name, description, trigger_type, status, created_at
 
----
+Action:
+- id, workflow_id, action_type, config_json, order_index, created_at
 
-## 6  API Design Philosophy
+Execution:
+- id, workflow_id, status, started_at, completed_at, error_message, created_at
 
-1. **Resource-oriented endpoints** (`/documents`, `/insights`, `/search`, `/shares`)
-2. **Asynchronous job model** for heavy processes; webhooks & SSE for status events
-3. **Fine-grained scopes** via bearer tokens (upload, read, collaborate, administer)
-4. **Deterministic versioning**—every endpoint is date-stamped (`v2025-07-11`) to avoid breaking changes
-5. **Schema-first contract** published as OpenAPI & JSON Schema for auto-gen SDKs
-
----
-
-## 7  High-Level Architecture
-
-```mermaid
-flowchart LR
-    subgraph Client Integrations
-        A1(DealFlow CRM) --REST--> G(API Gateway)
-        A2(Dashboard) --GraphQL--> G
-        A3(Serverless Function) --Webhook--> G
-    end
-    G --> B[Auth & Rate Limit]
-    B --> C[Extraction Engine]
-    B --> D[Categorization Core]
-    B --> E[Vector Index]
-    B --> F[Insight Engine]
-    D -->|Metadata| E
-    C -->|Parsed Content| D
-    C -->|Embeddings| E
-    F -->|Summaries & KPIs| E
-    E --> G
-    subgraph Shared Services
-        L[Observability]:::dashed
-        M[Audit Trail]:::dashed
-        N[Key Vault]:::dashed
-    end
-    classDef dashed stroke-dasharray: 5 5
+Template:
+- id, name, description, workflow_config, category, created_at
 ```
 
-*No implementation technologies are referenced—purely conceptual.*
+---
+
+## **Why This Works**
+
+- **High Demand**: Every business has repetitive tasks that can be automated
+- **Clear Value**: Save hours of manual work with simple automation
+- **Low Barrier**: Simple web interface, no complex setup required
+- **Scalable**: Can start with basic features and add advanced capabilities
 
 ---
 
-## 8  Data Flow Walkthrough
+## **Easy Publishing Plan (7 Days)**
 
-1. **Upload** ⇒ Client pushes one or more documents (`POST /documents`).
-2. **Intake & Storage** ⇒ Gateway assigns a job ID, streams bytes to encrypted object store.
-3. **Extraction** ⇒ Engine performs OCR + structural parsing → emits raw blocks + coordinates.
-4. **Categorization** ⇒ Taxonomy model classifies blocks, attaches tags, resolves synonyms.
-5. **Embedding & Indexing** ⇒ Combined content converted into dense vectors → vector store.
-6. **Insight Generation** ⇒ RAG pipeline synthesizes summaries, highlights, risk flags.
-7. **Notification** ⇒ Webhook fired with completed payload URI; client fetches structured JSON.
-8. **Search/RAG** ⇒ Client issues natural-language query; semantic retriever returns passages + generated answer with citations.
-9. **Collaboration** ⇒ Users share insight packets; activity recorded for audit.
+### **Day 1-3: Build & Test**
+- Build the core application
+- Test all features thoroughly
+- Create simple documentation
 
----
+### **Day 4: Prepare Launch**
+- Create landing page with demo
+- Set up payment processing
+- Prepare marketing materials
 
-## 9  Security & Compliance
+### **Day 5: Initial Launch**
+- Post on Product Hunt
+- Share on LinkedIn and Twitter
+- Reach out to business bloggers
 
-| Area                | Strategy                                                                      |
-| ------------------- | ----------------------------------------------------------------------------- |
-| **Data in Transit** | Enforced TLS ≥1.3                                                             |
-| **Data at Rest**    | Field-level encryption, per-tenant keys                                       |
-| **Access Control**  | Role-based + attribute-based policies, short-lived tokens                     |
-| **Auditability**    | Immutable logs, cryptographic checksums on every payload                      |
-| **Regulations**     | Alignment with GDPR, CCPA, and relevant SEC record-keeping rules              |
-| **Isolation**       | Single-tenant option for regulated funds; isolated compute and storage planes |
+### **Day 6: Community Engagement**
+- Respond to all comments and feedback
+- Share on Reddit r/smallbusiness
+- Engage with early users
 
----
-
-## 10  Performance & Scalability
-
-* **Horizontal sharding** across extraction workers; autoscaled for peak deal flow
-* **Incremental vector index updates** to avoid full-rebuild latency
-* **Priority queues**—time-critical uploads (live term-sheet windows) jump the line
-* **Back-pressure safeguards** to maintain SLAs under flash-funding spikes
+### **Day 7: Follow-up**
+- Analyze user feedback
+- Plan next iteration
+- Start building user base
 
 ---
 
-## 11  Product Roadmap
+## **Marketing Strategy**
 
-| Quarter           | Milestone                  | Highlights                                                     |
-| ----------------- | -------------------------- | -------------------------------------------------------------- |
-| **Q3 2025 (MVP)** | *Core Extraction & Search* | PDF/PPT support, password handling, embeddings, basic search   |
-| **Q4 2025**       | *Insight Layer GA*         | KPI mining, similarity to historical deals, red-flag detection |
-| **Q1 2026**       | *Collaboration Suite*      | Comments, share links, deal-room integrations                  |
-| **Q2 2026**       | *Predictive Analytics*     | Pattern-based outcome forecasts, valuation curve modeling      |
-| **H2 2026**       | *Marketplace Add-Ons*      | Third-party enrichments (ESG, legal opinons, alt-data feeds)   |
+### **Target Audience**
+- **Primary**: Small business owners, entrepreneurs, office managers
+- **Secondary**: Freelancers, consultants, teams
+- **Tertiary**: Individuals looking to automate personal tasks
 
----
+### **Key Messages**
+- "Automate repetitive tasks in minutes"
+- "Save hours of manual work every week"
+- "Simple automation that actually works"
 
-## 12  Pricing & Packaging
+### **Distribution Channels**
+- **Product Hunt**: Launch for immediate visibility
+- **LinkedIn**: Target business professionals
+- **Twitter**: Business and productivity communities
+- **Reddit**: r/smallbusiness, r/entrepreneur
+- **Email Marketing**: Cold outreach to business owners
 
-| Tier           | Intended User         | Limits               | Notable Features                                          |
-| -------------- | --------------------- | -------------------- | --------------------------------------------------------- |
-| **Starter**    | Emerging syndicates   | 500 pages / mo       | Core extraction, basic search                             |
-| **Growth**     | Series-A/B funds      | 5 k pages, 5 seats   | Insight layer, RAG Q\&A, webhook events                   |
-| **Scale**      | Multi-strategy firms  | 25 k pages, 25 seats | Collaboration suite, private tenant, real-time dashboards |
-| **Enterprise** | Global asset managers | Custom               | Dedicated cluster, custom taxonomy, on-prem option        |
-
-Overage billed per rendered page and compute-time minute; generous free sandbox for developer testing.
-
----
-
-## 13  Success Metrics (North-Star KPIs)
-
-1. **Median Time-to-Insight (MTTI)** ≤ 4 minutes per 50-page PPM
-2. **Extraction Accuracy (F1)** ≥ 0.93 against curated ground-truth corpus
-3. **Query Latency (P95)** ≤ 750 ms for semantic search across 10 M pages
-4. **Adoption** ≥ 60 % of fund deals processed through Axionis within 12 months
-5. **Net Revenue Retention** ≥ 135 % via expansion to higher tiers & add-ons
+### **Pricing Strategy**
+- **Freemium**: Free for 3 workflows, paid for unlimited workflows
+- **Monthly**: $12.99/month for unlimited workflows
+- **Annual**: $129/year (17% discount)
+- **Team**: $29/month for up to 5 users
 
 ---
 
-## 14  Go-to-Market Motion
+## **Revenue Generation Plan**
 
-* **Integrations First**: Pre-built connectors for popular deal-flow CRMs and data-rooms
-* **Thought Leadership**: Quarterly *Private Markets Data Almanac* showcasing anonymized trends
-* **Partner Channel**: Alliances with fund administrators and law firms for bundled compliance services
-* **Bottom-Up Land**: Free developer plan + Postman collection, driving grassroots adoption
+### **Week 1 Revenue Targets**
+- **Day 1-3**: Focus on building and testing
+- **Day 4**: Launch with freemium model
+- **Day 5-7**: Target 10-20 paid users
 
----
+### **Revenue Streams**
+1. **Subscription Revenue**: Monthly/annual plans
+2. **Premium Templates**: Advanced automation templates
+3. **API Access**: For developers wanting to integrate
+4. **Consulting Services**: Custom automation setup
 
-## 15  Risk & Mitigation
-
-| Risk                     | Impact               | Mitigation                                                            |
-| ------------------------ | -------------------- | --------------------------------------------------------------------- |
-| Mis-parsed legal clauses | Inaccurate diligence | Human-in-the-loop QA checks, confidence scores                        |
-| Rapid regulation shifts  | Feature lag          | Modular compliance layer, external advisory board                     |
-| LLM hallucination        | Misinformation       | Source-linked citations; insight generation only on retrieved context |
-| Data spill               | Reputational         | Zero-trust design, per-tenant encryption keys, rotating secrets       |
-
----
-
-## 16  Glossary (select)
-
-| Term             | Meaning                                                             |
-| ---------------- | ------------------------------------------------------------------- |
-| **PPM**          | Private Placement Memorandum                                        |
-| **RAG**          | Retrieval-Augmented Generation (LLM uses retrieved context)         |
-| **Vector Index** | Data structure enabling similarity search in high-dimensional space |
-| **Deal Room**    | Secure workspace where fund documents are shared with investors     |
-| **MTTI**         | Metric tracking time from upload to final insight availability      |
+### **Quick Wins**
+- Offer 7-day free trial for all paid plans
+- Create viral templates (email automation, data entry)
+- Partner with business influencers
+- Build referral program
 
 ---
 
-## Appendix A – Requirements Traceability Matrix
+## **Success Metrics**
 
-*(Excerpt – full matrix maintained in product backlog)*
-
-| DF-ID  | FR Coverage Snapshot | Status             |
-| ------ | -------------------- | ------------------ |
-| DF-001 | 01✔ 02✔ 04✔ 06✔ 09✔  | Implemented in MVP |
-| DF-002 | 01✔ 03✔ 04✔ 08✔ 11✔  | In beta            |
-| DF-003 | 01✔ 02✔ 04✔ 07✔ 08✔  | Under active dev   |
-| DF-004 | 01✔ 02✔ 04✔ 05✔ 08✔  | Implemented in MVP |
-| DF-005 | 01✔ 02✔ 03✔ 04✔ 08✔  | Planned Q1 2026    |
+- **Week 1**: 100+ signups, 10+ paid users
+- **Month 1**: 500+ signups, 50+ paid users
+- **Month 3**: 2000+ signups, 200+ paid users
+- **Revenue Target**: $600+ in first month
 
 ---
 
-## Appendix B – Detailed Feature Mapping
+## **Future Enhancements**
 
-*(Full document available upon request; lists every FR-ID with planned sprint, test cases, and acceptance criteria.)*
+- Advanced workflow builder with visual interface
+- Integration with popular business tools
+- Machine learning for smart automation suggestions
+- Mobile app
+- Team collaboration features
+- Advanced analytics and reporting
 
 ---
 
-**Axionis™** positions itself as the nerve center for capital-market document intelligence—unlocking speed, depth, and confidence in every investment decision, all through a single, elegant API.
+## **Getting Started**
+
+1. **Sign up** for free account
+2. **Create your first workflow**
+3. **Upgrade** to paid plan for unlimited workflows
+4. **Start automating** your repetitive tasks
+
+---
+
+*Built with ❤️ for busy professionals*

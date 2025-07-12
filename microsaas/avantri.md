@@ -1,178 +1,175 @@
-# **Avantri — API-First AI Recruitment Intelligence Platform**
+# **Avantri** — *Simple Travel Planning Assistant*
 
-*Re-imagining every interview as structured, actionable data.*
-
----
-
-## 1  Executive Summary
-
-Avantri is a **pure-API MicroSaaS** that turns live or recorded interviews into standardized, bias-reduced assessments and rich feedback loops—without forcing customers to adopt yet another UI. It plugs directly into the tools recruiters already use (video, calendars, ATS/HRIS) and returns machine-readable insights in seconds, enabling faster, fairer, and more engaging hiring processes.
+*A lightweight web application that helps you plan trips, organize itineraries, and manage travel details with minimal effort.*
 
 ---
 
-## 2  Market Opportunity & Problem Statement
+## **What is Avantri?**
 
-| Challenge                                      | Impact on Hiring Teams                | Impact on Candidates   |
-| ---------------------------------------------- | ------------------------------------- | ---------------------- |
-| Manual note-taking & disparate scoring methods | Slow, inconsistent decisions          | Limited transparency   |
-| Interviewer bias & fatigue                     | Higher mis-hire risk, DEI blind spots | Perceived unfairness   |
-| Lack of actionable feedback                    | Little process improvement            | “Black-box” rejections |
-| Fragmented toolchain                           | High admin overhead                   | Disjointed experience  |
-
-Recruiters spend *≈60%* of interview time on logistics and documentation instead of high-value engagement. Meanwhile, candidates rarely receive meaningful feedback, harming employer brand.
+Avantri is a simple web application that helps you plan trips, create itineraries, and organize all your travel details in one place. Built for travelers who want to plan better trips without the complexity of traditional travel planning tools.
 
 ---
 
-## 3  Solution Overview
+## **Core Features (MVP - 7 Days)**
 
-### 3.1 Core Capabilities
+### **Day 1-2: Basic Setup**
+- Simple web interface for creating trips
+- Basic database to store trips and itineraries
+- User registration and login
 
-1. **Conversation Capture**
-   Ingests real-time audio/video streams *or* uploaded recordings via secure webhooks.
-2. **LLM-Powered Insight Engine**
+### **Day 3-4: Core Functionality**
+- Create trips with destinations, dates, and basic details
+- Add activities and attractions to itineraries
+- Basic trip organization and categorization
+- Simple trip dashboard
 
-   * Transcription ➜ semantic chunking ➜ competency mapping
-   * Sentiment, engagement, and behavioural signal extraction
-   * Role-specific rubric scoring with customizable weightings
-3. **Adaptive Feedback Generator**
-   Produces multi-perspective summaries (recruiter, hiring manager, candidate) and coaching tips.
-4. **Compliance & Privacy Layer**
-   Fine-grained data-retention controls, regional model hosting, and audit trails.
+### **Day 5-6: Enhanced Features**
+- Export itineraries to PDF/CSV
+- Share trips with travel companions
+- Basic travel expense tracking
+- Trip templates for common destinations
 
-### 3.2 Differentiators
-
-| Avantri                                       | Typical “Interview Bots”              |
-| --------------------------------------------- | ------------------------------------- |
-| **API-only**; invisible in recruiter workflow | Proprietary UI that competes with ATS |
-| Pluggable scoring rubrics per role & culture  | Fixed, one-size-fits-all metrics      |
-| Multi-persona feedback (candidate-friendly)   | Recruiter-centric only                |
-| Event-driven, usage-based billing             | Seat licensing                        |
-
----
-
-## 4  Business Model Canvas (API Edition)
-
-| Block                      | Details                                                                                                                                          |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Key Partners**           | Video-meeting platforms, ATS/HRIS vendors, background-check providers                                                                            |
-| **Key Activities**         | Model refinement, API reliability/SLA, partner enablement                                                                                        |
-| **Key Resources**          | Proprietary datasets of annotated interview signals, multi-cloud inference infrastructure                                                        |
-| **Value Propositions**     | <br>• 75% faster note & score generation  <br>• Bias-reduced, rubric-consistent evaluations  <br>• Automatic, brand-enhancing candidate feedback |
-| **Customer Relationships** | Dev-first docs, Slack community, dedicated CSM for ≥Enterprise tier                                                                              |
-| **Channels**               | Self-serve portal, marketplace listings (ATS add-ons), partner resellers                                                                         |
-| **Customer Segments**      | <br>• Tech scale-ups (rapid hiring sprints)  <br>• Global enterprises (DEI compliance)  <br>• Recruitment Process Outsourcers (volume hiring)    |
-| **Cost Structure**         | Compute for transcription/LLM inference, annotation workforce for continual learning, partner rev-share                                          |
-| **Revenue Streams**        | Tiered pay-as-you-go (minutes processed + advanced analytics add-ons), annual enterprise contracts                                               |
+### **Day 7: Polish & Deploy**
+- Responsive design for mobile
+- Deploy to free hosting platform
+- Write documentation and README
 
 ---
 
-## 5  Product Specification
+## **Simple Data Model**
 
-### 5.1 API Modules
+```
+User:
+- id, email, password_hash, created_at
 
-| Module           | Endpoint Family                                                    | Purpose |
-| ---------------- | ------------------------------------------------------------------ | ------- |
-| **/sessions**    | Create, update, end interview sessions; receive secure ingest URLs |         |
-| **/transcripts** | Retrieve or stream timestamped transcripts                         |         |
-| **/scores**      | Get rubric-normalized scores (+ breakdown)                         |         |
-| **/insights**    | Summaries, sentiment heat-maps, skill gap analysis                 |         |
-| **/feedback**    | Candidate-safe narrative with actionable tips                      |         |
-| **/webhooks**    | Event notifications (READY, ERROR, ARCHIVE)                        |         |
+Trip:
+- id, user_id, title, destination, start_date, end_date, status, created_at
 
-### 5.2 Architecture at a Glance
+Itinerary:
+- id, trip_id, day_number, date, created_at
 
-```mermaid
-flowchart LR
-    V(Video Stream / Recording) -->|Secure Ingest| T[Transcription Service]
-    T --> C[Context Enricher]
-    C --> L[LLM Insight Engine]
-    subgraph Outputs
-        L --> S(Scores API)
-        L --> I(Insights API)
-        L --> F(Feedback API)
-    end
-    style Outputs fill:#f6f6f6,stroke-dasharray: 3 3
+Activity:
+- id, itinerary_id, title, description, location, time, cost, created_at
+
+Expense:
+- id, trip_id, title, amount, category, date, created_at
 ```
 
-### 5.3 Security & Compliance Highlights
+---
 
-* **Zero-retention mode** (ephemeral processing) for privacy-sensitive industries
-* **SOC 2 & GDPR** alignment from day one
-* Role-based API tokens with least-privilege scopes
-* Full encryption in transit *and* at rest
+## **Why This Works**
+
+- **High Demand**: Everyone travels and needs to plan trips
+- **Clear Value**: Save time and stress in trip planning
+- **Low Barrier**: Simple web interface, no complex setup required
+- **Scalable**: Can start with basic features and add advanced capabilities
 
 ---
 
-## 6  Primary Personas & Use Cases
+## **Easy Publishing Plan (7 Days)**
 
-| Persona               | “Jobs-to-be-Done” with Avantri                                                                 |
-| --------------------- | ---------------------------------------------------------------------------------------------- |
-| **Agency Recruiter**  | Automate note-taking, push scores into CRM, deliver differentiating candidate feedback reports |
-| **Corporate TA Lead** | Standardize global interview rubrics, monitor DEI metrics, shorten time-to-hire                |
-| **Startup Founder**   | Replace first-round screen with async Avantri assessments, saving founder time                 |
-| **Candidate**         | Receive constructive feedback and resources for improvement                                    |
+### **Day 1-3: Build & Test**
+- Build the core application
+- Test all features thoroughly
+- Create simple documentation
 
----
+### **Day 4: Prepare Launch**
+- Create landing page with demo
+- Set up payment processing
+- Prepare marketing materials
 
-## 7  Minimum Viable Product (MVP)
+### **Day 5: Initial Launch**
+- Post on Product Hunt
+- Share on LinkedIn and Twitter
+- Reach out to travel bloggers
 
-| Sprint Week | Deliverable                                            | Acceptance Criteria                                 |
-| ----------- | ------------------------------------------------------ | --------------------------------------------------- |
-| **1**       | Session & ingest endpoints • OAuth & webhooks scaffold | Fluent 200/400/429 codes; secure URL expiry         |
-| **2**       | Transcription + basic summary                          | ≤3× real-time latency; WER ≤15 % on diverse accents |
-| **3**       | Rubric scoring engine (config via JSON)                | Scores correlate ≥0.7 with human benchmark set      |
-| **4**       | Candidate feedback endpoint • Usage metering           | Feedback <1 min generation; billing events emitted  |
+### **Day 6: Community Engagement**
+- Respond to all comments and feedback
+- Share on Reddit r/travel
+- Engage with early users
 
-**Success Metric:** First customer processes 100 interviews with ≥90 % “very useful” feedback rating.
-
----
-
-## 8  Expansion Roadmap
-
-1. **Quarter 1** Automated panel-interview synchronisation, multilingual support
-2. **Quarter 2** Predictive retention & performance analytics (post-hire signal correlation)
-3. **Quarter 3** Voice biometrics opt-in for speaker authentication
-4. **Quarter 4** Marketplace for community-contributed rubrics & prompt templates
+### **Day 7: Follow-up**
+- Analyze user feedback
+- Plan next iteration
+- Start building user base
 
 ---
 
-## 9  Competitive Landscape Snapshot
+## **Marketing Strategy**
 
-| Player      | Go-to-Market            | API-First? | Candidate Feedback | Compliance Depth |
-| ----------- | ----------------------- | ---------- | ------------------ | ---------------- |
-| HireVue     | Enterprise direct sales | ❌          | Limited            | High             |
-| Vervoe      | Self-serve SaaS         | ❌          | Basic              | Medium           |
-| **Avantri** | Dev-first, partner-led  | **✅**      | Rich, customizable | **High**         |
-| Pymetrics   | Enterprise              | ❌          | Minimal            | Medium           |
+### **Target Audience**
+- **Primary**: Frequent travelers, vacation planners, business travelers
+- **Secondary**: Travel bloggers, travel agents
+- **Tertiary**: Families planning trips
 
----
+### **Key Messages**
+- "Plan your perfect trip in minutes"
+- "Never forget important travel details again"
+- "Simple trip planning that actually works"
 
-## 10  Key Metrics
+### **Distribution Channels**
+- **Product Hunt**: Launch for immediate visibility
+- **LinkedIn**: Target business travelers
+- **Twitter**: Travel and lifestyle communities
+- **Reddit**: r/travel, r/solotravel
+- **Email Marketing**: Cold outreach to travel bloggers
 
-* **Processing Latency** (ms)
-* **Rubric–Human Correlation** (ρ)
-* **Bias-Reduction Index** (Δ adverse impact)
-* **Candidate NPS**
-* **Gross Margin per Minute**
-
----
-
-## 11  Risks & Mitigations
-
-| Risk                       | Likelihood | Impact   | Mitigation                                                          |
-| -------------------------- | ---------- | -------- | ------------------------------------------------------------------- |
-| LLM hallucinations         | Med        | High     | Ensemble checks + human fallback threshold                          |
-| Data-privacy breaches      | Low        | Critical | Regional isolation; automated PII scrubber                          |
-| Rapid model cost inflation | Med        | Medium   | Dynamic routing to cost-efficient models; GPU reservation contracts |
+### **Pricing Strategy**
+- **Freemium**: Free for 1 trip, paid for unlimited trips
+- **Monthly**: $4.99/month for unlimited trips
+- **Annual**: $49/year (17% discount)
+- **Team**: $14.99/month for up to 5 users
 
 ---
 
-## 12  Glossary
+## **Revenue Generation Plan**
 
-* **Rubric** A structured set of competencies and weightings against which responses are scored.
-* **Bias-Reduction Index** Composite measure comparing score distributions across demographic groups.
-* **Secure Ingest URL** Time-bound, single-use endpoint for uploading media streams.
+### **Week 1 Revenue Targets**
+- **Day 1-3**: Focus on building and testing
+- **Day 4**: Launch with freemium model
+- **Day 5-7**: Target 10-20 paid users
+
+### **Revenue Streams**
+1. **Subscription Revenue**: Monthly/annual plans
+2. **Premium Templates**: Advanced trip templates for popular destinations
+3. **API Access**: For developers wanting to integrate
+4. **Affiliate Partnerships**: Commission from travel bookings
+
+### **Quick Wins**
+- Offer 7-day free trial for all paid plans
+- Create viral templates (weekend getaways, business trips)
+- Partner with travel influencers
+- Build referral program
 
 ---
 
-### *Avantri turns every conversation into evidence-based hiring insight—through a single, elegant API.*
+## **Success Metrics**
+
+- **Week 1**: 100+ signups, 10+ paid users
+- **Month 1**: 500+ signups, 50+ paid users
+- **Month 3**: 2000+ signups, 200+ paid users
+- **Revenue Target**: $300+ in first month
+
+---
+
+## **Future Enhancements**
+
+- Integration with travel booking sites
+- Real-time flight and hotel tracking
+- Mobile app with offline access
+- Team collaboration features
+- Advanced expense tracking
+- Travel insurance integration
+
+---
+
+## **Getting Started**
+
+1. **Sign up** for free account
+2. **Create your first trip**
+3. **Upgrade** to paid plan for unlimited trips
+4. **Start planning** your next adventure
+
+---
+
+*Built with ❤️ for travelers*

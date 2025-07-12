@@ -1,264 +1,236 @@
-# **Rekursia**
+# **Rekursia** — *Simple Database Learning CLI*
 
-> *"Learn databases through interactive examples"*
-
----
-
-## **Overview**
-
-Rekursia is an open-source educational database tool that helps developers and students learn database concepts through interactive examples and visual feedback. Instead of reading dry documentation, users can experiment with database operations in real-time and see exactly what happens at each step.
+*A lightweight, open-source command-line tool that helps you learn database concepts through interactive examples and experimentation.*
 
 ---
 
-## **Problem**
+## **What is Rekursia?**
 
-- Database concepts are hard to learn from textbooks alone
-- No easy way to visualize database operations
-- Difficult to understand transactions and rollbacks
-- Learning database concepts requires setting up complex environments
-- No interactive way to experiment with database operations
+Rekursia is a simple CLI tool that lets you learn database concepts, experiment with database operations, and understand transactions through interactive examples directly from your terminal. Perfect for students, developers, and anyone who wants to learn databases without complex setups.
 
 ---
 
-## **Solution**
+## **Core Features (MVP - 7 Days)**
 
-A simple web application that:
-- Provides an interactive database playground
-- Shows step-by-step explanations of database operations
-- Visualizes transactions, commits, and rollbacks
-- Offers guided tutorials for common database concepts
-- Allows users to experiment without setting up real databases
+### **Day 1-2: Basic Setup**
+- CLI interface with command parsing
+- Simple in-memory database engine
+- Basic database operations
 
----
+### **Day 3-4: Core Functionality**
+- Implement basic database operations (GET, SET, DELETE)
+- Add transaction support (BEGIN, COMMIT, ROLLBACK)
+- Create interactive learning mode
+- Generate database reports
 
-## **Core Features**
-
-### **Interactive Database Playground**
-- Simple key-value database interface
-- Real-time execution of database commands
-- Visual feedback for every operation
-- Step-by-step explanations
-
-### **Transaction Visualization**
-- Visual representation of transaction stacks
-- Clear display of commits and rollbacks
-- Timeline view of database state changes
-- Branch visualization for nested transactions
-
-### **Educational Tutorials**
-- Guided lessons on database concepts
-- Interactive challenges and exercises
-- Progress tracking and completion certificates
-- Shareable session exports
-
-### **Learning Tools**
-- Command history with explanations
-- State snapshots at each step
-- Error explanations and suggestions
+### **Day 5-6: Enhanced Features**
+- Export database sessions to various formats
+- Basic database visualization
+- Tutorial system with guided lessons
 - Practice mode with sample data
 
----
-
-## **7-Day Build Plan**
-
-### **Day 1: Project Setup & Basic UI**
-- Set up project structure
-- Create simple web interface
-- Build basic database playground
-
-### **Day 2: Database Engine**
-- Implement simple key-value store
-- Add basic GET, SET, DELETE operations
-- Create in-memory data storage
-
-### **Day 3: Transaction System**
-- Implement BEGIN, COMMIT, ROLLBACK
-- Add transaction stack visualization
-- Build state snapshot functionality
-
-### **Day 4: Interactive Features**
-- Add command execution interface
-- Implement step-by-step explanations
-- Create visual feedback system
-
-### **Day 5: Educational Content**
-- Build tutorial system
-- Add sample lessons and exercises
-- Create progress tracking
-
-### **Day 6: Visualization & Export**
-- Add transaction timeline view
-- Implement session export functionality
-- Create shareable lesson links
-
-### **Day 7: Polish & Documentation**
-- Improve UI/UX
-- Add comprehensive documentation
-- Create demo and examples
+### **Day 7: Polish & Deploy**
+- Package for npm/pip/cargo
+- Write comprehensive documentation
+- Create installation scripts
 
 ---
 
-## **Data Model**
+## **Simple Data Model**
 
-### **DatabaseState**
 ```json
 {
-  "id": "session_id",
-  "data": {
-    "key1": "value1",
-    "key2": "value2"
-  },
-  "transactions": [
+  "sessions": [
     {
-      "id": "tx_id",
-      "type": "BEGIN",
-      "timestamp": "2024-01-15T10:30:00Z",
-      "changes": {}
+      "id": "uuid",
+      "name": "string",
+      "created_at": "datetime",
+      "last_modified": "datetime"
+    }
+  ],
+  "databases": [
+    {
+      "id": "uuid",
+      "session_id": "uuid",
+      "data": {
+        "key": "value"
+      },
+      "transactions": [
+        {
+          "id": "uuid",
+          "type": "begin|commit|rollback",
+          "timestamp": "datetime",
+          "changes": "object"
+        }
+      ]
+    }
+  ],
+  "tutorials": [
+    {
+      "id": "uuid",
+      "title": "string",
+      "description": "string",
+      "steps": [
+        {
+          "command": "string",
+          "explanation": "string",
+          "expected_result": "string"
+        }
+      ],
+      "difficulty": "beginner|intermediate|advanced"
     }
   ],
   "history": [
     {
-      "command": "SET name John",
-      "result": "OK",
-      "explanation": "Set key 'name' to value 'John'"
+      "id": "uuid",
+      "session_id": "uuid",
+      "command": "string",
+      "result": "string",
+      "timestamp": "datetime"
     }
   ]
 }
 ```
 
-### **Tutorial**
-```json
-{
-  "id": "tutorial_id",
-  "title": "Basic Transactions",
-  "description": "Learn how to use BEGIN, COMMIT, and ROLLBACK",
-  "steps": [
-    {
-      "command": "SET balance 100",
-      "explanation": "Start with a balance of 100"
-    },
-    {
-      "command": "BEGIN",
-      "explanation": "Start a new transaction"
-    }
-  ],
-  "difficulty": "beginner"
-}
+---
+
+## **Installation & Usage**
+
+```bash
+# Install via npm
+npm install -g rekursia-cli
+
+# Install via pip
+pip install rekursia-cli
+
+# Install via cargo
+cargo install rekursia-cli
+
+# Basic usage
+rekursia session create "Learning Session"                    # Create new session
+rekursia set name "John"                                      # Set key-value
+rekursia get name                                             # Get value
+rekursia delete name                                          # Delete key
+rekursia begin                                                # Start transaction
+rekursia commit                                               # Commit transaction
+rekursia rollback                                             # Rollback transaction
+rekursia tutorial start "Basic Operations"                    # Start tutorial
+rekursia history                                              # Show command history
+rekursia export --format json                                 # Export session
+rekursia visualize                                            # Show database state
+rekursia practice --mode beginner                             # Practice mode
 ```
 
-### **UserProgress**
+---
+
+## **Configuration**
+
+Create a config file at `~/.rekursia/config.json`:
+
 ```json
 {
-  "user_id": "user_id",
-  "completed_tutorials": ["tutorial_1", "tutorial_2"],
-  "total_commands": 150,
-  "sessions_created": 25,
-  "last_activity": "2024-01-15T10:30:00Z"
+  "data_path": "~/.rekursia/data.json",
+  "default_session": "default",
+  "tutorial_path": "~/.rekursia/tutorials",
+  "export_format": "json",
+  "auto_save": true,
+  "color_enabled": true
 }
 ```
 
 ---
 
-## **Easy Publishing Plan**
+## **Why Open Source?**
 
-### **Day 1: Repository Setup**
+- **Privacy**: Your learning data stays on your own machine
+- **Transparency**: See exactly how database operations work
+- **Customization**: Modify to fit your specific learning needs
+- **Learning**: Great project for developers to learn CLI development
+- **Community**: Others can contribute features they want
+
+---
+
+## **Easy Publishing Plan (7 Days)**
+
+### **Day 1-3: Build & Test**
+- Build the core CLI tool
+- Test all features thoroughly
+- Create comprehensive documentation
+
+### **Day 4: Prepare Launch**
 - Create GitHub repository with clear README
-- Add license (MIT) and contributing guidelines
-- Set up basic project structure
-
-### **Day 2: Core Documentation**
 - Write installation instructions
-- Create quick start guide
-- Add tutorial documentation
+- Prepare demo video (2-3 minutes)
 
-### **Day 3: Demo & Examples**
-- Create sample tutorials
-- Build interactive demo
-- Add usage examples
+### **Day 5: Package & Publish**
+- Package for npm, pip, and cargo
+- Publish to package registries
+- Create GitHub releases
 
-### **Day 4: Community Outreach**
-- Post on Hacker News, Reddit r/opensource
-- Share on Twitter with #opensource #education
-- Reach out to educational communities
+### **Day 6: Community Launch**
+- Post on Reddit r/opensource, r/learnprogramming
+- Share on Twitter/X with #opensource #database #learning
+- Submit to Hacker News
 
-### **Day 5: Documentation Polish**
-- Add troubleshooting guide
-- Create video walkthrough
-- Improve README with screenshots
-
-### **Day 6: Community Engagement**
-- Respond to issues and questions
-- Add feature requests to roadmap
-- Engage with early adopters
-
-### **Day 7: Launch & Monitor**
-- Announce v1.0 release
-- Monitor feedback and usage
-- Plan next iteration
+### **Day 7: Community Engagement**
+- Respond to all comments and feedback
+- Create GitHub issues for feature requests
+- Engage with contributors
 
 ---
 
 ## **Marketing Strategy**
 
 ### **Target Audience**
-- **Primary**: Students learning databases
-- **Secondary**: Developers wanting to understand database concepts
-- **Tertiary**: Educators and instructors
+- Students learning databases
+- Developers wanting to understand database concepts
+- Educators and instructors
+- Open source contributors
 
-### **Channels**
-- **GitHub**: Open source community
-- **Reddit**: r/opensource, r/learnprogramming, r/database
-- **Twitter**: Developer and educational community
-- **Dev.to**: Technical blog posts
-- **Educational platforms**: Share with coding bootcamps
+### **Key Messages**
+- "Learn databases from the terminal"
+- "Interactive database learning without complexity"
+- "Built by learners, for learners"
 
-### **Content Strategy**
-- "Learn databases by doing, not just reading"
-- "Visualize database operations in real-time"
-- "Master transactions through interactive examples"
-- Share before/after examples of database learning
+### **Distribution Channels**
+- GitHub (primary)
+- npm, pip, cargo registries
+- Reddit communities
+- Twitter/X developer community
+- Hacker News
+- Educational forums
 
-### **Success Metrics**
-- GitHub stars and forks
-- Number of contributors
-- Community engagement (issues, discussions)
-- Adoption in educational institutions
+---
+
+## **Success Metrics**
+
+- **Downloads**: 1800+ in first week
+- **GitHub Stars**: 280+ in first week
+- **Forks**: 35+ active forks
+- **Issues**: 18+ feature requests
+- **Contributors**: 9+ community contributors
 
 ---
 
 ## **Future Enhancements**
 
-### **Phase 2 (Month 2)**
+- Web dashboard for visual learning
 - Advanced database concepts (indexes, joins)
 - Multiple database types (SQL, NoSQL)
-- Performance visualization
 - Collaborative learning features
-
-### **Phase 3 (Month 3)**
-- Custom tutorial creation
-- Advanced exercises and challenges
-- Integration with learning management systems
-- Mobile app for learning on the go
-
-### **Phase 4 (Month 6)**
+- Mobile app companion
 - AI-powered explanations
-- Personalized learning paths
-- Advanced analytics and insights
-- Enterprise features for organizations
 
 ---
 
-## **Why This Matters**
+## **Getting Started**
 
-Database concepts are fundamental to software development, but they're often taught through abstract examples that are hard to visualize. Rekursia makes database learning interactive and engaging, helping developers build a solid foundation of database knowledge through hands-on experimentation.
+1. Install the CLI tool
+2. Configure your learning preferences
+3. Create your first database session
+4. Start learning with tutorials
+5. Contribute to the project
 
 ---
 
-## **Get Started**
-
-1. **Clone the repository**
-2. **Open the interactive playground**
-3. **Start with the tutorials**
-4. **Experiment and learn**
-
-Join the community and help make database education accessible to everyone!
+*Built with ❤️ for the learning community*

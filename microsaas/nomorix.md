@@ -1,158 +1,175 @@
-# **Nomorix** — *“Your Travel Data, Unified.”*
+# **Nomorix** — *Simple Travel Document Organizer*
 
-> **API-only MicroSaaS** that lets any product ingest, cleanse, enrich, and analyze raw travel-booking artifacts (emails, PDFs, screenshots, calendar invites) with a single call—turning unstructured chaos into actionable JSON in seconds.
-
----
-
-## 1 ▪ Executive Summary
-
-Nomorix targets the hidden *plumbing problem* of travel-tech: every itinerary, ticket, or voucher arrives in a different format, making downstream personalization painful.
-The service offers a **privacy-respecting, drop-in API** that:
-
-1. **Collects** artifacts from inboxes, uploads, webhooks, or direct scraping links.
-2. **Normalizes** them into a unified schema (segments, legs, travelers, ancillaries, prices, loyalty, carbon data).
-3. **Enriches** the payload with LLM-generated summaries, predictions, and recommendations.
-4. **Streams** structured updates back in real time (webhooks / websockets) as travel plans evolve.
+*A lightweight web application that helps you organize and manage travel documents, itineraries, and booking confirmations.*
 
 ---
 
-## 2 ▪ North-Star
+## **What is Nomorix?**
 
-|                 | Statement                                                                                              |
-| --------------- | ------------------------------------------------------------------------------------------------------ |
-| **Mission**     | *Democratize access to clean, enriched travel data so every app can deliver concierge-level journeys.* |
-| **Vision**      | *Become the invisible backbone powering frictionless travel experiences across the globe.*             |
-| **Primary KPI** | *Monthly Parsed Segments (MPS)* — the count of flight/hotel/ground segments successfully normalized.   |
+Nomorix is a simple web application that helps you organize travel documents, store booking confirmations, and manage trip information in one place. Built for travelers who want to keep all their travel documents organized without complex systems.
 
 ---
 
-## 3 ▪ Problem Landscape
+## **Core Features (MVP - 7 Days)**
 
-1. **Fragmented Sources** – Bookings arrive via dozens of OTAs, airline emails, PDFs, and loyalty apps; field names and layouts differ dramatically.
-2. **Manual Workarounds** – Developers build brittle regex pipelines or ask users to forward emails; maintenance balloons with each vendor change.
-3. **Missed Personalization** – Without tidy data, recommendations, dynamic pricing, and carbon-impact calculators under-perform.
-4. **Privacy & Compliance** – Rolling your own parsing often fails security reviews and regional data-residency requirements.
+### **Day 1-2: Basic Setup**
+- Simple web interface for document organization
+- Basic database to store documents and trips
+- User registration and login
 
----
+### **Day 3-4: Core Functionality**
+- Document upload and storage (PDF, images, emails)
+- Trip organization and categorization
+- Basic document search and filtering
+- Travel itinerary management
 
-## 4 ▪ Solution Highlights
+### **Day 5-6: Enhanced Features**
+- Document sharing and collaboration
+- Basic travel reminders and notifications
+- Export trip information
+- Mobile-friendly document viewing
 
-| Pillar                    | Description                                                                                                                |
-| ------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| **Universal Ingestion**   | Accepts emails (OAuth inbox connect), direct file uploads (PDF/EML/HTML), or fetch-by-URL scraping.                        |
-| **Adaptive LLM Parsing**  | Proprietary prompt-chaining auto-detects template type, then extracts fields with self-validation loops for 95%+ accuracy. |
-| **Contextual Enrichment** | Adds loyalty points, carbon footprint, weather window, seat-map insights, and rebooking tips via partner data layers.      |
-| **Event-Driven Updates**  | Webhooks/websockets push changes (delay alerts, gate swaps) so clients stay in sync without polling.                       |
-| **Privacy by Design**     | No artifacts stored beyond configurable TTL; supports regional processing zones and brings-your-own-key encryption.        |
-
----
-
-## 5 ▪ Core API Endpoints (v0.9)
-
-| Endpoint                  | Method | Purpose                                                        | Typical Response                             |
-| ------------------------- | ------ | -------------------------------------------------------------- | -------------------------------------------- |
-| `/ingest/email`           | `POST` | Forward raw EML / RFC-822 content for parsing.                 | `ingestion_id`, status                       |
-| `/ingest/document`        | `POST` | Upload PDF, image, or HTML page.                               | `ingestion_id`, status                       |
-| `/ingest/url`             | `POST` | Provide booking-confirmation URL; Nomorix fetches & snapshots. | `ingestion_id`, status                       |
-| `/consume/{ingestion_id}` | `GET`  | Retrieve normalized itinerary JSON when ready.                 | Nested `trip`, `traveler`, `segment` objects |
-| `/webhook/register`       | `POST` | Subscribe to realtime changes for a user/org.                  | `webhook_id`, secrets                        |
-| `/recommendations`        | `POST` | Feed normalized itinerary; receive LLM travel tips & upsells.  | Array of `suggestion` objects                |
-
-*Authentication*: bearer tokens with granular scopes; optional org-level API keys.
-*Rate Limits*: tiered SLA (Basic = 50 requests/min, Pro = 500, Enterprise = custom).
+### **Day 7: Polish & Deploy**
+- Responsive design for mobile
+- Deploy to free hosting platform
+- Write documentation and README
 
 ---
 
-## 6 ▪ Key Features & Benefits
+## **Simple Data Model**
 
-1. **Zero-Setup Parsing** – Plug-and-play endpoint eliminates months of brittle per-vendor screen scraping.
-2. **Insight-Ready Schema** – Consistent JSON lets downstream analytics, NDC offers, and chatbots read instantly.
-3. **LLM-Driven Summaries** – Auto-generate plain-language itineraries, policy flags, and “next-best-action” guidance.
-4. **Privacy Controls** – Regional processing, short-lived storage, and signed URL retrieval tick enterprise checklists.
-5. **Developer Delight** – Interactive Swagger / Postman collections, clear pagination, and versioned contracts reduce churn.
+```
+User:
+- id, email, password_hash, created_at
 
----
+Trip:
+- id, user_id, title, destination, start_date, end_date, status, created_at
 
-## 7 ▪ MVP Roadmap
+Document:
+- id, trip_id, name, document_type, file_url, file_size, uploaded_at, created_at
 
-| Phase                          | Duration | Scope                                                                       | Validation Metric                                         |
-| ------------------------------ | -------- | --------------------------------------------------------------------------- | --------------------------------------------------------- |
-| **α – Email & PDF Parsing**    | 6 weeks  | Ingest + normalize flights & hotels from top 10 OTAs; polling retrieval.    | ≥ 90% field extraction accuracy on 500 sample itineraries |
-| **β – Realtime Webhooks**      | 4 weeks  | Add push architecture, idempotent retries, signed payloads.                 | 1s median delivery latency                                |
-| **GA – Enrichment & Insights** | 8 weeks  | LLM summaries, carbon & loyalty calculators, basic recommendation endpoint. | ≥ 30% CTR on suggestion tests with pilot customers        |
+DocumentType:
+- id, name, description (e.g., Flight Ticket, Hotel Booking, Passport, Visa)
 
----
-
-## 8 ▪ Business Model Canvas
-
-| Block                      | Detail                                                                                      |
-| -------------------------- | ------------------------------------------------------------------------------------------- |
-| **Key Partners**           | GDS & NDC aggregators • Global weather & carbon APIs • Loyalty program data brokers         |
-| **Key Activities**         | Template discovery & labeling • Model fine-tuning • Compliance & regional hosting           |
-| **Key Resources**          | Proprietary training corpus of booking layouts • Annotation pipeline • DevRel program       |
-| **Value Propositions**     | *Parse once, use everywhere* • Enterprise-grade privacy • Fastest time-to-insight           |
-| **Customer Relationships** | Self-serve docs • Slack workspace • Dedicated CSM for ≥ Enterprise tier                     |
-| **Channels**               | Developer marketing (Product Hunt, API marketplaces) • Partnerships with OTA white-labelers |
-| **Customer Segments**      | Travel-tech startups • Expense-management SaaS • Corporate TMCs • Loyalty apps              |
-| **Cost Structure**         | GPU inference infra • Compliance & audits • Partner data licensing • Support                |
-| **Revenue Streams**        | Usage-based API calls • Premium enrichment add-ons • Embedded upsell commissions            |
+TripReminder:
+- id, trip_id, title, description, reminder_date, created_at
+```
 
 ---
 
-## 9 ▪ Pricing Strategy
+## **Why This Works**
 
-| Plan           | Monthly Platform Fee | Included Parse Credits | Overages            | Extras                                   |
-| -------------- | -------------------- | ---------------------- | ------------------- | ---------------------------------------- |
-| **Sandbox**    | \$0                  | 250                    | \$1.20/100 segments | N/A                                      |
-| **Growth**     | \$99                 | 5 000                  | \$0.75/100 segments | Carbon & loyalty enrichment bundle +\$49 |
-| **Pro**        | \$499                | 50 000                 | \$0.40/100 segments | SLA 99.9% + dedicated Slack              |
-| **Enterprise** | Custom               | Unlimited BYOC region  | Volume discounts    | On-prem / VPC deployment option          |
+- **High Demand**: Every traveler needs document organization
+- **Clear Value**: Keep all travel documents in one place
+- **Low Barrier**: Simple web interface, no technical skills required
+- **Scalable**: Can start with basic features and add advanced capabilities
 
 ---
 
-## 10 ▪ Competitive Snapshot
+## **Easy Publishing Plan (7 Days)**
 
-| Player          | Parsing Accuracy | Realtime Updates | LLM Summaries | Privacy Controls | API-only? |
-| --------------- | ---------------- | ---------------- | ------------- | ---------------- | --------- |
-| **Nomorix**     | **95%**          | **Yes**          | **Yes**       | **Granular**     | **Yes**   |
-| Duffel Data     | 85%              | No               | No            | Limited          | Partial   |
-| Concur TripLink | 70%              | Yes              | No            | Moderate         | No        |
-| TripIt API      | 80%              | No               | Limited       | Basic            | Mixed     |
+### **Day 1-3: Build & Test**
+- Build the core application
+- Test all features thoroughly
+- Create simple documentation
 
-*Strategic Moat*: continuously-growing proprietary template corpus + hybrid rule/LLM engine that self-heals when vendor layouts shift.
+### **Day 4: Prepare Launch**
+- Create landing page with demo
+- Set up payment processing
+- Prepare marketing materials
 
----
+### **Day 5: Initial Launch**
+- Post on Product Hunt
+- Share on LinkedIn and Twitter
+- Reach out to travel bloggers
 
-## 11 ▪ Go-To-Market Plan
+### **Day 6: Community Engagement**
+- Respond to all comments and feedback
+- Share on Reddit r/travel, r/Entrepreneur
+- Engage with early users
 
-1. **Launch Week** – Target Product Hunt, Call for Beta on /r/travel and Dev.to.
-2. **Integration Showcases** – Publish sample repo: “Build a Slack travel bot in 30 min.”
-3. **Partnerships** – Offer rev-share to expense-management tools that embed Nomorix enrichment.
-4. **Thought Leadership** – Quarterly “State of Travel Data” report using aggregated anonymized stats.
-5. **Enterprise Foot-in-Door** – Free POC credits for top 25 corporate TMCs, bundled with compliance whitepaper.
-
----
-
-## 12 ▪ Future Horizons
-
-* **Ground & Cruise Modules** – Extend schema to trains, buses, ferries, cruises.
-* **Rebooking Automation** – Trigger one-click reissues during IRROPS via partner NDC.
-* **Embedded Carbon Offsets** – Offer optional projects checkout API for travelers to neutralize emissions.
-* **GenAI Concierge Toolkit** – Server-less function that assembles PNR, loyalty, team calendars into proactive trip planning conversations.
+### **Day 7: Follow-up**
+- Analyze user feedback
+- Plan next iteration
+- Start building user base
 
 ---
 
-## 13 ▪ Risks & Mitigations
+## **Marketing Strategy**
 
-| Risk                              | Impact                    | Mitigation                                                                                   |
-| --------------------------------- | ------------------------- | -------------------------------------------------------------------------------------------- |
-| Vendor layout drift               | Parsing failure           | Continuous template monitoring; active-learning model retrains nightly                       |
-| Data-privacy regulations          | Fines, lost trust         | Regional processing clusters; third-party audits; privacy shield certifications              |
-| LLM hallucinations                | Incorrect recommendations | Ensemble validation & confidence scoring; fallback to rule-based suggestions above threshold |
-| Dependency on external data feeds | Service disruption        | Redundant providers; graceful degradation modes                                              |
+### **Target Audience**
+- **Primary**: Frequent travelers, business travelers, vacation planners
+- **Secondary**: Travel agents, trip organizers
+- **Tertiary**: Anyone who travels regularly
+
+### **Key Messages**
+- "Organize your travel documents in one place"
+- "Never lose a booking confirmation again"
+- "Simple travel document management"
+
+### **Distribution Channels**
+- **Product Hunt**: Launch for immediate visibility
+- **LinkedIn**: Target travel professionals
+- **Twitter**: Travel and lifestyle communities
+- **Reddit**: r/travel, r/Entrepreneur, r/lifestyle
+- **Email Marketing**: Cold outreach to travel bloggers
+
+### **Pricing Strategy**
+- **Freemium**: Free for 3 trips, paid for unlimited trips
+- **Monthly**: $9.99/month for unlimited trips
+- **Annual**: $99/year (17% discount)
+- **Pro**: $19.99/month for team collaboration
 
 ---
 
-### **Final Takeaway**
+## **Revenue Generation Plan**
 
-Nomorix positions itself as the *invisible API layer* that finally standardizes every chaotic travel artifact into one clean, enriched stream—unlocking a new wave of hyper-personalized, eco-aware, and hassle-free travel experiences across the industry.
+### **Week 1 Revenue Targets**
+- **Day 1-3**: Focus on building and testing
+- **Day 4**: Launch with freemium model
+- **Day 5-7**: Target 10-20 paid users
+
+### **Revenue Streams**
+1. **Subscription Revenue**: Monthly/annual plans
+2. **Premium Features**: Advanced organization and analytics
+3. **API Access**: For developers wanting to integrate
+4. **Custom Templates**: For specific document types
+
+### **Quick Wins**
+- Offer 7-day free trial for all paid plans
+- Create viral document organization templates
+- Partner with travel influencers
+- Build referral program
+
+---
+
+## **Success Metrics**
+
+- **Week 1**: 100+ signups, 10+ paid users
+- **Month 1**: 500+ signups, 50+ paid users
+- **Month 3**: 2000+ signups, 200+ paid users
+- **Revenue Target**: $500+ in first month
+
+---
+
+## **Future Enhancements**
+
+- Integration with travel booking platforms
+- Automatic document extraction from emails
+- Advanced search and filtering capabilities
+- Mobile app for document access
+- Team collaboration features
+- Travel expense tracking
+
+---
+
+## **Getting Started**
+
+1. **Sign up** for free account
+2. **Upload your first travel document**
+3. **Upgrade** to paid plan for unlimited trips
+4. **Start organizing** your travel documents
+
+---
+
+*Built with ❤️ for travelers*

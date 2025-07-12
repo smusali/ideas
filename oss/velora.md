@@ -1,209 +1,233 @@
-# **Velora†**
+# **Velora** — *Simple Travel Planning CLI*
 
-*An Open-Source LLM Platform for Hyper-Personalized, End-to-End Travel Operations*
-
-> † Invented name; not a blend of two existing words.
+*A lightweight, open-source command-line tool that helps you plan trips, manage itineraries, and organize travel information with minimal effort.*
 
 ---
 
-## 1  Vision
+## **What is Velora?**
 
-Velora’s mission is to **democratize enterprise-grade travel automation**.
-By fusing large-language-model reasoning with real-time travel intelligence, Velora turns any agency—whether a three-person boutique or a global TMC—into a data-driven, concierge-level service that delights travelers and scales effortlessly.
-
----
-
-## 2  Why Now?
-
-| Signal                     | Evidence                                                                                                               | Implication                                                |
-| -------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| **Generative AI maturity** | Multi-modal LLMs can reason over free text, PDF tickets, APIs, images, and speech.                                     | Rich, unified context for itinerary creation & support.    |
-| **Post-pandemic rebound**  | Leisure & “bleisure” bookings outpace 2019 levels; fragmented supply surges (vacation rentals, tours, micro-airlines). | Data surface explodes; manual curation no longer viable.   |
-| **Traveler expectations**  | 73 % of Gen Z travelers expect fully personalized recommendations.                                                     | One-size-fits-all email blasts erode loyalty.              |
-| **Open-source tailwinds**  | Corporations trust permissively-licensed AI infra to avoid vendor lock-in.                                             | A transparent, extensible stack wins enterprise mindshare. |
+Velora is a simple CLI tool that lets you plan trips, manage itineraries, and organize travel information directly from your terminal. Perfect for travelers, travel agents, and anyone who wants to organize their travel plans without complex applications.
 
 ---
 
-## 3  Core Problem Statements
+## **Core Features (MVP - 7 Days)**
 
-1. **Data Fragmentation** — Flight GDSs, NDC offers, rail, ferries, homestays, tours, visas… each with distinct schemas, rate limits, and error patterns.
-2. **Email Bottleneck** — Crafting context-aware, brand-consistent messages at scale drains agent time.
-3. **Operational Blind Spots** — Missing or stale data triggers re-work, traveler frustration, and SLA penalties.
-4. **Scalability Ceiling** — Expansion usually means linear growth in headcount and tooling complexity.
-5. **Opaque Decisioning** — Black-box AI systems make it impossible to audit quotes or comply with duty-of-care regulations.
+### **Day 1-2: Basic Setup**
+- CLI interface with command parsing
+- Trip and itinerary management
+- Basic travel planning functionality
 
----
+### **Day 3-4: Core Functionality**
+- Create and manage trips
+- Add flights, hotels, and activities
+- Track travel expenses
+- Generate travel reports
 
-## 4  Velora’s Solution Pillars
+### **Day 5-6: Enhanced Features**
+- Export itineraries to various formats
+- Basic travel analytics
+- Reminder system for bookings
+- Travel checklist management
 
-| Pillar                             | Description                                                                                                                                                                                             |
-| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Unified Travel Graph (UTG)**     | A continuously-updated, schema-agnostic knowledge base that merges supplier APIs, scraped content, and user-generated data, surfaced via a graph-QL-inspired query layer.                               |
-| **Intent-Aware LLM Orchestration** | A pluggable agent framework that decomposes requests (“Family of 4, eco-budget, surfing lessons”) into deterministic tasks: sourcing, validation, pricing, contractual rules, and narrative generation. |
-| **Stylus™ Communication Engine**   | Prompt-programmed templates that learn each brand’s tone, automatically localize, and embed live itinerary links, eliminating mass-mail merges.                                                         |
-| **Verity Guard**                   | A dual-channel fact checker: (a) real-time rule-based validators (visa, COVID, weather); (b) LLM-backed semantic anomaly detection (e.g., impossibly short layovers).                                   |
-| **Extensibility & Governance**     | Modular plugins, declarative policy files, telemetry hooks, and an open governance model ensure community trust and traceability.                                                                       |
-
----
-
-## 5  Key Product Functions
-
-| # | Function                             | User Benefit                                                                                               |
-| - | ------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
-| 1 | **Omni-source harvesting**           | One query returns flights, rails, ground transport, lodging, and activities—deduped and ranked.            |
-| 2 | **Real-time consistency checks**     | Instantly flags overbooked hotels, schedule changes, or compliance violations.                             |
-| 3 | **Conversational itinerary builder** | Agents or end-travelers iterate on trips through chat, voice, or API without touching raw vendor portals.  |
-| 4 | **Hyper-personal outbound**          | Automated, on-brand pre-trip checklists, mid-trip SMS nudges, post-trip surveys, all generated in seconds. |
-| 5 | **Explainability dashboard**         | Every quote or email shows provenance, LLM reasoning steps, and cost breakdown—critical for audits.        |
+### **Day 7: Polish & Deploy**
+- Package for npm/pip/cargo
+- Write comprehensive documentation
+- Create installation scripts
 
 ---
 
-## 6  Open-Source Architecture Overview
+## **Simple Data Model**
 
+```json
+{
+  "trips": [
+    {
+      "id": "uuid",
+      "title": "string",
+      "destination": "string",
+      "start_date": "datetime",
+      "end_date": "datetime",
+      "status": "planning|booked|completed|cancelled",
+      "created_at": "datetime"
+    }
+  ],
+  "itineraries": [
+    {
+      "id": "uuid",
+      "trip_id": "uuid",
+      "date": "datetime",
+      "type": "flight|hotel|activity|transport",
+      "title": "string",
+      "details": "string",
+      "cost": "number",
+      "booking_ref": "string"
+    }
+  ],
+  "expenses": [
+    {
+      "id": "uuid",
+      "trip_id": "uuid",
+      "category": "string",
+      "amount": "number",
+      "currency": "string",
+      "description": "string",
+      "date": "datetime"
+    }
+  ],
+  "checklists": [
+    {
+      "id": "uuid",
+      "trip_id": "uuid",
+      "title": "string",
+      "items": [
+        {
+          "text": "string",
+          "completed": false,
+          "due_date": "datetime"
+        }
+      ]
+    }
+  ]
+}
 ```
-┌────────────┐
-│  Ingestors │──► supplier APIs / web scrapers / manual CSV drops
-└─────┬──────┘
-      ▼
-┌────────────┐
-│   Broker   │──► retries, rate-limit partage, observability
-└─────┬──────┘
-      ▼
-┌────────────┐
-│   UTG DB   │──► graph store + vector layer + versioned snapshots
-└─────┬──────┘
-      ▼
-┌────────────┐
-│  Verity    │──► rule engine + LLM validators
-└─────┬──────┘           ▲
-      ▼                  │
-┌────────────┐   trace + reasoning
-│  Agents    │◄──────────┘
-└─────┬──────┘
-      ▼
-┌────────────┐
-│ Stylus Svc │──► email/SMS/push/webhook outbox
-└────────────┘
+
+---
+
+## **Installation & Usage**
+
+```bash
+# Install via npm
+npm install -g velora-cli
+
+# Install via pip
+pip install velora-cli
+
+# Install via cargo
+cargo install velora-cli
+
+# Basic usage
+velora trip create "Paris Vacation" --start 2024-06-01 --end 2024-06-07  # Create trip
+velora add-flight "Paris Vacation" "JFK-CDG" --date 2024-06-01          # Add flight
+velora add-hotel "Paris Vacation" "Hotel ABC" --nights 6                # Add hotel
+velora add-activity "Paris Vacation" "Eiffel Tower" --date 2024-06-02   # Add activity
+velora expense add "Paris Vacation" 150 "Food" --category dining        # Add expense
+velora itinerary "Paris Vacation" --date 2024-06-01                     # View itinerary
+velora checklist add "Paris Vacation" "Packing List"                    # Add checklist
+velora checklist add-item "Packing List" "Passport"                     # Add item
+velora export "Paris Vacation" --format pdf                              # Export trip
+velora report "Paris Vacation" --output report.html                      # Generate report
 ```
 
-*All components expose clean REST / GraphQL / event streams and can be swapped or horizontally scaled.*
+---
+
+## **Configuration**
+
+Create a config file at `~/.velora/config.json`:
+
+```json
+{
+  "data_path": "~/.velora/data.json",
+  "default_currency": "USD",
+  "reminder_enabled": true,
+  "reminder_days": 7,
+  "export_format": "markdown",
+  "auto_backup": true
+}
+```
 
 ---
 
-## 7  Business & Sustainability Model
+## **Why Open Source?**
 
-| Stream                         | Details                                                                                   |
-| ------------------------------ | ----------------------------------------------------------------------------------------- |
-| **Managed Cloud Edition**      | Hosted Velora with SLA, support, and enterprise compliance certificates.                  |
-| **Premium Plug-ins**           | Concierge AI personas, advanced analytics packs, white-label web widgets.                 |
-| **Marketplace Revenue Share**  | Commission on ancillary add-ons surfaced via UTG (insurance, tours).                      |
-| **Consulting & Certification** | Official onboarding, custom policy authoring, and “Velora-Certified Consultant” programs. |
-| **Open Core Support**          | Community remains free — monetization layers are optional and non-essential.              |
+- **Privacy**: Your travel data stays on your own machine
+- **Transparency**: See exactly how travel planning works
+- **Customization**: Modify to fit your specific travel needs
+- **Learning**: Great project for developers to learn CLI development
+- **Community**: Others can contribute features they want
 
 ---
 
-## 8  Stakeholder Map
+## **Easy Publishing Plan (7 Days)**
 
-* **Travel Agencies & TMCs** — Primary operators; need efficiency and differentiation.
-* **Suppliers** — Airlines, lodging, tours; benefit from richer, more accurate distribution.
-* **Open-Source Contributors** — Engineers, data scientists, travel hackers; drive innovation.
-* **Regulators & Insurers** — Require transparent logs and risk assessments.
-* **End Travelers** — Receive tailored, trustworthy journeys.
+### **Day 1-3: Build & Test**
+- Build the core CLI tool
+- Test all features thoroughly
+- Create comprehensive documentation
 
----
+### **Day 4: Prepare Launch**
+- Create GitHub repository with clear README
+- Write installation instructions
+- Prepare demo video (2-3 minutes)
 
-## 9  Roadmap (Community-Driven)
+### **Day 5: Package & Publish**
+- Package for npm, pip, and cargo
+- Publish to package registries
+- Create GitHub releases
 
-| Quarter     | Milestone                              | Outcome                                                     |
-| ----------- | -------------------------------------- | ----------------------------------------------------------- |
-| **Q3 2025** | Public alpha: UTG + basic agent kit    | Early adopters integrate and validate coverage.             |
-| **Q4 2025** | Stylus beta & Verity Guard             | Automated comms & reliability layer live.                   |
-| **Q1 2026** | Plugin marketplace launch              | Third-party add-ons (carbon offsets, loyalty).              |
-| **Q3 2026** | Multi-lingual, voice-first assistant   | Conversational trip ops across channels.                    |
-| **2027+**   | DAO-style governance & micro-royalties | Decentralized decision-making; sustainable incentive loops. |
+### **Day 6: Community Launch**
+- Post on Reddit r/opensource, r/travel
+- Share on Twitter/X with #opensource #travel #cli
+- Submit to Hacker News
 
----
-
-## 10  Community & Governance
-
-| Principle               | Implementation                                                                              |
-| ----------------------- | ------------------------------------------------------------------------------------------- |
-| **Transparency**        | Open RFC process, public issue tracker, weekly stand-up calls.                              |
-| **Meritocracy**         | Maintainer status via contribution points (code, docs, UX, research).                       |
-| **Safety First**        | Model card disclosures, red-team prompts, opt-in telemetry, GDPR/CCPA compliance templates. |
-| **Inclusive Licensing** | OSI-approved license with additional Contributor License Agreement to ensure patent peace.  |
-| **Funding Pool**        | 5 % of managed-cloud revenue redirected to an open-governance bounty fund.                  |
+### **Day 7: Community Engagement**
+- Respond to all comments and feedback
+- Create GitHub issues for feature requests
+- Engage with contributors
 
 ---
 
-## 11  MVP Cut
+## **Marketing Strategy**
 
-Minimum lovable release focuses on:
+### **Target Audience**
+- Frequent travelers
+- Travel agents and planners
+- Travel enthusiasts
+- Open source contributors
 
-1. **UTG ingestion pipelines** for a subset of public flight & lodging providers.
-2. **Foundational agent** that assembles single-destination itineraries from intent.
-3. **Plain-text personalized email generator** with brand style tokens.
-4. **CLI & API SDKs** + Dockerized local dev environment.
-5. **Observability hooks** (metrics, traces, structured logs).
+### **Key Messages**
+- "Plan your trips from the terminal"
+- "Simple travel planning without complexity"
+- "Built by travelers, for travelers"
 
----
-
-## 12  Competitive Landscape
-
-| Category            | Players                       | Velora Edge                                       |
-| ------------------- | ----------------------------- | ------------------------------------------------- |
-| Full-Stack GDS      | Sabre, Amadeus, Travelport    | Openness; no lock-in; LLM-native.                 |
-| Vertical AI Tools   | Trava, RoamAround, TripGenie  | Enterprise-grade graph & explainability.          |
-| Conversational Bots | Chat-based OTAs & plugins     | Deep data provenance; policy compliance.          |
-| DIY Integrations    | Teams stitching APIs in-house | Faster time-to-market; shared maintenance burden. |
-
----
-
-## 13  Success Metrics
-
-* **< 90 s quote assembly time** for 95 % of requests.
-* **> 99 % data validity** post-Verity checks.
-* **3× agent productivity** vs. baseline (measured by bookings per FTE).
-* **NPS ≥ 70** for end-travelers using Velora-powered itineraries.
-* **50+ active external contributors** by end of Year 1.
+### **Distribution Channels**
+- GitHub (primary)
+- npm, pip, cargo registries
+- Reddit communities
+- Twitter/X travel community
+- Hacker News
+- Travel forums
 
 ---
 
-## 14  Call to Action
+## **Success Metrics**
 
-1. **Star the Repo** — Visibility fuels velocity.
-2. **Join #velora-dev** on Matrix — Discuss RFC - 001 (modular ingest design).
-3. **Test Drive** — Run the quick-start and post feedback on ingest coverage.
-4. **Contribute** — Docs, UX mockups, airlines you’d love to see integrated.
-5. **Sponsor** — Pick a tier, direct funds to open issues you care about.
-
----
-
-## 15  License Snapshot
-
-Velora is released under a **permissive, OSI-approved license** that guarantees:
-
-* Free commercial & private use of core.
-* Obligation to disclose security patches upstream.
-* Explicit patent grant to downstream users.
+- **Downloads**: 2000+ in first week
+- **GitHub Stars**: 300+ in first week
+- **Forks**: 40+ active forks
+- **Issues**: 20+ feature requests
+- **Contributors**: 10+ community contributors
 
 ---
 
-## 16  Risks & Mitigations
+## **Future Enhancements**
 
-| Risk                     | Mitigation                                                           |
-| ------------------------ | -------------------------------------------------------------------- |
-| Misaligned model outputs | Reinforcement-from-feedback loop, staged rollout flags.              |
-| Supplier ToS violations  | Rate-limit guardians, legal advisory board reviews.                  |
-| Data privacy breaches    | Differential logging, zero-access encryption, on-prem deploy option. |
-| Community fragmentation  | Clear contributor guide, CoC, transparent governance ballots.        |
-
----
-
-## 17  Long-Term Ambition
-
-To become **the Linux-equivalent of travel operations**—a freely-available foundation upon which the next decade of travel innovation is built, empowering millions of agents and billions of journeys, all while remaining transparent, ethical, and community-owned.
+- Web dashboard for visual planning
+- Integration with booking APIs
+- Real-time flight tracking
+- Expense receipt scanning
+- Travel recommendations
+- Mobile app companion
 
 ---
 
-> **Velora:** Where every itinerary is *intelligently yours.*
+## **Getting Started**
+
+1. Install the CLI tool
+2. Configure your travel preferences
+3. Create your first trip
+4. Start planning your itinerary
+5. Contribute to the project
+
+---
+
+*Built with ❤️ for the travel community*

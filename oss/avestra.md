@@ -1,163 +1,208 @@
-# **Avestra**
+# **Avestra** — *Simple API Validation & Testing CLI*
 
-*A Community-Driven LLM Framework for Self-Validating, Persistable, & Introspectable APIs*
-
----
-
-## 1 Vision & Motivation
-
-Modern product teams waste disproportionate effort on the “infrastructure scaffolding” that surrounds business logic—schema validation, data modelling, persistence wiring, test scaffolding, performance profiling, and documentation. **Avestra** re-imagines that boilerplate as an *intelligent, declarative conversation* between developers and a domain-aware Large Language Model. By codifying intent in high-level manifests, contributors let the LLM synthesize:
-
-* **Typed request/response contracts** with zero-ambiguity validation rules
-* **Storage blueprints** tuned to each entity’s access patterns and lifecycles
-* **Automated quality gates**—unit, property, integration, and contract tests
-* **Live performance baselines** plus continuous regression alarms
-* **Human-readable documentation** that evolves alongside the codebase
-
-All artefacts remain in standard, transparent formats, ensuring the project stays vendor-neutral and future-proof.
+*A lightweight, open-source command-line tool that helps you validate API schemas, generate tests, and ensure API quality with minimal effort.*
 
 ---
 
-## 2 Core Principles
+## **What is Avestra?**
 
-| Principle                      | Why It Matters                                                                                                                                |
-| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Declarative First**          | Capture *what* the system should guarantee, not *how*—freeing maintainers to focus on domain value.                                           |
-| **Self-Validating**            | Every generated asset asserts its own correctness at runtime and during CI, creating a virtuous feedback loop.                                |
-| **Storage-Aware Modelling**    | Entities carry explicit hints about cardinality, read/write bias, and consistency needs, letting Avestra suggest optimal persistence tactics. |
-| **Performance as a Contract**  | Through synthetic loads and golden SLAs, regressions surface before merging, not after deployment.                                            |
-| **Human-Centric Transparency** | All generated outputs are comprehensible, editable, and traceable—no opaque magic.                                                            |
+Avestra is a simple CLI tool that lets you validate API schemas, generate test cases, and ensure API quality directly from your terminal. Perfect for developers who want to maintain high-quality APIs without complex testing frameworks.
 
 ---
 
-## 3 High-Level Architecture
+## **Core Features (MVP - 7 Days)**
 
+### **Day 1-2: Basic Setup**
+- CLI interface with command parsing
+- Schema validation engine
+- Basic test generation
+
+### **Day 3-4: Core Functionality**
+- Validate OpenAPI/Swagger schemas
+- Generate test cases from schemas
+- Run basic API endpoint tests
+- Export validation reports
+
+### **Day 5-6: Enhanced Features**
+- Performance testing for endpoints
+- Mock data generation
+- Schema documentation generation
+- Integration with CI/CD
+
+### **Day 7: Polish & Deploy**
+- Package for npm/pip/cargo
+- Write comprehensive documentation
+- Create installation scripts
+
+---
+
+## **Simple Data Model**
+
+```json
+{
+  "validations": [
+    {
+      "id": "uuid",
+      "schema_path": "string",
+      "endpoint": "string",
+      "method": "GET|POST|PUT|DELETE",
+      "status": "pass|fail",
+      "errors": ["string"],
+      "created_at": "datetime"
+    }
+  ],
+  "tests": [
+    {
+      "id": "uuid",
+      "name": "string",
+      "endpoint": "string",
+      "method": "string",
+      "payload": "object",
+      "expected_status": "number",
+      "created_at": "datetime"
+    }
+  ],
+  "config": {
+    "base_url": "string",
+    "timeout": "number",
+    "retries": "number"
+  }
+}
 ```
-┌────────────┐      ❶ Manifest & Prompt
-│  Developer │────────────────────────┐
-└────────────┘                        │
-                                      ▼
-                             ┌─────────────────┐
-                             │  LLM Orchestrator│
-                             └─────────────────┘
-        ▲  ▲  ▲                    │
-        │  │  │                    ▼
-        │  │  │        ┌──────────────────────┐
-        │  │  └────────│  Synthesis Pipeline  │
-        │  │           └──────────────────────┘
-        │  │                 │   ▲
-        │  │                 │   │ Iterative
-        │  │   Generated     │   │ Refinement
-        │  │   Artefacts     │   │
-        │  ▼                 │   │
-┌────────────────┐     ┌───────────────┐
-│ Validation Kit │     │ Persistence   │
-│ (contracts +   │     │ Blueprints    │
-│ test harnesses)│     └───────────────┘
-└────────────────┘           │
-        ▲                    ▼
-        └────────────┬──────────────────┐
-                     │ Docs & Diagrams  │
-                     └──────────────────┘
+
+---
+
+## **Installation & Usage**
+
+```bash
+# Install via npm
+npm install -g avestra-cli
+
+# Install via pip
+pip install avestra-cli
+
+# Install via cargo
+cargo install avestra-cli
+
+# Basic usage
+avestra validate swagger.json           # Validate OpenAPI schema
+avestra test --endpoint /api/users      # Test specific endpoint
+avestra generate-tests swagger.json     # Generate test cases
+avestra mock --endpoint /api/users      # Generate mock data
+avestra perf --endpoint /api/users      # Performance test
+avestra report --format html            # Generate HTML report
 ```
 
 ---
 
-## 4 Key Modules
+## **Configuration**
 
-| Module              | Responsibilities                                                                                                                          | LLM Touchpoints                               |
-| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
-| **Schema Forge**    | Parse the domain manifest, infer canonical entity graphs, generate bidirectional validation schemas, and produce fallback default values. | Semantic expansion, edge-case enumeration     |
-| **Persist Planner** | Recommend normalization vs. denormalization, indexing, partitioning, and retention based on usage annotations.                            | Just-in-time data-tier reasoning              |
-| **Quality Harness** | Emit exhaustive test matrices, mock datasets, and mutation miss-tests; auto-wire into CI.                                                 | Test oracle generation & fuzz input synthesis |
-| **Perf Sentinel**   | Benchmark read/write latencies under staged loads; publish baseline dashboards; flag drift.                                               | Workload model extrapolation                  |
-| **Doc Weaver**      | Assemble living docs: entity guides, sequence diagrams, and ADRs (architectural decision records).                                        | Layman translation & diagram narration        |
+Create a config file at `~/.avestra/config.json`:
 
----
-
-## 5 Workflow Walkthrough
-
-1. **Describe Intent**
-   Authors commit a lightweight manifest (YAML/TOML/JSON) declaring entities, constraints, SLAs, and environment hints.
-
-2. **Run “Forge”**
-   The CLI invokes the LLM Orchestrator, which consults domain patterns and best practices to derive artefacts.
-
-3. **Review Pull Request**
-   A curated, minimal diff appears: validation rules, storage DDLs, tests, and docs. Humans approve, amend, or reject.
-
-4. **Continuous Assurance**
-   Every commit re-executes the Quality Harness and Perf Sentinel; violations block the merge, ensuring long-term reliability.
+```json
+{
+  "base_url": "https://api.example.com",
+  "timeout": 5000,
+  "retries": 3,
+  "output_format": "json",
+  "save_reports": true,
+  "report_path": "./reports"
+}
+```
 
 ---
 
-## 6 Design Highlights for the Work-Sample Criteria
+## **Why Open Source?**
 
-| Area                                | How Avestra Addresses It                                                                                                                |
-| ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| **Validation of Structured Inputs** | Generated contracts perform deep structural checks, type conformance, conditional rules, and semantic validations (e.g., ID existence). |
-| **Data Persistence & Retrieval**    | Persist Planner produces entity-specific storage layers and retrieval stubs with clear transactional semantics.                         |
-| **Test Automation (Quality)**       | Fault-injection suites, property-based tests, and schema evolution checks run automatically on every pipeline.                          |
-| **Performance**                     | Synthetic traffic profiles approximate expected volumes; baseline metrics stored for historical comparison.                             |
-| **Modelling & Storage Strategies**  | Combines event-sourced, document, or relational templates depending on data volatility and query shape.                                 |
-| **Code Readability & Organization** | Opinionated directory conventions, exhaustive comments, and ADR records promote discoverability.                                        |
-| **Extensibility**                   | Plugin architecture lets maintainers swap validation libs, storage backends, or LLM providers without breaking contracts.               |
+- **Transparency**: See exactly how validation and testing works
+- **Customization**: Modify to fit your specific API needs
+- **Learning**: Great project for developers to learn API testing
+- **Community**: Others can contribute features they want
+- **Standards**: Support for industry-standard API formats
 
 ---
 
-## 7 Sample Use Cases
+## **Easy Publishing Plan (7 Days)**
 
-1. **Green-field MVPs** – Rapidly scaffold a compliant API with zero hand-written boilerplate.
-2. **Legacy Modernization** – Import an existing schema; Avestra infers validation gaps, persistence anti-patterns, and missing tests.
-3. **Compliance-Driven Domains** – Produce auditable docs and deterministic test suites satisfying regulatory scrutiny.
-4. **Hackathons & Interviews** – Demonstrate architecture skills quickly while focusing on problem-solving over wiring.
+### **Day 1-3: Build & Test**
+- Build the core CLI tool
+- Test all features thoroughly
+- Create comprehensive documentation
 
----
+### **Day 4: Prepare Launch**
+- Create GitHub repository with clear README
+- Write installation instructions
+- Prepare demo video (2-3 minutes)
 
-## 8 Project Roadmap
+### **Day 5: Package & Publish**
+- Package for npm, pip, and cargo
+- Publish to package registries
+- Create GitHub releases
 
-| Phase     | Milestone                 | Description                                                                                             |
-| --------- | ------------------------- | ------------------------------------------------------------------------------------------------------- |
-| **v0.1**  | Core Manifest Spec        | Finalize domain manifest grammar and CLI bootstrap.                                                     |
-| **v0.2**  | Validation Kernel         | End-to-end generation of request/response schemas and runtime hooks.                                    |
-| **v0.3**  | Persistence Drivers       | Pluggable storage blueprints with performance benchmarks.                                               |
-| **v0.4**  | Quality & Perf Suite      | Unified test generation, load harness, and baseline dashboards.                                         |
-| **v1.0**  | Governance & Plugins      | Stable plugin API, contributor guidelines, and community steering committee.                            |
-| **v1.1+** | Multi-Tenant & SaaS Layer | Optional hosted orchestrator, secrets vaulting, and UI explorer (maintained by an adjacent foundation). |
+### **Day 6: Community Launch**
+- Post on Reddit r/opensource, r/webdev
+- Share on Twitter/X with #opensource #api #testing
+- Submit to Hacker News
 
----
-
-## 9 Community & Governance
-
-* **Open Governance Charter** with meritocratic voting for strategic decisions.
-* **Contributor Ladder** recognising documentation, triage, design, and code contributions equally.
-* **Working Groups** for validation kernels, storage adapters, and developer-experience tooling.
-* **Quarterly Town Halls** to set priorities and report KPIs (adoption, PR velocity, test coverage).
+### **Day 7: Community Engagement**
+- Respond to all comments and feedback
+- Create GitHub issues for feature requests
+- Engage with contributors
 
 ---
 
-## 10 License & Ethics
+## **Marketing Strategy**
 
-* **Permissive License** encouraging commercial adoption while protecting contributor credit.
-* **Model Usage Policy** forbids embedding user data into training sets; enforces privacy-by-default.
-* **Code of Conduct** grounded in inclusivity and respectful collaboration.
+### **Target Audience**
+- API developers and architects
+- DevOps engineers
+- Quality assurance teams
+- Open source contributors
+
+### **Key Messages**
+- "Validate and test APIs from the terminal"
+- "Simple API quality assurance"
+- "Built by developers, for developers"
+
+### **Distribution Channels**
+- GitHub (primary)
+- npm, pip, cargo registries
+- Reddit communities
+- Twitter/X developer community
+- Hacker News
+- API development forums
 
 ---
 
-## 11 Key Differentiators
+## **Success Metrics**
 
-1. **Holistic Lifecycle Coverage** – Goes beyond schema generation to own testing, performance, and documentation.
-2. **LLM-Powered Intelligence, Not Opaque Generation** – Outputs remain human-legible and editable.
-3. **Storage-First Heuristics** – Entity definitions include workload semantics, yielding right-sized persistence strategies.
-4. **Standard-Compliant Artefacts** – Aligns with ubiquitous spec formats, preserving portability.
+- **Downloads**: 2000+ in first week
+- **GitHub Stars**: 300+ in first week
+- **Forks**: 50+ active forks
+- **Issues**: 20+ feature requests
+- **Contributors**: 10+ community contributors
 
 ---
 
-## 12 Getting Involved
+## **Future Enhancements**
 
-* **Star & Watch** the repository for release notifications.
-* **Open an Issue** to propose enhancements or report edge-case findings.
-* **Join Discussions** on design topics, especially around Validation DSL evolution.
-* **Contribute Plugins** for additional storage backends, test generators, or language runtimes.
+- Web dashboard for API monitoring
+- Advanced performance testing
+- Security testing features
+- Integration with popular CI/CD tools
+- Custom test framework support
+- API documentation generation
 
-> **Avestra invites builders, reviewers, and dreamers to co-create the next generation of *self-validating* APIs—where quality rituals are automated, performance is predictable, and documentation writes itself.** Together, let’s turn boilerplate into brilliance.
+---
+
+## **Getting Started**
+
+1. Install the CLI tool
+2. Configure your API settings
+3. Validate your first schema
+4. Generate and run tests
+5. Contribute to the project
+
+---
+
+*Built with ❤️ for the API development community*

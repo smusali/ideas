@@ -1,174 +1,178 @@
-# **Sylphra — API-Only MicroSaaS for Global Course Intelligence**
+# **Sylphra** — *Simple Course Recommendation App*
+
+*A lightweight web application that helps students find and compare courses, get personalized recommendations, and plan their academic journey.*
 
 ---
 
-## 1 · Executive Summary
+## **What is Sylphra?**
 
-Sylphra is a developer-first, API-only micro-platform that ingests, normalizes, and enriches worldwide university course data, then exposes it as actionable, AI-enriched endpoints.  It empowers admissions teams, ed-tech products, and credential-evaluation services to automate transcript parsing, perform semantic course-equivalency checks, and generate personalized academic or career recommendations at scale—all without building their own data pipelines or machine-learning infrastructure.
-
----
-
-## 2 · Market Problem
-
-| Challenge                                                          | Impact on Stakeholders                                                      |
-| ------------------------------------------------------------------ | --------------------------------------------------------------------------- |
-| **Fragmented course formats** across thousands of universities     | Manual mapping drains hours from admissions evaluators and LMS vendors      |
-| **Unstructured transcripts** vary by country, language, and layout | Error-prone data entry delays credit-transfer decisions                     |
-| **Lack of fine-grained course similarity metrics**                 | Students risk taking redundant classes; institutions lose transfer students |
-| **Static academic databases** are hard to keep current             | Ed-tech apps ship outdated recommendations                                  |
-| **Global accreditation divergence**                                | Credential evaluators struggle to prove equivalency                         |
+Sylphra is a simple web application that helps students discover courses, get personalized recommendations, and compare academic programs. Built for students, educators, and anyone who wants to make informed decisions about their education.
 
 ---
 
-## 3 · Solution Overview
+## **Core Features (MVP - 7 Days)**
 
-Sylphra offers a suite of REST/GraphQL\* endpoints (transport-agnostic) that provide:
+### **Day 1-2: Basic Setup**
+- Simple web interface for course discovery
+- Basic database to store courses and user preferences
+- User registration and login
 
-1. **Automated Data Ingestion**
-   *Scheduled crawlers & connectors* continuously collect public syllabi, catalog APIs, and PDF bulletins, funneling them through normalization pipelines.
+### **Day 3-4: Core Functionality**
+- Course search and filtering
+- Basic course recommendations
+- Course comparison tools
+- User preference management
 
-2. **Adaptive Transcript Parsing**
-   A **zero-shot OCR+LLM engine** detects layout, language, and grading schema, returning structured JSON in minutes instead of days.
+### **Day 5-6: Enhanced Features**
+- Course reviews and ratings
+- Academic pathway planning
+- Course bookmarking and favorites
+- Export course information
 
-3. **Semantic Course Matching**
-   A **multilingual vector-embedding service** computes similarity scores between any two course objects (content, outcomes, workload, assessments).
-
-4. **Dynamic Equivalency Graph**
-   A constantly-updated knowledge graph links equivalent or prerequisite courses across institutions and curricula.
-
-5. **Guidance & Insights**
-   AI models synthesize transferability reports, prerequisite gap analyses, and personalized course-sequence suggestions.
-
-\*Transport choices are configurable by clients; no UI layer is provided—Sylphra is 100 % API.
-
----
-
-## 4 · Core API Endpoints
-
-| Endpoint                   | Verb   | Payload & Purpose                                                                                              |
-| -------------------------- | ------ | -------------------------------------------------------------------------------------------------------------- |
-| `/v1/transcripts:extract`  | `POST` | Upload a transcript (PDF / image / raw text); returns canonical JSON of courses, grades, credits, and metadata |
-| `/v1/courses:lookup`       | `GET`  | Query Sylphra catalog via keyword, code, institution, or taxonomy filters                                      |
-| `/v1/courses:match`        | `POST` | Input one or many course objects; receive ranked list of semantically similar courses across institutions      |
-| `/v1/equivalency:graph`    | `GET`  | Retrieve subgraph of equivalencies, prerequisites, and accreditation links for a course ID                     |
-| `/v1/recommendations:plan` | `POST` | Provide student profile + desired outcome; returns optimized course roadmap                                    |
-| `/v1/insights:analytics`   | `GET`  | Aggregated metrics (e.g., most transferred courses, skill-gap hotspots) for institutional dashboards           |
-| `/v1/webhooks`             | `POST` | Register for change events (new catalog updates, policy shifts, accreditation changes)                         |
+### **Day 7: Polish & Deploy**
+- Responsive design for mobile
+- Deploy to free hosting platform
+- Write documentation and README
 
 ---
 
-## 5 · Data & Intelligence Pipeline
+## **Simple Data Model**
 
-1. **Acquisition Layer**
+```
+User:
+- id, email, password_hash, academic_level, interests_json, created_at
 
-   * Public catalog scrapers
-   * Institution webhooks / SFTP drops
-   * Bulk transcript uploads
+Course:
+- id, title, description, institution, level, credits, duration, created_at
 
-2. **Normalization Layer**
+CourseCategory:
+- id, name, description, parent_category_id
 
-   * Format & language detection
-   * Schema transformation into Sylphra Course Object (SCO)
+UserPreference:
+- id, user_id, category_id, interest_level, created_at
 
-3. **Enrichment Layer**
+CourseReview:
+- id, course_id, user_id, rating, review_text, created_at
 
-   * LLM-powered key-phrase extraction
-   * Topic mapping to global taxonomies (CIP, ISCED, SOC)
-   * Vector embedding & storage
-
-4. **Graph Layer**
-
-   * Deduplication & entity resolution
-   * Edge creation (similarity, prerequisite, corequisite, accreditation)
-
-5. **Serving Layer**
-
-   * Low-latency query engine with role-based access
-   * Usage-metering & analytics unit
-
-*No customer data is retained beyond agreed retention windows; PII is tokenized.*
+AcademicPath:
+- id, user_id, title, courses_json, created_at
+```
 
 ---
 
-## 6 · Business Model
+## **Why This Works**
 
-| Stream                       | Mechanics                                                                                  |
-| ---------------------------- | ------------------------------------------------------------------------------------------ |
-| **Tiered API subscriptions** | Free sandbox → *Growth* (usage-metered) → *Enterprise* (flat + overages)                   |
-| **Premium knowledge packs**  | Regional accreditation datasets, historical catalog archives, language-specific embeddings |
-| **Professional services**    | Custom ingestion connectors, bulk migration projects                                       |
-| **Marketplace rev-share**    | Third-party ed-tech plugins powered by Sylphra data                                        |
+- **High Demand**: Every student needs course guidance
+- **Clear Value**: Make informed educational decisions
+- **Low Barrier**: Simple web interface, no technical skills required
+- **Scalable**: Can start with basic features and add advanced capabilities
 
 ---
 
-## 7 · Competitive Advantage
+## **Easy Publishing Plan (7 Days)**
 
-1. **API-only DNA** – zero UI overhead means faster iteration and true composability for dev teams.
-2. **Global, multilingual coverage** – first provider to treat non-Latin syllabi as first-class citizens.
-3. **Real-time equivalency graph** – updated continuously vs. annual static reports.
-4. **Privacy-by-design** – tokenization and optional on-prem deployment for sensitive regions.
-5. **MicroSaaS focus** – lean team, low burn, pricing that scales with institutional headcount.
+### **Day 1-3: Build & Test**
+- Build the core application
+- Test all features thoroughly
+- Create simple documentation
 
----
+### **Day 4: Prepare Launch**
+- Create landing page with demo
+- Set up payment processing
+- Prepare marketing materials
 
-## 8 · Target Customers & Use Cases
+### **Day 5: Initial Launch**
+- Post on Product Hunt
+- Share on LinkedIn and Twitter
+- Reach out to education bloggers
 
-| Segment                       | Example Integrations                                                    |
-| ----------------------------- | ----------------------------------------------------------------------- |
-| **Transfer-credit offices**   | Auto-generate articulation tables within SIS workflows                  |
-| **Ed-tech learning planners** | Inject course availability & similarity scores into student-facing apps |
-| **Credential evaluators**     | Expedite foreign transcript assessments with AI-assisted mapping        |
-| **MOOC providers**            | Align micro-credential offerings with university curricula              |
-| **Scholarship platforms**     | Verify applicant coursework against eligibility criteria                |
+### **Day 6: Community Engagement**
+- Respond to all comments and feedback
+- Share on Reddit r/education, r/students
+- Engage with early users
 
----
-
-## 9 · Go-To-Market Roadmap
-
-| Phase         | Milestone                                          | KPI                         |
-| ------------- | -------------------------------------------------- | --------------------------- |
-| **0 → 3 mo**  | Closed beta with 3 transfer-credit offices         | 10k transcripts processed   |
-| **4 → 6 mo**  | Self-serve portal & usage-based billing            | \$15k MRR                   |
-| **7 → 12 mo** | Marketplace for add-ons + public catalog API       | 150 institutions integrated |
-| **Year 2**    | Accreditation compliance pack (AACRAO, ENIC-NARIC) | 1 M course objects ingested |
+### **Day 7: Follow-up**
+- Analyze user feedback
+- Plan next iteration
+- Start building user base
 
 ---
 
-## 10 · Metrics That Matter
+## **Marketing Strategy**
 
-* **Transcript parse accuracy** (≥ 98 % field-level precision)
-* **Course match F1 score** (≥ 0.90 within top-5 results)
-* **Catalog freshness lag** (< 48 h from source update)
-* **Monthly active API consumers**
-* **Gross margin** (target > 85 % given low infra footprint)
+### **Target Audience**
+- **Primary**: Students, prospective students, educators
+- **Secondary**: Academic advisors, career counselors
+- **Tertiary**: Anyone interested in education
 
----
+### **Key Messages**
+- "Find the perfect courses for your goals"
+- "Make informed educational decisions"
+- "Simple course discovery that works"
 
-## 11 · Risks & Mitigations
+### **Distribution Channels**
+- **Product Hunt**: Launch for immediate visibility
+- **LinkedIn**: Target education professionals
+- **Twitter**: Education and student communities
+- **Reddit**: r/education, r/students, r/Entrepreneur
+- **Email Marketing**: Cold outreach to education bloggers
 
-| Risk                                      | Mitigation                                                          |
-| ----------------------------------------- | ------------------------------------------------------------------- |
-| Data-sharing reluctance from universities | Offer reciprocal analytics & on-prem connectors                     |
-| Rapid curriculum changes                  | Near-real-time scraping & institution push feeds                    |
-| Regulatory hurdles (GDPR, FERPA)          | Regional data centers, fine-grained consent, configurable retention |
-| Competitor feature catch-up               | Maintain lead via graph analytics & multilingual embeddings         |
-| Over-reliance on a single LLM vendor      | Abstracted model layer with pluggable providers                     |
-
----
-
-## 12 · Future Extensions
-
-1. **Real-time skill inference**: Map course outcomes to industry skill ontologies for employability analytics.
-2. **Proctorless assessment verification**: Validate course rigor via assignment-level embeddings.
-3. **Scholar-level reputation scores**: Aggregate instructor impact and research alignment to guide student choice.
-4. **Credential blockchain anchor**: Optional tamper-proof proof-of-completion tokens.
+### **Pricing Strategy**
+- **Freemium**: Free for basic recommendations, paid for advanced features
+- **Monthly**: $6.99/month for unlimited recommendations
+- **Annual**: $69/year (17% discount)
+- **Student**: $4.99/month with student verification
 
 ---
 
-## 13 · Call to Action
+## **Revenue Generation Plan**
 
-Developers, admissions innovators, and ed-tech founders are invited to **request early access** to Sylphra’s private beta.  Harness the power of unified, AI-enriched course intelligence through a single, elegant API—and build the next generation of global education tools without the heavy lifting.
+### **Week 1 Revenue Targets**
+- **Day 1-3**: Focus on building and testing
+- **Day 4**: Launch with freemium model
+- **Day 5-7**: Target 10-20 paid users
+
+### **Revenue Streams**
+1. **Subscription Revenue**: Monthly/annual plans
+2. **Premium Features**: Advanced recommendations and analytics
+3. **API Access**: For developers wanting to integrate
+4. **Institution Partnerships**: For featured course listings
+
+### **Quick Wins**
+- Offer 7-day free trial for all paid plans
+- Create viral course recommendation examples
+- Partner with education influencers
+- Build referral program
 
 ---
 
-<p align="center"><em>Sylphra — Accelerating academic mobility, one API call at a time.</em></p>
+## **Success Metrics**
+
+- **Week 1**: 100+ signups, 10+ paid users
+- **Month 1**: 500+ signups, 50+ paid users
+- **Month 3**: 2000+ signups, 200+ paid users
+- **Revenue Target**: $350+ in first month
+
+---
+
+## **Future Enhancements**
+
+- Integration with university course catalogs
+- Advanced recommendation algorithms
+- Mobile app for course discovery
+- Team collaboration features
+- Course scheduling and planning tools
+- Integration with learning management systems
+
+---
+
+## **Getting Started**
+
+1. **Sign up** for free account
+2. **Set your academic interests**
+3. **Upgrade** to paid plan for advanced recommendations
+4. **Start discovering** perfect courses
+
+---
+
+*Built with ❤️ for students*
