@@ -1,101 +1,145 @@
-### JobTrackr — a lightweight, AI-assisted job-search companion
+# **JobTrackr** — *Simple Job Search Tracker*
 
-*A browser extension + web dashboard that turns any job-posting URL into a structured, living “card,” then keeps your interview pipeline organized with almost no data entry.*
-
----
-
-#### 1. Core user flow (MVP)
-
-1. **Save a posting**
-
-   * User hits the extension’s “Save Job” button while on a job page (LinkedIn, Greenhouse, Lever, Workday, AngelList, etc.).
-   * The URL is sent to a tiny scraping API (Puppeteer/Playwright) that normalizes the HTML, extracts text, and snapshots a PDF/PNG of the ad for archival.
-
-2. **AI field-extraction & summary**
-
-   * LLM parses the raw text into:
-     `title, company, salary, location, remote_policy, employment_type, tech_stack[], duties[], requirements[], posting_date, source`.
-   * Generates a 3-sentence “Fit Summary” highlighting stack, seniority and culture cues.
-
-3. **Status board**
-
-   * Each job appears as a Kanban card in one of the pipeline columns: `LISTED → APPLIED → INITIAL ROUND → FINAL ROUND → OFFER → REJECTED`.
-   * User drags cards or clicks quick-actions (✅ Applied, 🎤 Interview Scheduled) to advance status; timestamps are auto-logged.
-
-4. **Smart reminders**
-
-   * If a card sits 7 days in `LISTED` with no action, the system pings “Ready to apply?”
-   * After an interview date is added, an .ics file is pushed to Google Calendar and a 24-hour prep reminder is scheduled.
-
-5. **Dashboard & exports**
-
-   * Quick stats: “Applications this month”, “Hit rate to first interview”, salary distribution histogram.
-   * One-click CSV/Notion sync for cohort tracking or visa paperwork.
+*A lightweight, open-source job application tracker that helps developers organize their job search with minimal effort.*
 
 ---
 
-#### 2. Easy, high-impact add-ons
+## **What is JobTrackr?**
 
-| Add-on (1–2 day effort)       | What it does                                                                                                              | Why it’s valuable                      |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
-| **Auto-cover letter drafter** | Prompts GPT with job duties + user’s résumé bullets; outputs a 200-word tailored cover letter in Markdown.                | Reduces friction on first apply.       |
-| **Duplicate detector**        | Hashes `company + title` to alert if you saved the same role from another board.                                          | Keeps board tidy.                      |
-| **Email sniff & status sync** | Connect Gmail via OAuth; if a reply has subject “We’d like to interview you”, move card to `INITIAL ROUND` automatically. | Cuts manual updates.                   |
-| **Skill gap heatmap**         | Compares extracted tech\_stack\[] with skills in the user’s résumé JSON; highlights areas to brush up.                    | Guides study focus.                    |
-| **Archival viewer**           | Stores a web-shot/PDF; if the listing disappears, you still have the original description.                                | Useful for prep when ad is taken down. |
+JobTrackr is a simple web application that lets you save job postings, track your applications, and stay organized during your job search. No complex features, just the essentials you need to keep your job hunt organized.
 
 ---
 
-#### 3. Technical sketch (all open-source-friendly)
+## **Core Features (MVP - 7 Days)**
 
-| Layer                      | Tooling                                                                                     |
-| -------------------------- | ------------------------------------------------------------------------------------------- |
-| **Browser extension**      | Manifest V3, TypeScript, `chrome.storage.sync` for auth token.                              |
-| **Scrape & Parse service** | Cloudflare Workers + Playwright; calls OpenAI function-calling for field extraction.        |
-| **API / backend**          | FastAPI (Python) or tRPC (Node) + Supabase Postgres. Row-level security keeps data private. |
-| **LLM operations**         | Streaming completions; cache embeddings in Supabase Vector for duplicate detection.         |
-| **Dashboard**              | Next.js + Tailwind (Kanban via `dnd-kit`).                                                  |
-| **Notifications**          | Cron jobs in Supabase Edge Functions; emails via Resend, calendar via Google API.           |
+### **Day 1-2: Basic Setup**
+- Simple web interface for adding job postings
+- Basic database to store job information
+- User registration and login
+
+### **Day 3-4: Core Functionality**
+- Add jobs with company, position, salary, location
+- Track application status (Saved, Applied, Interview, Offer, Rejected)
+- Simple dashboard showing job counts and status
+
+### **Day 5-6: Enhanced Features**
+- Notes field for each job
+- Date tracking for applications and interviews
+- Export data to CSV
+- Basic search and filtering
+
+### **Day 7: Polish & Deploy**
+- Responsive design for mobile
+- Deploy to free hosting platform
+- Write documentation and README
 
 ---
 
-#### 4. Minimal data model
+## **Simple Data Model**
 
-```mermaid
-erDiagram
-  users ||--o{ jobs : "has"
-  jobs {
-    uuid id PK
-    text raw_html
-    text company
-    text title
-    text[] tech_stack
-    text location
-    text remote_policy
-    text salary
-    text duties_md
-    text requirements_md
-    enum status
-    timestamptz created_at
-    timestamptz updated_at
-    timestamptz next_reminder_at
-    text source_url
-  }
+```
+User:
+- id, email, password_hash, created_at
+
+Job:
+- id, user_id, company, position, salary, location, status, notes, url, applied_date, created_at
+
+Status Options:
+- Saved, Applied, Interview, Offer, Rejected
 ```
 
 ---
 
-#### 5. Roll-out milestones
+## **Why Open Source?**
 
-| Week  | Deliverable                                                    |
-| ----- | -------------------------------------------------------------- |
-| **1** | Extension saves URLs, backend stores raw HTML & screenshots.   |
-| **2** | LLM field extraction + Fit Summary; Kanban board UI.           |
-| **3** | Status change logging, reminder scheduler, CSV export.         |
-| **4** | Cover-letter generator, Gmail status sync, duplicate detector. |
+- **Privacy**: Your job search data stays on your own server
+- **Customization**: Modify it to fit your specific workflow
+- **Learning**: Great project for developers to learn web development
+- **Community**: Others can contribute improvements
 
 ---
 
-**Why this works**
+## **Easy Publishing Plan (7 Days)**
 
-*JobTrackr* attacks the two biggest pain points in tech job hunting—copy-pasting details and losing track of follow-ups—while staying delightfully minimal. Because parsing + Kanban are automated but everything else is user-triggered, you avoid compliance hurdles (no auto-apply, no scraping behind login walls) and keep the codebase lean enough for a weekend MVP.
+### **Day 1-3: Build & Test**
+- Build the core application
+- Test all features thoroughly
+- Create simple documentation
+
+### **Day 4: Prepare Launch**
+- Create GitHub repository
+- Write compelling README with screenshots
+- Prepare demo video (2-3 minutes)
+
+### **Day 5: Initial Launch**
+- Post on Reddit r/webdev, r/opensource
+- Share on Twitter/X with #opensource #jobsearch
+- Submit to Product Hunt (if ready)
+
+### **Day 6: Community Engagement**
+- Respond to all comments and feedback
+- Share on LinkedIn with developer community
+- Post on Hacker News
+
+### **Day 7: Follow-up**
+- Create GitHub issues for feature requests
+- Engage with contributors
+- Plan next iteration based on feedback
+
+---
+
+## **Marketing Strategy**
+
+### **Target Audience**
+- Developers actively job searching
+- Recent graduates entering tech
+- Career changers moving into tech
+- Open source enthusiasts
+
+### **Key Messages**
+- "Track your job search without the complexity"
+- "Built by developers, for developers"
+- "Your data, your control"
+
+### **Distribution Channels**
+- GitHub (primary)
+- Reddit communities
+- Twitter/X developer community
+- LinkedIn developer groups
+- Hacker News
+- Dev.to
+
+---
+
+## **Success Metrics**
+
+- **GitHub Stars**: 100+ in first week
+- **Forks**: 20+ active forks
+- **Issues**: 10+ feature requests
+- **Contributors**: 5+ community contributors
+- **Deployments**: 50+ people using the app
+
+---
+
+## **Future Enhancements**
+
+- Browser extension for easy job saving
+- Email integration for automatic status updates
+- Resume parser integration
+- Interview preparation tools
+- Salary negotiation tracker
+- Company research integration
+
+---
+
+## **Getting Started**
+
+1. Fork the repository
+2. Set up local development environment
+3. Create your first job posting
+4. Customize for your needs
+5. Share improvements with the community
+
+---
+
+*Built with ❤️ for the developer community*

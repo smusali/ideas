@@ -1,148 +1,264 @@
 # **Rekursia**
 
-*A self-reflective, LLM-augmented, in-memory transactional database that teaches itself—and its users—how data really works.*
+> *"Learn databases through interactive examples"*
 
 ---
 
-## 1 · Elevator Pitch
+## **Overview**
 
-Rekursia melds a lightweight, Redis-style key/value store with a large-language-model “co-driver.”
-Instead of merely **storing** integers, Rekursia **understands** the intent behind every command, **explains** its own internal state in plain language, and **guides** users through nested transactions, rollbacks, and commits.
-The result is an open-source learning vessel where developers, data-curious professionals, and educators can experiment with mutable state, observe cause-and-effect in real time, and interrogate the system itself for deeper insight.
+Rekursia is an open-source educational database tool that helps developers and students learn database concepts through interactive examples and visual feedback. Instead of reading dry documentation, users can experiment with database operations in real-time and see exactly what happens at each step.
 
 ---
 
-## 2 · Why It Matters
+## **Problem**
 
-| Challenge                                    | Traditional Approach                | Rekursia’s Remedy                                                                                   |
-| -------------------------------------------- | ----------------------------------- | --------------------------------------------------------------------------------------------------- |
-| **Opaque state** during complex transactions | Depend on logs or manual inspection | LLM generates human-readable digests of every intermediate state, highlighting deltas               |
-| **Steep learning curve** for ACID concepts   | Lengthy docs & textbook examples    | Interactive, conversational walkthroughs of isolation levels, rollback chains, and commit semantics |
-| **Debugging nested transactions**            | Step-through with breakpoints       | “Time-travel” prompts: ask, *“What did the database look like three commands ago?”*                 |
-| **Educational demos** require scaffolding    | Build small one-off prototypes      | Turnkey playground; shareable sessions export to Markdown for classroom or blog usage               |
-
----
-
-## 3 · Guiding Principles
-
-1. **Explain-ability first** – Every internal mutation can be narrated by the LLM in simple or advanced terminology.
-2. **No-surprise state** – Users can query the *reason* behind a value, not just the value itself.
-3. **Nested without stress** – Unlimited `BEGIN … ROLLBACK/COMMIT` depth, visualised as a collapsible stack.
-4. **Zero-lock-in** – Core database is spec-driven and pluggable; any language, any storage adapter.
-5. **Open pedagogy** – All reference material, tutorials, and session replays live in the same repo under a permissive licence.
+- Database concepts are hard to learn from textbooks alone
+- No easy way to visualize database operations
+- Difficult to understand transactions and rollbacks
+- Learning database concepts requires setting up complex environments
+- No interactive way to experiment with database operations
 
 ---
 
-## 4 · Key Features
+## **Solution**
 
-### 4.1 Transactional Memory Core
-
-* **Constant-time** `SET`, `GET`, and `UNSET` operations.
-* **Snapshot isolation** per nested block.
-* **Shadow-copy ledger** enables instant rollback without full duplication of base state.
-
-### 4.2 LLM Conversational Layer
-
-* **Command Autocomplete**
-  *Type “set price 12 then…” → LLM proposes next logical step.*
-* **Natural-Language Diff**
-  *“Summarise what changed since the last commit.”*
-* **Why-Lens**
-  For any key, ask *“Why is `balance` = 180?”* and receive an audit trail explanation.
-
-### 4.3 Pedagogical Toolkit
-
-* **Interactive Walkthroughs** packaged as shareable scripts (“journeys”).
-* **Challenge Mode**: the LLM poses tasks (“Perform two nested transactions that leave `a` equal to 20”) and validates answers.
-* **State Timelapse**: generate a GIF or Markdown table of variable values across command history.
-
-### 4.4 Extensibility Surface
-
-* **Adapter Spec** for swapping out volatile in-memory store with persistent back-ends.
-* **Hook System**: emit structured events (`beforeSet`, `afterRollback`, etc.) that the LLM can consume for richer narratives.
-* **Pluggable Skills**: bolt-on modules—e.g., “probabilistic undo suggestions,” “query embeddings,” or “visual dependency graphs.”
+A simple web application that:
+- Provides an interactive database playground
+- Shows step-by-step explanations of database operations
+- Visualizes transactions, commits, and rollbacks
+- Offers guided tutorials for common database concepts
+- Allows users to experiment without setting up real databases
 
 ---
 
-## 5 · User Journeys
+## **Core Features**
 
-| Persona                   | Initial Need             | Rekursia Experience                                                                               |
-| ------------------------- | ------------------------ | ------------------------------------------------------------------------------------------------- |
-| **Junior developer**      | Understand transactions  | Opens web playground; LLM guides through nested `BEGIN` blocks with instant feedback              |
-| **Backend engineer**      | Prototype a config cache | Spins up headless mode, unit-tests optimistic updates while receiving human-readable diff logs    |
-| **Data science educator** | Teach state mutation     | Uses Classroom Mode to broadcast commands; students play along in sync and ask the LLM follow-ups |
-| **Tech writer**           | Blog about isolation     | Records a session; exports conversation + command timeline for embedded tutorial                  |
+### **Interactive Database Playground**
+- Simple key-value database interface
+- Real-time execution of database commands
+- Visual feedback for every operation
+- Step-by-step explanations
 
----
+### **Transaction Visualization**
+- Visual representation of transaction stacks
+- Clear display of commits and rollbacks
+- Timeline view of database state changes
+- Branch visualization for nested transactions
 
-## 6 · High-Level Architecture (Conceptual)
+### **Educational Tutorials**
+- Guided lessons on database concepts
+- Interactive challenges and exercises
+- Progress tracking and completion certificates
+- Shareable session exports
 
-1. **Command Interpreter** – Parses tokens or accepts plain-language instructions if enabled.
-2. **Mutation Engine** – Applies operations to a layered dictionary stack; broadcasts events.
-3. **State Historian** – Immutable log of every diff, with branching metadata for nested scopes.
-4. **LLM Gateway** – Consumes events + context window, produces narratives, suggestions, and verifications.
-5. **Interface Surfaces**
-
-   * *CLI* for power users
-   * *Web Playground* for interactive demos
-   * *Embeddable Widget* for docs, slides, or Jupyter-style notebooks
-
----
-
-## 7 · Roadmap
-
-| Milestone                      | Description                                                                       | Target Quarter |
-| ------------------------------ | --------------------------------------------------------------------------------- | -------------- |
-| **MVP Core**                   | Deterministic in-memory DB, full test suite parity with Simple Database Challenge | Q3 ‘25         |
-| **Conversational Shell**       | Basic prompt → command translation; LLM-generated diffs                           | Q3 ‘25         |
-| **Nested Visualiser**          | Stack diagram auto-updates; hover to inspect scope values                         | Q4 ‘25         |
-| **Session Exporter**           | One-click export to interactive Markdown / static HTML                            | Q4 ‘25         |
-| **Plugin Marketplace**         | Registry for adapters & pedagogical add-ons                                       | Q1 ‘26         |
-| **Distributed Mode (stretch)** | Experimental multi-node consensus demo with narrative insights                    | Q2 ‘26         |
+### **Learning Tools**
+- Command history with explanations
+- State snapshots at each step
+- Error explanations and suggestions
+- Practice mode with sample data
 
 ---
 
-## 8 · Community & Governance
+## **7-Day Build Plan**
 
-| Aspect              | Approach                                                                                                 |
-| ------------------- | -------------------------------------------------------------------------------------------------------- |
-| **Licence**         | OSI-approved, ensuring freedom to fork, study, and commercialise                                         |
-| **Stewardship**     | Lightweight core team, rotating maintainers, RFC process for significant changes                         |
-| **Funding**         | Sponsorship tiers: *Individual*, *Academic*, *Enterprise*—all perks funnel back into community resources |
-| **Code of Conduct** | Inclusive, enforcement transparency, restorative practices                                               |
-| **Recognition**     | “First Explainers” program rewards contributors who author narrative tests or educational journeys       |
+### **Day 1: Project Setup & Basic UI**
+- Set up project structure
+- Create simple web interface
+- Build basic database playground
 
----
+### **Day 2: Database Engine**
+- Implement simple key-value store
+- Add basic GET, SET, DELETE operations
+- Create in-memory data storage
 
-## 9 · Success Metrics
+### **Day 3: Transaction System**
+- Implement BEGIN, COMMIT, ROLLBACK
+- Add transaction stack visualization
+- Build state snapshot functionality
 
-* **Time-to-Comprehension**: average minutes for a new user to master nested rollbacks (goal ≤ 15 min).
-* **Narrative Coverage**: percentage of commands that trigger meaningful LLM explanations (goal ≥ 95 %).
-* **Session Replays Shared**: number of exported journeys posted in docs, blogs, or courses.
-* **Plugin Ecosystem Size**: count of community-built adapters & skills within first year (goal ≥ 30).
-* **Educational Adoption**: universities or bootcamps integrating Rekursia into curricula.
+### **Day 4: Interactive Features**
+- Add command execution interface
+- Implement step-by-step explanations
+- Create visual feedback system
 
----
+### **Day 5: Educational Content**
+- Build tutorial system
+- Add sample lessons and exercises
+- Create progress tracking
 
-## 10 · Getting Involved
+### **Day 6: Visualization & Export**
+- Add transaction timeline view
+- Implement session export functionality
+- Create shareable lesson links
 
-1. **Star & Watch** the repository to follow progress.
-2. **Join the Forum** – weekly “office hours” for roadmap discussions and demo showcases.
-3. **Open an Idea Ticket** – propose new pedagogical scenarios; no prior DB expertise required.
-4. **Translate Narratives** – help the LLM speak your language; contribute locale packs.
-5. **Write a Journey** – craft step-by-step challenges, earn a badge in the README Hall of Fame.
-
----
-
-## 11 · Future Horizons
-
-* **Adaptive Difficulty** – LLM adjusts explanations based on user proficiency detection.
-* **Voice Interface** – Speak commands, hear narrated state transitions.
-* **VR Data Lab** – Visualise transaction stacks in 3-D space for immersive teaching.
-* **Semantic Debugger** – Ask, *“Which earlier mutation introduced this inconsistency?”* and receive a forensic timeline.
+### **Day 7: Polish & Documentation**
+- Improve UI/UX
+- Add comprehensive documentation
+- Create demo and examples
 
 ---
 
-## **Call to Action**
+## **Data Model**
 
-If you believe databases shouldn’t be black boxes—and that learning should feel like a conversation—join us in forging **Rekursia**. Together we’ll transform mutable state from a debugging nightmare into an illuminating, story-driven adventure.
+### **DatabaseState**
+```json
+{
+  "id": "session_id",
+  "data": {
+    "key1": "value1",
+    "key2": "value2"
+  },
+  "transactions": [
+    {
+      "id": "tx_id",
+      "type": "BEGIN",
+      "timestamp": "2024-01-15T10:30:00Z",
+      "changes": {}
+    }
+  ],
+  "history": [
+    {
+      "command": "SET name John",
+      "result": "OK",
+      "explanation": "Set key 'name' to value 'John'"
+    }
+  ]
+}
+```
+
+### **Tutorial**
+```json
+{
+  "id": "tutorial_id",
+  "title": "Basic Transactions",
+  "description": "Learn how to use BEGIN, COMMIT, and ROLLBACK",
+  "steps": [
+    {
+      "command": "SET balance 100",
+      "explanation": "Start with a balance of 100"
+    },
+    {
+      "command": "BEGIN",
+      "explanation": "Start a new transaction"
+    }
+  ],
+  "difficulty": "beginner"
+}
+```
+
+### **UserProgress**
+```json
+{
+  "user_id": "user_id",
+  "completed_tutorials": ["tutorial_1", "tutorial_2"],
+  "total_commands": 150,
+  "sessions_created": 25,
+  "last_activity": "2024-01-15T10:30:00Z"
+}
+```
+
+---
+
+## **Easy Publishing Plan**
+
+### **Day 1: Repository Setup**
+- Create GitHub repository with clear README
+- Add license (MIT) and contributing guidelines
+- Set up basic project structure
+
+### **Day 2: Core Documentation**
+- Write installation instructions
+- Create quick start guide
+- Add tutorial documentation
+
+### **Day 3: Demo & Examples**
+- Create sample tutorials
+- Build interactive demo
+- Add usage examples
+
+### **Day 4: Community Outreach**
+- Post on Hacker News, Reddit r/opensource
+- Share on Twitter with #opensource #education
+- Reach out to educational communities
+
+### **Day 5: Documentation Polish**
+- Add troubleshooting guide
+- Create video walkthrough
+- Improve README with screenshots
+
+### **Day 6: Community Engagement**
+- Respond to issues and questions
+- Add feature requests to roadmap
+- Engage with early adopters
+
+### **Day 7: Launch & Monitor**
+- Announce v1.0 release
+- Monitor feedback and usage
+- Plan next iteration
+
+---
+
+## **Marketing Strategy**
+
+### **Target Audience**
+- **Primary**: Students learning databases
+- **Secondary**: Developers wanting to understand database concepts
+- **Tertiary**: Educators and instructors
+
+### **Channels**
+- **GitHub**: Open source community
+- **Reddit**: r/opensource, r/learnprogramming, r/database
+- **Twitter**: Developer and educational community
+- **Dev.to**: Technical blog posts
+- **Educational platforms**: Share with coding bootcamps
+
+### **Content Strategy**
+- "Learn databases by doing, not just reading"
+- "Visualize database operations in real-time"
+- "Master transactions through interactive examples"
+- Share before/after examples of database learning
+
+### **Success Metrics**
+- GitHub stars and forks
+- Number of contributors
+- Community engagement (issues, discussions)
+- Adoption in educational institutions
+
+---
+
+## **Future Enhancements**
+
+### **Phase 2 (Month 2)**
+- Advanced database concepts (indexes, joins)
+- Multiple database types (SQL, NoSQL)
+- Performance visualization
+- Collaborative learning features
+
+### **Phase 3 (Month 3)**
+- Custom tutorial creation
+- Advanced exercises and challenges
+- Integration with learning management systems
+- Mobile app for learning on the go
+
+### **Phase 4 (Month 6)**
+- AI-powered explanations
+- Personalized learning paths
+- Advanced analytics and insights
+- Enterprise features for organizations
+
+---
+
+## **Why This Matters**
+
+Database concepts are fundamental to software development, but they're often taught through abstract examples that are hard to visualize. Rekursia makes database learning interactive and engaging, helping developers build a solid foundation of database knowledge through hands-on experimentation.
+
+---
+
+## **Get Started**
+
+1. **Clone the repository**
+2. **Open the interactive playground**
+3. **Start with the tutorials**
+4. **Experiment and learn**
+
+Join the community and help make database education accessible to everyone!

@@ -1,114 +1,93 @@
-# **NexusFlow — File & Service Management Platform**
+# **NexusFlow — Simple File Sharing with Auto-Expiration**
 
-*A simple web app that handles file sharing and service monitoring in one place. Share files temporarily, monitor your services, and keep everything running smoothly.*
+*A web app that lets you share files with temporary links that automatically expire. Perfect for sending sensitive documents, code snippets, or any file you don't want to stay online forever.*
 
 ---
 
 ## 1. Executive Summary
 
-**NexusFlow** is a unified platform for file sharing and service monitoring. Share files with auto-expiring links, monitor your critical services, and get instant alerts when things go down. Perfect for developers, small businesses, and anyone who needs both file sharing and uptime monitoring.
+**NexusFlow** is a simple file sharing service with automatic expiration. Upload any file, get a shareable link, and set how long it should stay available. Once the time expires, the file is automatically deleted. No accounts needed, no complex setup - just drag, drop, and share.
 
 ---
 
 ## 2. Problem Statement
 
-People struggle with file and service management because:
-- **Multiple tools needed** - Separate apps for file sharing and monitoring
-- **Service downtime** - Don't know when apps go down
-- **File security** - Permanent links create security risks
-- **Complex setup** - Enterprise tools are overkill for simple needs
-- **Cost** - Expensive solutions for basic functionality
+People struggle with file sharing because:
+- **Permanent links** - Files stay online forever, creating security risks
+- **Complex tools** - Most file sharing requires accounts and setup
+- **No control** - Can't set expiration times on shared files
+- **Privacy concerns** - Files remain accessible indefinitely
+- **Overkill solutions** - Enterprise tools for simple sharing needs
 
 ---
 
 ## 3. Solution Overview
 
-NexusFlow provides a unified interface for:
-1. **Temporary File Sharing** - Upload files with auto-expiring links
-2. **Service Monitoring** - Check website and API health
-3. **Instant Alerts** - Get notified when services go down
-4. **File Management** - Organize and track file access
+NexusFlow provides instant file sharing with:
+1. **Drag & Drop Upload** - No account required
+2. **Auto-Expiration** - Set files to delete after 1 hour to 7 days
+3. **Simple Links** - Clean, shareable URLs
+4. **Download Tracking** - See how many times files were downloaded
+5. **Password Protection** - Optional password for sensitive files
 
 **MVP Features:**
-- File upload with expiration times
-- Service health monitoring
-- Email and Slack notifications
+- File upload (up to 100MB)
+- Expiration times (1 hour, 6 hours, 1 day, 3 days, 7 days)
 - Download tracking
-- Simple dashboard for both services
+- Password protection
+- Mobile-friendly interface
 
 ---
 
-## 4. Technical Stack
+## 4. User Workflow
 
-**Frontend:**
-- React + TypeScript
-- Tailwind CSS for styling
-- React Dropzone for file uploads
-- React Query for data fetching
-
-**Backend:**
-- Node.js + Express
-- Multer for file handling
-- SQLite for metadata storage
-- Simple cron jobs for monitoring
-
-**Infrastructure:**
-- Vercel for hosting
-- Cloudflare R2 for file storage
-- GitHub Actions for deployment
-- Free tier services to start
-
----
-
-## 5. User Workflow
-
-1. **Sign up** - Create account with email
-2. **Add services** - Enter URLs to monitor
-3. **Share files** - Upload files with expiration times
-4. **Monitor** - View dashboard with service status
-5. **Get alerts** - Instant notifications when services go down
+1. **Upload** - Drag file to browser or click to select
+2. **Set Expiration** - Choose how long file should stay available
+3. **Get Link** - Copy the generated shareable link
+4. **Share** - Send link to anyone via email, chat, etc.
+5. **Track** - Monitor downloads until expiration
 
 **Example Use Cases:**
-- **Developers**: Monitor APIs and share code snippets
-- **Small businesses**: Check website uptime and share documents
-- **Freelancers**: Monitor client sites and share deliverables
-- **Teams**: Track services and collaborate on files
+- **Developers**: Share code snippets that expire after review
+- **Designers**: Send design files with temporary access
+- **Business**: Share sensitive documents with time limits
+- **Students**: Exchange homework files temporarily
+- **Anyone**: Share photos or videos that shouldn't stay online
 
 ---
 
-## 6. Monetization Strategy
+## 5. Monetization Strategy
 
 **Free Tier:**
-- 3 services monitored
-- 50MB max file size
-- 1-day file expiration
-- Email notifications only
-- 7-day history
+- 100MB max file size
+- 7-day max expiration
+- Basic download tracking
+- No password protection
+- 10 files per day
 
-**Pro Plan ($19/month):**
-- 20 services monitored
+**Pro Plan ($9/month):**
 - 500MB max file size
-- 30-day file expiration
-- Email + Slack notifications
-- 30-day history
-- Auto-restart webhooks
+- 30-day max expiration
+- Advanced analytics
+- Password protection
+- 100 files per day
+- Custom branding
 
-**Business Plan ($49/month):**
-- Unlimited services
+**Business Plan ($29/month):**
 - 2GB max file size
-- 90-day file expiration
-- All notification channels
-- 90-day history
+- 90-day max expiration
+- Team management
 - API access
+- Unlimited files
 - Priority support
 
 ---
 
-## 7. Go-to-Market Strategy
+## 6. Go-to-Market Strategy
 
 **Week 1 Launch Plan:**
-1. **Day 1-2:** Build MVP with file sharing
-2. **Day 3:** Add service monitoring
+1. **Day 1-2:** Build file upload and sharing
+2. **Day 3:** Add expiration functionality
 3. **Day 4:** Create landing page
 4. **Day 5:** Launch on Product Hunt
 5. **Day 6-7:** Gather feedback and iterate
@@ -121,144 +100,142 @@ NexusFlow provides a unified interface for:
 - Cold outreach to small businesses
 
 **Target Audience:**
-- Solo developers
-- Small startup teams
-- Freelancers and consultants
+- Developers and designers
 - Small business owners
-- Indie hackers
+- Freelancers and consultants
+- Students and educators
+- Anyone who shares files regularly
 
 ---
 
-## 8. Revenue Projections
+## 7. Revenue Projections
 
 **Month 1:**
-- 150 free users
-- 15 Pro conversions ($285)
-- 3 Business conversions ($147)
-- **Total: $432**
+- 200 free users
+- 20 Pro conversions ($180)
+- 5 Business conversions ($145)
+- **Total: $325**
 
 **Month 3:**
-- 600 free users
-- 60 Pro conversions ($1,140)
-- 15 Business conversions ($735)
-- **Total: $1,875**
+- 800 free users
+- 80 Pro conversions ($720)
+- 20 Business conversions ($580)
+- **Total: $1,300**
 
 **Month 6:**
-- 1,500 free users
-- 150 Pro conversions ($2,850)
-- 40 Business conversions ($1,960)
-- **Total: $4,810**
+- 2,000 free users
+- 200 Pro conversions ($1,800)
+- 50 Business conversions ($1,450)
+- **Total: $3,250**
 
 **Year 1 Goal:**
-- 4,000 free users
-- 400 Pro users ($7,600/month)
-- 100 Business users ($4,900/month)
-- **Total: $12,500/month**
+- 5,000 free users
+- 500 Pro users ($4,500/month)
+- 125 Business users ($3,625/month)
+- **Total: $8,125/month**
 
 ---
 
-## 9. Development Timeline
+## 8. Development Timeline
 
 **Week 1: MVP Development**
-- Day 1: Basic file upload and sharing
-- Day 2: Service monitoring
-- Day 3: Notification system
-- Day 4: Dashboard
-- Day 5: Landing page
+- Day 1: Basic file upload and storage
+- Day 2: Expiration system and cleanup
+- Day 3: Download tracking and analytics
+- Day 4: Password protection
+- Day 5: Landing page and design
 - Day 6: Testing and bug fixes
 - Day 7: Launch preparation
 
 **Week 2: Post-Launch**
 - User feedback collection
 - Bug fixes and improvements
-- Advanced monitoring features
-- File analytics
+- Performance optimization
+- Analytics dashboard
 
 **Week 3-4: Growth**
 - Marketing and outreach
 - Feature enhancements
 - Customer support
-- Analytics and optimization
+- Payment integration
 
 ---
 
-## 10. Competitive Analysis
+## 9. Competitive Analysis
 
 **Competitors:**
-- **WeTransfer** - Only file sharing, no monitoring
-- **UptimeRobot** - Only monitoring, expensive
-- **Dropbox** - Permanent storage, complex
-- **Pingdom** - Enterprise-focused, expensive
+- **WeTransfer** - No auto-expiration, requires email
+- **Dropbox** - Permanent storage, complex setup
+- **Google Drive** - Account required, no expiration
+- **Firefox Send** - Discontinued, was similar concept
 
 **NexusFlow Advantages:**
-- Unified platform for both needs
-- Simpler interface
+- Automatic file deletion
+- No account required
+- Simple, clean interface
+- Focused on temporary sharing
 - Lower pricing
-- Faster setup
-- Modern design
 
 ---
 
-## 11. Risk Mitigation
+## 10. Risk Mitigation
 
 **Technical Risks:**
-- File storage costs - Use efficient storage (R2)
-- Service reliability - Use proven hosting (Vercel)
+- File storage costs - Use efficient cloud storage
+- Expiration reliability - Robust cleanup system
 - Scaling issues - Start simple, optimize later
 
 **Business Risks:**
 - Low adoption - Focus on specific use cases
-- Competition - Emphasize unified platform
+- Competition - Emphasize auto-expiration feature
 - Feature creep - Stay focused on core functionality
 
 **Mitigation Strategies:**
 - Start with MVP, iterate based on feedback
-- Focus on one niche (developers) initially
+- Focus on developers and designers initially
 - Build in public to generate interest
 - Offer excellent free tier to drive adoption
 
 ---
 
-## 12. Success Metrics
+## 11. Success Metrics
 
 **Week 1 Goals:**
-- 100 signups
-- 50 files shared
-- 25 services monitored
-- 5 Pro conversions
+- 150 file uploads
+- 50 unique users
+- 10 Pro conversions
+- $90 MRR
 
 **Month 1 Goals:**
-- 500 signups
-- 1,000 files shared
-- 500 services monitored
+- 1,000 file uploads
+- 300 unique users
 - 50 Pro conversions
-- $950 MRR
+- $450 MRR
 
 **Month 3 Goals:**
-- 2,000 signups
-- 5,000 files shared
-- 2,500 services monitored
+- 5,000 file uploads
+- 1,500 unique users
 - 200 Pro conversions
-- $3,800 MRR
+- $1,800 MRR
 
 ---
 
-## 13. Exit Strategy
+## 12. Exit Strategy
 
 **Options:**
-1. **Acquisition** - Sell to larger file or monitoring companies
+1. **Acquisition** - Sell to larger file sharing companies
 2. **Open Source** - Release code, monetize support
 3. **SaaS Exit** - Sell business to entrepreneur
 4. **Continue Growing** - Build into larger platform
 
 **Valuation Potential:**
-- 10x ARR for SaaS acquisition
-- $200K-$1M for indie hacker exit
-- $2M-$10M for strategic acquisition
+- 8x ARR for SaaS acquisition
+- $150K-$500K for indie hacker exit
+- $1M-$5M for strategic acquisition
 
 ---
 
-## 14. Next Steps
+## 13. Next Steps
 
 **Immediate Actions:**
 1. Build MVP in 1 week
@@ -275,4 +252,4 @@ NexusFlow provides a unified interface for:
 
 ---
 
-### **Share files and monitor services in one place. NexusFlow - Your unified file and service management platform.** 
+### **Share files that automatically disappear. NexusFlow - Simple, secure, temporary file sharing.** 

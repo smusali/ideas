@@ -1,183 +1,300 @@
-# **Epistella** — *Illuminating the Scholarly Graph*
+# **Epistella — Simple Email Management Tool**
 
-> \**One-word. API-first. Laser-focused on turning sprawling citation trails into crystal-clear knowledge graphs and actionable insights.*
-
----
-
-## 1 ▪ Concept Snapshot
-
-|                     |                                                                                                                                                                                                                                                                                 |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **What it is**      | An API-only MicroSaaS that ingests academic papers, recursively maps their citation networks, enriches every node with metadata and LLM-generated summaries, then exposes the entire scholarly graph—plus metrics, signals, and alerts—through elegant, rate-limited endpoints. |
-| **Tagline**         | *“Trace Knowledge, Instantly.”*                                                                                                                                                                                                                                                 |
-| **Primary Benefit** | Compresses weeks of literature-review drudgery into minutes, empowering researchers, libraries, and scholarly tool builders with real-time intelligence.                                                                                                                        |
+*A simple web app that helps you organize, prioritize, and respond to emails more efficiently. Perfect for professionals, small businesses, and anyone who wants to take control of their inbox.*
 
 ---
 
-## 2 ▪ North-Star
+## 1. Vision
 
-|                       | Statement                                                                                                                                                           |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Mission**           | *Democratize deep academic insight by transforming raw citations into living knowledge graphs accessible to every researcher and tool builder.*                     |
-| **Vision**            | A world where navigating scholarly literature feels as intuitive as exploring an interactive map—zoom in, zoom out, discover hidden paths, and act with confidence. |
-| **North-Star Metric** | *“Knowledge Minutes Saved”*—aggregate time users reclaim from manual citation chase.                                                                                |
+**Epistella** is a simple email management tool that helps you organize your inbox, prioritize important messages, and respond to emails more efficiently. Stop drowning in emails and start communicating effectively.
 
 ---
 
-## 3 ▪ Core Personas & Use-Cases
+## 2. Problem Statement
 
-| Persona                    | Pain-Point                                                            | Epistella Solution                                                                  |
-| -------------------------- | --------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| **Independent Researcher** | Manual, error-prone citation chasing for lit reviews.                 | One-call `/graph` endpoint yields an enriched, navigable citation network.          |
-| **University Library**     | Difficulty tracking institutional research impact and collaborations. | `/metrics` surfaces author, department, and institution-level influence dashboards. |
-| **Scholarly Tool Startup** | Needs a plug-and-play backend for paper ingestion and summarization.  | White-label endpoints (`/ingest`, `/summaries`) accelerate product launch.          |
-| **Funding Body**           | Lacks real-time insight into grantees’ publication momentum.          | Webhooks push new-citation alerts scoped to funded projects.                        |
-
----
-
-## 4 ▪ Feature Matrix
-
-| Capability                        | Description                                                                                                                                 |
-| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Recursive Citation Extraction** | User sets *depth* (1-n). Epistella crawls references, builds directed graph with DOI and persistent IDs.                                    |
-| **Metadata Enrichment**           | Auto-fills titles, authors, affiliations, ORCID IDs, journal impact, open-access status, altmetrics, and more via federated scholarly APIs. |
-| **LLM-Derived Intelligence**      | Generates: *one-liner gist*, *abstract-level synopsis*, *keyword vectors*, and *topic cluster IDs* for each node.                           |
-| **Collaboration Graphs**          | Detects co-authorship links, institutional ties, and cross-disciplinary bridges.                                                            |
-| **Impact Scoring**                | Combines citation counts, recency, journal rank, social buzz, and topical relevance into a composite *Epistella Score*.                     |
-| **Contact Discovery (Opt-in)**    | Crawls public profiles to surface author emails and lab URLs with compliance checks.                                                        |
-| **Realtime Webhooks**             | Push events for “new citation added,” “author reaches h-index milestone,” and custom triggers.                                              |
-| **Export & Sync**                 | Snapshot any sub-graph to JSON, CSV, or direct sync with citation managers and BI warehouses.                                               |
+People struggle with email because:
+- **Inbox overload** - Too many emails to process efficiently
+- **Lost important messages** - Important emails get buried in the noise
+- **Poor organization** - No system for categorizing and prioritizing
+- **Slow responses** - Takes too long to find and respond to emails
+- **No follow-up tracking** - Forget to follow up on important conversations
 
 ---
 
-## 5 ▪ API Design Overview
+## 3. Solution Overview
 
-| Endpoint                | Verb | Purpose                                          | Core Parameters                         |
-| ----------------------- | ---- | ------------------------------------------------ | --------------------------------------- |
-| `/ingest`               | POST | Upload PDF (or DOI list) to kick-off processing. | `depth`, `callback_url`, `storage_mode` |
-| `/graph/{job_id}`       | GET  | Retrieve live or completed citation graph.       | `format` (graphml, json), `filter`      |
-| `/summaries/{paper_id}` | GET  | Fetch LLM-generated gist & keywords.             | `lang`, `length`                        |
-| `/metrics/{entity_id}`  | GET  | Author / journal / institution analytics.        | `timespan`, `metric_type`               |
-| `/alerts`               | POST | Register webhook for graph events.               | `event_type`, `scope`, `threshold`      |
-| `/export/{graph_id}`    | POST | Push graph to 3rd-party store.                   | `destination_type`, `credentials_token` |
+Epistella provides a simple interface that:
+1. **Organizes emails** - Automatically categorize and tag messages
+2. **Prioritizes inbox** - Show most important emails first
+3. **Tracks responses** - Never forget to follow up
+4. **Templates** - Quick response templates for common emails
+5. **Analytics** - See your email patterns and improve efficiency
 
-**Foundational Traits**
-
-* Token-based auth (role-scoped keys)
-* Deterministic versioning (`v1`, `v1.1`…)
-* Tier-based rate-limiting & burst allowances
-* SLA-backed uptime for Enterprise tier
+**Core Features:**
+- Email categorization
+- Priority inbox
+- Response tracking
+- Email templates
+- Basic analytics
 
 ---
 
-## 6 ▪ Data Model (Conceptual)
+## 4. User Workflow
 
+1. **Connect Email** - Link your email account securely
+2. **Auto-Organize** - Emails are automatically categorized
+3. **Review Priority** - See most important emails first
+4. **Quick Respond** - Use templates for faster responses
+5. **Track Follow-ups** - Never miss important follow-ups
+
+**Example Use Cases:**
+- **Professionals**: Manage work email more efficiently
+- **Small Businesses**: Organize customer communications
+- **Freelancers**: Track client conversations
+- **Job Seekers**: Manage application follow-ups
+
+---
+
+## 5. Simple Architecture
+
+**Core Components:**
+- **Email Connector** - Secure connection to email providers
+- **Categorization Engine** - Auto-tag and organize emails
+- **Priority Algorithm** - Identify important messages
+- **Template System** - Pre-written response templates
+- **Tracking Dashboard** - Monitor email activity
+
+**Data Structure:**
+- Email metadata (sender, subject, date, priority)
+- Categories (work, personal, urgent, follow-up)
+- Templates (common responses)
+- Follow-up reminders (dates, notes)
+
+---
+
+## 6. Installation & Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/epistella/email-manager.git
+cd email-manager
+
+# Install dependencies
+npm install
+
+# Set up environment
+cp .env.example .env
+# Add your email API credentials
+
+# Start the application
+npm start
 ```
-Paper ──writes──► Author
-Paper ──cites───► Paper (recursive)
-Author ──affiliated_with──► Institution
-Paper ──belongs_to──► Journal
-Paper ──clusters_into──► TopicCluster
-```
 
-Each edge holds timestamps, weights (e.g., frequency, relevance), and provenance for auditability.
-
----
-
-## 7 ▪ Intelligence & Ranking Layer
-
-1. **Embedding Generation** – semantic vector for every title + abstract.
-2. **Topic Clustering** – density-based grouping for quick thematic pivots.
-3. **Composite Impact** – FCA (factor contribution analysis) blends signals into *Epistella Score*.
-4. **Insights API** – top rising papers, dormant classics, under-explored bridges.
+**Quick Start:**
+1. Sign up for free account
+2. Connect your email account
+3. Set up email categories
+4. Create response templates
+5. Start managing your inbox
 
 ---
 
-## 8 ▪ Operational Workflow
+## 7. Key Features
 
-1. **Ingest** → File/DOI arrives; queued.
-2. **Parse** → Structural extraction of text, references, tables.
-3. **Enrich** → External API calls + internal lookup.
-4. **Intelligence** → LLM summarization & embedding.
-5. **Graph Build** → Nodes & edges materialized, deduplication.
-6. **Notify** → Webhook / polling endpoint update.
-7. **Lifecycle** → Periodic re-crawl for citation accrual & metric drift.
+**Email Organization:**
+- Automatic categorization by sender and content
+- Custom tags and labels
+- Priority scoring for important emails
+- Archive and delete automation
 
----
+**Priority Inbox:**
+- Most important emails shown first
+- Urgent messages highlighted
+- Unread important emails prioritized
+- Smart filtering options
 
-## 9 ▪ Privacy, Security & Compliance
+**Response Management:**
+- Pre-written email templates
+- Quick reply suggestions
+- Follow-up tracking
+- Response time analytics
 
-* **User Data Isolation** – per-tenant encryption at rest/in transit.
-* **Consent-Aware Scraping** – opt-in email discovery, adherence to robots.txt & jurisdictional privacy laws.
-* **Academic Fair-Use Alignment** – respects publisher terms, caches only permissible data.
-* **Regulatory Readiness** – GDPR, CCPA; FERPA guidance for educational institutions.
-
----
-
-## 10 ▪ Monetization & Packaging
-
-| Plan       | Monthly Quota              | Key Unlocks                                                        | Ideal User                               |
-| ---------- | -------------------------- | ------------------------------------------------------------------ | ---------------------------------------- |
-| **Seed**   | 1 000 API calls · 200 PDFs | Core endpoints; 2-level recursion                                  | Independent scholars, early-stage apps   |
-| **Growth** | 10 000 calls · 2 000 PDFs  | 4-level recursion; webhooks; live metrics                          | Department libraries, scholarly startups |
-| **Atlas**  | Unlimited                  | Full feature set; dedicated cluster; custom SLAs; priority support | Large universities, funding agencies     |
-
-*Add-Ons*: On-demand historical backfills, custom model tuning, private cloud deployment.
+**Email Templates:**
+- Common response templates
+- Customizable greeting and closing
+- Variable insertion (name, company)
+- Template categories (sales, support, networking)
 
 ---
 
-## 11 ▪ Go-to-Market Flywheel
+## 8. Revenue Model
 
-1. **Integration Partnerships** – plug into popular reference managers and research workflow tools.
-2. **Community Editions** – limited free tier for open-access papers; drives grassroots adoption.
-3. **Conference Presence** – sponsor digital humanities & library-tech events; host hackathon challenges.
-4. **Thought Leadership** – publish “State of Citation Networks” quarterly reports powered by Epistella data.
+**Free Tier:**
+- Up to 1,000 emails per month
+- Basic categorization
+- 5 email templates
+- Email support
 
----
+**Pro Tier ($12/month):**
+- Unlimited emails
+- Advanced categorization
+- Unlimited templates
+- Priority support
+- Email analytics
 
-## 12 ▪ 12-Month Roadmap
-
-| Quarter | Milestone                                   | Outcome                                                  |
-| ------- | ------------------------------------------- | -------------------------------------------------------- |
-| **Q1**  | Public Beta & Feedback Program              | Stress-test ingestion throughput, refine impact scoring. |
-| **Q2**  | Webhook Automations + Topic Drift Detection | Enable real-time alerts for emerging fields.             |
-| **Q3**  | Multi-lingual Summaries & Search            | Expand beyond English abstracts, open new markets.       |
-| **Q4**  | Self-Serve Institutional Dashboards         | No-code overlay for procurement-averse universities.     |
-
----
-
-## 13 ▪ Competitive Edge
-
-* **API-Only Focus** – zero UI distraction; perfect for embedding.
-* **Depth-Controlled Recursion** – users balance cost vs. granularity.
-* **Composite Impact Score** – nuanced ranking beyond raw citation counts.
-* **Live Knowledge Graph** – event-driven updates keep data perpetually fresh.
+**Business Tier ($29/month):**
+- Everything in Pro
+- Team collaboration
+- Custom branding
+- API access
+- Dedicated support
 
 ---
 
-## 14 ▪ Success Metrics
+## 9. Marketing Strategy
 
-* *Knowledge Minutes Saved / user / month*
-* API Retention (D30)
-* Papers Ingested → Graph Density Ratio
-* Avg. Time-to-Insight (file upload → metrics ready)
-* Net-Promoter Score among research librarians
+**Week 1 Launch Plan:**
+
+**Day 1-2: Product Launch**
+- Launch MVP with core email management features
+- Create landing page focusing on inbox organization
+- Set up email integration with major providers
+
+**Day 3-4: Content Marketing**
+- Write blog post: "5 Ways to Take Control of Your Inbox"
+- Create social media content about email productivity
+- Share email management tips on LinkedIn
+
+**Day 5-6: Community Outreach**
+- Post on productivity forums and subreddits
+- Share on professional networking groups
+- Engage with email productivity Twitter community
+
+**Day 7: Paid Promotion**
+- Small Google Ads budget ($100-200)
+- Target professionals and small business owners
+- Focus on email overwhelm and productivity
+
+**Go-to-Market Channels:**
+- **Content Marketing**: Email productivity tips and best practices
+- **Social Media**: LinkedIn, Twitter, productivity communities
+- **SEO**: Email management, inbox organization keywords
+- **Partnerships**: Productivity tools, business software
 
 ---
 
-## 15 ▪ Risks & Mitigations
+## 10. Development Roadmap
 
-| Risk                                  | Mitigation                                                             |
-| ------------------------------------- | ---------------------------------------------------------------------- |
-| Upstream API rate changes or paywalls | Multi-source redundancy, cached tiers, and data-sharing agreements.    |
-| Scraping compliance challenges        | Region-specific legal review, consent mechanisms, opt-out registry.    |
-| LLM hallucination in summaries        | Cascade validation: fact-checking heuristics + user feedback flagging. |
-| Vendor lock-in concerns               | Clear data export pathways; open schema documentation.                 |
+**Week 1: Core MVP**
+- Basic email connection and reading
+- Simple categorization system
+- Priority inbox functionality
+- User authentication
+
+**Week 2: Enhanced Features**
+- Email template system
+- Follow-up tracking
+- Basic analytics dashboard
+- Mobile-responsive design
+
+**Week 3: Advanced Capabilities**
+- Advanced categorization rules
+- Email automation features
+- Team collaboration tools
+- API for integrations
+
+**Week 4: Polish & Launch**
+- Payment processing
+- Advanced analytics
+- Customer support system
+- Marketing website
 
 ---
 
-### **Why Epistella, Why Now?**
+## 11. Competitive Advantages
 
-The volume of scholarly output doubles roughly every 6–7 years. Navigating this ocean manually is unsustainable. Epistella weaponizes contemporary language models and graph analytics to **compress knowledge discovery, spotlight collaboration opportunities, and quantify impact**—all through a single, developer-friendly API surface.
+**Simple & Focused:**
+- No complex features, just email management
+- Clean, intuitive interface
+- Fast setup and onboarding
 
-> **Trace knowledge, instantly—so you can create the next breakthrough sooner.**
+**Affordable:**
+- Free tier for basic users
+- Reasonable pricing for advanced features
+- No hidden fees or charges
+
+**Privacy-First:**
+- Secure email connections
+- No data mining or selling
+- GDPR compliant
+
+**Easy Integration:**
+- Works with major email providers
+- No complex setup required
+- Quick time to value
+
+---
+
+## 12. Success Metrics
+
+**Week 1 Targets:**
+- 200 free signups
+- 100 connected email accounts
+- 10 paid conversions
+- 85% user retention
+
+**Month 1 Targets:**
+- 1,000 total users
+- 100 paid subscribers
+- $1,200 monthly revenue
+- 4.3/5 user rating
+
+**Key Performance Indicators:**
+- Email accounts connected
+- Daily active users
+- Conversion to paid tier
+- User retention rate
+- Customer satisfaction score
+
+---
+
+## 13. Risk Mitigation
+
+**Technical Risks:**
+- **Email API Changes**: Support multiple email providers
+- **Security Concerns**: Implement strong encryption and authentication
+- **Performance Issues**: Optimize for large email volumes
+
+**Business Risks:**
+- **Low Adoption**: Focus on clear productivity benefits
+- **Competition**: Emphasize simplicity and ease of use
+- **Pricing**: Start with free tier to build user base
+
+**Market Risks:**
+- **Email Decline**: Focus on professional and business users
+- **Platform Changes**: Stay updated with email provider APIs
+
+---
+
+## 14. Exit Strategy
+
+**Short-term (6 months):**
+- Build user base to 10,000+ users
+- Achieve $5,000+ monthly recurring revenue
+- Establish product-market fit
+
+**Medium-term (1-2 years):**
+- Expand to 100,000+ users
+- Add advanced features and integrations
+- Consider acquisition by productivity or business software company
+
+**Long-term (3+ years):**
+- Build comprehensive communication platform
+- Explore enterprise sales opportunities
+- Consider IPO or major acquisition
+
+---
+
+### **Epistella** — Making email management simple and effective.
+
+**Start organizing your inbox today and take control of your email communication!**

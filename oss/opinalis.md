@@ -1,170 +1,257 @@
-# **Opinalis** – A Community-Driven LLM Platform for Intelligent Feedback Mastery
+# **Opinalis**
 
-*An open-source initiative that transforms raw user commentary into actionable intelligence, advancing research, transparency, and reproducibility in language-model evaluation.*
-
----
-
-## Vision
-
-Modern products receive torrents of qualitative feedback—from app-store reviews and support tickets to community posts and survey responses. Most of it remains under-analyzed because human triage does not scale, and black-box SaaS tools hinder experimentation.
-
-**Opinalis** aspires to be the shared scientific instrument for feedback understanding:
-
-1. **Reproducible Workflows** – Standardised pipelines that anyone can fork, rerun, and audit.
-2. **Benchmark-First Philosophy** – Curated, versioned datasets and metrics focused on real-world feedback tasks.
-3. **Transparent Prompt Engineering** – Structured, data-backed experiments comparing zero-shot, few-shot, chain-of-thought, and emerging prompting paradigms.
-4. **Community Experiment Registry** – A public ledger of experiments, scores, and artefacts to accelerate collaborative discovery.
-5. **Responsible AI Focus** – Built-in mechanisms for bias auditing, cost tracking, and privacy-preserving dataset handling.
+> *"Simple feedback analysis and insights"*
 
 ---
 
-## Core Pillars
+## **Overview**
 
-| Pillar                          | What It Delivers                                                                                                                | Why It Matters                                                                                                         |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| **Dataset Hub**                 | Canonical feedback datasets (Pan, Maalej, and community contributions) with rich metadata, licensing info, and version control. | Ensures apples-to-apples comparisons and legal clarity.                                                                |
-| **Evaluation Engine**           | Pluggable metrics (Accuracy, Precision, Recall, F1, Hierarchical F1, Coverage, Cost per 1k tokens, Response latency).           | Moves conversation beyond single-number scores to multi-dimensional insight.                                           |
-| **Prompt Studio**               | Declarative prompt templates that parameterise role, style, reasoning depth, and few-shot exemplars.                            | Makes experiments shareable and diff-able, encouraging systematic iteration.                                           |
-| **Experiment Orchestrator**     | Automation layer to schedule, cache, and resume large-scale runs across multiple foundation models.                             | Eliminates boilerplate so researchers can focus on hypotheses, not wiring.                                             |
-| **Insight Explorer**            | Interactive dashboards and comparative leaderboards fed by experiment artifacts.                                                | Democratises access—product teams, academics, and hobbyists see the same source-of-truth without proprietary paywalls. |
-| **Governance & Ethics Toolkit** | Checklists and automated checks for dataset consent, personally identifiable information (PII) redaction, and bias diagnostics. | Promotes trust and aligns contributions with ethical best practices.                                                   |
+Opinalis is an open-source feedback analysis tool that helps product teams and researchers understand user feedback through simple categorization and sentiment analysis. Instead of manually reading through hundreds of comments, Opinalis automatically organizes feedback into meaningful categories and provides actionable insights.
 
 ---
 
-## High-Level Architecture
+## **Problem**
 
-```mermaid
-flowchart TD
-  subgraph Data
-    D1[Raw Feedback Sources]
-    D2[Dataset Hub]
-  end
+- User feedback comes in many forms and is hard to organize
+- Manual analysis of feedback is time-consuming and subjective
+- No easy way to identify common themes and patterns
+- Difficult to track feedback trends over time
+- No simple tool for basic sentiment analysis and categorization
 
-  subgraph Processing
-    P1[Dataset Loader]
-    P2[Pre-Processor]
-    P3[Prompt Studio]
-    P4[Model Runner]
-    P5[Evaluator]
-  end
+---
 
-  subgraph Storage
-    S1[Artifact Registry]
-    S2[Experiment Ledger]
-  end
+## **Solution**
 
-  subgraph UX
-    U1[CLI / SDK]
-    U2[Insight Explorer]
-    U3[Public Leaderboard]
-  end
+A simple web application that:
+- Accepts feedback from various sources (text files, CSV, manual entry)
+- Automatically categorizes feedback into meaningful groups
+- Provides basic sentiment analysis (positive, negative, neutral)
+- Identifies common themes and keywords
+- Generates simple reports and visualizations
+- Tracks feedback trends over time
 
-  D1 -->|curate| D2
-  D2 --> P1 --> P2 --> P3 --> P4 --> P5
-  P5 -->|metrics + logs| S1
-  S1 --> U2
-  S1 --> U3
-  S1 --> S2
-  U1 -->|launch jobs| P1
-  U1 -->|retrieve results| S1
-  U2 -->|deep-links| U3
+---
+
+## **Core Features**
+
+### **Feedback Import**
+- Upload text files or CSV data
+- Manual entry interface
+- Support for common feedback formats
+- Bulk import capabilities
+
+### **Smart Categorization**
+- Automatic categorization based on keywords
+- Custom category creation and management
+- Tag-based organization system
+- Category confidence scoring
+
+### **Sentiment Analysis**
+- Basic positive/negative/neutral classification
+- Sentiment trends over time
+- Confidence scores for analysis
+- Manual override capabilities
+
+### **Insights & Reports**
+- Common themes and patterns
+- Keyword frequency analysis
+- Feedback volume trends
+- Export functionality for reports
+
+### **Simple Dashboard**
+- Overview of all feedback
+- Category distribution charts
+- Sentiment breakdown
+- Recent activity feed
+
+---
+
+## **7-Day Build Plan**
+
+### **Day 1: Project Setup & Basic UI**
+- Set up project structure
+- Create simple web interface
+- Build feedback input forms
+
+### **Day 2: Data Storage & Models**
+- Design database schema
+- Implement feedback storage
+- Add basic CRUD operations
+
+### **Day 3: Import Functionality**
+- Build file upload system
+- Add CSV parsing
+- Create manual entry interface
+
+### **Day 4: Categorization Engine**
+- Implement keyword-based categorization
+- Add custom category management
+- Build tagging system
+
+### **Day 5: Sentiment Analysis**
+- Add basic sentiment classification
+- Implement confidence scoring
+- Create sentiment trends
+
+### **Day 6: Dashboard & Reports**
+- Build main dashboard
+- Add charts and visualizations
+- Create export functionality
+
+### **Day 7: Polish & Documentation**
+- Improve UI/UX
+- Add comprehensive documentation
+- Create demo and examples
+
+---
+
+## **Data Model**
+
+### **Feedback**
+```json
+{
+  "id": "unique_id",
+  "text": "The app crashes when I try to upload photos",
+  "category": "bug_report",
+  "sentiment": "negative",
+  "confidence": 0.85,
+  "source": "app_store",
+  "timestamp": "2024-01-15T10:30:00Z",
+  "tags": ["crash", "upload", "photos"]
+}
 ```
 
-*Legend: solid lines = data flow; dashed groupings = architectural domains.*
-
----
-
-## Key Features & User Stories
-
-### 1. Dataset Lifecycle
-
-* **Curate** – Upload a CSV, JSONL, or Parquet of feedback and receive automatic schema validation, PII scan, and licensing wizard.
-* **Version** – Semantic versioning tags and changelogs track additions, removals, and label changes.
-* **Share** – One-click publish to the community hub with optional embargo period for double-blind research competitions.
-
-### 2. Experiment Blueprint
-
-```text
-Name: "Pan+Maalej-Combined / Reasoned Few-Shot"
-Models: 3 (latest GPT-family baseline + community fine-tune + open model)
-Prompt Template: "role=product_analyst; style=concise_rationale; demos=5"
-Metrics: Accuracy, F1, Cost
-Runs: 5 seeds for statistical significance
+### **Category**
+```json
+{
+  "id": "category_id",
+  "name": "bug_report",
+  "description": "Reports of application bugs",
+  "keywords": ["crash", "error", "bug", "broken"],
+  "color": "#ef4444"
+}
 ```
 
-*Everything above becomes a YAML blueprint checked into version control—executable documentation, not stale readme prose.*
-
-### 3. Prompt Marketplace
-
-* Explore popular templates sorted by **Win Rate**, **Token Efficiency**, and **Explainability Score**.
-* “Remix” button spins a forkable copy; commit history preserves lineage for academic citations.
-
-### 4. Multi-Model Dispatch
-
-* Connect any foundation-model endpoint via a lightweight adapter interface.
-* Run A/B tests across vendors or self-hosted models without changing experiment code.
-* Built-in cost tracker converts provider billing units to a unified cost metric.
-
-### 5. Observatory Dashboard
-
-* Compare confusion matrices side-by-side; drill into false positives to surface systematic misclassifications.
-* Toggle timelines to watch model performance drift as new data arrives.
-* Export graphics as vector images or live-link into slide decks.
-
----
-
-## Governance & Contribution Path
-
-| Track                 | Role Examples                    | Expectations                                        |
-| --------------------- | -------------------------------- | --------------------------------------------------- |
-| **Core Maintainers**  | Architects, infra stewards       | Roadmap ownership, release coordination             |
-| **Dataset Curators**  | Domain experts, product managers | Maintain dataset quality, annotate edge cases       |
-| **Prompt Engineers**  | Researchers, linguists           | Propose new templates, evaluate reasoning diversity |
-| **Model Integrators** | ML engineers                     | Add adapters for emerging APIs and local runtimes   |
-| **Ethics Council**    | Sociologists, legal advisors     | Review sensitive datasets, publish audit reports    |
-| **Community**         | Anyone                           | File issues, request features, join discussions     |
-
-A transparent Request-for-Comments (RFC) process ensures all major changes receive peer review before merging.
+### **Analysis**
+```json
+{
+  "id": "analysis_id",
+  "date": "2024-01-15",
+  "total_feedback": 150,
+  "sentiment_breakdown": {
+    "positive": 45,
+    "negative": 80,
+    "neutral": 25
+  },
+  "top_categories": [
+    {"name": "bug_report", "count": 60},
+    {"name": "feature_request", "count": 40}
+  ]
+}
+```
 
 ---
 
-## Roadmap (Rolling Four-Quarter Horizon)
+## **Easy Publishing Plan**
 
-| Quarter | Theme         | Milestones                                                                                                                       |
-| ------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| **Q1**  | Foundations   | ✅ Public repository launch<br>✅ Initial dataset hub with Pan & Maalej<br>✅ Minimal evaluator + basic dashboard                   |
-| **Q2**  | Extensibility | 🔄 Adapter SDK for third-party models<br>🔄 Prompt Marketplace MVP<br>🔄 CLI scaffolding wizard                                  |
-| **Q3**  | Scale & Trust | 🔄 Distributed experiment runner<br>🔄 Cost & carbon footprint calculator<br>🔄 Bias audit automation                            |
-| **Q4**  | Ecosystem     | 🔄 Plugin system for custom metrics<br>🔄 Annual benchmark challenge<br>🔄 Fellowship program for under-represented contributors |
+### **Day 1: Repository Setup**
+- Create GitHub repository with clear README
+- Add license (MIT) and contributing guidelines
+- Set up basic project structure
 
-*(Check the Git issues board for up-to-date statuses; roadmap items may shift based on community input.)*
+### **Day 2: Core Documentation**
+- Write installation instructions
+- Create quick start guide
+- Add API documentation
+
+### **Day 3: Demo & Examples**
+- Create sample feedback data
+- Build interactive demo
+- Add usage examples
+
+### **Day 4: Community Outreach**
+- Post on Hacker News, Reddit r/opensource
+- Share on Twitter with #opensource #feedback
+- Reach out to product communities
+
+### **Day 5: Documentation Polish**
+- Add troubleshooting guide
+- Create video walkthrough
+- Improve README with screenshots
+
+### **Day 6: Community Engagement**
+- Respond to issues and questions
+- Add feature requests to roadmap
+- Engage with early adopters
+
+### **Day 7: Launch & Monitor**
+- Announce v1.0 release
+- Monitor feedback and usage
+- Plan next iteration
 
 ---
 
-## Licensing & Governance
+## **Marketing Strategy**
 
-* **License** – Permissive, OSI-approved (ensures freedom to use, modify, and embed in commercial products while requiring attribution).
-* **Contributor Covenant** – Code of conduct fostering inclusive, harassment-free collaboration.
-* **Stewardship Model** – A lightweight foundation governed by elected maintainers, rotating annually to minimise gatekeeping.
+### **Target Audience**
+- **Primary**: Product managers and product teams
+- **Secondary**: Researchers and academics
+- **Tertiary**: Small businesses and startups
+
+### **Channels**
+- **GitHub**: Open source community
+- **Reddit**: r/opensource, r/productmanagement, r/startups
+- **Twitter**: Product and research community
+- **Dev.to**: Technical blog posts
+- **Research platforms**: Share with academic communities
+
+### **Content Strategy**
+- "Turn feedback chaos into clear insights"
+- "Automate your feedback analysis workflow"
+- "From raw comments to actionable data"
+- Share before/after examples of feedback analysis
+
+### **Success Metrics**
+- GitHub stars and forks
+- Number of contributors
+- Community engagement (issues, discussions)
+- Adoption in research and product teams
 
 ---
 
-## Getting Involved
+## **Future Enhancements**
 
-1. **Star & Watch** the repo to follow releases.
-2. **Join** the chat workspace for async discussions and weekly office hours.
-3. **Browse** open “good-first-issue” tags—each linked to context docs and mentor contacts.
-4. **Submit** an RFC if you plan a substantial feature or dataset addition.
-5. **Publish** experiment blueprints to amplify your research and receive feedback.
+### **Phase 2 (Month 2)**
+- Advanced sentiment analysis
+- Machine learning categorization
+- Integration with popular platforms
+- Custom analysis workflows
 
-*Whether you are a researcher seeking reproducible baselines, a startup product manager chasing actionable insights, or an open-source hobbyist passionate about language models—Opinalis welcomes you.*
+### **Phase 3 (Month 3)**
+- Real-time feedback processing
+- Advanced reporting and analytics
+- Team collaboration features
+- API for integrations
+
+### **Phase 4 (Month 6)**
+- Multi-language support
+- Advanced visualization options
+- Enterprise features
+- Mobile app for feedback collection
 
 ---
 
-## Inspiration & Acknowledgements
+## **Why This Matters**
 
-Opinalis stands on the shoulders of previous efforts in feedback classification exploration, including the pioneering work on Pan and Maalej datasets and community-shared prompt engineering experiments. Our mission is to unify these threads into a living, community-owned laboratory—pushing the frontier of feedback intelligence while upholding transparency and inclusivity.
+Understanding user feedback is crucial for building better products, but analyzing feedback manually is time-consuming and often inconsistent. Opinalis makes feedback analysis accessible to everyone, helping teams make data-driven decisions based on real user insights.
 
 ---
 
-> **“Turn comments into compass—together.”**
+## **Get Started**
+
+1. **Clone the repository**
+2. **Upload your feedback data**
+3. **Get instant insights**
+4. **Make better decisions**
+
+Join the community and help make feedback analysis simple and effective!

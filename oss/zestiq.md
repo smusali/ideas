@@ -1,203 +1,265 @@
-# **Zestiq – The Intelligent Menu Intelligence Platform**
+# **Zestiq**
 
-## 1  Vision
-
-Empower every food venue—from single-site cafés to global quick-service chains—to create, localize, and maintain unforgettable menus **in minutes, not weeks**. Zestiq leverages large-language-model reasoning, retrieval-augmented generation, and domain-specific ontologies to automate the content, compliance, and customer-experience layers of modern menu management while remaining 100 % open source.
+> *"Simple menu management for restaurants"*
 
 ---
 
-## 2  Problem Statement
+## **Overview**
 
-Restaurant operators juggle a shifting mosaic of dishes, seasonal ingredients, dietary restrictions, languages, delivery channels, and marketing campaigns. Traditional back-office or headless CMS tools capture the *data*, but they *cannot*:
-
-* translate menus fluently into multiple languages and dialects
-* surface hidden allergens or religious dietary conflicts
-* enrich sparse dish names with enticing yet concise narratives
-* adapt tone and format for kiosks, QR code menus, third-party delivery apps, or voice assistants
-* provide real-time feedback on pricing psychology, SKU profitability, or ingredient carbon footprint
-
-The result is operational drag, inconsistent guest experiences, and lost revenue opportunities.
+Zestiq is an open-source menu management tool that helps restaurants create, organize, and maintain their menus easily. Instead of using spreadsheets or complex systems, Zestiq provides a simple web interface for managing menu items, categories, and pricing.
 
 ---
 
-## 3  Solution Overview
+## **Problem**
 
-Zestiq extends the fundamental CRUD capabilities of projects like **Grable** with an **AI-first** layer that:
-
-1. **Understands** menu data semantically (vector embeddings, taxonomy enrichment).
-2. **Generates** localized, brand-aligned descriptions on demand.
-3. **Validates** nutritional, allergen, and regulatory compliance instantly.
-4. **Distributes** optimized content to any downstream channel via a versioned, headless API.
-5. **Learns** continuously from guest feedback, sales mix, and seasonal performance telemetry.
+- Restaurants struggle to keep menus organized and up-to-date
+- Menu changes require manual updates across multiple platforms
+- No easy way to manage menu items, descriptions, and pricing
+- Difficult to track menu performance and popular items
+- Menu management is often done with basic tools like spreadsheets
 
 ---
 
-## 4  Core Use-Case Journeys
+## **Solution**
 
-| Persona                             | Pain Today                                                           | Zestiq Outcome                                                                      |
-| ----------------------------------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| **Independent owner**               | Manually writes and re-writes menus for dine-in, Uber Eats, DoorDash | Upload a CSV → get channel-specific menus ready for publishing in <5 min            |
-| **Hospitality group menu engineer** | Tracks allergens across 300+ SKUs via spreadsheets                   | Real-time allergen graph with flagging, substitution suggestions, and export to POS |
-| **Marketing manager**               | Needs seasonal promos localized into 8 languages                     | One-click tone-controlled translation with human-in-the-loop approval workflow      |
-| **Corporate dietician**             | Must ensure new items meet regulatory nutrition limits               | Automatic nutrient breakdown and compliance dashboard                               |
-| **Guest**                           | Has celiac disease; wants safe options fast                          | Conversational chat widget filtered to gluten-free dishes with confidence scores    |
-
----
-
-## 5  Key Features
-
-### 5.1  AI-Driven Semantic Menu Modeling
-
-* Sentence-transformer embeddings stored in a vector database for instant similarity queries.
-* Ingredient ontology mapping to unify synonyms (e.g., courgette ⇄ zucchini).
-
-### 5.2  Multilingual Narrative Generation
-
-* Retrieval-augmented prompts incorporate chef notes, brand voice guide, and ingredient facts.
-* Supports reverse-context checks to eliminate literal but culturally awkward translations.
-
-### 5.3  Dietary & Allergen Intelligence
-
-* Rules engine plus probabilistic LLM reasoning for hidden allergens (fish sauce in kimchi).
-* Real-time warnings and substitution proposals (cashew → sunflower seed “cheese”).
-
-### 5.4  Dynamic Channel Formatting
-
-* Template engine transforms a single canonical dish record into variants for:
-  – POS / KDS line, 30 char limit
-  – Mobile web with emoji accents
-  – Voice (SSML) narration
-  – AR glasses overlay
-
-### 5.5  Visual Generation & Enhancement (Optional Module)
-
-* Diffusion-model micro-service creates consistent hero images against brand guidelines.
-* Automatic color-contrast checks for accessibility on light/dark themes.
-
-### 5.6  Analytics & Continuous Learning
-
-* A/B tests description variants, tracks click-through, cart-add, sell-through.
-* Feeds performance back into prompt-tuning store to refine future generations.
-
-### 5.7  Plugin Ecosystem
-
-* Webhooks + event bus for custom pricing engines, climate-impact calculators, or loyalty CRM syncs.
-* Starter plugins: Shopify sync, Stripe-based prepaid menu commerce, Algolia search booster.
+A simple web application that:
+- Provides an easy-to-use menu editor
+- Manages menu items, categories, and pricing
+- Generates simple menu descriptions
+- Tracks menu performance and popular items
+- Exports menus in various formats
 
 ---
 
-## 6  High-Level Architecture
+## **Core Features**
 
-* **Edge API Gateway** – FastAPI with JWT/OAuth2, global rate limiting, and GraphQL overlay.
-* **Core Relational Store** – PostgreSQL (menus, items, pricing, taxonomy).
-* **Vector Store** – pgvector or Qdrant for embeddings and similarity search.
-* **LLM Orchestrator** – Async task queue (Celery/RabbitMQ) coordinating calls to OpenAI, open-weights GGUF, or private Ollama clusters.
-* **Inference Cache** – Redis for low-latency serving of repeated prompt generations.
-* **Event Bus** – NATS for real-time change propagation to plugins and webhooks.
-* **Analytics Warehouse** – ClickHouse powered; dbt models feed BI tooling.
-* **Observability** – OpenTelemetry traces, Prometheus metrics, Grafana dashboards.
-* **IaC** – Terraform & Helm charts targeting Kubernetes or single-node Docker Compose.
-* **Security Layer** – Vault-managed secrets, E2EE for sensitive nutritional datasets.
+### **Menu Editor**
+- Simple drag-and-drop interface
+- Easy item creation and editing
+- Category management
+- Pricing updates
 
----
+### **Item Management**
+- Add, edit, and delete menu items
+- Upload item images
+- Set descriptions and ingredients
+- Manage pricing and availability
 
-## 7  Data Flow Narrative
+### **Category Organization**
+- Create and manage menu categories
+- Drag-and-drop item organization
+- Category-specific settings
+- Visual category layout
 
-1. Operator submits a dish draft via the Admin UI or REST/GraphQL endpoint.
-2. A change event triggers the orchestrator:
+### **Menu Generation**
+- Auto-generate simple descriptions
+- Export menus to PDF or HTML
+- Print-friendly formats
+- QR code generation for digital menus
 
-   * embeddings are computed and stored;
-   * allergens are inferred;
-   * generation jobs enqueue multilingual descriptions & image variants.
-3. Generated assets are versioned, signed, and stored on object storage (e.g., S3).
-4. Downstream channels (POS, delivery, marketing site) receive webhook updates and purge caches.
-5. Guest interactions feed telemetry (CTR, sentiment) to analytics warehouse; periodic batch jobs adjust prompt weights and recommend improvements.
-
----
-
-## 8  Tech Stack Rationale
-
-| Layer          | Choice                       | Why                                                                     |
-| -------------- | ---------------------------- | ----------------------------------------------------------------------- |
-| API            | FastAPI                      | Async-first, type-hinted, Swagger auto-docs                             |
-| DB             | PostgreSQL + pgvector        | ACID for core data; unified store for embeddings simplifies infra       |
-| Queue          | RabbitMQ                     | Proven, topology-rich, persistent deliveries                            |
-| AI Engines     | OpenAI, Mistral-7B, Gemma-2B | Mix of SaaS and self-host for cost and privacy flexibility              |
-| Infrastructure | Kubernetes                   | Blue/green deploys, horizontal pod auto-scaling of GPU-backed inference |
-| Observability  | OpenTelemetry                | Vendor-neutral tracing into Grafana or Datadog                          |
-| Licensing      | Apache-2.0                   | Permissive, business-friendly, patent grant                             |
+### **Basic Analytics**
+- Track popular items
+- Monitor menu performance
+- View item popularity trends
+- Simple reporting
 
 ---
 
-## 9  Execution Roadmap
+## **7-Day Build Plan**
 
-| Phase                          | Timeline  | Deliverables                                                         |
-| ------------------------------ | --------- | -------------------------------------------------------------------- |
-| **0 » Foundations**            | Month 1   | Repo scaffolding, CI/CD, Docker Compose dev stack                    |
-| **1 » Core CRUD API**          | Month 2   | Restaurant/menu/item endpoints parity with Grable, OpenAPI spec      |
-| **2 » Vector Intelligence**    | Month 3   | Embedding service, similarity search, basic allergen graph           |
-| **3 » LLM Generation MVP**     | Month 4   | English description generation, brand-voice templates, admin preview |
-| **4 » Multichannel Rollout**   | Month 5   | Webhooks, Shopify/Delivery aggregator plugins                        |
-| **5 » Compliance & Analytics** | Month 6-7 | Nutrition validator, A/B test harness, BI dashboards                 |
-| **6 » Community Launch**       | Month 8   | Contributor docs, RFC process, first public beta                     |
+### **Day 1: Project Setup & Basic UI**
+- Set up project structure
+- Create simple web interface
+- Build basic menu editor
 
----
+### **Day 2: Data Models & Storage**
+- Design database schema
+- Implement menu and item storage
+- Add basic CRUD operations
 
-## 10  Contribution Guidelines (abridged)
+### **Day 3: Menu Editor**
+- Build drag-and-drop interface
+- Add item creation and editing
+- Implement category management
 
-* **Architecture discussions** → open GitHub Discussions; major changes require an RFC PR.
-* **Feature work** → fork → feature branch → PR against `develop`; include unit tests & docs.
-* **Commit message style** → Conventional Commits.
-* **Code of Conduct** → Projects abide by the Contributor Covenant v2.1.
-* **Governance** → Maintainer Core Team elected annually; voting rights by contribution merit.
+### **Day 4: Content Management**
+- Add image upload functionality
+- Implement description generation
+- Create pricing management
 
----
+### **Day 5: Export & Generation**
+- Build PDF export functionality
+- Add HTML menu generation
+- Create QR code generation
 
-## 11  Security & Privacy Model
+### **Day 6: Analytics & Reports**
+- Add basic analytics tracking
+- Create simple reports
+- Build dashboard views
 
-* **Data residency**: pluggable storage adapters allow single-tenant EU deployment.
-* **PII**: salted hashing for guest identifiers; zero stored payment info.
-* **Prompt privacy**: can route all LLM calls to self-hosted models; no external data leakage.
-* **SBOM & CVE scanning**: automated via GitHub Actions (Trivy).
-
----
-
-## 12  Community, Ecosystem & Governance
-
-* **Slack / Discord**: real-time support and weekly community office hours.
-* **Monthly “Taste-up”**: virtual demo showcase featuring plugin creators.
-* **Early-Access Partners**: restaurants contributing anonymized sales data receive influence on roadmap priorities.
-* **Open Core vs. Plugins**: the entire generation pipeline remains Apache-2.0; optional enterprise addons (SOC 2, multi-region passive failover) may be dual-licensed.
+### **Day 7: Polish & Documentation**
+- Improve UI/UX
+- Add comprehensive documentation
+- Create demo and examples
 
 ---
 
-## 13  Why Open Source?
+## **Data Model**
 
-1. **Transparency** in allergen and nutritional inference is critical for public trust.
-2. **Innovation velocity** accelerates when chefs, dietitians, and devs can extend the ontology.
-3. **Vendor neutrality** prevents lock-in to any single LLM API.
-4. **Education**: provides a real-world reference stack for AI + food-tech engineering communities.
+### **Restaurant**
+```json
+{
+  "id": "restaurant_id",
+  "name": "Joe's Pizza",
+  "description": "Authentic Italian pizza",
+  "address": "123 Main St",
+  "phone": "555-0123",
+  "created_at": "2024-01-15T10:30:00Z"
+}
+```
+
+### **Menu**
+```json
+{
+  "id": "menu_id",
+  "restaurant_id": "restaurant_id",
+  "name": "Dinner Menu",
+  "description": "Our main dinner menu",
+  "is_active": true,
+  "created_at": "2024-01-15T10:30:00Z"
+}
+```
+
+### **MenuItem**
+```json
+{
+  "id": "item_id",
+  "menu_id": "menu_id",
+  "category_id": "category_id",
+  "name": "Margherita Pizza",
+  "description": "Fresh mozzarella, tomato sauce, basil",
+  "price": 14.99,
+  "image_url": "/images/margherita.jpg",
+  "is_available": true,
+  "popularity_score": 85,
+  "created_at": "2024-01-15T10:30:00Z"
+}
+```
+
+### **Category**
+```json
+{
+  "id": "category_id",
+  "menu_id": "menu_id",
+  "name": "Pizzas",
+  "description": "Our signature pizzas",
+  "sort_order": 1,
+  "color": "#ff6b6b"
+}
+```
 
 ---
 
-## 14  License
+## **Easy Publishing Plan**
 
-Zestiq is released under the **Apache License 2.0** with complete SPDX headers, fostering both community collaboration and commercial adoption.
+### **Day 1: Repository Setup**
+- Create GitHub repository with clear README
+- Add license (MIT) and contributing guidelines
+- Set up basic project structure
+
+### **Day 2: Core Documentation**
+- Write installation instructions
+- Create quick start guide
+- Add API documentation
+
+### **Day 3: Demo & Examples**
+- Create sample restaurant data
+- Build interactive demo
+- Add usage examples
+
+### **Day 4: Community Outreach**
+- Post on Hacker News, Reddit r/opensource
+- Share on Twitter with #opensource #restaurant
+- Reach out to restaurant communities
+
+### **Day 5: Documentation Polish**
+- Add troubleshooting guide
+- Create video walkthrough
+- Improve README with screenshots
+
+### **Day 6: Community Engagement**
+- Respond to issues and questions
+- Add feature requests to roadmap
+- Engage with early adopters
+
+### **Day 7: Launch & Monitor**
+- Announce v1.0 release
+- Monitor feedback and usage
+- Plan next iteration
 
 ---
 
-## 15  Getting Started Snapshot
+## **Marketing Strategy**
 
-1. Install Docker (Desktop or server).
-2. Clone the repository and copy the sample environment file.
-3. Start the stack with the provided one-liner compose command.
-4. Navigate to the web Admin UI (defaults to port 8080) to create your first restaurant.
-5. Tweak the brand voice settings and watch Zestiq craft multilingual, allergen-aware menu narratives in seconds.
+### **Target Audience**
+- **Primary**: Small restaurant owners and managers
+- **Secondary**: Food trucks and cafes
+- **Tertiary**: Restaurant consultants
 
-*(Comprehensive step-by-step instructions with screenshots live in the `/docs` directory.)*
+### **Channels**
+- **GitHub**: Open source community
+- **Reddit**: r/opensource, r/restaurant, r/smallbusiness
+- **Twitter**: Restaurant and small business community
+- **Dev.to**: Technical blog posts
+- **Restaurant forums**: Share with restaurant communities
+
+### **Content Strategy**
+- "Manage your menu like a pro"
+- "From spreadsheet chaos to organized menus"
+- "Simple menu management for busy restaurants"
+- Share before/after examples of menu organization
+
+### **Success Metrics**
+- GitHub stars and forks
+- Number of contributors
+- Community engagement (issues, discussions)
+- Adoption in restaurants
 
 ---
 
-## 16  Closing Note
+## **Future Enhancements**
 
-Zestiq’s mission is simple: **turn raw ingredient data into delightful, inclusive dining narratives—automatically**. Join us to shape the future of menu intelligence and make every dining experience accessible, engaging, and profitable.
+### **Phase 2 (Month 2)**
+- Online ordering integration
+- Inventory management
+- Customer feedback system
+- Advanced analytics
+
+### **Phase 3 (Month 3)**
+- Multi-location support
+- Staff management features
+- Advanced reporting
+- API for integrations
+
+### **Phase 4 (Month 6)**
+- Mobile app for staff
+- POS system integration
+- Advanced customization options
+- Enterprise features
+
+---
+
+## **Why This Matters**
+
+Restaurants are the backbone of our communities, but many struggle with basic operational tools. Zestiq makes menu management simple and accessible, helping restaurants focus on what they do best - serving great food.
+
+---
+
+## **Get Started**
+
+1. **Clone the repository**
+2. **Set up your restaurant**
+3. **Create your first menu**
+4. **Start managing with ease**
+
+Join the community and help make restaurant management simple and effective!

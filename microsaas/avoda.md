@@ -1,172 +1,299 @@
-# **Avoda — Your AI-Native Job Data API**
+# **Avoda — Simple Job Application Tracker**
+
+*A simple web app that helps job seekers track their applications, follow-ups, and interviews. Perfect for anyone looking for a job who wants to stay organized and never miss a follow-up.*
 
 ---
 
-## 1 ▪ North-Star
+## 1. Vision
 
-|             | Statement                                                                                                                         |
-| ----------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| **Mission** | *Automate the grunt work of job discovery and pipeline tracking so humans can focus on storytelling, networking, and interviews.* |
-| **Vision**  | *Make high-fidelity, always-fresh job data available to any product or internal tool with a single API call.*                     |
-| **Tagline** | **“Feed your pipeline, not your spreadsheets.”**                                                                                  |
+**Avoda** is a simple job application tracker that helps you stay organized during your job search. Add job postings, track your applications, set reminders for follow-ups, and never lose track of where you've applied or what's next.
 
 ---
 
-## 2 ▪ Problem Landscape
+## 2. Problem Statement
 
-1. **Copy-paste chaos** — Job hunters waste hours transcribing titles, tech stacks, salaries, and links into personal trackers.
-2. **Vanishing listings** — Postings disappear behind paywalls or “position closed” banners, leaving candidates without reference material.
-3. **Stale status** — Human memory fails; follow-ups slip, interviews aren’t logged, and opportunities die quietly.
-4. **DIY tooling gap** — Recruiters and career-tech startups reinvent scraping, parsing, reminders, and analytics instead of building differentiated UX.
-
----
-
-## 3 ▪ Solution at a Glance
-
-Avoda is a **pure API MicroSaaS** that ingests any public job-posting URL and returns a rich, versioned JSON object. Downstream consumers—browser extensions, career-tracking apps, talent CRMs, bootcamp dashboards—delegate **extraction, enrichment, lifecycle automations, and metrics** to Avoda while retaining full control of their UI.
+Job seekers struggle with:
+- **Lost applications** - Can't remember where they applied
+- **Missed follow-ups** - Forget to check back on applications
+- **No organization** - Job search info scattered everywhere
+- **Poor tracking** - Don't know which applications are active
+- **No reminders** - Forget to follow up on time
 
 ---
 
-## 4 ▪ Core Capabilities & Endpoints
+## 3. Solution Overview
 
-| Capability             | Purpose                                                                                                                                   | Key Endpoints                |
-| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
-| **Smart Scrape**       | Normalize HTML, archive a full-page image/PDF, and detect page language & encoding.                                                       | `POST /v1/scrape`            |
-| **Field Extraction**   | Return canonical fields (title, employer, salary, geography, remote policy, duties\[], requirements\[], stack\[], posting\_date, source). | `GET /v1/jobs/{id}`          |
-| **Fit Synopsis**       | Three-sentence, role-aware summary tuned to seniority and culture signals.                                                                | Included in `/jobs` payload  |
-| **Lifecycle Tracker**  | Atomic status transitions with automatic timestamping (`LISTED → APPLIED → … → REJECTED`).                                                | `PATCH /v1/jobs/{id}/status` |
-| **Reminder Hooks**     | Declarative triggers (e.g., “ping if 7 days idle in LISTED”) that fire webhooks or emails.                                                | `POST /v1/reminders`         |
-| **Duplicate Watch**    | Embedding-based similarity search flags redundant listings.                                                                               | `GET /v1/jobs/similar`       |
-| **Skill-Gap Diff**     | Compare job stack against a résumé JSON to surface missing skills with scores.                                                            | `POST /v1/skills/diff`       |
-| **Analytics Snapshot** | Aggregates: application cadence, hit-rate, time-in-stage, salary band histograms.                                                         | `GET /v1/metrics`            |
+Avoda provides a simple interface that:
+1. **Add job postings** - Save job details with one click
+2. **Track applications** - Log when you apply and current status
+3. **Set reminders** - Get notified when to follow up
+4. **Monitor progress** - See your application pipeline at a glance
+5. **Export data** - Download your job search history
 
-> **Design choice:** every feature is **idempotent, stateless, and pay-per-call**, enabling granular metering and easy horizontal scaling.
+**Core Features:**
+- Job posting storage
+- Application status tracking
+- Follow-up reminders
+- Progress dashboard
+- Data export
 
 ---
 
-## 5 ▪ Data Entities & Relationships
+## 4. User Workflow
 
+1. **Add Job** - Paste job URL or manually enter job details
+2. **Track Application** - Log when you apply and current status
+3. **Set Reminders** - Schedule follow-up reminders
+4. **Monitor Progress** - Check dashboard for active applications
+5. **Follow Up** - Get notified when it's time to check in
+
+**Example Use Cases:**
+- **Job Seekers**: Track applications across multiple companies
+- **Career Changers**: Organize transition to new industry
+- **Recent Graduates**: Manage first job search
+- **Freelancers**: Track project applications
+
+---
+
+## 5. Simple Architecture
+
+**Core Components:**
+- **Job Storage** - Save job postings and details
+- **Status Tracker** - Monitor application progress
+- **Reminder System** - Notify about follow-ups
+- **Dashboard** - Visual overview of applications
+- **Export Tool** - Download job search data
+
+**Data Structure:**
+- Job postings (title, company, location, salary, URL)
+- Application status (applied, interviewed, offered, rejected)
+- Follow-up reminders (dates, notes)
+- Contact information (recruiter, hiring manager)
+
+---
+
+## 6. Installation & Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/avoda/job-tracker.git
+cd job-tracker
+
+# Install dependencies
+npm install
+
+# Set up database
+npm run setup
+
+# Start the application
+npm start
 ```
-Job ⟶{many} Revision
-Job ⟶{many} Reminder
-User ⟵{many} Job
-User ⟶{many} ResumeSkill
-```
 
-* **Job** — canonical record keyed by URL hash.
-* **Revision** — immutable snapshots whenever the source page changes (diffs available).
-* **Reminder** — declarative rule + next\_fire\_at timestamp.
-* **ResumeSkill** — user-supplied skill tags with proficiency weights.
+**Quick Start:**
+1. Sign up for free account
+2. Add your first job posting
+3. Track your application status
+4. Set up follow-up reminders
+5. Monitor your progress
 
 ---
 
-## 6 ▪ Intelligence Layer
+## 7. Key Features
 
-| Model-Assisted Task     | How It Works                                                                                    | Why It Matters                                                  |
-| ----------------------- | ----------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| **Extraction**          | Few-shot function calls plus deterministic post-processing.                                     | 95 %+ field accuracy across heterogeneous boards.               |
-| **Summary**             | Structured prompt uses duties & stack to craft a three-line “Fit Synopsis.”                     | Users see at-a-glance relevance without reading 1 000-word ads. |
-| **Duplicate Detection** | Embedding cosine similarity with threshold decay over time.                                     | Prevents noisy boards and accidental re-application.            |
-| **Skill-Gap Analysis**  | Token overlap + vector diff between job stack and résumé embeddings.                            | Guides self-study and résumé tweaks.                            |
-| **Status Nudges**       | Heuristic + ML model predicts likelihood of stage advancement; overdue items trigger reminders. | Cuts attrition caused by forgetting.                            |
+**Job Management:**
+- Add jobs by URL or manual entry
+- Store job details and requirements
+- Categorize by industry or role
+- Add personal notes and thoughts
 
----
+**Application Tracking:**
+- Log application dates
+- Track current status
+- Record interview dates
+- Store feedback and notes
 
-## 7 ▪ High-Level Architecture
+**Reminder System:**
+- Set follow-up reminders
+- Email notifications
+- Calendar integration
+- Custom reminder intervals
 
-1. **Edge Collection Layer**
-
-   * Lightweight fetchers execute in isolated sandboxes; cold starts avoided via pooling.
-   * Documents streamed to central message bus for parsing.
-
-2. **Parse & Enrichment Pipeline**
-
-   * Fan-out workers perform language detection, boilerplate stripping, and LLM extraction.
-   * Parsed payloads land in the **Operational Store**; embeddings stream to the **Vector Index**.
-
-3. **Core API Cluster**
-
-   * Stateless containers behind an auto-scaling gateway; JWT-based tenant isolation.
-   * Rate limit & billing middleware inject usage metadata.
-
-4. **Automation Engine**
-
-   * Cron-driven rule evaluator materialises reminder events and pushes them to outbound queues (email, webhook, calendar).
-
-5. **Observability Mesh**
-
-   * Distributed tracing, structured logs, anomaly alerts on extraction accuracy and latency.
-
-*All components are cloud-agnostic and deployable in a single-region starter footprint or multi-region active-active for enterprise.*
+**Progress Dashboard:**
+- Visual application pipeline
+- Success rate tracking
+- Time in each stage
+- Application statistics
 
 ---
 
-## 8 ▪ Security & Compliance
+## 8. Revenue Model
 
-| Concern                  | Approach                                                                                             |
-| ------------------------ | ---------------------------------------------------------------------------------------------------- |
-| **PII Protection**       | Field-level encryption at rest; client-side fetch option for teams with strict data-residency rules. |
-| **Auth & Isolation**     | OAuth 2.0 + fine-grained scopes; per-tenant row-level ACLs.                                          |
-| **Auditability**         | Immutable revision history and signed activity webhooks.                                             |
-| **Regulatory Alignment** | GDPR, CCPA, and SOC-readiness baked into data-retention policies.                                    |
+**Free Tier:**
+- Up to 10 job applications
+- Basic reminders
+- Simple dashboard
+- Email support
 
----
+**Pro Tier ($9/month):**
+- Unlimited applications
+- Advanced reminders
+- Detailed analytics
+- Data export
+- Priority support
 
-## 9 ▪ Pricing Model
-
-| Tier           | Monthly Base | Call Allowance | Overages        | Target Users                       |
-| -------------- | ------------ | -------------- | --------------- | ---------------------------------- |
-| **Free**       | \$0          | 100 calls      | \$0.01 / call   | Indie devs prototyping extensions  |
-| **Grow**       | \$29         | 5 000 calls    | \$0.005 / call  | Bootcamps, niche job-tracker apps  |
-| **Scale**      | \$149        | 40 000 calls   | \$0.003 / call  | Recruiting platforms, HR analytics |
-| **Enterprise** | Custom       | Unlimited      | Volume contract | Large ATS vendors & staffing firms |
-
-*Unused calls roll over 1 month; reminders and webhook events count as 0.25 calls.*
-
----
-
-## 10 ▪ Roll-Out Roadmap
-
-| Month | Milestone                                                                                        |
-| ----- | ------------------------------------------------------------------------------------------------ |
-| **0** | Internal alpha: scrape + extract for top 20 job boards, manual QA feedback loop.                 |
-| **1** | Public beta: self-serve dashboard for API keys, basic quota metering, single-endpoint docs.      |
-| **2** | Webhook & reminder engine, duplicate detection, résumé diff, usage analytics.                    |
-| **3** | Partner integrations (Zapier, Make, low-code platforms), official browser-extension starter kit. |
-| **4** | Enterprise compliances, custom language models for non-English boards, regional data pods.       |
+**Premium Tier ($19/month):**
+- Everything in Pro
+- Resume tracking
+- Interview preparation tools
+- Salary negotiation guides
+- Career coaching resources
 
 ---
 
-## 11 ▪ Competitive Edge
+## 9. Marketing Strategy
 
-* **API-first purity** — zero front-end baggage; integrates into any stack in minutes.
-* **LLM ensemble tuned for job text** — specialized prompts and guardrails slash hallucinations.
-* **Revision history** — rescuing “dead” listings is a unique value prop for candidates and compliance teams.
-* **Embeddable analytics** — drop-in JSON reports enable white-label dashboards without BI overhead.
+**Week 1 Launch Plan:**
+
+**Day 1-2: Product Launch**
+- Launch simple MVP with core features
+- Create landing page with clear value proposition
+- Set up basic analytics and feedback collection
+
+**Day 3-4: Content Marketing**
+- Write blog post: "How to Never Miss a Job Follow-Up"
+- Create social media posts about job search organization
+- Share on job search forums and communities
+
+**Day 5-6: Community Outreach**
+- Post on Reddit r/jobs and r/careerguidance
+- Share on LinkedIn with job search tips
+- Engage with job search Twitter community
+
+**Day 7: Paid Promotion**
+- Small Facebook/Google Ads budget ($50-100)
+- Target job seekers and career changers
+- Focus on problem-solution messaging
+
+**Go-to-Market Channels:**
+- **Content Marketing**: Job search tips and career advice
+- **Social Media**: LinkedIn, Twitter, Reddit
+- **SEO**: Job tracking, application management keywords
+- **Partnerships**: Career coaches, job boards, resume services
 
 ---
 
-## 12 ▪ Future Horizons
+## 10. Development Roadmap
 
-1. **Auto-Apply Endpoint** — structured JSON → form fill robots, gated behind strict compliance checks.
-2. **Compensation Benchmark Feed** — anonymized, aggregated salary data surfaced via `/benchmarks`.
-3. **Talent-Pool Matching** — inverse search: push résumés, receive ranked live postings.
-4. **ATS Back-Fill Connector** — sync stage changes bi-directionally with major tracking systems.
-5. **Market Pulse** — real-time Labour Market Intelligence (LMI) signals for economists and policy orgs.
+**Week 1: Core MVP**
+- Basic job posting storage
+- Application status tracking
+- Simple reminder system
+- User authentication
+
+**Week 2: Enhanced Features**
+- Dashboard with progress visualization
+- Email reminder system
+- Data export functionality
+- Mobile-responsive design
+
+**Week 3: Advanced Capabilities**
+- Resume upload and tracking
+- Interview preparation tools
+- Salary negotiation guides
+- Integration with job boards
+
+**Week 4: Polish & Launch**
+- Payment processing
+- Analytics and reporting
+- Customer support system
+- Marketing website
 
 ---
 
-## 13 ▪ Success Metrics
+## 11. Competitive Advantages
 
-| KPI                            | North-Star Target        | Rationale                                                      |
-| ------------------------------ | ------------------------ | -------------------------------------------------------------- |
-| **Daily Parsed Jobs**          | 50 000 within 6 months   | Network effects: more data → better models → higher retention. |
-| **Avg. Extraction Accuracy**   | ≥ 97 % on validation set | Maintains trust and reduces manual corrections.                |
-| **Churn Rate (Grow tier)**     | < 3 % monthly            | Indicates durable developer adoption.                          |
-| **Requests ↔ Reminders Ratio** | ≥ 1.4                    | Proof users leverage automations, not just raw scrape.         |
+**Simple & Focused:**
+- No complex features, just job tracking
+- Clean, intuitive interface
+- Fast setup and onboarding
+
+**Affordable:**
+- Free tier for basic users
+- Low-cost pro tier
+- No hidden fees or charges
+
+**Privacy-First:**
+- User data stays private
+- No sharing with third parties
+- GDPR compliant
+
+**Mobile-Friendly:**
+- Works on all devices
+- No app download required
+- Responsive design
 
 ---
 
-### **Why Avoda, Why Now?**
+## 12. Success Metrics
 
-Remote-first hiring and AI-native tooling have exploded the **volume** and **velocity** of job postings. Candidates and career-platform builders alike crave *structured, actionable* vacancy data but lack the resources to build and maintain scraping, parsing, and enrichment pipelines. Avoda arrives as a **laser-focused utility**: battle-tested LLM workflows, ironclad revision storage, and pay-as-you-scale economics—*so every job seeker’s next move is always one API call away.*
+**Week 1 Targets:**
+- 100 free signups
+- 50 active users
+- 5 paid conversions
+- 80% user retention
+
+**Month 1 Targets:**
+- 500 total users
+- 50 paid subscribers
+- $450 monthly revenue
+- 4.5/5 user rating
+
+**Key Performance Indicators:**
+- User registration rate
+- Daily active users
+- Conversion to paid tier
+- User retention rate
+- Customer satisfaction score
+
+---
+
+## 13. Risk Mitigation
+
+**Technical Risks:**
+- **Data Loss**: Regular backups and cloud storage
+- **Downtime**: Simple architecture with minimal dependencies
+- **Security**: Basic authentication and data encryption
+
+**Business Risks:**
+- **Low Adoption**: Focus on clear value proposition and problem-solving
+- **Competition**: Emphasize simplicity and ease of use
+- **Pricing**: Start with free tier to build user base
+
+**Market Risks:**
+- **Economic Downturn**: Job search tools often increase in demand
+- **Seasonal Fluctuations**: Plan for graduation and new year job search peaks
+
+---
+
+## 14. Exit Strategy
+
+**Short-term (6 months):**
+- Build user base to 5,000+ users
+- Achieve $2,000+ monthly recurring revenue
+- Establish product-market fit
+
+**Medium-term (1-2 years):**
+- Expand to 50,000+ users
+- Add advanced features and integrations
+- Consider acquisition by job board or HR tech company
+
+**Long-term (3+ years):**
+- Build comprehensive career platform
+- Explore enterprise sales opportunities
+- Consider IPO or major acquisition
+
+---
+
+### **Avoda** — Making job search organization simple and effective.
+
+**Start tracking your job applications today and never miss a follow-up again!**

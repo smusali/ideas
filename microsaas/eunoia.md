@@ -1,173 +1,300 @@
-# **EUNOIA API — *Insight in Every Conversation***
+# **Eunoia — Simple Mental Health Tracker**
 
-An **LLM-powered, HIPAA-ready API platform** that transforms raw therapy interactions into actionable insights, continuous risk surveillance, and time-saving automations for any mental-health product or electronic-health-record (EHR) vendor.
-
----
-
-## 1 ▪ North-Star
-
-|                      | Statement                                                                                                                             | Source |
-| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| **Mission**          | *Amplify every clinician’s impact by turning conversational data into real-time understanding and safeguards for patient well-being.* |        |
-| **Vision**           | *Power a global lattice of empathetic, always-on mental-health support through a single, privacy-first intelligence layer.*           |        |
-| **Tagline / Domain** | **“Insight in Every Conversation”** — `https://eunoiaapi.com`                                                                         |        |
+*A simple web app that helps you track your mood, habits, and mental wellness. Perfect for anyone who wants to understand their mental health patterns and build better habits.*
 
 ---
 
-## 2 ▪ Problem Landscape
+## 1. Vision
 
-1. **The Between-Session Abyss** – Patients often go **7-14 days** without structured support, leaving relapse or crisis unaddressed.
-2. **Data-Rich, Insight-Poor** – Audio, chat and form data pile up, yet clinicians see only fragments during rushed sessions.
-3. **Manual Risk Triage** – Screening tools catch < 40 % of emerging suicidality outside appointments, burdening already overstretched providers.
-4. **Solo-Clinician Price Barrier** – Existing “ambient-scribe” suites start near **US \$99–200 / month** ([Scribeberry][1]), sidelining \~200 k independent therapists in the U.S. ([ambitionsaba.com][2]).
-5. **Fragmented Vendor Stack** – Each platform reinvents sentiment, summarisation and risk detection, duplicating cost and compliance work.
+**Eunoia** is a simple mental health tracking app that helps you monitor your mood, track your habits, and understand your mental wellness patterns. Take control of your mental health with easy-to-use tools and insights.
 
 ---
 
-## 3 ▪ Solution Overview
+## 2. Problem Statement
 
-**EUNOIA API** delivers plug-and-play endpoints that:
-
-| Care Phase           | Core Capability (API Module)                                                                 | Impact for Integrators                            |
-| -------------------- | -------------------------------------------------------------------------------------------- | ------------------------------------------------- |
-| **Between sessions** | *Check-In Sentiment* — scores patient text/voice logs                                        | Early flagging of disengagement or mood shifts    |
-| **Live or recorded** | *Streaming Insight* — diarises emotions, topics, DSM-5 cue likelihoods from transcripts      | Accelerated, structured notes                     |
-| **After sessions**   | *Risk & Resilience Score* — multi-factor self-harm probability with rationale                | Focuses clinician attention on high-risk caseload |
-| **Longitudinal**     | *Progress Trajectory* — regression over PHQ-9 / GAD-7 & sentiment series                     | Outcomes dashboards & payor reporting             |
-| **Administrative**   | *Smart Summary* — compresses dialogue into billing-compliant note plus next-step suggestions | Frees 20-30 % of documentation time               |
-
-All surfaces are **API-only**: no competing UI, no lock-in — just consumable JSON (or FHIR-compatible) responses ready for any app, bot, portal or EHR.
+People struggle with mental health tracking because:
+- **No consistent tracking** - Hard to remember to log mood and habits daily
+- **Scattered information** - Mental health data is spread across different apps
+- **No insights** - Don't understand patterns or triggers
+- **Complex tools** - Existing apps are too complicated or overwhelming
+- **No motivation** - Lack of encouragement to maintain tracking
 
 ---
 
-## 4 ▪ Feature Deep-Dive
+## 3. Solution Overview
 
-### 4.1 Adaptive Check-In Sentiment
+Eunoia provides a simple interface that:
+1. **Track daily mood** - Quick mood logging with emoji and notes
+2. **Monitor habits** - Track sleep, exercise, meditation, and other wellness activities
+3. **Identify patterns** - See correlations between mood and activities
+4. **Set goals** - Create wellness goals and track progress
+5. **Get insights** - Simple reports and trends over time
 
-*Natural-language prompts tuned by clinician; multi-lingual tone, valence and energy extraction; optional journaling streak analytics.*
-
-### 4.2 Streaming Insight
-
-*Low-latency websocket ingests transcripts or live audio frames; returns incremental topic detection, emotion timeline, key quotes, and “moment markers” (trauma recall, breakthrough, avoidance).*
-
-### 4.3 Risk & Resilience Score
-
-*Ensemble LLM + rule-based pipeline producing a 0-100 score plus explanatory factors (ideation keywords, social isolation markers, medication non-adherence).*
-
-### 4.4 Progress Trajectory
-
-*EUNOIA auto-plots validated assessment results, sentiment trends and therapy adherence into a single vector for outcome dashboards and payer audits.*
-
-### 4.5 Smart Summary
-
-*Compresses entire session into a templated note (SOAP / DAP / free-form) with recommended ICD-10, CPT codes and next-session goals, slashing administrative load.*
+**Core Features:**
+- Daily mood tracking
+- Habit monitoring
+- Pattern recognition
+- Goal setting
+- Simple analytics
 
 ---
 
-## 5 ▪ API Blueprint
+## 4. User Workflow
 
-| Endpoint (v1)          | Method | Purpose (High-Level)                                           | Typical Latency | Auth Requirement  |
-| ---------------------- | ------ | -------------------------------------------------------------- | --------------- | ----------------- |
-| `/checkin/sentiment`   | POST   | Analyse text entries; return mood, tone, energy scores         | < 800 ms        | Signed JWT + mTLS |
-| `/stream/insight`      | WS     | Bi-directional stream: audio or transcript → live tags         | < 300 ms/frame  | Access token      |
-| `/risk/score`          | POST   | Evaluate compound risk from notes, check-ins, vitals           | < 1.2 s         | Signed JWT        |
-| `/progress/trajectory` | GET    | Aggregated longitudinal metrics for patient-ID                 | < 600 ms        | OAuth2 Client     |
-| `/summary/note`        | POST   | Generate billing-ready session summary + next actions          | < 900 ms        | Signed JWT        |
-| `/admin/webhooks`      | PUT    | Register endpoints for event push (risk\_alert, model\_update) | N/A             | OAuth2 Client     |
+1. **Daily Check-in** - Log your mood and activities each day
+2. **Track Habits** - Monitor sleep, exercise, meditation, etc.
+3. **Review Patterns** - See weekly and monthly trends
+4. **Set Goals** - Create wellness goals and track progress
+5. **Get Insights** - Understand what affects your mental health
 
-*Versioning* is path-based; rate limits tiered per plan (e.g., 100 RPM / 1 k RPM / custom). All responses include confidence scores, trace-IDs, and model version hashes for auditability.
-
----
-
-## 6 ▪ Data & Security Architecture
-
-* **Zero-Trust Edge** — Dual-layer API gateway, HMAC-signed payloads, regional data plane isolation.
-* **PHI Encryption** — AES-256 at rest, TLS 1.3 in transit.
-* **Role-Bound Vaulting** — Runtime-generated decryption keys per tenant, rotated hourly.
-* **Audit Ledger** — Immutable append-only activity stream (patient, clinician, system).
-* **Compliance Footprint** — HIPAA, GDPR, and SOC 2 Type II readiness from day one.
+**Example Use Cases:**
+- **Individuals**: Track personal mental health and wellness
+- **Students**: Monitor stress levels and study habits
+- **Professionals**: Track work-life balance and stress
+- **Therapy Clients**: Supplement therapy with daily tracking
 
 ---
 
-## 7 ▪ Business & Market
+## 5. Simple Architecture
 
-| Aspect                     | Detail                                                                                                                   | Source |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------ |
-| **Primary model**          | Usage-based SaaS — tiered requests /month plus overage; entry tier targets independents at **≈ US \$29 / mo**.           |        |
-| **Growth lever**           | *OEM licensing* to EHR vendors & tele-therapy apps (white-label).                                                        |        |
-| **TAM (2025)**             | Digital mental-health services market **≈ US \$32.9 B** and rising at \~18 % CAGR. ([Market Research Future][3])         |        |
-| **Serviceable niche**      | \~**200 k** U.S. therapists plus > 2 k emerging digital-health platforms. ([ambitionsaba.com][2])                        |        |
-| **Competitive whitespace** | No pure-API providers coupling *LLM sentiment + DSM insights + risk scoring* under one roof; incumbents bundle UI tools. |        |
-| **Expansion revenue**      | Risk-alert SMS / email, analytics dashboards, white-glove compliance attestations.                                       |        |
+**Core Components:**
+- **Mood Tracker** - Daily mood logging with notes
+- **Habit Monitor** - Track wellness activities
+- **Pattern Analyzer** - Identify correlations and trends
+- **Goal System** - Set and track wellness goals
+- **Insights Dashboard** - Visual reports and trends
 
----
-
-## 8 ▪ Go-to-Market Playbook
-
-1. **Founder-Led Pilots** – Embed with 3 therapy-tech startups for co-development & validated endpoints (Month 1-2).
-2. **Indie Clinician Beta** – Stripe self-serve, plug-in docs, PHQ-9 auto-scoring (Month 3).
-3. **Marketplace Add-Ons** – Publish integration bundles for major EHR app stores (Month 4-5).
-4. **Certifications** – Achieve SOC 2 Type II & complete third-party HIPAA audit (Month 5-6).
-5. **Thought-Leadership** – Release quarterly anonymised mental-health trends report, driving inbound.
+**Data Structure:**
+- Daily mood entries (rating, notes, date)
+- Habit tracking (sleep, exercise, meditation, etc.)
+- Goals and progress tracking
+- User preferences and settings
 
 ---
 
-## 9 ▪ Execution Roadmap (6-Month Solo Founder)
+## 6. Installation & Setup
 
-| Phase                    | Weeks | Milestones                                                                        |
-| ------------------------ | ----- | --------------------------------------------------------------------------------- |
-| **0 Foundation**         | 0-1   | Tenant-aware auth, CI/CD, observability, compliance policies                      |
-| **1 Core APIs**          | 1-5   | Check-In Sentiment & Smart Summary endpoints, baseline risk model                 |
-| **2 Pilot Integrations** | 6-8   | Embed SDK + webhook with design partners; collect human-labelled calibration data |
-| **3 Risk Engine v2**     | 9-12  | Ensemble model, explainability layer, push-alert infrastructure                   |
-| **4 Public Launch**      | 13-18 | Self-serve onboarding, live status page, billing portal                           |
-| **5 Scale & Certify**    | 19-24 | Multi-region deployment, SOC 2 report, payor-ready outcomes export                |
+```bash
+# Clone the repository
+git clone https://github.com/eunoia/mental-health-tracker.git
+cd mental-health-tracker
 
----
+# Install dependencies
+npm install
 
-## 10 ▪ Ethical Guard-Rails
+# Set up database
+npm run setup
 
-* **Decision-Support, Not Decision-Making** — Scores flagged as *recommendations*; final clinical judgement remains human.
-* **Explainability First** — Every prediction paired with natural-language rationale & citations to recognised criteria.
-* **Consent-Granular Controls** — Tenant-configurable data retention and patient opt-out endpoints.
-* **Bias Monitoring** — Continuous fairness audits across age, gender, ethnicity cohorts; drift alerts surfaced via webhook.
+# Start the application
+npm start
+```
 
----
-
-## 11 ▪ Competitive Advantage
-
-1. **API-Only Focus** – Eliminates channel conflict; partners keep their UI, branding and patient relationship.
-2. **All-in-One Intelligence Stack** – Sentiment, clinical reasoning, risk & admin automation fused in single contract.
-3. **Affordability** – Entry pricing one-third of typical scribe platforms ([Scribeberry][1]), unlocking solo-practitioner market.
-4. **Audit-Ready Telemetry** – Trace-IDs and model hashes simplify FDA & payer submissions.
-5. **Rapid Customisation** – Fine-tune by specialty (CBT, EMDR, family therapy) through domain-adaptation endpoint.
+**Quick Start:**
+1. Sign up for free account
+2. Complete initial wellness assessment
+3. Set up daily reminder
+4. Start tracking your mood and habits
+5. Review your patterns weekly
 
 ---
 
-## 12 ▪ Success Metrics
+## 7. Key Features
 
-| KPI                             | Target @ 12 Months |
-| ------------------------------- | ------------------ |
-| Active API Clients              | 250 tenants        |
-| Monthly Analysed Sessions       | 500 k              |
-| Avg. Clinician Admin Time Saved | ≥ 25 %             |
-| Mean Risk-Alert Precision       | ≥ 0.85             |
-| Gross Logo Retention            | ≥ 95 %             |
+**Mood Tracking:**
+- Daily mood rating (1-10 scale)
+- Mood notes and context
+- Mood history and trends
+- Trigger identification
+
+**Habit Monitoring:**
+- Sleep tracking (hours, quality)
+- Exercise logging (type, duration)
+- Meditation and mindfulness
+- Social activities
+- Nutrition and hydration
+
+**Pattern Recognition:**
+- Mood correlation with habits
+- Weekly and monthly trends
+- Trigger identification
+- Seasonal patterns
+
+**Goal Setting:**
+- Wellness goal creation
+- Progress tracking
+- Achievement celebrations
+- Goal adjustment
 
 ---
 
-## 13 ▪ Long-Range Horizon
+## 8. Revenue Model
 
-| Timeframe  | Strategic Expansion                                                                                            |
-| ---------- | -------------------------------------------------------------------------------------------------------------- |
-| **Year 2** | SDKs for gaming / VR-therapy, multilingual sentiment (15 + languages), payor-grade ROI calculators.            |
-| **Year 3** | Federated on-device fine-tuning, clinician skill-coaching analytics, predictive triage routing to specialists. |
-| **Year 4** | Unified behavioural-health AI platform — acquisition target for EHR, tele-health or payer conglomerates.       |
+**Free Tier:**
+- Basic mood tracking
+- 3 habit categories
+- 7-day history
+- Email support
+
+**Premium Tier ($8/month):**
+- Unlimited mood tracking
+- All habit categories
+- Full history and analytics
+- Goal setting and tracking
+- Priority support
+
+**Wellness Tier ($15/month):**
+- Everything in Premium
+- Custom habit categories
+- Advanced analytics
+- Export data
+- Wellness coaching resources
 
 ---
 
-> **EUNOIA API** distils the noise of every therapeutic exchange into crystal-clear insight, giving builders the power to protect patients, free clinicians, and advance mental-health outcomes — all through a single, privacy-first endpoint.
+## 9. Marketing Strategy
 
-[1]: https://scribeberry.com/?utm_source=chatgpt.com "Scribeberry"
-[2]: https://www.ambitionsaba.com/resources/therapist-statistics?utm_source=chatgpt.com "Therapist Statistics And Facts: How Many Are There?"
-[3]: https://www.marketresearchfuture.com/reports/digital-mental-health-market-11062?utm_source=chatgpt.com "Digital Mental Health Market Size, Growth, Trends, Report 2034"
+**Week 1 Launch Plan:**
+
+**Day 1-2: Product Launch**
+- Launch MVP with core tracking features
+- Create landing page focusing on mental wellness
+- Set up basic analytics and feedback collection
+
+**Day 3-4: Content Marketing**
+- Write blog post: "5 Simple Ways to Track Your Mental Health"
+- Create social media content about wellness tracking
+- Share mental health tips on Instagram and TikTok
+
+**Day 5-6: Community Outreach**
+- Post on mental health subreddits (r/mentalhealth, r/selfcare)
+- Share on wellness and mindfulness groups
+- Engage with mental health Twitter community
+
+**Day 7: Paid Promotion**
+- Small Instagram/Facebook Ads budget ($100-150)
+- Target wellness and mental health audiences
+- Focus on self-improvement and mindfulness
+
+**Go-to-Market Channels:**
+- **Content Marketing**: Mental health tips and wellness advice
+- **Social Media**: Instagram, TikTok, Twitter, Reddit
+- **SEO**: Mental health tracking, mood tracking keywords
+- **Partnerships**: Wellness coaches, therapists, meditation apps
+
+---
+
+## 10. Development Roadmap
+
+**Week 1: Core MVP**
+- Basic mood tracking interface
+- Simple habit logging
+- User authentication
+- Basic data storage
+
+**Week 2: Enhanced Features**
+- Pattern recognition algorithms
+- Goal setting system
+- Basic analytics dashboard
+- Mobile-responsive design
+
+**Week 3: Advanced Capabilities**
+- Advanced analytics and insights
+- Data export functionality
+- Reminder system
+- Social sharing features
+
+**Week 4: Polish & Launch**
+- Payment processing
+- Advanced reporting
+- Customer support system
+- Marketing website
+
+---
+
+## 11. Competitive Advantages
+
+**Simple & Accessible:**
+- No complex features, just essential tracking
+- Clean, calming interface
+- Easy onboarding and setup
+
+**Privacy-First:**
+- Secure data storage
+- No data sharing or selling
+- User controls over data
+
+**Affordable:**
+- Free tier for basic users
+- Low-cost premium features
+- No hidden fees
+
+**Evidence-Based:**
+- Based on mental health best practices
+- Simple but effective tracking
+- Focus on actionable insights
+
+---
+
+## 12. Success Metrics
+
+**Week 1 Targets:**
+- 300 free signups
+- 200 daily active users
+- 15 paid conversions
+- 90% user retention
+
+**Month 1 Targets:**
+- 2,000 total users
+- 200 paid subscribers
+- $1,600 monthly revenue
+- 4.4/5 user rating
+
+**Key Performance Indicators:**
+- Daily active users
+- Mood tracking consistency
+- Conversion to paid tier
+- User retention rate
+- Customer satisfaction score
+
+---
+
+## 13. Risk Mitigation
+
+**Technical Risks:**
+- **Data Security**: Implement strong encryption and privacy controls
+- **Performance**: Optimize for mobile and web usage
+- **Scalability**: Design for growth from day one
+
+**Business Risks:**
+- **Low Adoption**: Focus on clear mental health benefits
+- **Competition**: Emphasize simplicity and accessibility
+- **Pricing**: Start with free tier to build user base
+
+**Market Risks:**
+- **Mental Health Stigma**: Focus on wellness and self-improvement
+- **Regulatory Changes**: Stay updated with health data regulations
+
+---
+
+## 14. Exit Strategy
+
+**Short-term (6 months):**
+- Build user base to 20,000+ users
+- Achieve $8,000+ monthly recurring revenue
+- Establish product-market fit
+
+**Medium-term (1-2 years):**
+- Expand to 200,000+ users
+- Add advanced features and integrations
+- Consider acquisition by wellness or health tech company
+
+**Long-term (3+ years):**
+- Build comprehensive wellness platform
+- Explore healthcare partnerships
+- Consider IPO or major acquisition
+
+---
+
+### **Eunoia** — Making mental health tracking simple and effective.
+
+**Start tracking your wellness today and understand your mental health patterns!**

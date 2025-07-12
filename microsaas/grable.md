@@ -1,169 +1,270 @@
-# **Grable**
+# **Grable — Simple QR Code Menu Generator**
 
-*Simple QR code menus for restaurants - go digital in minutes*
-
----
-
-## 1. Vision & Mission
-
-**Vision**: Help every small restaurant create digital menus instantly
-**Mission**: Provide a simple tool that converts paper menus into QR codes, helping restaurants save money and improve customer experience.
+*A web app that creates digital menus with QR codes for restaurants. Upload your menu items, get a QR code that customers can scan to view your menu on their phones. Perfect for small restaurants, food trucks, and cafes going digital.*
 
 ---
 
-## 2. Pain Points Addressed
+## 1. Executive Summary
 
-| Stakeholder | Current Problem | Grable Solution |
-|-------------|----------------|-----------------|
-| **Restaurant Owners** | Expensive menu printing, hard to update prices | Digital menus, instant updates |
-| **Customers** | Can't see menu before visiting, no photos | QR code access, menu photos |
-| **Staff** | Manual price updates, printing costs | Automatic updates, no printing |
+**Grable** is a simple QR code menu generator that helps restaurants go digital instantly. Add your menu items, prices, and descriptions, then get a QR code that customers can scan to view your menu on their phones. No complex setup - just input your menu and get a QR code ready to print and display.
 
 ---
 
-## 3. Target Segments
+## 2. Problem Statement
 
-1. **Small Restaurants** (1-3 locations)
-2. **Food Trucks & Pop-ups**
-3. **Cafés & Coffee Shops**
-4. **Local Pizzerias & Takeout**
-
----
-
-## 4. Core Value Proposition
-
-- **5-Minute Setup** - Upload menu, get QR code instantly
-- **Instant Updates** - Change prices without reprinting
-- **Customer Friendly** - Mobile-optimized menu viewing
-- **Cost Effective** - Save on printing and reprinting
+Restaurants struggle with traditional menus because:
+- **Expensive printing** - Costs hundreds to print and reprint menus
+- **Hard to update** - Can't change prices without reprinting everything
+- **No photos** - Customers can't see what they're ordering
+- **Wasteful** - Paper menus get damaged and need replacement
+- **Not mobile-friendly** - Customers prefer viewing menus on phones
 
 ---
 
-## 5. Key Features (MVP - Week 1)
+## 3. Solution Overview
 
-| Feature | Description | Implementation Time |
-|---------|-------------|-------------------|
-| **Menu Upload** | Simple form to add menu items | 4 hours |
-| **QR Generation** | Create QR codes for menus | 2 hours |
-| **Mobile Menu** | Responsive menu display | 6 hours |
-| **Basic Admin** | Edit menu items and prices | 4 hours |
-| **Simple UI** | Clean, restaurant-friendly design | 4 hours |
+Grable provides instant digital menu creation:
+1. **Add Menu Items** - Enter dishes, prices, and descriptions
+2. **Generate QR Code** - Get a QR code for your menu
+3. **Print & Display** - Put QR code on tables or walls
+4. **Customers Scan** - View menu on their phones instantly
 
-**Total: 20 hours (3 days)**
-
----
-
-## 6. Example Workflow
-
-1. **Sign Up** - Restaurant creates account
-2. **Add Menu** - Enter items, prices, descriptions
-3. **Generate QR** - Get QR code for printing
-4. **Print & Display** - Put QR code on tables/walls
-5. **Customers Scan** - View menu on their phones
-6. **Update Anytime** - Change prices instantly
-
----
-
-## 7. Technical Stack (Simple)
-
-- **Frontend**: HTML, CSS, JavaScript
-- **Backend**: Simple server (Node.js/Express)
-- **Database**: SQLite or simple JSON storage
-- **QR Library**: qrcode.js
-- **Hosting**: Railway/Render ($5/month)
-- **Domain**: $10/year
-
----
-
-## 8. Monetization Model
-
-| Plan | Price | Features |
-|------|-------|----------|
-| **Free** | $0 | 1 menu, basic QR code |
-| **Starter** | $15/month | 3 menus, custom branding |
-| **Pro** | $29/month | Unlimited menus, analytics |
-
----
-
-## 9. Go-to-Market Strategy
-
-1. **Local Outreach** - Visit restaurants in person
-2. **Social Media** - Instagram, Facebook for restaurants
-3. **Print Shops** - Partner with local printers
-4. **Restaurant Groups** - Facebook groups, forums
-
----
-
-## 10. Revenue Projections (Month 1)
-
-- **Free Users**: 20 restaurants (marketing)
-- **Starter Conversions**: 25% = 5 users × $15 = $75
-- **Pro Conversions**: 10% = 2 users × $29 = $58
-- **Total**: $133
-
-**Goal**: $500/month by month 3
-
----
-
-## 11. Week 1 Development Plan
-
-**Day 1-2**: Core functionality
-- User registration/login
-- Menu creation form
-- Basic database setup
-
-**Day 3-4**: QR and display
+**MVP Features:**
+- Menu item input (name, price, description)
 - QR code generation
-- Mobile menu display
-- Basic admin panel
+- Mobile-optimized menu display
+- Basic menu editing
+- Print-ready QR codes
+- No account required for basic use
 
-**Day 5**: Polish and testing
-- UI improvements
-- Mobile responsiveness
-- Bug fixes
+---
 
-**Day 6-7**: Launch preparation
+## 4. User Workflow
+
+1. **Create Menu** - Add your dishes, prices, and descriptions
+2. **Get QR Code** - Generate QR code for your menu
+3. **Print & Display** - Print QR code and put on tables/walls
+4. **Customers Scan** - They view menu on their phones
+
+**Example Menu Display:**
+```
+🍕 Joe's Pizza - Digital Menu
+
+Appetizers:
+• Garlic Bread - $6.99
+  Fresh baked with garlic butter
+
+• Mozzarella Sticks - $8.99
+  Served with marinara sauce
+
+Pizzas:
+• Margherita - $14.99
+  Fresh mozzarella, basil, tomato sauce
+
+• Pepperoni - $16.99
+  Classic pepperoni with cheese
+```
+
+**Use Cases:**
+- **Small Restaurants**: Replace paper menus with digital
+- **Food Trucks**: Easy menu updates for changing locations
+- **Cafes**: Quick menu changes for daily specials
+- **Pizzerias**: Add/remove items without printing
+- **Any Food Business**: Go digital with minimal effort
+
+---
+
+## 5. Monetization Strategy
+
+**Free Tier:**
+- 1 menu
+- Basic QR code
+- Simple menu display
+- 7-day history
+
+**Starter Plan ($15/month):**
+- 3 menus
+- Custom branding
+- Menu photos
+- 30-day history
+- Analytics
+
+**Pro Plan ($29/month):**
+- Unlimited menus
+- Advanced customization
+- Priority support
+- API access
+- Team collaboration
+
+---
+
+## 6. Go-to-Market Strategy
+
+**Week 1 Launch Plan:**
+1. **Day 1-2:** Build menu creation interface
+2. **Day 3:** Add QR code generation
+3. **Day 4:** Create landing page
+4. **Day 5:** Launch on Product Hunt
+5. **Day 6-7:** Gather feedback and iterate
+
+**Marketing Channels:**
+- Product Hunt launch
+- Reddit (r/SideProject, r/Entrepreneur, r/restaurant)
+- Twitter/X with demo videos
+- Local restaurant outreach
+- Food industry forums
+
+**Target Audience:**
+- Small restaurant owners
+- Food truck operators
+- Cafe and coffee shop owners
+- Pizzeria and takeout businesses
+- Any food business going digital
+
+---
+
+## 7. Revenue Projections
+
+**Month 1:**
+- 50 free users
+- 10 Starter conversions ($150)
+- 3 Pro conversions ($87)
+- **Total: $237**
+
+**Month 3:**
+- 200 free users
+- 40 Starter conversions ($600)
+- 10 Pro conversions ($290)
+- **Total: $890**
+
+**Month 6:**
+- 500 free users
+- 100 Starter conversions ($1,500)
+- 25 Pro conversions ($725)
+- **Total: $2,225**
+
+**Year 1 Goal:**
+- 1,500 free users
+- 300 Starter users ($4,500/month)
+- 75 Pro users ($2,175/month)
+- **Total: $6,675/month**
+
+---
+
+## 8. Development Timeline
+
+**Week 1: MVP Development**
+- Day 1: Menu creation interface
+- Day 2: Menu item management
+- Day 3: QR code generation
+- Day 4: Mobile menu display
+- Day 5: Landing page and design
+- Day 6: Testing and bug fixes
+- Day 7: Launch preparation
+
+**Week 2: Post-Launch**
+- User feedback collection
+- Bug fixes and improvements
+- Menu display optimization
+- Print functionality
+
+**Week 3-4: Growth**
+- Marketing and outreach
+- Feature enhancements
+- Customer support
 - Payment integration
-- Landing page
-- Marketing materials
 
 ---
 
-## 12. Success Metrics
+## 9. Competitive Analysis
 
-- **Week 1**: 5 restaurant signups
-- **Week 2**: 10 QR codes generated
-- **Week 3**: First paying customer
-- **Week 4**: $100+ in revenue
+**Competitors:**
+- **Paper menus** - Expensive, hard to update
+- **Complex POS systems** - Overkill for simple menu needs
+- **Generic QR generators** - No menu-specific features
+- **Custom development** - Expensive, requires technical skills
+
+**Grable Advantages:**
+- Menu-specific features
+- Instant setup
+- Lower pricing
+- No technical skills required
+- Mobile-optimized display
 
 ---
 
-## 13. Future Enhancements (Post-MVP)
+## 10. Risk Mitigation
 
+**Technical Risks:**
+- QR code reliability - Use proven QR libraries and testing
+- Mobile compatibility - Test across different devices
+- Menu display issues - Responsive design and testing
+
+**Business Risks:**
+- Low adoption - Focus on cost savings and ease of use
+- Competition - Emphasize simplicity and restaurant focus
+- Feature creep - Stay focused on menu generation
+
+**Mitigation Strategies:**
+- Start with MVP, iterate based on feedback
+- Focus on small restaurants initially
+- Build in public to generate interest
+- Offer excellent free tier to drive adoption
+
+---
+
+## 11. Success Metrics
+
+**Week 1 Goals:**
+- 50 menu creations
+- 25 unique users
+- 5 Starter conversions
+- $75 MRR
+
+**Month 1 Goals:**
+- 300 menu creations
+- 150 unique users
+- 30 Starter conversions
+- $450 MRR
+
+**Month 3 Goals:**
+- 1,500 menu creations
+- 600 unique users
+- 120 Starter conversions
+- $1,800 MRR
+
+---
+
+## 12. Exit Strategy
+
+**Options:**
+1. **Acquisition** - Sell to larger restaurant tech companies
+2. **Open Source** - Release code, monetize support
+3. **SaaS Exit** - Sell business to entrepreneur
+4. **Continue Growing** - Build into larger platform
+
+**Valuation Potential:**
+- 8x ARR for SaaS acquisition
+- $150K-$500K for indie hacker exit
+- $1M-$3M for strategic acquisition
+
+---
+
+## 13. Next Steps
+
+**Immediate Actions:**
+1. Build MVP in 1 week
+2. Launch on Product Hunt
+3. Gather user feedback
+4. Iterate based on usage data
+
+**Future Enhancements:**
+- Menu photos and images
 - Online ordering integration
-- Menu analytics (views, popular items)
-- Multi-language support
-- Photo uploads for menu items
-- Customer reviews and ratings
+- Menu analytics
+- Team collaboration
+- API for developers
 
 ---
 
-## 14. Risk Mitigation
-
-| Risk | Impact | Mitigation |
-|------|--------|------------|
-| Low restaurant adoption | High | Focus on cost savings, easy setup |
-| Competition from big players | Medium | Focus on simplicity, local support |
-| Technical issues | Medium | Simple tech stack, good testing |
-
----
-
-## 15. Exit Strategy
-
-1. **Acquisition** - Sell to restaurant tech companies
-2. **White-label** - License to restaurant chains
-3. **Expansion** - Add ordering, payments, loyalty
-
----
-
-*Grable: Digital menus made simple. From paper to QR in 5 minutes.*
+### **Go digital in minutes. Grable - Simple QR code menus for restaurants.**
