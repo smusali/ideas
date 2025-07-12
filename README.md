@@ -21,75 +21,75 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 
 | Project | Description | Keywords |
 |---------|-------------|----------|
-| [`aetheria`](./oss/aetheria.md) | Mental health tracking CLI for monitoring mood and wellness patterns | mental-health, wellness, tracking, mood, psychology |
-| [`aichat`](./oss/aichat.md) | AI chat management CLI for building intelligent conversation interfaces | ai, chat, management, conversations, intelligence |
-| [`avestra`](./oss/avestra.md) | API validation CLI tool for testing and validating API endpoints | api, validation, testing, endpoints, cli |
-| [`caladri`](./oss/caladri.md) | User authentication CLI for managing user accounts and permissions | authentication, users, permissions, security |
-| [`calyndra`](./oss/calyndra.md) | Student progress tracking CLI for educational institutions | education, student-tracking, progress, academic |
-| [`chronara`](./oss/chronara.md) | Time tracking CLI tool for monitoring productivity and time management | time-tracking, productivity, time-management, cli |
-| [`creativeforge`](./oss/creativeforge.md) | Text art generator CLI for creating ASCII and Unicode artwork | text-art, ascii, unicode, creativity, design |
-| [`dataviz`](./oss/dataviz.md) | Data visualization CLI for exploring and charting datasets | data-analysis, visualization, charts, csv, analytics |
-| [`educea`](./oss/educea.md) | Lesson planning CLI tool for teachers to create educational content | education, lesson-planning, teachers, curriculum |
-| [`elydian`](./oss/elydian.md) | Data analysis and benchmarking CLI for comparing datasets | data-analysis, benchmarking, comparison, analytics |
-| [`feedbackhub`](./oss/feedbackhub.md) | Feedback collection CLI for organizing user insights and surveys | feedback, surveys, user-research, insights, analysis |
-| [`ferota`](./oss/ferota.md) | Travel planning CLI tool for organizing trips and itineraries | travel, planning, itineraries, trip-management |
-| [`feryn`](./oss/feryn.md) | Course management CLI for educational content organization | education, course-management, content, academic |
-| [`fidelion`](./oss/fidelion.md) | Customer loyalty CLI for managing loyalty programs and rewards | loyalty, rewards, customers, business |
-| [`jobtracker`](./oss/jobtracker.md) | Job application tracking CLI for managing the job search process | job-search, applications, tracking, careers |
-| [`loginsight`](./oss/loginsight.md) | Log analysis CLI with conversational interface for system logs | log-analysis, conversational, debugging, monitoring |
-| [`lystrum`](./oss/lystrum.md) | Research data management CLI for academic research organization | research, data-management, academic, organization |
-| [`nexida`](./oss/nexida.md) | Campus information management CLI for educational institutions | education, campus, information, management |
-| [`nythera`](./oss/nythera.md) | Climate data analysis CLI for environmental research and monitoring | climate, data-analysis, environmental, research |
-| [`quasara`](./oss/quasara.md) | Model benchmarking CLI for comparing AI/ML model performance | ai, ml, benchmarking, model-comparison |
-| [`quasira`](./oss/quasira.md) | Query optimization CLI for database performance analysis | database, query-optimization, performance, sql |
-| [`rekursia`](./oss/rekursia.md) | Database learning CLI for interactive database education | education, databases, interactive, learning |
-| [`researchhub`](./oss/researchhub.md) | Research paper management CLI for academic work and citations | research, papers, citations, academic, bibliography |
-| [`systemmonitor`](./oss/systemmonitor.md) | System monitoring CLI for tracking server performance and workflows | monitoring, servers, performance, workflows, infrastructure |
-| [`sylera`](./oss/sylera.md) | System log analysis CLI for monitoring and debugging applications | log-analysis, debugging, monitoring, system-administration |
-| [`velora`](./oss/velora.md) | Travel planning CLI tool for organizing trips and managing itineraries | travel, planning, itineraries, trip-management |
-| [`ventiri`](./oss/ventiri.md) | Outdoor gear management CLI for organizing equipment and inventory | outdoor, gear, inventory, management |
-| [`virelia`](./oss/virelia.md) | Feedback analysis CLI for processing and analyzing user feedback | feedback, analysis, user-research, insights |
-| [`vylaris`](./oss/vylaris.md) | Document analysis CLI for processing and extracting insights from documents | document-analysis, insights, text-processing, cli |
-| [`xylora`](./oss/xylora.md) | Interview feedback generator CLI for creating structured feedback | interviews, feedback, hr, recruitment |
-| [`zestiq`](./oss/zestiq.md) | Restaurant menu management CLI for organizing and maintaining menus | restaurants, menu-management, food-service, hospitality |
+| [`aetheria`](./oss/aetheria.md) | Simple CLI tool for tracking your daily mood, mental health symptoms, and wellness activities with privacy and simplicity | mental-health, wellness, tracking, mood, cli |
+| [`aichat`](./oss/aichat.md) | Simple CLI tool for managing AI chat sessions, testing models, and building chat applications from the terminal | ai, chat, cli, conversations, developer-tools |
+| [`avestra`](./oss/avestra.md) | Simple CLI tool for validating API schemas, generating tests, and ensuring API quality directly from your terminal | api, validation, testing, cli, developer-tools |
+| [`caladri`](./oss/caladri.md) | Simple CLI tool for managing user authentication, sessions, and security policies with minimal effort | authentication, users, permissions, security, cli |
+| [`calyndra`](./oss/calyndra.md) | Simple CLI tool for tracking student progress, assignments, and learning goals for educators and students | education, student-tracking, progress, cli |
+| [`chronara`](./oss/chronara.md) | Lightweight CLI tool for time tracking, schedule management, and productivity analytics with terminal-based interface | time-tracking, productivity, scheduling, cli |
+| [`creativeforge`](./oss/creativeforge.md) | CLI tool for creating text-based artwork, ASCII art, and visual content with multiple font styles and export formats | text-art, ascii, creativity, cli |
+| [`dataviz`](./oss/dataviz.md) | Command-line data visualization tool that analyzes CSV files, creates charts, and generates insights with terminal and image export | data-analysis, visualization, charts, cli |
+| [`educea`](./oss/educea.md) | CLI lesson planning tool for teachers to create, organize, and manage lesson plans with templates and schedule management | education, lesson-planning, teachers, cli |
+| [`elydian`](./oss/elydian.md) | Data analysis and benchmarking CLI tool for statistical analysis, performance measurement, and comprehensive reporting | data-analysis, benchmarking, analytics, cli |
+| [`feedbackhub`](./oss/feedbackhub.md) | CLI tool for collecting, organizing, and analyzing user feedback with sentiment analysis and trend reporting | feedback, surveys, user-research, insights, analysis |
+| [`ferota`](./oss/ferota.md) | Travel planning CLI that creates trips, manages itineraries, tracks expenses, and generates travel reports | travel, planning, itineraries, trip-management |
+| [`feryn`](./oss/feryn.md) | Course management CLI for tracking academic progress, managing assignments, and planning educational journeys | education, course-management, content, academic |
+| [`fidelion`](./oss/fidelion.md) | Customer loyalty CLI that manages loyalty programs, tracks purchases, and analyzes customer engagement with reward systems | loyalty, rewards, customers, business |
+| [`jobtracker`](./oss/jobtracker.md) | Job application tracking CLI that manages applications, tracks status, and provides statistics for job search organization | job-search, applications, tracking, careers |
+| [`loginsight`](./oss/loginsight.md) | Log analysis CLI with natural language queries that parses log files, detects patterns, and provides insights for debugging | log-analysis, conversational, debugging, monitoring |
+| [`lystrum`](./oss/lystrum.md) | Research data management CLI that tracks experiments, organizes datasets, and manages citations for academic research | research, data-management, academic, organization |
+| [`nexida`](./oss/nexida.md) | Campus information management CLI that organizes events, tracks resources, manages announcements, and handles bookings | education, campus, information, management |
+| [`nythera`](./oss/nythera.md) | Climate data analysis CLI that processes environmental datasets, tracks trends, and generates climate reports with visualization | climate, data-analysis, environmental, research |
+| [`quasara`](./oss/quasara.md) | Model benchmarking CLI that tests AI/ML models, compares performance metrics, and generates detailed benchmark reports | ai, ml, benchmarking, model-comparison |
+| [`quasira`](./oss/quasira.md) | LLM cost tracker CLI that monitors API usage, enforces usage policies, and tracks expenses with real-time alerts and webhooks | llm, cost-tracking, api-management, policy-enforcement |
+| [`rekursia`](./oss/rekursia.md) | Database learning CLI that provides interactive tutorials, transaction examples, and guided lessons for database education | education, databases, interactive, learning |
+| [`researchhub`](./oss/researchhub.md) | Research paper management CLI that organizes papers, manages citations, generates bibliographies, and tracks academic references | research, papers, citations, academic, bibliography |
+| [`systemmonitor`](./oss/systemmonitor.md) | System monitoring CLI that tracks CPU, memory, disk, and network metrics with alerts and performance visualization | monitoring, servers, performance, workflows, infrastructure |
+| [`sylera`](./oss/sylera.md) | OSS project health and funding CLI that tracks project metrics, contributor activity, and manages funding pledges | project-health, funding, analytics, open-source |
+| [`velora`](./oss/velora.md) | Travel planning CLI that creates trips, manages itineraries, tracks expenses, and organizes travel checklists | travel, planning, itineraries, trip-management |
+| [`ventiri`](./oss/ventiri.md) | Outdoor gear management CLI that tracks equipment inventory, maintenance schedules, and creates activity checklists | outdoor, gear, inventory, management |
+| [`virelia`](./oss/virelia.md) | Feedback analysis CLI that processes user feedback, tracks sentiment trends, and generates actionable insights | feedback, analysis, user-research, insights |
+| [`vylaris`](./oss/vylaris.md) | Document analysis CLI that extracts text, generates summaries, and analyzes content from PDF, TXT, and DOCX files | document-analysis, insights, text-processing, cli |
+| [`xylora`](./oss/xylora.md) | Interview feedback generator CLI that creates structured feedback from transcripts with strengths and improvement suggestions | interviews, feedback, hr, recruitment |
+| [`zestiq`](./oss/zestiq.md) | Restaurant menu management CLI that creates menus, manages categories and items, exports to multiple formats, and tracks basic analytics | restaurants, menu-management, food-service, hospitality |
 
 ## MicroSaaS Project Ideas
 
 | Project | Description | Keywords |
 |---------|-------------|----------|
-| [`aetheris`](./microsaas/aetheris.md) | AI-powered email assistant for drafting and managing professional communications | email, ai-assistant, productivity, communication |
-| [`aleriq`](./microsaas/aleriq.md) | Smart notification system for monitoring and alerting on important events | notifications, monitoring, alerts, automation |
-| [`avantri`](./microsaas/avantri.md) | Travel planning assistant for organizing trips and managing itineraries | travel, planning, itineraries, trip-management |
-| [`avoda`](./microsaas/avoda.md) | Task management and productivity platform for teams and individuals | task-management, productivity, collaboration, workflow |
-| [`axionis`](./microsaas/axionis.md) | Task automation platform for streamlining repetitive business processes | automation, workflows, productivity, business-processes |
-| [`contentguard`](./microsaas/contentguard.md) | AI content detector for identifying AI-generated text and images | ai-detection, content-verification, authenticity |
-| [`creativestudio`](./microsaas/creativestudio.md) | AI social media content generator for creating engaging posts | social-media, content-generation, ai, marketing |
-| [`dataflow`](./microsaas/dataflow.md) | CSV cleaner and analyzer for processing and understanding data | csv, data-cleaning, analysis, data-processing |
-| [`diurna`](./microsaas/diurna.md) | Daily journaling app with AI insights for personal reflection and growth | journaling, ai-insights, personal-growth, reflection |
-| [`docugen`](./microsaas/docugen.md) | Document generator for creating worksheets, forms, and structured documents | document-generation, forms, worksheets, productivity |
-| [`elentix`](./microsaas/elentix.md) | Learning management system for creating and delivering online courses | education, lms, online-courses, e-learning |
-| [`emblera`](./microsaas/emblera.md) | Email marketing automation platform for small businesses | email-marketing, automation, small-business, campaigns |
-| [`epistella`](./microsaas/epistella.md) | Email management tool for organizing and prioritizing messages | email, productivity, organization, communication |
-| [`eunoia`](./microsaas/eunoia.md) | Mental health tracker for monitoring mood and wellness patterns | mental-health, wellness, tracking, mood |
-| [`insightanalyzer`](./microsaas/insightanalyzer.md) | Text analysis tool for extracting insights from logs, feedback, and unstructured data | text-analysis, insights, logs, feedback, data-mining |
-| [`lumetry`](./microsaas/lumetry.md) | Light therapy scheduling app for managing seasonal affective disorder | light-therapy, health, scheduling, wellness |
-| [`lumivox`](./microsaas/lumivox.md) | AI response quality tester for evaluating AI-generated content | ai-testing, quality-assessment, content-evaluation |
-| [`menugenie`](./microsaas/menugenie.md) | Menu digitization and QR code generator for restaurants | menu-digitization, qr-codes, restaurants, digital-transformation |
-| [`nairavi`](./microsaas/nairavi.md) | Financial tracking app for managing personal and business expenses | finance, expense-tracking, budgeting, personal-finance |
-| [`nexusflow`](./microsaas/nexusflow.md) | File sharing platform with auto-expiration for secure document sharing | file-sharing, security, expiration, collaboration |
-| [`nomorix`](./microsaas/nomorix.md) | Phone number management system for businesses and organizations | phone-numbers, business-tools, communication, management |
-| [`otterahealth`](./microsaas/otterahealth.md) | Healthcare data manager for organizing patient information | healthcare, data-management, patient-records |
-| [`oryvus`](./microsaas/oryvus.md) | Voice note transcription and organization tool for professionals | voice-notes, transcription, productivity, organization |
-| [`sylphra`](./microsaas/sylphra.md) | Password management system with secure sharing for teams | password-management, security, team-collaboration |
-| [`syntari`](./microsaas/syntari.md) | Code review automation tool for developers and teams | code-review, automation, developer-tools, collaboration |
-| [`syntria`](./microsaas/syntria.md) | Code snippet organizer for developers to manage and share code examples | code-snippets, developer-tools, organization, sharing |
-| [`verivex`](./microsaas/verivex.md) | Version control visualization tool for understanding code changes | version-control, visualization, git, code-analysis |
-| [`vordara`](./microsaas/vordara.md) | Word processing tool with AI assistance for writing and editing | word-processing, ai-assistant, writing, editing |
-| [`vyrelo`](./microsaas/vyrelo.md) | Video editing automation tool for creating social media content | video-editing, automation, social-media, content-creation |
-| [`weatherwise`](./microsaas/weatherwise.md) | Weather context tool for adding weather insights to events, photos, and posts | weather, context, events, photos, social-media |
-| [`xephra`](./microsaas/xephra.md) | Expense report automation for businesses and freelancers | expense-reports, automation, business-tools, freelancing |
-| [`zenthra`](./microsaas/zenthra.md) | Zen meditation timer and mindfulness tracking app | meditation, mindfulness, wellness, mental-health |
-| [`zyphra`](./microsaas/zyphra.md) | AI-powered writing assistant for content creation and editing | ai-writing, content-creation, editing, productivity |
+| [`aetheris`](./microsaas/aetheris.md) | Simple AI email assistant that helps draft, improve, and manage professional emails with AI assistance | email, ai-assistant, productivity, communication |
+| [`aleriq`](./microsaas/aleriq.md) | Simple smart notification system that creates intelligent alerts for important events with minimal setup | notifications, monitoring, alerts, automation |
+| [`avantri`](./microsaas/avantri.md) | Simple travel planning assistant that helps plan trips, organize itineraries, and manage travel details | travel, planning, itineraries, trip-management |
+| [`avoda`](./microsaas/avoda.md) | Simple job application tracker that helps job seekers track applications, follow-ups, and interviews | job-search, applications, tracking, careers |
+| [`axionis`](./microsaas/axionis.md) | Simple task automation platform that helps automate repetitive tasks and streamline business processes | automation, workflows, productivity, business-processes |
+| [`contentguard`](./microsaas/contentguard.md) | Simple AI content detector that helps detect AI-generated text and images with minimal effort | ai-detection, content-verification, authenticity |
+| [`creativestudio`](./microsaas/creativestudio.md) | Simple AI social media content generator that helps you create engaging posts for any platform with minimal effort | social-media, content-generation, ai, marketing |
+| [`dataflow`](./microsaas/dataflow.md) | Simple CSV cleaner and analyzer that helps you clean messy CSV files and get instant insights with minimal effort | csv, data-cleaning, analysis, data-processing |
+| [`diurna`](./microsaas/diurna.md) | Simple daily journaling app that helps you journal daily and get AI-powered insights for personal growth and reflection | journaling, ai-insights, personal-growth, reflection |
+| [`docugen`](./microsaas/docugen.md) | Simple document generator that helps you create worksheets, forms, and structured documents in minutes | document-generation, forms, worksheets, productivity |
+| [`elentix`](./microsaas/elentix.md) | Simple learning management system that helps you create, organize, and deliver online courses with minimal effort | education, lms, online-courses, e-learning |
+| [`emblera`](./microsaas/emblera.md) | Simple email marketing automation that helps you create, send, and automate email campaigns with minimal effort | email-marketing, automation, small-business, campaigns |
+| [`epistella`](./microsaas/epistella.md) | Simple email management tool that helps you organize, prioritize, and respond to emails efficiently | email, productivity, organization, communication |
+| [`eunoia`](./microsaas/eunoia.md) | Simple mental health tracker that helps you monitor your mood, habits, and wellness patterns | mental-health, wellness, tracking, mood |
+| [`insightanalyzer`](./microsaas/insightanalyzer.md) | Simple data insight generator that helps you extract trends, patterns, and actionable insights from logs and feedback | text-analysis, insights, logs, feedback, data-mining |
+| [`lumetry`](./microsaas/lumetry.md) | Simple team chat application that helps teams communicate and collaborate with minimal effort | team-chat, collaboration, messaging, productivity |
+| [`lumivox`](./microsaas/lumivox.md) | Simple AI response quality tester that lets you instantly assess and improve AI-generated responses with actionable feedback | ai-testing, quality-assessment, content-evaluation |
+| [`menugenie`](./microsaas/menugenie.md) | Simple menu digitization tool that helps restaurants create digital menus and QR codes for instant customer access | menu-digitization, qr-codes, restaurants, digital-transformation |
+| [`nairavi`](./microsaas/nairavi.md) | Simple travel planning assistant that helps you plan trips, create itineraries, and organize travel details | travel, planning, itineraries, trip-management |
+| [`nexusflow`](./microsaas/nexusflow.md) | Simple file sharing app that lets you share files with auto-expiring links for secure, temporary access | file-sharing, security, expiration, collaboration |
+| [`nomorix`](./microsaas/nomorix.md) | Simple travel document organizer that helps you manage travel documents, itineraries, and bookings in one place | travel, document-management, organization, trips |
+| [`otterahealth`](./microsaas/otterahealth.md) | Simple healthcare data manager that helps providers and patients organize health records, track symptoms, and share information securely | healthcare, data-management, patient-records |
+| [`oryvus`](./microsaas/oryvus.md) | Simple weather insights app that helps you track weather patterns and get personalized weather recommendations | weather, insights, patterns, recommendations |
+| [`sylphra`](./microsaas/sylphra.md) | Simple course recommendation app that helps students discover, compare, and plan academic courses | education, course-recommendation, planning, students |
+| [`syntari`](./microsaas/syntari.md) | Simple data redaction API that helps developers remove sensitive data from text before sending to AI models or databases | data-redaction, privacy, api, compliance |
+| [`syntria`](./microsaas/syntria.md) | Simple feedback collection and analysis tool that helps you collect, analyze, and act on customer feedback | feedback, analysis, customer-insights, business |
+| [`verivex`](./microsaas/verivex.md) | Simple data validation and API generator that lets you create, validate, and deploy APIs from data models with minimal effort | api-generation, data-validation, backend, developer-tools |
+| [`vordara`](./microsaas/vordara.md) | Simple group-buying deals platform that helps clubs and small retailers organize and manage group deals and exclusive offers | group-buying, deals, clubs, retail |
+| [`vyrelo`](./microsaas/vyrelo.md) | Simple loyalty rewards platform that helps small businesses create and manage customer loyalty programs | loyalty, rewards, small-business, customer-engagement |
+| [`weatherwise`](./microsaas/weatherwise.md) | Simple web app that provides instant weather summaries and contextual annotations for events, photos, and social posts | weather, context, events, photos, social-media |
+| [`xephra`](./microsaas/xephra.md) | Simple user authentication and consent manager that helps teams manage login, sessions, and privacy with minimal effort | authentication, consent, privacy, user-management |
+| [`zenthra`](./microsaas/zenthra.md) | Simple prompt testing and benchmarking platform that lets you test, compare, and optimize prompts for language models | prompt-testing, ai, benchmarking, language-models |
+| [`zyphra`](./microsaas/zyphra.md) | Instant contributor onboarding API that generates starter tasks, onboarding guides, and Q&A bots for open-source projects | onboarding, open-source, api, developer-tools |
 
 ## Project Philosophy
 
