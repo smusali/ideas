@@ -8,6 +8,7 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 - [`dlt`](https://github.com/smusali/dlt)
 - [`evidently`](https://github.com/smusali/evidently)
 - [`fastapi`](https://github.com/smusali/fastapi)
+- [`flower`](https://github.com/smusali/flower)
 - [`freeCodeCamp`](https://github.com/smusali/freeCodeCamp)
 - [`grafana`](https://github.com/smusali/grafana)
 - [`logdna-agent-v2`](https://github.com/smusali/logdna-agent-v2)
@@ -18,51 +19,49 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 
 ## Open-Source Project Ideas
 
-### Unified Projects (Combined from Similar Ideas)
-- [`aiworkbench`](./oss/aiworkbench.md) - AI development platform with testing, monitoring, and conversation management
-- [`creativeforge`](./oss/creativeforge.md) - Creative content platform for generating and managing artwork
-- [`datacraft`](./oss/datacraft.md) - Data enrichment platform that adds context to any content
-- [`feedbackhub`](./oss/feedbackhub.md) - Feedback analysis platform for collecting and analyzing user feedback
-
-### Individual Projects
-- [`aetheria`](./oss/aetheria.md) - Real-time collaboration platform for distributed teams
-- [`citexus`](./oss/citexus.md) - Citation management and academic research tool
-- [`educea`](./oss/educea.md) - Educational tools platform for lesson planning and assessment
-- [`jobtrackr`](./oss/jobtrackr.md) - Job application tracking and management system
-- [`lyspira`](./oss/lyspira.md) - Infrastructure management tool for monitoring and automation
-- [`nexoria`](./oss/nexoria.md) - Network monitoring and optimization platform
-- [`opinalis`](./oss/opinalis.md) - Opinion and survey analysis platform
-- [`quantyl`](./oss/quantyl.md) - Quantitative analysis and data visualization tool
-- [`refactyl`](./oss/refactyl.md) - Code refactoring and improvement assistant
-- [`rekursia`](./oss/rekursia.md) - Recursive learning and knowledge management system
-- [`resonix`](./oss/resonix.md) - Audio processing and sound analysis platform
-- [`scintara`](./oss/scintara.md) - Scientific data analysis and visualization tool
-- [`talaria`](./oss/talaria.md) - Fast messaging and communication platform
-- [`vireon`](./oss/vireon.md) - Virtual reality and immersive experience platform
-- [`zestiq`](./oss/zestiq.md) - Zest and enthusiasm tracking for productivity
+| Project | Description | Keywords |
+|---------|-------------|----------|
+| [`aetheria`](./oss/aetheria.md) | Mental health tracking tool for monitoring mood and wellness patterns | mental-health, wellness, tracking, mood, psychology |
+| [`aiworkbench`](./oss/aiworkbench.md) | AI chat management platform for organizing and analyzing conversations | ai, chat, management, conversations, analysis |
+| [`citexus`](./oss/citexus.md) | Citation tracking tool for academic research and paper management | citations, research, academic, papers, bibliography |
+| [`creativeforge`](./oss/creativeforge.md) | Text art generator for creating ASCII and Unicode artwork | text-art, ascii, unicode, creativity, design |
+| [`datacraft`](./oss/datacraft.md) | Data visualization tool for creating charts and graphs from CSV files | data-viz, charts, csv, analytics, visualization |
+| [`educea`](./oss/educea.md) | Lesson planning tool for teachers to create and organize educational content | education, lesson-planning, teachers, curriculum |
+| [`feedbackhub`](./oss/feedbackhub.md) | Feedback collection platform for gathering and organizing user insights | feedback, surveys, user-research, insights |
+| [`jobtrackr`](./oss/jobtrackr.md) | Job search tracking system for managing applications and interviews | job-search, applications, tracking, careers |
+| [`lyspira`](./oss/lyspira.md) | System monitoring tool for tracking server performance and health | monitoring, servers, performance, infrastructure |
+| [`nexoria`](./oss/nexoria.md) | AI workflow monitoring platform for tracking model performance and costs | ai-monitoring, workflows, performance, costs |
+| [`opinalis`](./oss/opinalis.md) | Feedback analysis tool for categorizing and understanding user comments | feedback-analysis, categorization, sentiment, insights |
+| [`quantyl`](./oss/quantyl.md) | Log analysis tool with conversational interface for understanding system logs | log-analysis, conversational, debugging, monitoring |
+| [`refactyl`](./oss/refactyl.md) | Research paper organizer for managing academic literature and notes | research, papers, organization, academic |
+| [`rekursia`](./oss/rekursia.md) | Educational database tool for learning database concepts interactively | education, databases, interactive, learning |
+| [`resonix`](./oss/resonix.md) | Feedback collection and analysis tool for organizing user insights | feedback, collection, analysis, user-insights |
+| [`scintara`](./oss/scintara.md) | Data analysis tool for exploring and visualizing datasets | data-analysis, visualization, exploration, analytics |
+| [`talaria`](./oss/talaria.md) | Job application tracker for managing the job search process | job-applications, tracking, careers, job-search |
+| [`vireon`](./oss/vireon.md) | Log analyzer for understanding and debugging application logs | log-analysis, debugging, monitoring, troubleshooting |
+| [`zestiq`](./oss/zestiq.md) | Menu management tool for restaurants to organize and maintain menus | restaurants, menu-management, food-service, hospitality |
 
 ## MicroSaaS Project Ideas
 
-### Unified Projects (Combined from Similar Ideas)
-- [`contentguard`](./microsaas/contentguard.md) - AI content verification platform for detecting AI-generated content
-- [`creativestudio`](./microsaas/creativestudio.md) - Content and configuration management platform
-- [`dataflow`](./microsaas/dataflow.md) - Universal data processing platform for cleaning and analyzing data
-- [`nexusflow`](./microsaas/nexusflow.md) - File and service management platform for sharing and monitoring
-
-### Individual Projects
-- [`avoda`](./microsaas/avoda.md) - Workflow automation and task management platform
-- [`epistella`](./microsaas/epistella.md) - Email management and communication optimization tool
-- [`eunoia`](./microsaas/eunoia.md) - Mental health and wellness tracking application
-- [`grable`](./microsaas/grable.md) - Graph database visualization and management tool
-- [`lumivox`](./microsaas/lumivox.md) - Voice and audio processing platform
-- [`otterahealth`](./microsaas/otterahealth.md) - Healthcare data management and analytics platform
-- [`pluvion`](./microsaas/pluvion.md) - Weather data analysis and forecasting tool
-- [`pluvionyx`](./microsaas/pluvionyx.md) - Advanced weather prediction and climate analysis
-- [`prandium`](./microsaas/prandium.md) - Meal planning and nutrition tracking application
-- [`syllara`](./microsaas/syllara.md) - Language learning and pronunciation improvement tool
-- [`vareon`](./microsaas/vareon.md) - Variable management and configuration optimization
-- [`veliora`](./microsaas/veliora.md) - Velocity and performance tracking for teams
-- [`veritrox`](./microsaas/veritrox.md) - Truth verification and fact-checking platform
+| Project | Description | Keywords |
+|---------|-------------|----------|
+| [`avoda`](./microsaas/avoda.md) | Job application tracker for managing the job search process | job-search, applications, tracking, careers |
+| [`contentguard`](./microsaas/contentguard.md) | AI content detector for identifying AI-generated text and images | ai-detection, content-verification, authenticity |
+| [`creativestudio`](./microsaas/creativestudio.md) | AI social media content generator for creating engaging posts | social-media, content-generation, ai, marketing |
+| [`dataflow`](./microsaas/dataflow.md) | CSV cleaner and analyzer for processing and understanding data | csv, data-cleaning, analysis, data-processing |
+| [`epistella`](./microsaas/epistella.md) | Email management tool for organizing and prioritizing messages | email, productivity, organization, communication |
+| [`eunoia`](./microsaas/eunoia.md) | Mental health tracker for monitoring mood and wellness patterns | mental-health, wellness, tracking, mood |
+| [`grable`](./microsaas/grable.md) | QR code menu generator for restaurants to create digital menus | qr-codes, menus, restaurants, digital-transformation |
+| [`lumivox`](./microsaas/lumivox.md) | AI response quality tester for evaluating AI-generated content | ai-testing, quality-assessment, content-evaluation |
+| [`nexusflow`](./microsaas/nexusflow.md) | File sharing platform with auto-expiration for secure document sharing | file-sharing, security, expiration, collaboration |
+| [`otterahealth`](./microsaas/otterahealth.md) | Healthcare data manager for organizing patient information | healthcare, data-management, patient-records |
+| [`pluvion`](./microsaas/pluvion.md) | Weather summary generator for creating daily weather reports | weather, summaries, reports, automation |
+| [`pluvionyx`](./microsaas/pluvionyx.md) | Weather context annotator for adding context to weather data | weather, context, annotations, data-enrichment |
+| [`prandium`](./microsaas/prandium.md) | Menu digitizer for converting physical menus to digital format | menu-digitization, ocr, restaurants, digital-transformation |
+| [`syllara`](./microsaas/syllara.md) | Worksheet generator for creating educational materials | education, worksheets, teaching, content-generation |
+| [`vareon`](./microsaas/vareon.md) | Log analyzer for understanding and debugging application logs | log-analysis, debugging, monitoring, troubleshooting |
+| [`veliora`](./microsaas/veliora.md) | Form automation tool for creating and managing online forms | forms, automation, data-collection, productivity |
+| [`veritrox`](./microsaas/veritrox.md) | Feedback analyzer for understanding customer sentiment and insights | feedback-analysis, sentiment, customer-insights |
 
 ## Project Philosophy
 
