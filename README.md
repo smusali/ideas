@@ -1,5 +1,7 @@
 # Ideas
 
+A collection of open-source project ideas and MicroSaaS concepts, all designed to be achievable by a single developer within a week.
+
 ## Open-Source Contributions
 - [`authentik`](https://github.com/smusali/authentik)
 - [`django`](https://github.com/smusali/django)
@@ -15,16 +17,16 @@
 - [`signoz`](https://github.com/smusali/signoz)
 
 ## Open-Source Project Ideas
-- [`aerolyze`](./oss/aerolyze.md)
-- [`astryl`](./oss/astryl.md)
-- [`aurelia`](./oss/aurelia.md)
-- [`echoverse`](./oss/echoverse.md)
-- [`educea`](./oss/educea.md)
-- [`harmora`](./oss/harmora.md)
-- [`inflecto`](./oss/inflecto.md)
-- [`lumora`](./oss/lumora.md)
-- [`lyspira`](./oss/lyspira.md)
-- [`nebulo`](./oss/nebulo.md)
+
+### Unified Projects (Combined from Similar Ideas)
+- [`aiworkbench`](./oss/aiworkbench.md) - AI development platform with testing, monitoring, and conversation management
+- [`creativeforge`](./oss/creativeforge.md) - Creative content platform for generating and managing artwork
+- [`datacraft`](./oss/datacraft.md) - Data enrichment platform that adds context to any content
+- [`feedbackhub`](./oss/feedbackhub.md) - Feedback analysis platform for collecting and analyzing user feedback
+
+### Individual Projects
+- [`educea`](./oss/educea.md) - Educational tools platform for lesson planning and assessment
+- [`lyspira`](./oss/lyspira.md) - Infrastructure management tool for monitoring and automation
 - [`nexoria`](./oss/nexoria.md)
 - [`opinalis`](./oss/opinalis.md)
 - [`quantyl`](./oss/quantyl.md)
@@ -35,22 +37,42 @@
 - [`zestiq`](./oss/zestiq.md)
 
 ## MicroSaaS Project Ideas
-- [`calypsa`](./microsaas/calypsa.md)
-- [`eidolon`](./microsaas/eidolon.md)
+
+### Unified Projects (Combined from Similar Ideas)
+- [`contentguard`](./microsaas/contentguard.md) - AI content verification platform for detecting AI-generated content
+- [`creativestudio`](./microsaas/creativestudio.md) - Content and configuration management platform
+- [`dataflow`](./microsaas/dataflow.md) - Universal data processing platform for cleaning and analyzing data
+- [`nexusflow`](./microsaas/nexusflow.md) - File and service management platform for sharing and monitoring
+
+### Individual Projects
 - [`grable`](./microsaas/grable.md)
-- [`lumindra`](./microsaas/lumindra.md)
 - [`lumivox`](./microsaas/lumivox.md)
-- [`plenox`](./microsaas/plenox.md)
 - [`pluvion`](./microsaas/pluvion.md)
-- [`pluvionyx](./microsaas/pluvionyx.md)
+- [`pluvionyx`](./microsaas/pluvionyx.md)
 - [`prandium`](./microsaas/prandium.md)
-- [`quorix`](./microsaas/quorix.md)
-- [`resonatr`](./microsaas/resonatr.md)
-- [`serevo`](./microsaas/serevo.md)
 - [`syllara`](./microsaas/syllara.md)
 - [`vareon`](./microsaas/vareon.md)
 - [`veliora`](./microsaas/veliora.md)
 - [`veritrox`](./microsaas/veritrox.md)
-- [`versilo`](./microsaas/versilo.md)
-- [`xylith`](./microsaas/xylith.md)
-- [`zephra`](./microsaas/zephra.md)
+
+## Project Philosophy
+
+All projects in this repository are designed with the following principles:
+
+- **Week-long development** - Each project can be completed by a single developer in about a week
+- **Simple and focused** - Clear problem statements with straightforward solutions
+- **Open source first** - All OSS projects are designed for community contribution
+- **Revenue potential** - MicroSaaS projects have clear monetization strategies
+- **No tech stack lock-in** - Projects focus on functionality rather than specific technologies
+
+## Contributing
+
+Feel free to:
+- Fork and implement any of these ideas
+- Suggest improvements or new project ideas
+- Contribute to existing open-source projects
+- Share your implementation experiences
+
+## License
+
+This repository is open source and available under the MIT License.
