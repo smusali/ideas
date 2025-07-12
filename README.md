@@ -25,16 +25,21 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 - [`feedbackhub`](./oss/feedbackhub.md) - Feedback analysis platform for collecting and analyzing user feedback
 
 ### Individual Projects
+- [`aetheria`](./oss/aetheria.md) - Real-time collaboration platform for distributed teams
+- [`citexus`](./oss/citexus.md) - Citation management and academic research tool
 - [`educea`](./oss/educea.md) - Educational tools platform for lesson planning and assessment
+- [`jobtrackr`](./oss/jobtrackr.md) - Job application tracking and management system
 - [`lyspira`](./oss/lyspira.md) - Infrastructure management tool for monitoring and automation
-- [`nexoria`](./oss/nexoria.md)
-- [`opinalis`](./oss/opinalis.md)
-- [`quantyl`](./oss/quantyl.md)
-- [`rekursia`](./oss/rekursia.md)
-- [`resonix`](./oss/resonix.md)
-- [`scintara`](./oss/scintara.md)
-- [`vireon`](./oss/vireon.md)
-- [`zestiq`](./oss/zestiq.md)
+- [`nexoria`](./oss/nexoria.md) - Network monitoring and optimization platform
+- [`opinalis`](./oss/opinalis.md) - Opinion and survey analysis platform
+- [`quantyl`](./oss/quantyl.md) - Quantitative analysis and data visualization tool
+- [`refactyl`](./oss/refactyl.md) - Code refactoring and improvement assistant
+- [`rekursia`](./oss/rekursia.md) - Recursive learning and knowledge management system
+- [`resonix`](./oss/resonix.md) - Audio processing and sound analysis platform
+- [`scintara`](./oss/scintara.md) - Scientific data analysis and visualization tool
+- [`talaria`](./oss/talaria.md) - Fast messaging and communication platform
+- [`vireon`](./oss/vireon.md) - Virtual reality and immersive experience platform
+- [`zestiq`](./oss/zestiq.md) - Zest and enthusiasm tracking for productivity
 
 ## MicroSaaS Project Ideas
 
@@ -45,15 +50,19 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 - [`nexusflow`](./microsaas/nexusflow.md) - File and service management platform for sharing and monitoring
 
 ### Individual Projects
-- [`grable`](./microsaas/grable.md)
-- [`lumivox`](./microsaas/lumivox.md)
-- [`pluvion`](./microsaas/pluvion.md)
-- [`pluvionyx`](./microsaas/pluvionyx.md)
-- [`prandium`](./microsaas/prandium.md)
-- [`syllara`](./microsaas/syllara.md)
-- [`vareon`](./microsaas/vareon.md)
-- [`veliora`](./microsaas/veliora.md)
-- [`veritrox`](./microsaas/veritrox.md)
+- [`avoda`](./microsaas/avoda.md) - Workflow automation and task management platform
+- [`epistella`](./microsaas/epistella.md) - Email management and communication optimization tool
+- [`eunoia`](./microsaas/eunoia.md) - Mental health and wellness tracking application
+- [`grable`](./microsaas/grable.md) - Graph database visualization and management tool
+- [`lumivox`](./microsaas/lumivox.md) - Voice and audio processing platform
+- [`otterahealth`](./microsaas/otterahealth.md) - Healthcare data management and analytics platform
+- [`pluvion`](./microsaas/pluvion.md) - Weather data analysis and forecasting tool
+- [`pluvionyx`](./microsaas/pluvionyx.md) - Advanced weather prediction and climate analysis
+- [`prandium`](./microsaas/prandium.md) - Meal planning and nutrition tracking application
+- [`syllara`](./microsaas/syllara.md) - Language learning and pronunciation improvement tool
+- [`vareon`](./microsaas/vareon.md) - Variable management and configuration optimization
+- [`veliora`](./microsaas/veliora.md) - Velocity and performance tracking for teams
+- [`veritrox`](./microsaas/veritrox.md) - Truth verification and fact-checking platform
 
 ## Project Philosophy
 
