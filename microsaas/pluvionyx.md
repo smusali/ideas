@@ -1,134 +1,167 @@
-## **Pluvionyx**
+# **Pluvionyx**
 
-*Context-aware environmental intelligence as a service*
-
----
-
-### 1 ▪ Executive Summary
-
-Pluvionyx is an API-only MicroSaaS that enriches any time-stamped, location-aware content with precise atmospheric, astronomical, and ecological context. By merging public environmental datasets with proprietary signal-processing heuristics and Large-Language-Model (LLM) reasoning, Pluvionyx delivers **ready-to-consume context objects** that instantly upgrade news articles, analytic pipelines, generative-AI prompts, personal journals, or compliance workflows.
+*Simple weather context annotator - add environmental facts to any text in seconds*
 
 ---
 
-### 2 ▪ Why It Matters
+## 1. Executive Summary
 
-| Need                          | Current Pain                                                              | Pluvionyx Resolution                                                                 |
-| ----------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| **Evidence-grade context**    | Analysts spend hours cross-checking disparate weather and climate sources | Single call returns normalized, documented context bundle                            |
-| **Richer generative outputs** | LLMs hallucinate environmental details                                    | Injection-ready factual context reduces hallucinations and improves prompt grounding |
-| **Data science acceleration** | Teams rebuild ETL jobs for every project                                  | Unified historical-environment endpoint with ISO-compliant schemas                   |
-| **Regulatory reporting**      | ESG and insurance filings require verifiable climate data                 | Immutable provenance chain and audit trail on every response                         |
+Pluvionyx is a **simple web app** that lets anyone paste text (like a news article or journal entry) and instantly get it annotated with relevant weather and environmental facts for the time and place mentioned. Perfect for journalists, bloggers, and researchers who want to add context to their stories.
 
 ---
 
-### 3 ▪ Core Feature Set
+## 2. Problem Statement
 
-1. **/enrich** – POST plain text or HTML; receive the text with inline environment annotations and a parallel JSON outline.
-2. **/timeline** – GET structured historical snapshots (weather, air quality, UV index, pollen count, lunar phase, tides) for any geo-coordinate & date range.
-3. **/compare** – POST two or more event payloads; receive statistical deltas, similarity scores, and an LLM-generated narrative explaining divergences.
-4. **/correlate** – Upload a CSV of numeric metrics (e.g., sales) with timestamps; receive correlation coefficients against environmental variables, plus an insight summary paragraph.
-5. **/webhook** – Asynchronous delivery for large datasets; supports incremental “cursor” tokens, retry semantics, and signed callbacks.
-
----
-
-### 4 ▪ Data & Licensing
-
-| Domain               | Source Tier                              | Refresh Cadence                             | License Handling                                                                      |
-| -------------------- | ---------------------------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------- |
-| Meteorological       | Global reanalysis & national met offices | Daily backfill + hourly updates             | Blended under permissible redistribution clauses; derivative caching with attribution |
-| Air Quality & Pollen | Government sensors + crowd IoT network   | 30-minute increments                        | Usage-based fees baked into paid tiers                                                |
-| Astronomical         | Public ephemeris data                    | Annual tables                               | Fully open                                                                            |
-| Hydrological         | River & tide gauges                      | 15-minute increments coastal, 4-hour inland | Creative Commons + agency partnership MOUs                                            |
+| Challenge | Impact | Current Solutions |
+|-----------|--------|-------------------|
+| **Missing context** | Readers lack environmental background | Manual research, slow |
+| **Time-consuming** | Takes hours to cross-check weather data | Tedious, error-prone |
+| **No easy tool** | No simple way to add weather facts to text | Custom scripts, expensive APIs |
 
 ---
 
-### 5 ▪ System Architecture Overview
+## 3. Solution Overview
 
-* **Stateless API edges** auto-scaled across multi-region clusters for <150 ms p95 latency.
-* **Event-driven ingest pipeline** normalizes raw feeds, applies quality scoring, and emits versioned parquet files to an object store.
-* **LLM enrichment workers** consume parquet shards, synthesize context narratives, and populate a low-latency document store.
-* **Provenance ledger** (append-only) logs every transformation hash, ensuring auditability.
-* **Global CDN** caches popular geohash-date composites, slashing cold-start queries.
-
----
-
-### 6 ▪ Security & Compliance
-
-* OAuth2 + fine-grained token scopes; HMAC-signed webhooks
-* ISO 27001-aligned controls; data encrypted in transit and at rest
-* GDPR / CCPA tooling: per-request PII redaction toggle and delete-by-key endpoint
-* SLA-backed uptime for paid plans; multizone redundancy and automated chaos drills
+A **simple web app** that:
+- Lets users paste or upload text
+- Detects time and location mentions
+- Fetches relevant weather/environmental data
+- Annotates the text with facts ("It was raining in Paris on July 14, 2023.")
+- Exports annotated text as PDF or Markdown
+- No registration required for basic use
 
 ---
 
-### 7 ▪ Pricing & Packaging
+## 4. Key Features (MVP - Week 1)
 
-| Plan                | Monthly Units    | Rate Limiting | Feature Highlights                                          |
-| ------------------- | ---------------- | ------------- | ----------------------------------------------------------- |
-| **Explorer** (Free) | 5k context calls | 2 RPS burst   | Community support, watermark headers                        |
-| **Studio**          | 250k calls       | 25 RPS        | Webhook access, 30-day log retention                        |
-| **Scale**           | 5 M calls        | 200 RPS       | Correlate endpoint, dedicated Slack, 99.9 % uptime          |
-| **Enterprise**      | Unlimited        | Custom        | Private subnet deploy, on-prem cache seed, bespoke datasets |
+| Feature | Description | Implementation Time |
+|---------|-------------|-------------------|
+| **Text Input** | Paste or upload text | 2 hours |
+| **Entity Detection** | Find dates and locations in text | 4 hours |
+| **Weather Fetch** | Get weather data for detected times/places | 6 hours |
+| **Annotation** | Add inline facts to text | 4 hours |
+| **Export** | Download annotated text | 2 hours |
+| **Basic UI** | Clean, responsive design | 4 hours |
 
-All paid plans accrue **Context Credits**; unused credits roll over for 60 days to smooth seasonal demand.
-
----
-
-### 8 ▪ Go-to-Market
-
-1. **Developer Evangelism** – Launch interactive docs with “copy-able” curl examples and Postman collection.
-2. **Content Partners** – Pilot with investigative journalism outlets to showcase richer storytelling.
-3. **Marketplace Integrations** – Pre-built connectors for BI dashboards and no-code automation tools.
-4. **Thought Leadership** – Monthly “Climate Context Index” newsletter summarizing global anomalies, powered by Pluvionyx itself.
+**Total: 22 hours (4 days)**
 
 ---
 
-### 9 ▪ 12-Month Roadmap
+## 5. Example Workflow
 
-| Quarter | Milestone                                                      | Impact                       |
-| ------- | -------------------------------------------------------------- | ---------------------------- |
-| Q1      | Public beta, self-serve dashboard, usage analytics             | Growth flywheel              |
-| Q2      | Real-time severe-weather alerts via push callbacks             | Insurance & logistics upsell |
-| Q3      | Region-specific language localization in enrichment narratives | Non-English markets          |
-| Q4      | Synthetic “what-if” scenario generator (LLM-driven)            | Advanced modeling tier       |
+1. **Input** - Paste a news article
+2. **Process** - App finds "New York, March 1, 2022"
+3. **Annotate** - Adds: "(Weather: Light snow, 32°F)"
+4. **Export** - Download as PDF or Markdown
 
 ---
 
-### 10 ▪ KPIs
+## 6. Technical Stack (Simple)
 
-* **Time-to-First-Call** < 3 minutes
-* **Weekly Active Tokens** – proxy for retained developer interest
-* **Annotation Accuracy** validated against gold standards (> 97 %)
-* **Gross Dollar Retention** ≥ 115 % by month 12
-
----
-
-### 11 ▪ Competitive Landscape
-
-| Competitor           | Focus                 | Gap Exploited by Pluvionyx                                    |
-| -------------------- | --------------------- | ------------------------------------------------------------- |
-| Generic weather APIs | Pure data feed        | Lacks narrative + correlation intelligence                    |
-| ESG data vendors     | Macro climate metrics | Not granular enough for event-level context                   |
-| In-house ETL builds  | Bespoke + costly      | Pluvionyx accelerates time-to-insight and slashes maintenance |
+- **Frontend**: HTML, CSS, JavaScript
+- **Backend**: Simple server (Python/Flask)
+- **Weather API**: Public/free weather data source
+- **Hosting**: Netlify/Vercel (free tier)
+- **Domain**: $10/year
 
 ---
 
-### 12 ▪ Risk & Mitigation
+## 7. Monetization Model
 
-| Category          | Risk                       | Countermeasure                                                    |
-| ----------------- | -------------------------- | ----------------------------------------------------------------- |
-| Data vendor churn | Upstream terms change      | Maintain multi-source redundancy; automated vendor scorecards     |
-| LLM drift         | Narrative quality degrades | Continuous evaluation pipeline with human-in-the-loop spot checks |
-| Regulatory shifts | New data residency laws    | Region-pin data option; automatic residency routing               |
-
----
-
-### 13 ▪ Exit Horizons
-
-* **Strategic Acquisition** by climate-risk analytics, GIS, or enterprise observability platforms seeking turnkey environmental context.
-* **Vertical Expansion** into real-time sensor-oriented observability for smart-city or agritech sectors.
-* **Data Network Effect** leading to specialized derivative datasets licensed to financial services.
+| Plan | Price | Features |
+|------|-------|----------|
+| **Free** | $0 | 3 annotations/day, basic facts |
+| **Pro** | $9/month | Unlimited annotations, advanced data |
+| **Team** | $29/month | Multiple users, API access |
 
 ---
 
-**Pluvionyx** transforms raw environmental archives into actionable narrative context, bridging the final mile between open data and insight-hungry applications. With a developer-first ethos, rigorous provenance, and an LLM-powered intelligence layer, Pluvionyx positions itself as the default “environment context API” for the modern data stack.
+## 8. Go-to-Market Strategy
+
+1. **Journalist Forums** - Reddit, Facebook groups
+2. **Blogger Outreach** - Email, Twitter
+3. **Academic Circles** - Research mailing lists
+4. **Product Hunt** - Launch as a writing tool
+
+---
+
+## 9. Revenue Projections (Month 1)
+
+- **Free Users**: 100 (marketing)
+- **Pro Conversions**: 8% = 8 users × $9 = $72
+- **Team Conversions**: 2% = 2 users × $29 = $58
+- **Total**: $130
+
+**Goal**: $400/month by month 3
+
+---
+
+## 10. Competitive Landscape
+
+| Competitor | Gap Pluvionyx Exploits |
+|------------|-----------------------|
+| Weather APIs | No text annotation, not user-friendly |
+| Manual research | Slow, error-prone |
+| Expensive data tools | Overkill for simple context |
+
+---
+
+## 11. Week 1 Development Plan
+
+**Day 1-2**: Core functionality
+- Text input and parsing
+- Entity detection
+
+**Day 3-4**: Weather fetch and annotation
+- Weather API integration
+- Inline annotation logic
+
+**Day 5**: Export and UI
+- Export options
+- Responsive design
+- Error handling
+
+**Day 6-7**: Launch prep
+- Landing page
+- Payment integration
+- Marketing setup
+
+---
+
+## 12. Success Metrics
+
+- **Week 1**: 30 unique visitors
+- **Week 2**: 10 articles annotated
+- **Week 3**: First paying customer
+- **Week 4**: $50+ in revenue
+
+---
+
+## 13. Future Enhancements (Post-MVP)
+
+- Air quality and pollen data
+- Custom annotation templates
+- API for developers
+- Team dashboards
+
+---
+
+## 14. Risk Mitigation
+
+| Risk | Impact | Mitigation |
+|------|--------|------------|
+| Weather API limits | High | Use multiple sources, cache data |
+| Low conversion | Medium | Improve value prop, target niche |
+| Data accuracy | Medium | Show data source, disclaimers |
+
+---
+
+## 15. Exit Strategy
+
+1. **Acquisition** - Sell to news or research platforms
+2. **Integration** - Partner with writing/blogging tools
+3. **Expansion** - Build into full context annotation suite
+
+---
+
+*Pluvionyx: Add weather context to your story, instantly.*

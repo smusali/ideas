@@ -1,171 +1,181 @@
 # **Veritrox**
 
-*LLM-Powered Feedback Intelligence API*
+*Simple product feedback labeler - tag and analyze feedback in seconds*
 
 ---
 
-## 1 · Executive Snapshot
+## 1. Executive Summary
 
-Veritrox is an API-only MicroSaaS that transforms raw product feedback into structured, actionable intelligence by orchestrating large language models (LLMs) with built-in experimentation, continuous evaluation, and zero-configuration analytics. Teams ship one integration, immediately receive labeled feedback, quality scores, and insight dashboards—without ever touching prompt engineering or model selection.
-
----
-
-## 2 · Problem Landscape
-
-| Challenge                 | Current Reality                                                             | Pain for Teams                                               |
-| ------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------ |
-| **Unstructured Feedback** | Support tickets, reviews, surveys, social posts arrive as free-form text.   | Manual triage and routing waste engineering cycles.          |
-| **Label Drift**           | Taxonomies evolve; sprint changes break dashboards.                         | Historical data becomes incomparable; re-training is costly. |
-| **LLM Uncertainty**       | Model accuracy varies by domain, time, and prompt style.                    | Hard to pick the “right” model and maintain performance.     |
-| **Fragmented Tooling**    | Data ingestion, labeling, evaluation, and visualization are separate tools. | Glue code proliferates, ownership blurs, tech debt grows.    |
+Veritrox is a **simple web app** that lets small teams upload product feedback (from surveys, reviews, or support tickets) and instantly get labeled topics, sentiment, and action suggestions. No data science or prompt engineering required.
 
 ---
 
-## 3 · Solution Overview
+## 2. Problem Statement
 
-Veritrox offers a *single HTTPS surface* that ingests feedback and returns:
-
-1. **Semantic Labels & Sentiment** – multi-class, multi-label tagging aligned to a customizable taxonomy.
-2. **Rationale Trace** – concise chain-of-thought explanation for each prediction, aiding trust and review.
-3. **Quality Metrics** – confidence score, historical precision/recall deltas, and drift alerts.
-4. **Experiment Slotting** – automatic A/B/C routing across zero-shot, few-shot, and rationale-augmented prompts.
-5. **Streaming Webhooks** – push-style notifications when threshold conditions (e.g., F1 ↓ > 5 %) are met.
-
-All functionality is exposed through REST-style endpoints secured by bearer tokens, rate-limited by plan tier, and versioned semantically.
+| Challenge | Impact | Current Solutions |
+|-----------|--------|-------------------|
+| **Unstructured feedback** | Hard to analyze, slow to act | Manual tagging, spreadsheets |
+| **No easy labeling** | Teams miss trends and issues | Gut feeling, slow response |
+| **Complex tools** | Existing tools are expensive or hard | DIY, error-prone |
 
 ---
 
-## 4 · Core Feature Matrix
+## 3. Solution Overview
 
-| Pillar                     | Capabilities                                                                                                          | “Why It Matters”                                                          |
-| -------------------------- | --------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| **Classification Engine**  | Real-time labeling, sentiment, topic extraction, intent detection.                                                    | Turns raw text into structured analytics on ingestion.                    |
-| **Prompt Experimentation** | Parallel evaluation of zero-shot, few-shot, and chain-of-thought strategies; automatic best-fit selection per tenant. | Eliminates prompt guesswork; self-optimizes for cost vs. accuracy.        |
-| **Evaluation Suite**       | Continuous sampling against ground-truth sets; reports accuracy, precision, recall, F1, and confidence intervals.     | Quantifies model health and flags regressions before they hit production. |
-| **Taxonomy Manager**       | Drag-and-drop UI or API-driven label CRUD, hierarchy nesting, alias mapping, and version pinning.                     | Lets product teams evolve labels without re-deploying code.               |
-| **Analytics & Dashboards** | Time-series trends, leaderboard of prompt variants, drift heat-maps, export to BI tools.                              | Provides visibility for PMs and leadership without SQL.                   |
-| **Security & Compliance**  | Encryption in transit and at rest, tenant isolation, audit logs, optional regional data residency.                    | Satisfies enterprise procurement and regulatory checklists.               |
-| **Usage & Billing Meter**  | Per-request, per-token, or seat-based plans; real-time quota endpoints.                                               | Transparent cost control and predictable margins.                         |
+A **simple web app** that:
+- Accepts feedback uploads (CSV, text, or pasted content)
+- Labels topics and sentiment automatically
+- Suggests action items based on feedback
+- Exports results as CSV or PDF
+- No registration required for basic use
 
 ---
 
-## 5 · High-Level Architecture (Conceptual)
+## 4. Key Features (MVP - Week 1)
 
-1. **Edge Gateway** – Authenticates tokens, enforces quotas, and queues requests.
-2. **Router & Experiment Orchestrator** – Determines which prompt strategy and model provider to invoke based on tenant policy and current experiment.
-3. **LLM Adapter Layer** – Language-agnostic abstraction over multiple providers (public and private).
-4. **Result Normalizer** – Standardizes raw LLM responses into structured JSON with label IDs, rationales, and scores.
-5. **Evaluation & Drift Monitor** – Samples labeled data, compares to gold sets, computes metrics, raises alerts.
-6. **Metadata & Taxonomy Store** – Persists tenant configs, label versions, and audit trails.
-7. **Analytics Pipeline** – Streams events into a columnar warehouse; powers dashboards and webhooks.
-8. **Billing & Quota Service** – Tallies usage, triggers invoices, throttles excess traffic.
+| Feature | Description | Implementation Time |
+|---------|-------------|-------------------|
+| **Feedback Upload** | Upload CSV or paste text | 2 hours |
+| **Label Detection** | Auto-label topics in feedback | 5 hours |
+| **Sentiment Analysis** | Detect positive/negative feedback | 4 hours |
+| **Action Suggestions** | Suggest next steps | 3 hours |
+| **Export** | Download results as CSV/PDF | 2 hours |
+| **Basic UI** | Clean, mobile-friendly design | 4 hours |
 
-> **Scalability Notes**
-> • Stateless compute tiers enable horizontal scaling behind load balancers.
-> • Async queues decouple ingestion from LLM calls to absorb spikes.
-> • Multi-provider model adapters mitigate single-vendor outages or price hikes.
+**Total: 20 hours (3 days)**
 
 ---
 
-## 6 · Key API Surfaces (Verbally Described)
+## 5. Example Workflow
 
-| Endpoint                  | Purpose                                                                  |
-| ------------------------- | ------------------------------------------------------------------------ |
-| **POST /v1/feedback**     | Submit one or many feedback items and receive synchronous or async IDs.  |
-| **GET /v1/feedback/{id}** | Retrieve labels, sentiment, rationale, and confidence for a single item. |
-| **PATCH /v1/taxonomy**    | Create, update, or deprecate labels; propagate version tags.             |
-| **GET /v1/metrics**       | Fetch aggregate accuracy, latency, and cost data over arbitrary windows. |
-| **POST /v1/experiments**  | Launch or abort prompt/model experiments with automated traffic splits.  |
-| **GET /v1/usage**         | Real-time quota and invoice preview per tenant.                          |
-
-All responses include trace IDs for observability and optional chain-of-thought snippets when permitted by plan tier.
-
----
-
-## 7 · Differentiators
-
-1. **Self-Optimizing Prompts** – Continuous routing finds the sweet spot between accuracy and spend per use case.
-2. **Built-In Benchmarking** – No separate scripts; metrics are first-class citizens, always on.
-3. **Taxonomy Evolution without Code Changes** – Teams adjust labels via API/UI, old data auto-migrates or forks.
-4. **Explainability by Design** – Rationale storage and retrieval pass strict security filters, supporting regulated industries.
-5. **Vendor-Neutral** – Abstracted LLM layer lets customers swap in-house models to cut cost or meet privacy requirements.
-
----
-
-## 8 · Monetization Strategy
-
-| Plan           | Quota & Limits     | Feature Highlights                                                               |
-| -------------- | ------------------ | -------------------------------------------------------------------------------- |
-| **Starter**    | 50k tokens / month | Basic labels, sentiment, community SLA.                                          |
-| **Growth**     | 5M tokens / month  | Prompt experimentation, drift alerts, priority support.                          |
-| **Enterprise** | Custom             | Dedicated region, private model hosting, on-prem ingestion gateway, custom SLAs. |
-
-Add-ons: **Advanced Explainability**, **Data Residency Zone**, **Premium Support** (24×7).
+1. **Upload** - Paste or upload feedback
+2. **Analyze** - App labels topics and sentiment
+3. **View** - See results like:
+   ```
+   🏷️ Feedback Labels
+   
+   Topics:
+   - Pricing confusion
+   - Feature request: dark mode
+   - Bug: login issues
+   
+   Sentiment: 60% positive, 40% negative
+   
+   Suggested actions:
+   - Clarify pricing page
+   - Prioritize dark mode in roadmap
+   - Investigate login bug
+   ```
+4. **Export** - Download results
 
 ---
 
-## 9 · Ideal Customers & Use Cases
+## 6. Technical Stack (Simple)
 
-* **SaaS Product Teams** – Auto-triage NPS verbatims and feature requests.
-* **E-commerce Platforms** – Classify reviews by theme, urgency, and sentiment.
-* **Fintech Support Orgs** – Detect compliance-related language in tickets.
-* **Healthcare Portals** – Surface urgent patient feedback while maintaining PHI boundaries.
-* **Gaming Studios** – Cluster community chatter into actionable bug vs feature VS toxicity buckets.
-
----
-
-## 10 · Go-to-Market Plan
-
-1. **Developer-First Launch** – Publish open API docs, Postman collection, and public demo playground.
-2. **Usage-Based Trials** – Free tier generous enough for MVP integrations.
-3. **Integrations** – Native plugins for help-desk, CRM, and analytics platforms.
-4. **Thought Leadership** – Publish benchmark studies comparing prompt strategies across industries.
-5. **Channel Partnerships** – Bundle into customer-feedback tools to embed deeply in existing workflows.
+- **Frontend**: HTML, CSS, JavaScript
+- **Backend**: Simple server (Python/Flask)
+- **NLP**: Open-source labeling/sentiment detection
+- **Hosting**: Netlify/Vercel (free tier)
+- **Domain**: $10/year
 
 ---
 
-## 11 · Future Roadmap
+## 7. Monetization Model
 
-| Horizon | Milestone                                                                                 |
-| ------- | ----------------------------------------------------------------------------------------- |
-| **Q1**  | Multilingual label support with automatic translation alignment.                          |
-| **Q2**  | Real-time streaming classifications via WebSockets.                                       |
-| **Q3**  | User-adaptive prompt tuning leveraging reinforcement learning from human feedback (RLHF). |
-| **Q4**  | Privacy-preserving on-device model option for mobile SDKs.                                |
-
----
-
-## 12 · Risk & Mitigation
-
-| Risk                                | Impact               | Countermeasure                                                                |
-| ----------------------------------- | -------------------- | ----------------------------------------------------------------------------- |
-| LLM API price volatility            | Margin squeeze       | Multi-vendor bidding; negotiate volume discounts; allow BYO-model.            |
-| Misclassification of sensitive data | Compliance penalties | Human-in-the-loop review queue, confidence gating, and redaction library.     |
-| Taxonomy sprawl                     | Analytics dilution   | Version pinning, sunset policies, automated merge suggestions.                |
-| Data leaks via rationale text       | Privacy breach       | Configurable “reasoning scrubbing” mode that summarizes without raw snippets. |
+| Plan | Price | Features |
+|------|-------|----------|
+| **Free** | $0 | 3 analyses/month, basic labeling |
+| **Pro** | $15/month | Unlimited analyses, advanced insights |
+| **Team** | $39/month | Multiple users, API access |
 
 ---
 
-## 13 · Success Metrics
+## 8. Go-to-Market Strategy
 
-* **Time-to-Label** < 300 ms p95
-* **Model F1** ≥ 0.85 across top 5 industries within 90 days
-* **Gross Margin** > 70 % on Growth tier
-* **Monthly Active Integrations** > 500 within first year
-* **Churn** < 3 % net MAU loss per month
-
----
-
-## 14 · Glossary
-
-| Term                | Definition                                                           |
-| ------------------- | -------------------------------------------------------------------- |
-| **Taxonomy**        | Hierarchical system of labels defining feedback categories.          |
-| **Prompt Strategy** | Method of structuring an LLM request (e.g., zero-shot).              |
-| **Drift**           | Statistically significant change in model performance over time.     |
-| **Rationale Trace** | Short textual explanation returned by the model for each prediction. |
-| **Experiment Slot** | Percentage of traffic allocated to a specific prompt+model combo.    |
+1. **Startup Forums** - Indie Hackers, Reddit
+2. **SaaS Facebook Groups** - Share tool in founder groups
+3. **Product Hunt** - Launch as a feedback tool
+4. **Word of Mouth** - Encourage sharing results
 
 ---
 
-### **Veritrox** turns the chaos of customer feedback into crystal-clear action items—one API call at a time.
+## 9. Revenue Projections (Month 1)
+
+- **Free Users**: 30 (marketing)
+- **Pro Conversions**: 10% = 3 users × $15 = $45
+- **Team Conversions**: 2% = 1 user × $39 = $39
+- **Total**: $84
+
+**Goal**: $250/month by month 3
+
+---
+
+## 10. Competitive Landscape
+
+| Competitor | Gap Veritrox Exploits |
+|------------|----------------------|
+| Manual tagging | Slow, error-prone |
+| Expensive feedback tools | Overkill for small teams |
+| DIY spreadsheets | No automation, hard to scale |
+
+---
+
+## 11. Week 1 Development Plan
+
+**Day 1-2**: Core functionality
+- Feedback upload and parsing
+- Label detection logic
+
+**Day 3-4**: Sentiment and action items
+- Sentiment analysis
+- Action suggestion logic
+
+**Day 5**: Export and UI
+- Export options
+- Responsive design
+- Error handling
+
+**Day 6-7**: Launch prep
+- Landing page
+- Payment integration
+- Marketing setup
+
+---
+
+## 12. Success Metrics
+
+- **Week 1**: 10 unique visitors
+- **Week 2**: 5 analyses generated
+- **Week 3**: First paying customer
+- **Week 4**: $30+ in revenue
+
+---
+
+## 13. Future Enhancements (Post-MVP)
+
+- Multi-language support
+- API for developers
+- Team dashboards
+- Custom label/action templates
+
+---
+
+## 14. Risk Mitigation
+
+| Risk | Impact | Mitigation |
+|------|--------|------------|
+| NLP errors | High | Manual review/edit step |
+| Low conversion | Medium | Improve value prop, target niche |
+| Data privacy | Medium | Clear privacy policy, no data retention |
+
+---
+
+## 15. Exit Strategy
+
+1. **Acquisition** - Sell to SaaS or support tool companies
+2. **Integration** - Partner with helpdesk/CRM tools
+3. **Expansion** - Build into full feedback management suite
+
+---
+
+*Veritrox: Tag, analyze, and act on feedback, instantly.*

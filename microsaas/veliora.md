@@ -1,232 +1,160 @@
 # **Veliora**
 
-*Precision-guided workflow automation, delivered through a single, intelligent API.*
+*Simple web form automation - fill out any online form automatically in seconds*
 
 ---
 
-## **1. Executive Summary**
+## 1. Executive Summary
 
-**Veliora** is an API-only, multi-tenant MicroSaaS that converts brittle, repetitive web-form interactions into resilient, large-language-model-powered workflows. By abstracting away DOM parsing, field mapping, error recovery, scheduling, observability, and compliance, Veliora enables engineering teams to ship reliable form automations in minutes, not months—without embedding any headless browser logic in their own codebases.
-
----
-
-## **2. Market Gap & Problem Statement**
-
-| Challenge                                                                                       | Impact on Teams                                        | Current Workarounds                                        |
-| ----------------------------------------------------------------------------------------------- | ------------------------------------------------------ | ---------------------------------------------------------- |
-| **Legacy & third-party web forms are everywhere** (healthcare, banking, insurance, government). | Manual, error-prone data entry; high operational drag. | RPA bots that break on minor UI changes; human BPO labor.  |
-| **Existing automation frameworks are code-heavy** and require deep browser scripting expertise. | Steep learning curve; maintenance overhead.            | Selenium/Playwright scripts owned by individual engineers. |
-| **No unified API for scheduling, monitoring, and logging** across multiple automated forms.     | Fragmented observability; difficult incident response. | Home-grown cron jobs and ad-hoc dashboards.                |
-| **Frequent compliance & privacy updates** in regulated industries.                              | Engineering deliverables blocked by audits.            | Lengthy re-certification cycles per form automation.       |
-
-**Veliora** addresses all four pain points with an LLM-orchestrated, policy-aware automation fabric exposed through a single, stable, versioned API.
+Veliora is a **simple web app** that lets anyone automate filling out repetitive online forms. Enter the form URL, map your fields, and generate a script or one-click automation. Perfect for small businesses, freelancers, and anyone tired of manual data entry.
 
 ---
 
-## **3. Core Value Proposition**
+## 2. Problem Statement
 
-1. **Any Form, Zero Scripting**
-   Provide a target URL, declarative field map, and desired cadence; Veliora does the rest.
-
-2. **LLM-Enhanced Resilience**
-   A domain-adapted language model continuously reasons over page structure, visual cues, and error states, self-healing minor UI changes without redeployments.
-
-3. **First-Class Observability & Governance**
-   Built-in audit trails, metrics, and policy enforcement satisfy SOC 2, HIPAA, and GDPR requirements out of the box.
-
-4. **Elastic, Usage-Based Pricing**
-   Pay only for successful workflow executions and reserved schedules—no fixed seat licence.
+| Challenge | Impact | Current Solutions |
+|-----------|--------|-------------------|
+| **Manual form filling** | Wastes time, error-prone | Copy-paste, browser autofill |
+| **No automation** | Tedious for bulk tasks | Hire VAs, use RPA tools |
+| **Complex tools** | Existing automation is expensive or hard | DIY scripts, browser plugins |
 
 ---
 
-## **4. Conceptual Architecture**
+## 3. Solution Overview
 
-```
-┌───────────────────────────────────────────────┐
-│                Customer Systems               │
-│  (EMR, ERP, CRM, custom apps, iPaaS, …)       │
-└───────────────┬───────────────────────────────┘
-                │ HTTPS / mTLS
-┌───────────────▼───────────────────────────────┐
-│                Veliora API                    │
-│  • Auth & RBAC                                │
-│  • Rate-limiting & quotas                     │
-│  • Schema validation                          │
-└───────────────┬───────────────────────────────┘
-                │ Internal gRPC
-┌───────────────▼───────────────────────────────┐
-│        Orchestration & Scheduling Layer       │
-│  • Task queue & execution planner             │
-│  • Cron & event triggers                      │
-│  • Idempotency guarantees                     │
-└───────────────┬───────────────────────────────┘
-                │
-┌───────────────▼───────────────────────────────┐
-│          LLM-Powered Automation Engine        │
-│  • Form analyser                              │
-│  • Field matcher                              │
-│  • Multi-step execution with retries          │
-└───────────────┬───────────────────────────────┘
-                │
-┌───────────────▼───────────────────────────────┐
-│           Headless Interaction Fleet          │
-│  • Geographically distributed runners         │
-│  • Secure, ephemeral browser sessions         │
-│  • Zero data persistence                      │
-└───────────────┬───────────────────────────────┘
-                │
-┌───────────────▼───────────────────────────────┐
-│    Observability, Logging & Compliance Hub    │
-│  • Structured logs & metrics                  │
-│  • Real-time streaming & long-term storage    │
-│  • Audit trail & policy engine                │
-└───────────────────────────────────────────────┘
-```
-
-*No specific technology choices are required; components may be implemented in any language or cloud.*
+A **simple web app** that:
+- Lets users enter a form URL and map fields
+- Generates a script or one-click automation to fill the form
+- Allows saving and reusing automations
+- Exports as a bookmarklet or script
+- No registration required for basic use
 
 ---
 
-## **5. Feature Matrix**
+## 4. Key Features (MVP - Week 1)
 
-| Capability                   | Starter Tier | Growth Tier       | Enterprise Tier      |
-| ---------------------------- | ------------ | ----------------- | -------------------- |
-| Workflow executions / month  | 2 000        | 25 000            | Unlimited (fair-use) |
-| Concurrent headless sessions | 2            | 10                | 40+ (elastic)        |
-| Custom schedules             | Hourly       | 5-min granularity | 1-min & event-driven |
-| SLA                          | Best-effort  | 99.5 %            | 99.9 % w/ credits    |
-| Region pinning               | —            | 2 regions         | Global               |
-| Audit log retention          | 7 days       | 90 days           | 1 year               |
-| Dedicated VPC endpoints      | —            | Add-on            | Included             |
-| Fine-grained RBAC            | —            | Included          | SSO & SCIM           |
-| HIPAA BAA                    | —            | —                 | Included             |
-| Premium support              | Community    | 8×5               | 24×7                 |
+| Feature | Description | Implementation Time |
+|---------|-------------|-------------------|
+| **Form URL Input** | Enter any online form URL | 2 hours |
+| **Field Mapping** | Map your data to form fields | 5 hours |
+| **Automation Generation** | Create script/bookmarklet | 5 hours |
+| **Save/Reuse** | Save automations for later | 2 hours |
+| **Basic UI** | Clean, mobile-friendly design | 4 hours |
+
+**Total: 18 hours (3 days)**
 
 ---
 
-## **6. API Blueprint (Resource-Oriented)**
+## 5. Example Workflow
 
-| Verb       | Path                | Purpose                                                             |
-| ---------- | ------------------- | ------------------------------------------------------------------- |
-| **POST**   | /workflows          | Create an automation definition (URL, field map, success criteria). |
-| **GET**    | /workflows/{id}     | Retrieve configuration and status.                                  |
-| **PATCH**  | /workflows/{id}     | Update field mappings or metadata.                                  |
-| **DELETE** | /workflows/{id}     | Soft-delete a workflow.                                             |
-| **POST**   | /workflows/{id}/run | Trigger an on-demand execution with parameter overrides.            |
-| **GET**    | /runs/{run\_id}     | Poll for run state, output, and performance metrics.                |
-| **POST**   | /schedules          | Attach a cron or webhook trigger to one or more workflows.          |
-| **GET**    | /schedules/{id}     | Inspect next run time, last outcome, and history.                   |
-| **PATCH**  | /schedules/{id}     | Pause, resume, or modify cadence.                                   |
-| **GET**    | /logs               | Stream structured event logs with filter & pagination.              |
-| **GET**    | /metrics            | Retrieve aggregate KPIs (success rate, median latency, etc.).       |
-| **GET**    | /status             | Service health, version, region latency matrix.                     |
-
-All requests are JSON over HTTPS, secured via bearer tokens or mutual TLS.
+1. **Input** - Enter form URL and data
+2. **Map** - Match your data to form fields
+3. **Generate** - App creates a script or bookmarklet
+4. **Run** - Use automation to fill the form instantly
 
 ---
 
-## **7. Authentication & Security**
+## 6. Technical Stack (Simple)
 
-* **Multi-tenant isolation** with dedicated encryption keys per tenant.
-* **Zero data persistence**: all sensitive payloads are held in memory only for the duration of a run.
-* **Role-based access control** to segregate operator, auditor, and administrator actions.
-* **Continuous penetration testing** and third-party security assessments included in Enterprise tier.
-
----
-
-## **8. Scheduling & Event Triggers**
-
-* Cron syntax down to one-minute resolution.
-* Webhook-based triggers for real-time reactions to upstream events.
-* Adaptive back-off in case of target-site unavailability.
-* Execution windows & blackout periods to respect maintenance freezes.
+- **Frontend**: HTML, CSS, JavaScript
+- **Backend**: None needed (client-side script generation)
+- **Hosting**: Netlify/Vercel (free tier)
+- **Domain**: $10/year
 
 ---
 
-## **9. Observability Suite**
+## 7. Monetization Model
 
-* **Structured log stream** accessible via API or push to any major SIEM.
-* **Real-time metrics** (p50/p95 latency, success ratio, retries) exportable as OpenTelemetry.
-* **Alert hooks** for failed runs, degraded SLAs, or anomalous field mappings.
-* **Drill-down replay** with DOM snapshots (privacy-safe redactions applied).
-
----
-
-## **10. Compliance & Privacy**
-
-| Regulation        | Approach                                                                 |
-| ----------------- | ------------------------------------------------------------------------ |
-| **GDPR**          | Data-minimised request bodies, regional execution, right-to-erasure API. |
-| **HIPAA**         | Signed BAA, encrypted transit & runtime, dedicated execution pools.      |
-| **SOC 2 Type II** | Annual audits, change-management controls, continuous monitoring.        |
+| Plan | Price | Features |
+|------|-------|----------|
+| **Free** | $0 | 3 automations/month, basic scripts |
+| **Pro** | $9/month | Unlimited automations, advanced options |
+| **Team** | $29/month | Multiple users, API access |
 
 ---
 
-## **11. Primary Use Cases**
+## 8. Go-to-Market Strategy
 
-1. **Healthcare Intake Automation**
-   Populate legacy insurance portals or hospital EMRs without direct integrations.
-
-2. **Financial Onboarding**
-   Submit KYC/AML questionnaires on partner banks’ extranets.
-
-3. **Government e-Filing**
-   Automate permit renewals and tax submissions where APIs do not exist.
-
-4. **Marketplace Catalog Sync**
-   Push inventory updates to vendor portals that only expose web interfaces.
-
-5. **Insurance Quote Harvesting**
-   Periodically fill quote forms to retrieve competitor pricing data.
+1. **Small Business Forums** - Reddit, Facebook groups
+2. **Freelancer Communities** - Upwork, Fiverr
+3. **Product Hunt** - Launch as a productivity tool
+4. **Word of Mouth** - Encourage sharing automations
 
 ---
 
-## **12. Go-to-Market Strategy**
+## 9. Revenue Projections (Month 1)
 
-* **Bottom-up**: Self-serve tier with generous free credits to capture individual developers.
-* **Product-led expansion**: In-dashboard prompts to upgrade when usage nears limits.
-* **Compliance-driven**: Direct sales into healthcare & finance once HIPAA and SOC 2 reports are ready.
-* **Integration bundles**: Pre-built connectors for popular iPaaS and workflow platforms.
+- **Free Users**: 30 (marketing)
+- **Pro Conversions**: 10% = 3 users × $9 = $27
+- **Team Conversions**: 2% = 1 user × $29 = $29
+- **Total**: $56
 
----
-
-## **13. High-Level Roadmap**
-
-| Quarter | Milestone                                                                     |
-| ------- | ----------------------------------------------------------------------------- |
-| **Q1**  | GA launch with core execution engine, REST API, and observability dashboards. |
-| **Q2**  | Webhook triggers, region pinning, audit export, marketplace integrations.     |
-| **Q3**  | Fine-grained RBAC, dedicated VPC endpoints, HIPAA BAA support.                |
-| **Q4**  | Visual field-mapping studio, enterprise SSO/SCIM, custom LLM plugins.         |
+**Goal**: $200/month by month 3
 
 ---
 
-## **14. Key Success Metrics**
+## 10. Competitive Landscape
 
-* **≥ 95 % first-run success rate** for all customer workflows.
-* **≤ 3 min average time-to-value** from signup to first successful run.
-* **< 0.2 % monthly logo churn** in Growth tier.
-* **≥ 40 % of revenue** from Enterprise plans within 18 months.
-
----
-
-## **15. Competitive Advantage**
-
-* **LLM-centred resilience** lowers maintenance burden by an order of magnitude.
-* **API-first strategy** fits cleanly into modern backend architectures.
-* **Privacy-forward execution model** wins trust in regulated verticals.
-* **Usage-based billing** aligns cost with customer value.
+| Competitor | Gap Veliora Exploits |
+|------------|---------------------|
+| Manual entry | Slow, error-prone |
+| Expensive RPA tools | Overkill for small tasks |
+| Browser plugins | Not customizable, limited |
 
 ---
 
-## **16. Call to Action**
+## 11. Week 1 Development Plan
 
-Early-access seats are limited. Join the pilot cohort to:
+**Day 1-2**: Core functionality
+- Form URL input and field mapping
+- Script/bookmarklet generation
 
-* Slash form-automation build times by **90 %**.
-* Gain zero-cost access to premium observability features during beta.
-* Influence Veliora’s feature roadmap to match your most pressing integration gaps.
+**Day 3-4**: Save/reuse and UI
+- Save automation feature
+- Responsive design
+- Error handling
+
+**Day 5**: Launch prep
+- Landing page
+- Payment integration
+- Marketing setup
 
 ---
 
-> **Veliora**—because no team should waste a developer hour on brittle browser scripts ever again.
+## 12. Success Metrics
+
+- **Week 1**: 10 unique visitors
+- **Week 2**: 5 automations generated
+- **Week 3**: First paying customer
+- **Week 4**: $20+ in revenue
+
+---
+
+## 13. Future Enhancements (Post-MVP)
+
+- Bulk form filling
+- API for developers
+- Team dashboards
+- Custom automation templates
+
+---
+
+## 14. Risk Mitigation
+
+| Risk | Impact | Mitigation |
+|------|--------|------------|
+| Form changes | High | Manual remapping, update notifications |
+| Low conversion | Medium | Improve value prop, target niche |
+| Data privacy | Medium | Clear privacy policy, no data retention |
+
+---
+
+## 15. Exit Strategy
+
+1. **Acquisition** - Sell to RPA or productivity tool companies
+2. **Integration** - Partner with workflow automation platforms
+3. **Expansion** - Build into full automation suite
+
+---
+
+*Veliora: Automate any form, save hours every week.*

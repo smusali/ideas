@@ -1,213 +1,169 @@
-# **Grable — Extended B2B2C MicroSaaS for Independent Cafés & Small Eateries**
+# **Grable**
+
+*Simple QR code menus for restaurants - go digital in minutes*
 
 ---
 
 ## 1. Vision & Mission
 
-**Vision** Empower every neighborhood café to deliver world-class digital experiences without hiring an IT team.
-**Mission** Provide an end-to-end, multilingual platform that unifies menu management, customer engagement, and data-driven growth for food-and-beverage venues, while delighting guests with friction-free discovery and ordering.
+**Vision**: Help every small restaurant create digital menus instantly
+**Mission**: Provide a simple tool that converts paper menus into QR codes, helping restaurants save money and improve customer experience.
 
 ---
 
 ## 2. Pain Points Addressed
 
-| Stakeholder                        | Current Friction                                                             | Grable Benefit                                                           |
-| ---------------------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| **Owners / Managers**              | Manual menu updates, fragmented delivery channels, limited customer insights | Central console, real-time menu sync everywhere, actionable analytics    |
-| **Staff / Baristas**               | Order errors from language barriers & outdated pricing                       | Live, translated menus; automatic price propagation to POS & receipts    |
-| **Customers (Dine-in & Take-out)** | Unclear allergen info, no loyalty perks, clunky ordering apps                | Mobile-first multilingual menus, tap-to-order & pay, instant rewards     |
-| **Local Community**                | Hard to discover specials & events                                           | Geo-targeted discovery feed, event announcements, neighborhood campaigns |
+| Stakeholder | Current Problem | Grable Solution |
+|-------------|----------------|-----------------|
+| **Restaurant Owners** | Expensive menu printing, hard to update prices | Digital menus, instant updates |
+| **Customers** | Can't see menu before visiting, no photos | QR code access, menu photos |
+| **Staff** | Manual price updates, printing costs | Automatic updates, no printing |
 
 ---
 
 ## 3. Target Segments
 
-1. **Independent Cafés** (1-3 locations)
-2. **Neighborhood Bakeries & Juice Bars**
-3. **Ethnic Restaurants With Diverse Clientele**
-4. **Small Chains Ready for Digital Upsell (< 10 outlets)**
+1. **Small Restaurants** (1-3 locations)
+2. **Food Trucks & Pop-ups**
+3. **Cafés & Coffee Shops**
+4. **Local Pizzerias & Takeout**
 
 ---
 
 ## 4. Core Value Proposition
 
-* **Single Source of Truth** for menus, prices, nutritional data, and promotions—synced to web widgets, QR codes, third-party delivery marketplaces, and social posts.
-* **Polyglot Engine** that auto-translates content and lets guests switch languages on any channel instantly.
-* **B2B2C Flywheel**: venues join for efficiency; guests join for convenience; insights loop back to venues, boosting retention.
-* **Minutes-to-Adopt** onboarding with import wizards, POS connectors, and logo-to-brand theming—ideal for fast local sales cycles.
+- **5-Minute Setup** - Upload menu, get QR code instantly
+- **Instant Updates** - Change prices without reprinting
+- **Customer Friendly** - Mobile-optimized menu viewing
+- **Cost Effective** - Save on printing and reprinting
 
 ---
 
-## 5. Product Pillars & Feature Set
+## 5. Key Features (MVP - Week 1)
 
-### 5.1 Merchant Experience (B2B)
+| Feature | Description | Implementation Time |
+|---------|-------------|-------------------|
+| **Menu Upload** | Simple form to add menu items | 4 hours |
+| **QR Generation** | Create QR codes for menus | 2 hours |
+| **Mobile Menu** | Responsive menu display | 6 hours |
+| **Basic Admin** | Edit menu items and prices | 4 hours |
+| **Simple UI** | Clean, restaurant-friendly design | 4 hours |
 
-| Area                  | Key Capabilities                                                              |
-| --------------------- | ----------------------------------------------------------------------------- |
-| **Dashboard**         | Today’s sales & footfall, low-stock alerts, customer sentiment pulse          |
-| **Menu Studio**       | Versioned menus, item photos, allergen flags, scheduled price changes         |
-| **Polyglot Settings** | One-click AI translation, manual overrides, per-language SEO                  |
-| **Order Hub**         | Unified feed for dine-in QR orders, pickup, local delivery, and table service |
-| **Campaigns**         | Drag-and-drop coupons, happy-hour rules, event scheduling                     |
-| **Analytics**         | Product heat-map, cohort repeat rate, language usage, upsell conversion       |
-| **Integrations**      | Payment terminals, receipt printers, loyalty providers, accounting tools      |
-
-### 5.2 Consumer Experience (B2C)
-
-| Touchpoint              | Highlights                                                               |
-| ----------------------- | ------------------------------------------------------------------------ |
-| **Smart QR**            | Detects device language; deep-links to web app with auto-selected locale |
-| **Web / Mobile PWA**    | Browse menu, filter dietary tags, customize orders, tip digitally        |
-| **Real-Time Wait-list** | Join queue remotely, receive SMS push when table is ready                |
-| **Wallet-less Payment** | Pay with saved cards, contactless wallets, or pay-later providers        |
-| **Loyalty & Referrals** | Points per visit, birthday perks, friend-invite credits                  |
-| **Community Feed**      | Daily specials, latte-art photos, upcoming open-mic nights               |
-
-### 5.3 Admin & Ecosystem
-
-* Multi-tenant control plane for billing, white-label domains, SLA monitoring
-* Marketplace for add-ons (online classes, gift cards, donation rounds)
-* Partner APIs for local delivery fleets and hotel concierge systems
+**Total: 20 hours (3 days)**
 
 ---
 
-## 6. Differentiators
+## 6. Example Workflow
 
-1. **Polyglot-First DNA** Menus, receipts, and push messages rendered in 25+ languages out-of-the-box.
-2. **Hyper-Local Discovery** Search optimized for “near me” plus language & dietary context.
-3. **Data-Backed Growth Toolkit** A/B promotions, at-risk customer churn alerts, menu engineering scores.
-4. **30-Minute Onboarding Promise** Hardware-agnostic setup and guided data import keep sales friction minimal.
-5. **White-Label Ready** Cafés keep their branding; Grable stays invisibly “inside.”
-
----
-
-## 7. Revenue Model
-
-| Stream                      | Mechanics                                                                   |
-| --------------------------- | --------------------------------------------------------------------------- |
-| **SaaS Subscription**       | Tiered monthly plans based on active locations & order volume               |
-| **Transaction Fee**         | Small % on processed payments (optional pass-through)                       |
-| **App Marketplace**         | Revenue share on third-party add-ons (digital gift cards, table-side games) |
-| **Analytics Premium**       | Upsell advanced BI dashboards & predictive insights                         |
-| **Implementation Services** | Paid white-glove onboarding or menu digitization for busy owners            |
+1. **Sign Up** - Restaurant creates account
+2. **Add Menu** - Enter items, prices, descriptions
+3. **Generate QR** - Get QR code for printing
+4. **Print & Display** - Put QR code on tables/walls
+5. **Customers Scan** - View menu on their phones
+6. **Update Anytime** - Change prices instantly
 
 ---
 
-## 8. Pricing Tiers (Example)
+## 7. Technical Stack (Simple)
 
-| Tier           | Ideal For                           | Monthly Fee | Included Orders | Extra Orders    |
-| -------------- | ----------------------------------- | ----------- | --------------- | --------------- |
-| **Starter**    | Solo café                           | Low         | 1 000           | Flat micro-fee  |
-| **Growth**     | 2–3 locations                       | Medium      | 5 000           | Lower micro-fee |
-| **Pro**        | Small chain                         | Higher      | 15 000          | Bulk discount   |
-| **Enterprise** | > 10 outlets / white-label partners | Custom      | Unlimited       | Negotiated      |
-
----
-
-## 9. Customer Journey Overview
-
-1. **Lead Gen** Local rep demos via tablet at coffee roastery events.
-2. **Free Trial** Owner imports menu, prints new QR stickers; guests start scanning.
-3. **Activation** Sales increases tracked; language switch rates highlight tourist uptick.
-4. **Retention** Owner enables loyalty program; shopper repeat visits rise.
-5. **Expansion** Second location added; white-label domain activated; premium analytics adopted.
+- **Frontend**: HTML, CSS, JavaScript
+- **Backend**: Simple server (Node.js/Express)
+- **Database**: SQLite or simple JSON storage
+- **QR Library**: qrcode.js
+- **Hosting**: Railway/Render ($5/month)
+- **Domain**: $10/year
 
 ---
 
-## 10. Go-To-Market Strategy
+## 8. Monetization Model
 
-* **Community Partnerships** Collaborate with roasters, farmers’ markets, and barista schools to bundle Grable trials.
-* **Local Ambassadors** Commission-based “espresso evangelists” pitch cafés in their postcode.
-* **Tourism Boards** Position polyglot menus as visitor-friendliness certification.
-* **Channel Sales** Bundle with POS resellers and Wi-Fi hotspot vendors.
-* **Referral Flywheel** In-app badges encourage customers to suggest Grable to favorite spots.
-
----
-
-## 11. Implementation Roadmap
-
-| Quarter | Milestones                                                                        |
-| ------- | --------------------------------------------------------------------------------- |
-| **Q1**  | MVP: Core menu studio, single-language QR ordering, basic dashboard               |
-| **Q2**  | Polyglot layer, payment processing, loyalty beta                                  |
-| **Q3**  | Multi-location support, public consumer discovery portal, analytics v2            |
-| **Q4**  | Marketplace launch, partner API, white-label tooling, first international rollout |
+| Plan | Price | Features |
+|------|-------|----------|
+| **Free** | $0 | 1 menu, basic QR code |
+| **Starter** | $15/month | 3 menus, custom branding |
+| **Pro** | $29/month | Unlimited menus, analytics |
 
 ---
 
-## 12. High-Level Architecture (Conceptual)
+## 9. Go-to-Market Strategy
 
-```
-[ Merchant Console ] ←→ [ Core Application Layer ] ←→ [ Data Store ]
-           ↑                               ↓                 ↑
-[ Consumer Web App / PWA ] ←→ [ Order Orchestration ] ←→ [ Payment Gateway ]
-           ↓                               ↓                 ↓
-        [ QR Codes ]                [ Translation Engine ]   [ BI / Analytics Service ]
-```
-
-*No specific technologies are referenced; components are abstract to maintain flexibility.*
+1. **Local Outreach** - Visit restaurants in person
+2. **Social Media** - Instagram, Facebook for restaurants
+3. **Print Shops** - Partner with local printers
+4. **Restaurant Groups** - Facebook groups, forums
 
 ---
 
-## 13. Data Governance & Compliance
+## 10. Revenue Projections (Month 1)
 
-* GDPR & CCPA alignment for customer data
-* Role-based access controls for staff vs. owner vs. admin
-* End-to-end encrypted payment data routing
-* Export & purge utilities respecting “right to be forgotten” requests
+- **Free Users**: 20 restaurants (marketing)
+- **Starter Conversions**: 25% = 5 users × $15 = $75
+- **Pro Conversions**: 10% = 2 users × $29 = $58
+- **Total**: $133
 
----
-
-## 14. Key Performance Indicators
-
-| KPI                                     | Why It Matters                        |
-| --------------------------------------- | ------------------------------------- |
-| Activation rate within first week       | Measures onboarding friction          |
-| Average order value uplift vs. baseline | Validates upsell features             |
-| Multilingual scans per 100 visits       | Gauges tourist & expat reach          |
-| Repeat purchase interval                | Tracks loyalty effectiveness          |
-| Churn by tier                           | Monitors pricing fit & service health |
+**Goal**: $500/month by month 3
 
 ---
 
-## 15. Competitive Landscape
+## 11. Week 1 Development Plan
 
-| Competitor Type                   | Gap Grable Exploits               |
-| --------------------------------- | --------------------------------- |
-| **Legacy POS Extensions**         | Slow language updates; clunky UX  |
-| **Pure Ordering Apps**            | No menu CMS, weak analytics       |
-| **Freemium QR Generators**        | Lacks payments & loyalty          |
-| **Enterprise Hospitality Suites** | Overpriced, overserved for indies |
+**Day 1-2**: Core functionality
+- User registration/login
+- Menu creation form
+- Basic database setup
 
----
+**Day 3-4**: QR and display
+- QR code generation
+- Mobile menu display
+- Basic admin panel
 
-## 16. Risk & Mitigation
+**Day 5**: Polish and testing
+- UI improvements
+- Mobile responsiveness
+- Bug fixes
 
-| Risk                       | Likelihood | Impact | Mitigation                                  |
-| -------------------------- | ---------- | ------ | ------------------------------------------- |
-| Owner technophobia         | Medium     | High   | Concierge onboarding, training videos       |
-| Regulatory payment changes | Low        | Medium | Abstracted gateway integrations             |
-| Tourist downturn           | Medium     | Medium | Diversify into corporate canteens, pop-ups  |
-| Feature creep              | High       | Medium | Stage-gated roadmap review, lean iterations |
-
----
-
-## 17. Exit & Expansion Options
-
-1. **Acquisition by POS Vendor** seeking multilingual differentiation.
-2. **Spin-off White-Label SaaS** for hotel F\&B departments.
-3. **Regional Franchise Licensing** allowing local operators to resell Grable in new territories.
+**Day 6-7**: Launch preparation
+- Payment integration
+- Landing page
+- Marketing materials
 
 ---
 
-## 18. Next Steps for Founder
+## 12. Success Metrics
 
-1. **Validate Demand**—interview five local café owners about menu pain points.
-2. **Build Landing Page**—collect sign-ups, showcase demo GIFs.
-3. **Pilot Rollout**—offer three-month free beta to early adopters in exchange for testimonials.
-4. **Secure Partnerships**—align with payment processors and printing shops for bundled offers.
-5. **Measure & Iterate**—track KPIs, refine feature priorities, and prepare for broader launch.
+- **Week 1**: 5 restaurant signups
+- **Week 2**: 10 QR codes generated
+- **Week 3**: First paying customer
+- **Week 4**: $100+ in revenue
 
 ---
 
-### **Grable** stands ready to transform how small hospitality businesses operate and how their patrons experience local flavors—seamlessly, bilingually, and profitably.
+## 13. Future Enhancements (Post-MVP)
+
+- Online ordering integration
+- Menu analytics (views, popular items)
+- Multi-language support
+- Photo uploads for menu items
+- Customer reviews and ratings
+
+---
+
+## 14. Risk Mitigation
+
+| Risk | Impact | Mitigation |
+|------|--------|------------|
+| Low restaurant adoption | High | Focus on cost savings, easy setup |
+| Competition from big players | Medium | Focus on simplicity, local support |
+| Technical issues | Medium | Simple tech stack, good testing |
+
+---
+
+## 15. Exit Strategy
+
+1. **Acquisition** - Sell to restaurant tech companies
+2. **White-label** - License to restaurant chains
+3. **Expansion** - Add ordering, payments, loyalty
+
+---
+
+*Grable: Digital menus made simple. From paper to QR in 5 minutes.*
