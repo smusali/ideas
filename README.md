@@ -12,12 +12,15 @@
 - [`notdiamond-python`](https://github.com/smusali/notdiamond-python)
 - [`phoenix`](https://github.com/smusali/phoenix)
 - [`pulumi`](https://github.com/smusali/pulumi)
+- [`signoz`](https://github.com/smusali/signoz)
 
 ## Open-Source Project Ideas
 - [`aerolyze`](./oss/aerolyze.md)
 - [`echoverse`](./oss/echoverse.md)
 - [`harmora`](./oss/harmora.md)
 - [`nexoria`](./oss/nexoria.md)
+- [`opinalis`](./oss/opinalis.md)
+- [`quantyl`](./oss/quantyl.md)
 - [`rekursia`](./oss/rekursia.md)
 - [`resonix`](./oss/resonix.md)
 - [`zestiq`](./oss/zestiq.md)
@@ -29,5 +32,7 @@
 - [`prandium`](./microsaas/prandium.md)
 - [`resonatr`](./microsaas/resonatr.md)
 - [`serevo`](./microsaas/serevo.md)
+- [`vareon`](./microsaas/vareon.md)
+- [`veritrox`](./microsaas/veritrox.md)
 - [`versilo`](./microsaas/versilo.md)
 - [`zephra`](./microsaas/zephra.md)
