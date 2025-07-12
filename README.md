@@ -41,9 +41,11 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 | [`nexida`](./oss/nexida.md) | Campus information management CLI for educational institutions | education, campus, information, management |
 | [`nythera`](./oss/nythera.md) | Climate data analysis CLI for environmental research and monitoring | climate, data-analysis, environmental, research |
 | [`quasara`](./oss/quasara.md) | Model benchmarking CLI for comparing AI/ML model performance | ai, ml, benchmarking, model-comparison |
+| [`quasira`](./oss/quasira.md) | Query optimization CLI for database performance analysis | database, query-optimization, performance, sql |
 | [`rekursia`](./oss/rekursia.md) | Database learning CLI for interactive database education | education, databases, interactive, learning |
 | [`researchhub`](./oss/researchhub.md) | Research paper management CLI for academic work and citations | research, papers, citations, academic, bibliography |
 | [`systemmonitor`](./oss/systemmonitor.md) | System monitoring CLI for tracking server performance and workflows | monitoring, servers, performance, workflows, infrastructure |
+| [`sylera`](./oss/sylera.md) | System log analysis CLI for monitoring and debugging applications | log-analysis, debugging, monitoring, system-administration |
 | [`velora`](./oss/velora.md) | Travel planning CLI tool for organizing trips and managing itineraries | travel, planning, itineraries, trip-management |
 | [`ventiri`](./oss/ventiri.md) | Outdoor gear management CLI for organizing equipment and inventory | outdoor, gear, inventory, management |
 | [`virelia`](./oss/virelia.md) | Feedback analysis CLI for processing and analyzing user feedback | feedback, analysis, user-research, insights |
@@ -58,6 +60,7 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 | [`aetheris`](./microsaas/aetheris.md) | AI-powered email assistant for drafting and managing professional communications | email, ai-assistant, productivity, communication |
 | [`aleriq`](./microsaas/aleriq.md) | Smart notification system for monitoring and alerting on important events | notifications, monitoring, alerts, automation |
 | [`avantri`](./microsaas/avantri.md) | Travel planning assistant for organizing trips and managing itineraries | travel, planning, itineraries, trip-management |
+| [`avoda`](./microsaas/avoda.md) | Task management and productivity platform for teams and individuals | task-management, productivity, collaboration, workflow |
 | [`axionis`](./microsaas/axionis.md) | Task automation platform for streamlining repetitive business processes | automation, workflows, productivity, business-processes |
 | [`contentguard`](./microsaas/contentguard.md) | AI content detector for identifying AI-generated text and images | ai-detection, content-verification, authenticity |
 | [`creativestudio`](./microsaas/creativestudio.md) | AI social media content generator for creating engaging posts | social-media, content-generation, ai, marketing |
@@ -78,12 +81,15 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 | [`otterahealth`](./microsaas/otterahealth.md) | Healthcare data manager for organizing patient information | healthcare, data-management, patient-records |
 | [`oryvus`](./microsaas/oryvus.md) | Voice note transcription and organization tool for professionals | voice-notes, transcription, productivity, organization |
 | [`sylphra`](./microsaas/sylphra.md) | Password management system with secure sharing for teams | password-management, security, team-collaboration |
+| [`syntari`](./microsaas/syntari.md) | Code review automation tool for developers and teams | code-review, automation, developer-tools, collaboration |
 | [`syntria`](./microsaas/syntria.md) | Code snippet organizer for developers to manage and share code examples | code-snippets, developer-tools, organization, sharing |
+| [`verivex`](./microsaas/verivex.md) | Version control visualization tool for understanding code changes | version-control, visualization, git, code-analysis |
 | [`vordara`](./microsaas/vordara.md) | Word processing tool with AI assistance for writing and editing | word-processing, ai-assistant, writing, editing |
 | [`vyrelo`](./microsaas/vyrelo.md) | Video editing automation tool for creating social media content | video-editing, automation, social-media, content-creation |
 | [`weatherwise`](./microsaas/weatherwise.md) | Weather context tool for adding weather insights to events, photos, and posts | weather, context, events, photos, social-media |
 | [`xephra`](./microsaas/xephra.md) | Expense report automation for businesses and freelancers | expense-reports, automation, business-tools, freelancing |
 | [`zenthra`](./microsaas/zenthra.md) | Zen meditation timer and mindfulness tracking app | meditation, mindfulness, wellness, mental-health |
+| [`zyphra`](./microsaas/zyphra.md) | AI-powered writing assistant for content creation and editing | ai-writing, content-creation, editing, productivity |
 
 ## Project Philosophy
 
@@ -101,8 +107,8 @@ All projects in this repository are designed with the following principles:
 ## Project Status
 
 ### ✅ Completed Revisions
-- **All 30 OSS projects** - Revised into simple CLI tools with 7-day build plans
-- **All 30 MicroSaaS projects** - Revised into week-long projects with clear revenue models
+- **All 32 OSS projects** - Revised into simple CLI tools with 7-day build plans
+- **All 38 MicroSaaS projects** - Revised into week-long projects with clear revenue models
 - **Unified similar ideas** - Merged duplicate concepts into focused projects
 - **Comprehensive documentation** - Each project includes build plans, marketing strategies, and success metrics
 
