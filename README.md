@@ -52,6 +52,9 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 | [`vylaris`](./oss/vylaris.md) | Document analysis CLI that extracts text, generates summaries, and analyzes content from PDF, TXT, and DOCX files | document-analysis, insights, text-processing, cli |
 | [`xylora`](./oss/xylora.md) | Interview feedback generator CLI that creates structured feedback from transcripts with strengths and improvement suggestions | interviews, feedback, hr, recruitment |
 | [`zestiq`](./oss/zestiq.md) | Restaurant menu management CLI that creates menus, manages categories and items, exports to multiple formats, and tracks basic analytics | restaurants, menu-management, food-service, hospitality |
+| [`ayoria`](./oss/ayoria.md) | CLI tool that generates structured story outlines and blueprints from simple text inputs for writers and authors | story-outline, writing, cli, blueprint |
+| [`lyntrix`](./oss/lyntrix.md) | CLI tool that generates personalized interview questions and practice sessions based on company and job info | interview-prep, questions, practice, cli |
+| [`zyngel`](./oss/zyngel.md) | CLI tool that aggregates and searches local events from multiple sources, providing personalized recommendations | events, discovery, aggregation, cli |
 
 ## MicroSaaS Project Ideas
 
@@ -90,6 +93,9 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 | [`xephra`](./microsaas/xephra.md) | Simple user authentication and consent manager that helps teams manage login, sessions, and privacy with minimal effort | authentication, consent, privacy, user-management |
 | [`zenthra`](./microsaas/zenthra.md) | Simple prompt testing and benchmarking platform that lets you test, compare, and optimize prompts for language models | prompt-testing, ai, benchmarking, language-models |
 | [`zyphra`](./microsaas/zyphra.md) | Instant contributor onboarding API that generates starter tasks, onboarding guides, and Q&A bots for open-source projects | onboarding, open-source, api, developer-tools |
+| [`epozia`](./microsaas/epozia.md) | Simple web app that turns public domain stories into illustrated comics or novels in any language, ready to publish in minutes | story-adaptation, comics, novels, public-domain, web-app |
+| [`inquisia`](./microsaas/inquisia.md) | Web app for job seekers to generate personalized interview prep kits and practice sessions from company and job info | interview-prep, job-search, practice, web-app |
+| [`vanyr`](./microsaas/vanyr.md) | Smart event discovery web app that finds and recommends local events using natural language search and personalized filters | events, discovery, recommendations, local, web-app |
 
 ## Project Philosophy
 
