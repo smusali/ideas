@@ -96,6 +96,8 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 | [`epozia`](./microsaas/epozia.md) | Simple web app that turns public domain stories into illustrated comics or novels in any language, ready to publish in minutes | story-adaptation, comics, novels, public-domain, web-app |
 | [`inquisia`](./microsaas/inquisia.md) | Web app for job seekers to generate personalized interview prep kits and practice sessions from company and job info | interview-prep, job-search, practice, web-app |
 | [`vanyr`](./microsaas/vanyr.md) | Smart event discovery web app that finds and recommends local events using natural language search and personalized filters | events, discovery, recommendations, local, web-app |
+| [`cadris`](./microsaas/cadris.md) | Simple API for instant YAML/JSON config validation, error explanation, and best practice checks—no setup, just send your config and get results. | config-validation, api, developer-tools, linting |
+| [`cardra`](./microsaas/cardra.md) | Plug-and-play API that extracts transactions, finds subscriptions, and summarizes spend from credit card statements—add spend insights to any app in minutes. | credit-cards, api, fintech, spend-analysis, subscriptions |
 
 ## Project Philosophy
 
