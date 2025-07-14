@@ -63,44 +63,45 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 
 | Project | Description | Keywords |
 |---------|-------------|----------|
-| [`aetheris`](./microsaas/aetheris.md) | Simple AI email assistant that helps draft, improve, and manage professional emails with AI assistance | email, ai-assistant, productivity, communication |
-| [`aleriq`](./microsaas/aleriq.md) | Simple smart notification system that creates intelligent alerts for important events with minimal setup | notifications, monitoring, alerts, automation |
-| [`avantri`](./microsaas/avantri.md) | Simple travel planning assistant that helps plan trips, organize itineraries, and manage travel details | travel, planning, itineraries, trip-management |
-| [`avoda`](./microsaas/avoda.md) | Simple job application tracker that helps job seekers track applications, follow-ups, and interviews | job-search, applications, tracking, careers |
-| [`axionis`](./microsaas/axionis.md) | Simple task automation platform that helps automate repetitive tasks and streamline business processes | automation, workflows, productivity, business-processes |
-| [`cadris`](./microsaas/cadris.md) | Simple API for instant YAML/JSON config validation, error explanation, and best practice checks—no setup, just send your config and get results. | config-validation, api, developer-tools, linting |
+| [`alertify`](./microsaas/alertify.md) | Simple smart notification system that creates intelligent alerts for important events with minimal setup | notifications, monitoring, alerts, automation |
+| [`applytrack`](./microsaas/applytrack.md) | Simple job application tracker that helps job seekers track applications, follow-ups, and interviews | job-search, applications, tracking, careers |
+| [`authentiscan`](./microsaas/authentiscan.md) | Simple AI content detector that helps detect AI-generated text and images with minimal effort | ai-detection, content-verification, authenticity |
 | [`cardra`](./microsaas/cardra.md) | Plug-and-play API that extracts transactions, finds subscriptions, and summarizes spend from credit card statements—add spend insights to any app in minutes. | credit-cards, api, fintech, spend-analysis, subscriptions |
-| [`contentguard`](./microsaas/contentguard.md) | Simple AI content detector that helps detect AI-generated text and images with minimal effort | ai-detection, content-verification, authenticity |
-| [`creativestudio`](./microsaas/creativestudio.md) | Simple AI social media content generator that helps you create engaging posts for any platform with minimal effort | social-media, content-generation, ai, marketing |
+| [`climaguide`](./microsaas/climaguide.md) | Simple weather insights app that helps you track weather patterns and get personalized weather recommendations | weather, insights, patterns, recommendations |
+| [`configguard`](./microsaas/configguard.md) | Simple API for instant YAML/JSON config validation, error explanation, and best practice checks—no setup, just send your config and get results. | config-validation, api, developer-tools, linting |
+| [`consentguard`](./microsaas/consentguard.md) | Simple user authentication and consent manager that helps teams manage login, sessions, and privacy with minimal effort | authentication, consent, privacy, user-management |
+| [`coursematch`](./microsaas/coursematch.md) | Simple course recommendation app that helps students discover, compare, and plan academic courses | education, course-recommendation, planning, students |
+| [`coursecraft`](./microsaas/coursecraft.md) | Simple learning management system that helps you create, organize, and deliver online courses with minimal effort | education, lms, online-courses, e-learning |
 | [`dataflow`](./microsaas/dataflow.md) | Simple CSV cleaner and analyzer that helps you clean messy CSV files and get instant insights with minimal effort | csv, data-cleaning, analysis, data-processing |
-| [`diurna`](./microsaas/diurna.md) | Simple daily journaling app that helps you journal daily and get AI-powered insights for personal growth and reflection | journaling, ai-insights, personal-growth, reflection |
-| [`docugen`](./microsaas/docugen.md) | Simple document generator that helps you create worksheets, forms, and structured documents in minutes | document-generation, forms, worksheets, productivity |
-| [`elentix`](./microsaas/elentix.md) | Simple learning management system that helps you create, organize, and deliver online courses with minimal effort | education, lms, online-courses, e-learning |
-| [`emblera`](./microsaas/emblera.md) | Simple email marketing automation that helps you create, send, and automate email campaigns with minimal effort | email-marketing, automation, small-business, campaigns |
-| [`epistella`](./microsaas/epistella.md) | Simple email management tool that helps you organize, prioritize, and respond to emails efficiently | email, productivity, organization, communication |
-| [`epozia`](./microsaas/epozia.md) | Simple web app that turns public domain stories into illustrated comics or novels in any language, ready to publish in minutes | story-adaptation, comics, novels, public-domain, web-app |
-| [`eunoia`](./microsaas/eunoia.md) | Simple mental health tracker that helps you monitor your mood, habits, and wellness patterns | mental-health, wellness, tracking, mood |
-| [`inquisia`](./microsaas/inquisia.md) | Web app for job seekers to generate personalized interview prep kits and practice sessions from company and job info | interview-prep, job-search, practice, web-app |
-| [`insightanalyzer`](./microsaas/insightanalyzer.md) | Simple data insight generator that helps you extract trends, patterns, and actionable insights from logs and feedback | text-analysis, insights, logs, feedback, data-mining |
-| [`lumetry`](./microsaas/lumetry.md) | Simple team chat application that helps teams communicate and collaborate with minimal effort | team-chat, collaboration, messaging, productivity |
-| [`lumivox`](./microsaas/lumivox.md) | Simple AI response quality tester that lets you instantly assess and improve AI-generated responses with actionable feedback | ai-testing, quality-assessment, content-evaluation |
+| [`dataforge`](./microsaas/dataforge.md) | Simple data validation and API generator that lets you create, validate, and deploy APIs from data models with minimal effort | api-generation, data-validation, backend, developer-tools |
+| [`dayscribe`](./microsaas/dayscribe.md) | Simple daily journaling app that helps you journal daily and get AI-powered insights for personal growth and reflection | journaling, ai-insights, personal-growth, reflection |
+| [`dealgroup`](./microsaas/dealgroup.md) | Simple group-buying deals platform that helps clubs and small retailers organize and manage group deals and exclusive offers | group-buying, deals, clubs, retail |
+| [`discovent`](./microsaas/discovent.md) | Smart event discovery web app that helps people find local events using natural language search and intelligent filtering | events, discovery, local, search, recommendations |
+| [`doctravel`](./microsaas/doctravel.md) | Simple travel document organizer that helps you manage travel documents, itineraries, and bookings in one place | travel, document-management, organization, trips |
+| [`docmint`](./microsaas/docmint.md) | Simple document generator that helps you create worksheets, forms, and structured documents in minutes | document-generation, forms, worksheets, productivity |
+| [`feedbackflow`](./microsaas/feedbackflow.md) | Simple feedback collection and analysis tool that helps you collect, analyze, and act on customer feedback | feedback, analysis, customer-insights, business |
+| [`inboxflow`](./microsaas/inboxflow.md) | Simple email management tool that helps you organize, prioritize, and respond to emails efficiently | email, productivity, organization, communication |
+| [`insightify`](./microsaas/insightify.md) | Simple data insight generator that helps you extract trends, patterns, and actionable insights from logs and feedback | text-analysis, insights, logs, feedback, data-mining |
+| [`mailmint`](./microsaas/mailmint.md) | Simple email marketing automation that helps you create, send, and automate email campaigns with minimal effort | email-marketing, automation, small-business, campaigns |
+| [`mailpilot`](./microsaas/mailpilot.md) | Simple AI email assistant that helps draft, improve, and manage professional emails with AI assistance | email, ai-assistant, productivity, communication |
 | [`menugenie`](./microsaas/menugenie.md) | Simple menu digitization tool that helps restaurants create digital menus and QR codes for instant customer access | menu-digitization, qr-codes, restaurants, digital-transformation |
-| [`nairavi`](./microsaas/nairavi.md) | Simple travel planning assistant that helps you plan trips, create itineraries, and organize travel details | travel, planning, itineraries, trip-management |
-| [`nexusflow`](./microsaas/nexusflow.md) | Simple file sharing app that lets you share files with auto-expiring links for secure, temporary access | file-sharing, security, expiration, collaboration |
-| [`nexuslink`](./microsaas/nexuslink.md) | API for unified social media management, cross-platform connection analysis, and automated activity monitoring for developers and marketers. | social-media, api, automation, analytics, connections |
-| [`nomorix`](./microsaas/nomorix.md) | Simple travel document organizer that helps you manage travel documents, itineraries, and bookings in one place | travel, document-management, organization, trips |
+| [`moodnest`](./microsaas/moodnest.md) | Simple mental health tracker that helps you monitor your mood, habits, and wellness patterns | mental-health, wellness, tracking, mood |
+| [`onboardhq`](./microsaas/onboardhq.md) | Instant contributor onboarding API that generates starter tasks, onboarding guides, and Q&A bots for open-source projects | onboarding, open-source, api, developer-tools |
 | [`otterahealth`](./microsaas/otterahealth.md) | Simple healthcare data manager that helps providers and patients organize health records, track symptoms, and share information securely | healthcare, data-management, patient-records |
-| [`oryvus`](./microsaas/oryvus.md) | Simple weather insights app that helps you track weather patterns and get personalized weather recommendations | weather, insights, patterns, recommendations |
-| [`sylphra`](./microsaas/sylphra.md) | Simple course recommendation app that helps students discover, compare, and plan academic courses | education, course-recommendation, planning, students |
-| [`syntari`](./microsaas/syntari.md) | Simple data redaction API that helps developers remove sensitive data from text before sending to AI models or databases | data-redaction, privacy, api, compliance |
-| [`syntria`](./microsaas/syntria.md) | Simple feedback collection and analysis tool that helps you collect, analyze, and act on customer feedback | feedback, analysis, customer-insights, business |
-| [`verivex`](./microsaas/verivex.md) | Simple data validation and API generator that lets you create, validate, and deploy APIs from data models with minimal effort | api-generation, data-validation, backend, developer-tools |
-| [`vordara`](./microsaas/vordara.md) | Simple group-buying deals platform that helps clubs and small retailers organize and manage group deals and exclusive offers | group-buying, deals, clubs, retail |
-| [`vyrelo`](./microsaas/vyrelo.md) | Simple loyalty rewards platform that helps small businesses create and manage customer loyalty programs | loyalty, rewards, small-business, customer-engagement |
+| [`postforge`](./microsaas/postforge.md) | Simple AI social media content generator that helps you create engaging posts for any platform with minimal effort | social-media, content-generation, ai, marketing |
+| [`prepwise`](./microsaas/prepwise.md) | Web app for job seekers to generate personalized interview prep kits and practice sessions from company and job info | interview-prep, job-search, practice, web-app |
+| [`promptbench`](./microsaas/promptbench.md) | Simple prompt testing and benchmarking platform that lets you test, compare, and optimize prompts for language models | prompt-testing, ai, benchmarking, language-models |
+| [`redactguard`](./microsaas/redactguard.md) | Simple data redaction API that helps developers remove sensitive data from text before sending to AI models or databases | data-redaction, privacy, api, compliance |
+| [`replycheck`](./microsaas/replycheck.md) | Simple AI response quality tester that lets you instantly assess and improve AI-generated responses with actionable feedback | ai-testing, quality-assessment, content-evaluation |
+| [`rewardnest`](./microsaas/rewardnest.md) | Simple loyalty rewards platform that helps small businesses create and manage customer loyalty programs | loyalty, rewards, small-business, customer-engagement |
+| [`sharesnap`](./microsaas/sharesnap.md) | Simple file sharing app that lets you share files with auto-expiring links for secure, temporary access | file-sharing, security, expiration, collaboration |
+| [`socialbridge`](./microsaas/socialbridge.md) | API for unified social media management, cross-platform connection analysis, and automated activity monitoring for developers and marketers. | social-media, api, automation, analytics, connections |
+| [`storyforge`](./microsaas/storyforge.md) | Simple web app that turns public domain stories into illustrated comics or novels in any language, ready to publish in minutes | story-adaptation, comics, novels, public-domain, web-app |
+| [`taskflow`](./microsaas/taskflow.md) | Simple task automation platform that helps automate repetitive tasks and streamline business processes | automation, workflows, productivity, business-processes |
+| [`teamloop`](./microsaas/teamloop.md) | Simple team chat application that helps teams communicate and collaborate with minimal effort | team-chat, collaboration, messaging, productivity |
+| [`tripnest`](./microsaas/tripnest.md) | Simple travel planning assistant that helps you plan trips, create itineraries, and organize travel details | travel, planning, itineraries, trip-management |
+| [`trippilot`](./microsaas/trippilot.md) | Simple travel planning assistant that helps plan trips, organize itineraries, and manage travel details | travel, planning, itineraries, trip-management |
 | [`weatherwise`](./microsaas/weatherwise.md) | Simple web app that provides instant weather summaries and contextual annotations for events, photos, and social posts | weather, context, events, photos, social-media |
-| [`xephra`](./microsaas/xephra.md) | Simple user authentication and consent manager that helps teams manage login, sessions, and privacy with minimal effort | authentication, consent, privacy, user-management |
-| [`zenthra`](./microsaas/zenthra.md) | Simple prompt testing and benchmarking platform that lets you test, compare, and optimize prompts for language models | prompt-testing, ai, benchmarking, language-models |
-| [`zyphra`](./microsaas/zyphra.md) | Instant contributor onboarding API that generates starter tasks, onboarding guides, and Q&A bots for open-source projects | onboarding, open-source, api, developer-tools |
 
 ## Project Philosophy
 
