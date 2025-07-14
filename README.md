@@ -24,6 +24,7 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 | [`aetheria`](./oss/aetheria.md) | Simple CLI tool for tracking your daily mood, mental health symptoms, and wellness activities with privacy and simplicity | mental-health, wellness, tracking, mood, cli |
 | [`aichat`](./oss/aichat.md) | Simple CLI tool for managing AI chat sessions, testing models, and building chat applications from the terminal | ai, chat, cli, conversations, developer-tools |
 | [`avestra`](./oss/avestra.md) | Simple CLI tool for validating API schemas, generating tests, and ensuring API quality directly from your terminal | api, validation, testing, cli, developer-tools |
+| [`ayoria`](./oss/ayoria.md) | CLI tool that generates structured story outlines and blueprints from simple text inputs for writers and authors | story-outline, writing, cli, blueprint |
 | [`caladri`](./oss/caladri.md) | Simple CLI tool for managing user authentication, sessions, and security policies with minimal effort | authentication, users, permissions, security, cli |
 | [`calyndra`](./oss/calyndra.md) | Simple CLI tool for tracking student progress, assignments, and learning goals for educators and students | education, student-tracking, progress, cli |
 | [`chronara`](./oss/chronara.md) | Lightweight CLI tool for time tracking, schedule management, and productivity analytics with terminal-based interface | time-tracking, productivity, scheduling, cli |
@@ -37,9 +38,11 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 | [`fidelion`](./oss/fidelion.md) | Customer loyalty CLI that manages loyalty programs, tracks purchases, and analyzes customer engagement with reward systems | loyalty, rewards, customers, business |
 | [`jobtracker`](./oss/jobtracker.md) | Job application tracking CLI that manages applications, tracks status, and provides statistics for job search organization | job-search, applications, tracking, careers |
 | [`loginsight`](./oss/loginsight.md) | Log analysis CLI with natural language queries that parses log files, detects patterns, and provides insights for debugging | log-analysis, conversational, debugging, monitoring |
+| [`lyntrix`](./oss/lyntrix.md) | CLI tool that generates personalized interview questions and practice sessions based on company and job info | interview-prep, questions, practice, cli |
 | [`lystrum`](./oss/lystrum.md) | Research data management CLI that tracks experiments, organizes datasets, and manages citations for academic research | research, data-management, academic, organization |
 | [`nexida`](./oss/nexida.md) | Campus information management CLI that organizes events, tracks resources, manages announcements, and handles bookings | education, campus, information, management |
 | [`nythera`](./oss/nythera.md) | Climate data analysis CLI that processes environmental datasets, tracks trends, and generates climate reports with visualization | climate, data-analysis, environmental, research |
+| [`omnilink`](./oss/omnilink.md) | CLI tool for unified social media connection management, cross-platform analysis, and activity monitoring with LLM-powered insights. | social-media, cli, connections, analysis, automation |
 | [`quasara`](./oss/quasara.md) | Model benchmarking CLI that tests AI/ML models, compares performance metrics, and generates detailed benchmark reports | ai, ml, benchmarking, model-comparison |
 | [`quasira`](./oss/quasira.md) | LLM cost tracker CLI that monitors API usage, enforces usage policies, and tracks expenses with real-time alerts and webhooks | llm, cost-tracking, api-management, policy-enforcement |
 | [`rekursia`](./oss/rekursia.md) | Database learning CLI that provides interactive tutorials, transaction examples, and guided lessons for database education | education, databases, interactive, learning |
@@ -52,9 +55,8 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 | [`vylaris`](./oss/vylaris.md) | Document analysis CLI that extracts text, generates summaries, and analyzes content from PDF, TXT, and DOCX files | document-analysis, insights, text-processing, cli |
 | [`xylora`](./oss/xylora.md) | Interview feedback generator CLI that creates structured feedback from transcripts with strengths and improvement suggestions | interviews, feedback, hr, recruitment |
 | [`zestiq`](./oss/zestiq.md) | Restaurant menu management CLI that creates menus, manages categories and items, exports to multiple formats, and tracks basic analytics | restaurants, menu-management, food-service, hospitality |
-| [`ayoria`](./oss/ayoria.md) | CLI tool that generates structured story outlines and blueprints from simple text inputs for writers and authors | story-outline, writing, cli, blueprint |
-| [`lyntrix`](./oss/lyntrix.md) | CLI tool that generates personalized interview questions and practice sessions based on company and job info | interview-prep, questions, practice, cli |
 | [`zyngel`](./oss/zyngel.md) | CLI tool that aggregates and searches local events from multiple sources, providing personalized recommendations | events, discovery, aggregation, cli |
+| [`zyphra`](./oss/zyphra.md) | Instant contributor onboarding API that generates starter tasks, onboarding guides, and Q&A bots for open-source projects | onboarding, open-source, api, developer-tools |
 
 ## MicroSaaS Project Ideas
 
@@ -65,6 +67,8 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 | [`avantri`](./microsaas/avantri.md) | Simple travel planning assistant that helps plan trips, organize itineraries, and manage travel details | travel, planning, itineraries, trip-management |
 | [`avoda`](./microsaas/avoda.md) | Simple job application tracker that helps job seekers track applications, follow-ups, and interviews | job-search, applications, tracking, careers |
 | [`axionis`](./microsaas/axionis.md) | Simple task automation platform that helps automate repetitive tasks and streamline business processes | automation, workflows, productivity, business-processes |
+| [`cadris`](./microsaas/cadris.md) | Simple API for instant YAML/JSON config validation, error explanation, and best practice checks—no setup, just send your config and get results. | config-validation, api, developer-tools, linting |
+| [`cardra`](./microsaas/cardra.md) | Plug-and-play API that extracts transactions, finds subscriptions, and summarizes spend from credit card statements—add spend insights to any app in minutes. | credit-cards, api, fintech, spend-analysis, subscriptions |
 | [`contentguard`](./microsaas/contentguard.md) | Simple AI content detector that helps detect AI-generated text and images with minimal effort | ai-detection, content-verification, authenticity |
 | [`creativestudio`](./microsaas/creativestudio.md) | Simple AI social media content generator that helps you create engaging posts for any platform with minimal effort | social-media, content-generation, ai, marketing |
 | [`dataflow`](./microsaas/dataflow.md) | Simple CSV cleaner and analyzer that helps you clean messy CSV files and get instant insights with minimal effort | csv, data-cleaning, analysis, data-processing |
@@ -73,13 +77,16 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 | [`elentix`](./microsaas/elentix.md) | Simple learning management system that helps you create, organize, and deliver online courses with minimal effort | education, lms, online-courses, e-learning |
 | [`emblera`](./microsaas/emblera.md) | Simple email marketing automation that helps you create, send, and automate email campaigns with minimal effort | email-marketing, automation, small-business, campaigns |
 | [`epistella`](./microsaas/epistella.md) | Simple email management tool that helps you organize, prioritize, and respond to emails efficiently | email, productivity, organization, communication |
+| [`epozia`](./microsaas/epozia.md) | Simple web app that turns public domain stories into illustrated comics or novels in any language, ready to publish in minutes | story-adaptation, comics, novels, public-domain, web-app |
 | [`eunoia`](./microsaas/eunoia.md) | Simple mental health tracker that helps you monitor your mood, habits, and wellness patterns | mental-health, wellness, tracking, mood |
+| [`inquisia`](./microsaas/inquisia.md) | Web app for job seekers to generate personalized interview prep kits and practice sessions from company and job info | interview-prep, job-search, practice, web-app |
 | [`insightanalyzer`](./microsaas/insightanalyzer.md) | Simple data insight generator that helps you extract trends, patterns, and actionable insights from logs and feedback | text-analysis, insights, logs, feedback, data-mining |
 | [`lumetry`](./microsaas/lumetry.md) | Simple team chat application that helps teams communicate and collaborate with minimal effort | team-chat, collaboration, messaging, productivity |
 | [`lumivox`](./microsaas/lumivox.md) | Simple AI response quality tester that lets you instantly assess and improve AI-generated responses with actionable feedback | ai-testing, quality-assessment, content-evaluation |
 | [`menugenie`](./microsaas/menugenie.md) | Simple menu digitization tool that helps restaurants create digital menus and QR codes for instant customer access | menu-digitization, qr-codes, restaurants, digital-transformation |
 | [`nairavi`](./microsaas/nairavi.md) | Simple travel planning assistant that helps you plan trips, create itineraries, and organize travel details | travel, planning, itineraries, trip-management |
 | [`nexusflow`](./microsaas/nexusflow.md) | Simple file sharing app that lets you share files with auto-expiring links for secure, temporary access | file-sharing, security, expiration, collaboration |
+| [`nexuslink`](./microsaas/nexuslink.md) | API for unified social media management, cross-platform connection analysis, and automated activity monitoring for developers and marketers. | social-media, api, automation, analytics, connections |
 | [`nomorix`](./microsaas/nomorix.md) | Simple travel document organizer that helps you manage travel documents, itineraries, and bookings in one place | travel, document-management, organization, trips |
 | [`otterahealth`](./microsaas/otterahealth.md) | Simple healthcare data manager that helps providers and patients organize health records, track symptoms, and share information securely | healthcare, data-management, patient-records |
 | [`oryvus`](./microsaas/oryvus.md) | Simple weather insights app that helps you track weather patterns and get personalized weather recommendations | weather, insights, patterns, recommendations |
@@ -93,11 +100,6 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 | [`xephra`](./microsaas/xephra.md) | Simple user authentication and consent manager that helps teams manage login, sessions, and privacy with minimal effort | authentication, consent, privacy, user-management |
 | [`zenthra`](./microsaas/zenthra.md) | Simple prompt testing and benchmarking platform that lets you test, compare, and optimize prompts for language models | prompt-testing, ai, benchmarking, language-models |
 | [`zyphra`](./microsaas/zyphra.md) | Instant contributor onboarding API that generates starter tasks, onboarding guides, and Q&A bots for open-source projects | onboarding, open-source, api, developer-tools |
-| [`epozia`](./microsaas/epozia.md) | Simple web app that turns public domain stories into illustrated comics or novels in any language, ready to publish in minutes | story-adaptation, comics, novels, public-domain, web-app |
-| [`inquisia`](./microsaas/inquisia.md) | Web app for job seekers to generate personalized interview prep kits and practice sessions from company and job info | interview-prep, job-search, practice, web-app |
-| [`vanyr`](./microsaas/vanyr.md) | Smart event discovery web app that finds and recommends local events using natural language search and personalized filters | events, discovery, recommendations, local, web-app |
-| [`cadris`](./microsaas/cadris.md) | Simple API for instant YAML/JSON config validation, error explanation, and best practice checks—no setup, just send your config and get results. | config-validation, api, developer-tools, linting |
-| [`cardra`](./microsaas/cardra.md) | Plug-and-play API that extracts transactions, finds subscriptions, and summarizes spend from credit card statements—add spend insights to any app in minutes. | credit-cards, api, fintech, spend-analysis, subscriptions |
 
 ## Project Philosophy
 
