@@ -21,42 +21,43 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 
 | Project | Description | Keywords |
 |---------|-------------|----------|
-| [`aetheria`](./oss/aetheria.md) | Simple CLI tool for tracking your daily mood, mental health symptoms, and wellness activities with privacy and simplicity | mental-health, wellness, tracking, mood, cli |
-| [`aichat`](./oss/aichat.md) | Simple CLI tool for managing AI chat sessions, testing models, and building chat applications from the terminal | ai, chat, cli, conversations, developer-tools |
-| [`avestra`](./oss/avestra.md) | Simple CLI tool for validating API schemas, generating tests, and ensuring API quality directly from your terminal | api, validation, testing, cli, developer-tools |
-| [`ayoria`](./oss/ayoria.md) | CLI tool that generates structured story outlines and blueprints from simple text inputs for writers and authors | story-outline, writing, cli, blueprint |
-| [`caladri`](./oss/caladri.md) | Simple CLI tool for managing user authentication, sessions, and security policies with minimal effort | authentication, users, permissions, security, cli |
-| [`calyndra`](./oss/calyndra.md) | Simple CLI tool for tracking student progress, assignments, and learning goals for educators and students | education, student-tracking, progress, cli |
-| [`chronara`](./oss/chronara.md) | Lightweight CLI tool for time tracking, schedule management, and productivity analytics with terminal-based interface | time-tracking, productivity, scheduling, cli |
-| [`creativeforge`](./oss/creativeforge.md) | CLI tool for creating text-based artwork, ASCII art, and visual content with multiple font styles and export formats | text-art, ascii, creativity, cli |
-| [`dataviz`](./oss/dataviz.md) | Command-line data visualization tool that analyzes CSV files, creates charts, and generates insights with terminal and image export | data-analysis, visualization, charts, cli |
-| [`educea`](./oss/educea.md) | CLI lesson planning tool for teachers to create, organize, and manage lesson plans with templates and schedule management | education, lesson-planning, teachers, cli |
-| [`elydian`](./oss/elydian.md) | Data analysis and benchmarking CLI tool for statistical analysis, performance measurement, and comprehensive reporting | data-analysis, benchmarking, analytics, cli |
-| [`feedbackhub`](./oss/feedbackhub.md) | CLI tool for collecting, organizing, and analyzing user feedback with sentiment analysis and trend reporting | feedback, surveys, user-research, insights, analysis |
-| [`ferota`](./oss/ferota.md) | Travel planning CLI that creates trips, manages itineraries, tracks expenses, and generates travel reports | travel, planning, itineraries, trip-management |
-| [`feryn`](./oss/feryn.md) | Course management CLI for tracking academic progress, managing assignments, and planning educational journeys | education, course-management, content, academic |
-| [`fidelion`](./oss/fidelion.md) | Customer loyalty CLI that manages loyalty programs, tracks purchases, and analyzes customer engagement with reward systems | loyalty, rewards, customers, business |
-| [`jobtracker`](./oss/jobtracker.md) | Job application tracking CLI that manages applications, tracks status, and provides statistics for job search organization | job-search, applications, tracking, careers |
-| [`loginsight`](./oss/loginsight.md) | Log analysis CLI with natural language queries that parses log files, detects patterns, and provides insights for debugging | log-analysis, conversational, debugging, monitoring |
-| [`lyntrix`](./oss/lyntrix.md) | CLI tool that generates personalized interview questions and practice sessions based on company and job info | interview-prep, questions, practice, cli |
-| [`lystrum`](./oss/lystrum.md) | Research data management CLI that tracks experiments, organizes datasets, and manages citations for academic research | research, data-management, academic, organization |
-| [`nexida`](./oss/nexida.md) | Campus information management CLI that organizes events, tracks resources, manages announcements, and handles bookings | education, campus, information, management |
-| [`nythera`](./oss/nythera.md) | Climate data analysis CLI that processes environmental datasets, tracks trends, and generates climate reports with visualization | climate, data-analysis, environmental, research |
-| [`omnilink`](./oss/omnilink.md) | CLI tool for unified social media connection management, cross-platform analysis, and activity monitoring with LLM-powered insights. | social-media, cli, connections, analysis, automation |
-| [`quasara`](./oss/quasara.md) | Model benchmarking CLI that tests AI/ML models, compares performance metrics, and generates detailed benchmark reports | ai, ml, benchmarking, model-comparison |
-| [`quasira`](./oss/quasira.md) | LLM cost tracker CLI that monitors API usage, enforces usage policies, and tracks expenses with real-time alerts and webhooks | llm, cost-tracking, api-management, policy-enforcement |
+| [`artisantext`](./oss/artisantext.md) | CLI tool for creating text-based artwork, ASCII art, and visual content with multiple font styles and export formats | text-art, ascii, creativity, cli |
+| [`authify`](./oss/authify.md) | Simple CLI tool for managing user authentication, sessions, and security policies with minimal effort | authentication, users, permissions, security, cli |
+| [`benchwise`](./oss/benchwise.md) | Data analysis and benchmarking CLI tool for statistical analysis, performance measurement, and comprehensive reporting | data-analysis, benchmarking, analytics, cli |
+| [`campushub`](./oss/campushub.md) | Campus information management CLI that organizes events, tracks resources, manages announcements, and handles bookings | education, campus, information, management |
+| [`chartcraft`](./oss/chartcraft.md) | Command-line data visualization tool that analyzes CSV files, creates charts, and generates insights with terminal and image export | data-analysis, visualization, charts, cli |
+| [`chatpilot`](./oss/chatpilot.md) | Simple CLI tool for managing AI chat sessions, testing models, and building chat applications from the terminal | ai, chat, cli, conversations, developer-tools |
+| [`climatescope`](./oss/climatescope.md) | Climate data analysis CLI that processes environmental datasets, tracks trends, and generates climate reports with visualization | climate, data-analysis, environmental, research |
+| [`confcheck`](./oss/confcheck.md) | CLI tool for linting, formatting, and simulating infrastructure configurations with optional LLM-powered diagnostics | config-validation, infrastructure, linting, cli, devops |
+| [`costwatch`](./oss/costwatch.md) | LLM cost tracker CLI that monitors API usage, enforces usage policies, and tracks expenses with real-time alerts and webhooks | llm, cost-tracking, api-management, policy-enforcement |
+| [`coursegrid`](./oss/coursegrid.md) | Course management CLI for tracking academic progress, managing assignments, and planning educational journeys | education, course-management, content, academic |
+| [`docsight`](./oss/docsight.md) | Document analysis CLI that extracts text, generates summaries, and analyzes content from PDF, TXT, and DOCX files | document-analysis, insights, text-processing, cli |
+| [`edutrackly`](./oss/edutrackly.md) | Simple CLI tool for tracking student progress, assignments, and learning goals for educators and students | education, student-tracking, progress, cli |
+| [`eventify`](./oss/eventify.md) | CLI tool that aggregates and searches local events from multiple sources, providing personalized recommendations | events, discovery, aggregation, cli |
+| [`feedloop`](./oss/feedloop.md) | CLI tool for collecting, organizing, and analyzing user feedback with sentiment analysis and trend reporting | feedback, surveys, user-research, insights, analysis |
+| [`finstatecli`](./oss/finstatecli.md) | CLI tool that transforms financial statements into structured data and insights using local processing with optional AI assistance | financial, statements, data-extraction, analytics, cli |
+| [`gearnest`](./oss/gearnest.md) | Outdoor gear management CLI that tracks equipment inventory, maintenance schedules, and creates activity checklists | outdoor, gear, inventory, management |
+| [`hirereview`](./oss/hirereview.md) | Interview feedback generator CLI that creates structured feedback from transcripts with strengths and improvement suggestions | interviews, feedback, hr, recruitment |
+| [`jobtrail`](./oss/jobtrail.md) | Job application tracking CLI that manages applications, tracks status, and provides statistics for job search organization | job-search, applications, tracking, careers |
+| [`lessonmint`](./oss/lessonmint.md) | CLI lesson planning tool for teachers to create, organize, and manage lesson plans with templates and schedule management | education, lesson-planning, teachers, cli |
+| [`loglens`](./oss/loglens.md) | Log analysis CLI with natural language queries that parses log files, detects patterns, and provides insights for debugging | log-analysis, conversational, debugging, monitoring |
+| [`menumint`](./oss/menumint.md) | Restaurant menu management CLI that creates menus, manages categories and items, exports to multiple formats, and tracks basic analytics | restaurants, menu-management, food-service, hospitality |
+| [`modelmeter`](./oss/modelmeter.md) | Model benchmarking CLI that tests AI/ML models, compares performance metrics, and generates detailed benchmark reports | ai, ml, benchmarking, model-comparison |
+| [`moodify`](./oss/moodify.md) | Simple CLI tool for tracking your daily mood, mental health symptoms, and wellness activities with privacy and simplicity | mental-health, wellness, tracking, mood, cli |
+| [`openpulse`](./oss/openpulse.md) | OSS project health and funding CLI that tracks project metrics, contributor activity, and manages funding pledges | project-health, funding, analytics, open-source |
+| [`paperstack`](./oss/paperstack.md) | Research paper management CLI that organizes papers, manages citations, generates bibliographies, and tracks academic references | research, papers, citations, academic, bibliography |
+| [`plotweave`](./oss/plotweave.md) | CLI tool that generates structured story outlines and blueprints from simple text inputs for writers and authors | story-outline, writing, cli, blueprint |
+| [`questify`](./oss/questify.md) | CLI tool that generates personalized interview questions and practice sessions based on company and job info | interview-prep, questions, practice, cli |
 | [`rekursia`](./oss/rekursia.md) | Database learning CLI that provides interactive tutorials, transaction examples, and guided lessons for database education | education, databases, interactive, learning |
-| [`researchhub`](./oss/researchhub.md) | Research paper management CLI that organizes papers, manages citations, generates bibliographies, and tracks academic references | research, papers, citations, academic, bibliography |
-| [`systemmonitor`](./oss/systemmonitor.md) | System monitoring CLI that tracks CPU, memory, disk, and network metrics with alerts and performance visualization | monitoring, servers, performance, workflows, infrastructure |
-| [`sylera`](./oss/sylera.md) | OSS project health and funding CLI that tracks project metrics, contributor activity, and manages funding pledges | project-health, funding, analytics, open-source |
-| [`velora`](./oss/velora.md) | Travel planning CLI that creates trips, manages itineraries, tracks expenses, and organizes travel checklists | travel, planning, itineraries, trip-management |
-| [`ventiri`](./oss/ventiri.md) | Outdoor gear management CLI that tracks equipment inventory, maintenance schedules, and creates activity checklists | outdoor, gear, inventory, management |
-| [`virelia`](./oss/virelia.md) | Feedback analysis CLI that processes user feedback, tracks sentiment trends, and generates actionable insights | feedback, analysis, user-research, insights |
-| [`vylaris`](./oss/vylaris.md) | Document analysis CLI that extracts text, generates summaries, and analyzes content from PDF, TXT, and DOCX files | document-analysis, insights, text-processing, cli |
-| [`xylora`](./oss/xylora.md) | Interview feedback generator CLI that creates structured feedback from transcripts with strengths and improvement suggestions | interviews, feedback, hr, recruitment |
-| [`zestiq`](./oss/zestiq.md) | Restaurant menu management CLI that creates menus, manages categories and items, exports to multiple formats, and tracks basic analytics | restaurants, menu-management, food-service, hospitality |
-| [`zyngel`](./oss/zyngel.md) | CLI tool that aggregates and searches local events from multiple sources, providing personalized recommendations | events, discovery, aggregation, cli |
-| [`zyphra`](./oss/zyphra.md) | Instant contributor onboarding API that generates starter tasks, onboarding guides, and Q&A bots for open-source projects | onboarding, open-source, api, developer-tools |
+| [`researchnest`](./oss/researchnest.md) | Research data management CLI that tracks experiments, organizes datasets, and manages citations for academic research | research, data-management, academic, organization |
+| [`rewardly`](./oss/rewardly.md) | Customer loyalty CLI that manages loyalty programs, tracks purchases, and analyzes customer engagement with reward systems | loyalty, rewards, customers, business |
+| [`schemaguard`](./oss/schemaguard.md) | Simple CLI tool for validating API schemas, generating tests, and ensuring API quality directly from your terminal | api, validation, testing, cli, developer-tools |
+| [`sentimently`](./oss/sentimently.md) | Feedback analysis CLI that processes user feedback, tracks sentiment trends, and generates actionable insights | feedback, analysis, user-research, insights |
+| [`socialsync`](./oss/socialsync.md) | CLI tool for unified social media connection management, cross-platform analysis, and activity monitoring with LLM-powered insights. | social-media, cli, connections, analysis, automation |
+| [`syspulse`](./oss/syspulse.md) | System monitoring CLI that tracks CPU, memory, disk, and network metrics with alerts and performance visualization | monitoring, servers, performance, workflows, infrastructure |
+| [`timetally`](./oss/timetally.md) | Lightweight CLI tool for time tracking, schedule management, and productivity analytics with terminal-based interface | time-tracking, productivity, scheduling, cli |
+| [`tripsage`](./oss/tripsage.md) | Travel planning CLI that creates trips, manages itineraries, tracks expenses, and organizes travel checklists | travel, planning, itineraries, trip-management |
+| [`triptide`](./oss/triptide.md) | Travel planning CLI that creates trips, manages itineraries, tracks expenses, and generates travel reports | travel, planning, itineraries, trip-management |
 
 ## MicroSaaS Project Ideas
 
