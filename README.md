@@ -39,11 +39,13 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 | [`gearnest`](./oss/gearnest.md) | Outdoor gear management CLI that tracks equipment inventory, maintenance schedules, and creates activity checklists | outdoor, gear, inventory, management |
 | [`hirereview`](./oss/hirereview.md) | Interview feedback generator CLI that creates structured feedback from transcripts with strengths and improvement suggestions | interviews, feedback, hr, recruitment |
 | [`jobtrail`](./oss/jobtrail.md) | Job application tracking CLI that manages applications, tracks status, and provides statistics for job search organization | job-search, applications, tracking, careers |
+| [`kaleido`](./oss/kaleido.md) | Open-source CLI tool that guides users through idea validation using structured questioning and generates actionable insights | idea-validation, business-planning, cli, analysis |
 | [`lessonmint`](./oss/lessonmint.md) | CLI lesson planning tool for teachers to create, organize, and manage lesson plans with templates and schedule management | education, lesson-planning, teachers, cli |
 | [`loglens`](./oss/loglens.md) | Log analysis CLI with natural language queries that parses log files, detects patterns, and provides insights for debugging | log-analysis, conversational, debugging, monitoring |
 | [`menumint`](./oss/menumint.md) | Restaurant menu management CLI that creates menus, manages categories and items, exports to multiple formats, and tracks basic analytics | restaurants, menu-management, food-service, hospitality |
 | [`modelmeter`](./oss/modelmeter.md) | Model benchmarking CLI that tests AI/ML models, compares performance metrics, and generates detailed benchmark reports | ai, ml, benchmarking, model-comparison |
 | [`moodify`](./oss/moodify.md) | Simple CLI tool for tracking your daily mood, mental health symptoms, and wellness activities with privacy and simplicity | mental-health, wellness, tracking, mood, cli |
+| [`nomadr`](./oss/nomadr.md) | Open-source CLI/SDK that connects mobile individuals with local businesses offering day passes, micro-memberships, and flexible access | nomad-services, local-business, cli, sdk |
 | [`openpulse`](./oss/openpulse.md) | OSS project health and funding CLI that tracks project metrics, contributor activity, and manages funding pledges | project-health, funding, analytics, open-source |
 | [`paperstack`](./oss/paperstack.md) | Research paper management CLI that organizes papers, manages citations, generates bibliographies, and tracks academic references | research, papers, citations, academic, bibliography |
 | [`plotweave`](./oss/plotweave.md) | CLI tool that generates structured story outlines and blueprints from simple text inputs for writers and authors | story-outline, writing, cli, blueprint |
@@ -54,7 +56,9 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 | [`schemaguard`](./oss/schemaguard.md) | Simple CLI tool for validating API schemas, generating tests, and ensuring API quality directly from your terminal | api, validation, testing, cli, developer-tools |
 | [`sentimently`](./oss/sentimently.md) | Feedback analysis CLI that processes user feedback, tracks sentiment trends, and generates actionable insights | feedback, analysis, user-research, insights |
 | [`socialsync`](./oss/socialsync.md) | CLI tool for unified social media connection management, cross-platform analysis, and activity monitoring with LLM-powered insights. | social-media, cli, connections, analysis, automation |
+| [`sparkathon`](./oss/sparkathon.md) | Open-source CLI tool that streamlines hackathon organization through automated planning, participant management, and event coordination | hackathon, event-management, cli, organization |
 | [`syspulse`](./oss/syspulse.md) | System monitoring CLI that tracks CPU, memory, disk, and network metrics with alerts and performance visualization | monitoring, servers, performance, workflows, infrastructure |
+| [`terrametric`](./oss/terrametric.md) | Open-source CLI tool that provides quick environmental impact calculations for various transportation modes | environmental-impact, transportation, cli, sustainability |
 | [`timetally`](./oss/timetally.md) | Lightweight CLI tool for time tracking, schedule management, and productivity analytics with terminal-based interface | time-tracking, productivity, scheduling, cli |
 | [`tripsage`](./oss/tripsage.md) | Travel planning CLI that creates trips, manages itineraries, tracks expenses, and organizes travel checklists | travel, planning, itineraries, trip-management |
 | [`triptide`](./oss/triptide.md) | Travel planning CLI that creates trips, manages itineraries, tracks expenses, and generates travel reports | travel, planning, itineraries, trip-management |
@@ -82,10 +86,12 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 | [`feedbackflow`](./microsaas/feedbackflow.md) | Simple feedback collection and analysis tool that helps you collect, analyze, and act on customer feedback | feedback, analysis, customer-insights, business |
 | [`inboxflow`](./microsaas/inboxflow.md) | Simple email management tool that helps you organize, prioritize, and respond to emails efficiently | email, productivity, organization, communication |
 | [`insightify`](./microsaas/insightify.md) | Simple data insight generator that helps you extract trends, patterns, and actionable insights from logs and feedback | text-analysis, insights, logs, feedback, data-mining |
+| [`lethack`](./microsaas/lethack.md) | API-only MicroSaaS that provides endpoints for organizing, managing, and analyzing hackathons | api, hackathon, event-management, developer-tools |
 | [`mailmint`](./microsaas/mailmint.md) | Simple email marketing automation that helps you create, send, and automate email campaigns with minimal effort | email-marketing, automation, small-business, campaigns |
 | [`mailpilot`](./microsaas/mailpilot.md) | Simple AI email assistant that helps draft, improve, and manage professional emails with AI assistance | email, ai-assistant, productivity, communication |
 | [`menugenie`](./microsaas/menugenie.md) | Simple menu digitization tool that helps restaurants create digital menus and QR codes for instant customer access | menu-digitization, qr-codes, restaurants, digital-transformation |
 | [`moodnest`](./microsaas/moodnest.md) | Simple mental health tracker that helps you monitor your mood, habits, and wellness patterns | mental-health, wellness, tracking, mood |
+| [`nomadnav`](./microsaas/nomadnav.md) | API-only MicroSaaS that provides endpoints for searching, booking, and paying for short-term access to local businesses | api, nomad-services, local-business, booking |
 | [`onboardhq`](./microsaas/onboardhq.md) | Instant contributor onboarding API that generates starter tasks, onboarding guides, and Q&A bots for open-source projects | onboarding, open-source, api, developer-tools |
 | [`otterahealth`](./microsaas/otterahealth.md) | Simple healthcare data manager that helps providers and patients organize health records, track symptoms, and share information securely | healthcare, data-management, patient-records |
 | [`postforge`](./microsaas/postforge.md) | Simple AI social media content generator that helps you create engaging posts for any platform with minimal effort | social-media, content-generation, ai, marketing |
@@ -119,8 +125,8 @@ All projects in this repository are designed with the following principles:
 ## Project Status
 
 ### ✅ Completed Revisions
-- **All 32 OSS projects** - Revised into simple CLI tools with 7-day build plans
-- **All 38 MicroSaaS projects** - Revised into week-long projects with clear revenue models
+- **All 47 OSS projects** - Revised into simple CLI tools with 7-day build plans
+- **All 47 MicroSaaS projects** - Revised into week-long projects with clear revenue models
 - **Unified similar ideas** - Merged duplicate concepts into focused projects
 - **Comprehensive documentation** - Each project includes build plans, marketing strategies, and success metrics
 
@@ -130,16 +136,3 @@ All projects are now ready for immediate implementation with:
 - Simple data models and architectures
 - Easy publishing and marketing plans
 - Realistic success metrics and timelines
-
-## Contributing
-
-Feel free to:
-- Fork and implement any of these ideas
-- Suggest improvements or new project ideas
-- Contribute to existing open-source projects
-- Share your implementation experiences
-- Submit pull requests with enhancements
-
-## License
-
-This repository is open source and available under the MIT License.
