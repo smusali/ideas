@@ -1,38 +1,51 @@
 # **TripPilot** — *Simple Travel Planning Assistant*
 
-*A lightweight web application that helps you plan trips, organize itineraries, and manage travel details with minimal effort.*
+*A lightweight web application that helps you plan trips, create itineraries, organize travel details, and manage travel documents with minimal effort.*
 
 ---
 
 ## **What is TripPilot?**
 
-TripPilot is a simple web application that helps you plan trips, create itineraries, and organize all your travel details in one place. Built for travelers who want to plan better trips without the complexity of traditional travel planning tools.
+TripPilot is a simple web application that helps you plan trips, create itineraries, organize travel details, and manage travel documents in one place. Built for travelers, travel agents, and anyone who wants to plan trips without complex travel management systems.
 
 ---
 
 ## **Core Features (MVP - 7 Days)**
 
-### **Day 1-2: Basic Setup**
-- Simple web interface for creating trips
-- Basic database to store trips and itineraries
-- User registration and login
+### **Day 1: Basic Setup**
+- Simple web interface with user registration/login
+- Basic database setup for users and trips
+- Landing page with clear value proposition
 
-### **Day 3-4: Core Functionality**
-- Create trips with destinations, dates, and basic details
-- Add activities and attractions to itineraries
-- Basic trip organization and categorization
-- Simple trip dashboard
+### **Day 2: Trip Management**
+- Create and edit trips with basic details
+- Trip dashboard with overview
+- Basic trip organization
 
-### **Day 5-6: Enhanced Features**
+### **Day 3: Itinerary Planning**
+- Add activities and attractions to daily itineraries
+- Simple drag-and-drop interface for scheduling
+- Basic itinerary view
+
+### **Day 4: Document Management**
+- Upload and organize travel documents
+- Document categorization and search
+- Basic document sharing
+
+### **Day 5: Export & Sharing**
 - Export itineraries to PDF/CSV
 - Share trips with travel companions
-- Basic travel expense tracking
-- Trip templates for common destinations
+- Basic trip templates
 
-### **Day 7: Polish & Deploy**
-- Responsive design for mobile
-- Deploy to free hosting platform
-- Write documentation and README
+### **Day 6: Payment Integration**
+- Stripe integration for subscriptions
+- Freemium model implementation
+- Basic usage tracking
+
+### **Day 7: Polish & Launch**
+- Mobile responsive design
+- Error handling and user feedback
+- Deploy to hosting platform
 
 ---
 
@@ -40,19 +53,22 @@ TripPilot is a simple web application that helps you plan trips, create itinerar
 
 ```
 User:
-- id, email, password_hash, created_at
+- id, email, password_hash, subscription_status, created_at
 
 Trip:
-- id, user_id, title, destination, start_date, end_date, status, created_at
+- id, user_id, title, destination, start_date, end_date, budget, status, created_at
 
 Itinerary:
-- id, trip_id, day_number, date, created_at
+- id, trip_id, day_number, date, activities_json, created_at
 
 Activity:
 - id, itinerary_id, title, description, location, time, cost, created_at
 
-Expense:
-- id, trip_id, title, amount, category, date, created_at
+Document:
+- id, trip_id, name, document_type, file_url, created_at
+
+Subscription:
+- id, user_id, plan_type, status, expires_at, created_at
 ```
 
 ---
@@ -66,7 +82,7 @@ Expense:
 
 ---
 
-## **Easy Publishing Plan (7 Days)**
+## **Easy Marketing Plan (7 Days)**
 
 ### **Day 1-3: Build & Test**
 - Build the core application
@@ -85,7 +101,7 @@ Expense:
 
 ### **Day 6: Community Engagement**
 - Respond to all comments and feedback
-- Share on Reddit r/travel
+- Share on Reddit r/travel, r/Entrepreneur
 - Engage with early users
 
 ### **Day 7: Follow-up**
@@ -98,8 +114,8 @@ Expense:
 ## **Marketing Strategy**
 
 ### **Target Audience**
-- **Primary**: Frequent travelers, vacation planners, business travelers
-- **Secondary**: Travel bloggers, travel agents
+- **Primary**: Frequent travelers, vacation planners, business travelers, travel agents
+- **Secondary**: Travel bloggers, trip planners
 - **Tertiary**: Families planning trips
 
 ### **Key Messages**
@@ -109,16 +125,16 @@ Expense:
 
 ### **Distribution Channels**
 - **Product Hunt**: Launch for immediate visibility
-- **LinkedIn**: Target business travelers
+- **LinkedIn**: Target business travelers and travel professionals
 - **Twitter**: Travel and lifestyle communities
-- **Reddit**: r/travel, r/solotravel
+- **Reddit**: r/travel, r/solotravel, r/Entrepreneur
 - **Email Marketing**: Cold outreach to travel bloggers
 
 ### **Pricing Strategy**
-- **Freemium**: Free for 1 trip, paid for unlimited trips
-- **Monthly**: $4.99/month for unlimited trips
-- **Annual**: $49/year (17% discount)
-- **Team**: $14.99/month for up to 5 users
+- **Freemium**: Free for 3 trips, paid for unlimited trips
+- **Monthly**: $12.99/month for unlimited trips
+- **Annual**: $129/year (17% discount)
+- **Pro**: $24.99/month for team collaboration
 
 ---
 
@@ -134,10 +150,11 @@ Expense:
 2. **Premium Templates**: Advanced trip templates for popular destinations
 3. **API Access**: For developers wanting to integrate
 4. **Affiliate Partnerships**: Commission from travel bookings
+5. **Custom Templates**: For specific travel types
 
 ### **Quick Wins**
 - Offer 7-day free trial for all paid plans
-- Create viral templates (weekend getaways, business trips)
+- Create viral trip planning templates
 - Partner with travel influencers
 - Build referral program
 
@@ -148,7 +165,7 @@ Expense:
 - **Week 1**: 100+ signups, 10+ paid users
 - **Month 1**: 500+ signups, 50+ paid users
 - **Month 3**: 2000+ signups, 200+ paid users
-- **Revenue Target**: $300+ in first month
+- **Revenue Target**: $650+ in first month
 
 ---
 
@@ -160,6 +177,8 @@ Expense:
 - Team collaboration features
 - Advanced expense tracking
 - Travel insurance integration
+- Advanced travel analytics and insights
+- Custom travel itineraries marketplace
 
 ---
 

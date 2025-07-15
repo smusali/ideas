@@ -45,6 +45,7 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 | [`menumint`](./oss/menumint.md) | Restaurant menu management CLI that creates menus, manages categories and items, exports to multiple formats, and tracks basic analytics | restaurants, menu-management, food-service, hospitality |
 | [`modelmeter`](./oss/modelmeter.md) | Model benchmarking CLI that tests AI/ML models, compares performance metrics, and generates detailed benchmark reports | ai, ml, benchmarking, model-comparison |
 | [`moodify`](./oss/moodify.md) | Simple CLI tool for tracking your daily mood, mental health symptoms, and wellness activities with privacy and simplicity | mental-health, wellness, tracking, mood, cli |
+| [`mycelium`](./oss/mycelium.md) | Simple CLI tool for AI agent orchestration, workflow management, and agent interactions with 7-day build plan | ai, orchestration, agents, cli |
 | [`nomadr`](./oss/nomadr.md) | Open-source CLI/SDK that connects mobile individuals with local businesses offering day passes, micro-memberships, and flexible access | nomad-services, local-business, cli, sdk |
 | [`openpulse`](./oss/openpulse.md) | OSS project health and funding CLI that tracks project metrics, contributor activity, and manages funding pledges | project-health, funding, analytics, open-source |
 | [`paperstack`](./oss/paperstack.md) | Research paper management CLI that organizes papers, manages citations, generates bibliographies, and tracks academic references | research, papers, citations, academic, bibliography |
@@ -60,8 +61,7 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 | [`syspulse`](./oss/syspulse.md) | System monitoring CLI that tracks CPU, memory, disk, and network metrics with alerts and performance visualization | monitoring, servers, performance, workflows, infrastructure |
 | [`terrametric`](./oss/terrametric.md) | Open-source CLI tool that provides quick environmental impact calculations for various transportation modes | environmental-impact, transportation, cli, sustainability |
 | [`timetally`](./oss/timetally.md) | Lightweight CLI tool for time tracking, schedule management, and productivity analytics with terminal-based interface | time-tracking, productivity, scheduling, cli |
-| [`tripsage`](./oss/tripsage.md) | Travel planning CLI that creates trips, manages itineraries, tracks expenses, and organizes travel checklists | travel, planning, itineraries, trip-management |
-| [`triptide`](./oss/triptide.md) | Travel planning CLI that creates trips, manages itineraries, tracks expenses, and generates travel reports | travel, planning, itineraries, trip-management |
+| [`triptide`](./oss/triptide.md) | Simple CLI tool for trip planning, itinerary management, expense tracking, and travel checklists with 7-day build plan | travel, planning, itineraries, trip-management, cli |
 
 ## MicroSaaS Project Ideas
 
@@ -69,9 +69,9 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 |---------|-------------|----------|
 | [`alertify`](./microsaas/alertify.md) | Simple smart notification system that creates intelligent alerts for important events with minimal setup | notifications, monitoring, alerts, automation |
 | [`applytrack`](./microsaas/applytrack.md) | Simple job application tracker that helps job seekers track applications, follow-ups, and interviews | job-search, applications, tracking, careers |
+| [`axon`](./microsaas/axon.md) | Simple API service for dependency management, deployment orchestration, and failure prevention with usage-based pricing | dependencies, deployment, orchestration, api |
 | [`authentiscan`](./microsaas/authentiscan.md) | Simple AI content detector that helps detect AI-generated text and images with minimal effort | ai-detection, content-verification, authenticity |
 | [`cardra`](./microsaas/cardra.md) | Plug-and-play API that extracts transactions, finds subscriptions, and summarizes spend from credit card statements—add spend insights to any app in minutes. | credit-cards, api, fintech, spend-analysis, subscriptions |
-| [`climaguide`](./microsaas/climaguide.md) | Simple weather insights app that helps you track weather patterns and get personalized weather recommendations | weather, insights, patterns, recommendations |
 | [`configguard`](./microsaas/configguard.md) | Simple API for instant YAML/JSON config validation, error explanation, and best practice checks—no setup, just send your config and get results. | config-validation, api, developer-tools, linting |
 | [`consentguard`](./microsaas/consentguard.md) | Simple user authentication and consent manager that helps teams manage login, sessions, and privacy with minimal effort | authentication, consent, privacy, user-management |
 | [`coursematch`](./microsaas/coursematch.md) | Simple course recommendation app that helps students discover, compare, and plan academic courses | education, course-recommendation, planning, students |
@@ -86,6 +86,7 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 | [`feedbackflow`](./microsaas/feedbackflow.md) | Simple feedback collection and analysis tool that helps you collect, analyze, and act on customer feedback | feedback, analysis, customer-insights, business |
 | [`inboxflow`](./microsaas/inboxflow.md) | Simple email management tool that helps you organize, prioritize, and respond to emails efficiently | email, productivity, organization, communication |
 | [`insightify`](./microsaas/insightify.md) | Simple data insight generator that helps you extract trends, patterns, and actionable insights from logs and feedback | text-analysis, insights, logs, feedback, data-mining |
+| [`kairo`](./microsaas/kairo.md) | Simple API service for AI agent orchestration, workflow management, and multi-agent systems with usage-based pricing | ai, orchestration, agents, api |
 | [`lethack`](./microsaas/lethack.md) | API-only MicroSaaS that provides endpoints for organizing, managing, and analyzing hackathons | api, hackathon, event-management, developer-tools |
 | [`mailmint`](./microsaas/mailmint.md) | Simple email marketing automation that helps you create, send, and automate email campaigns with minimal effort | email-marketing, automation, small-business, campaigns |
 | [`mailpilot`](./microsaas/mailpilot.md) | Simple AI email assistant that helps draft, improve, and manage professional emails with AI assistance | email, ai-assistant, productivity, communication |
@@ -105,9 +106,8 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 | [`storyforge`](./microsaas/storyforge.md) | Simple web app that turns public domain stories into illustrated comics or novels in any language, ready to publish in minutes | story-adaptation, comics, novels, public-domain, web-app |
 | [`taskflow`](./microsaas/taskflow.md) | Simple task automation platform that helps automate repetitive tasks and streamline business processes | automation, workflows, productivity, business-processes |
 | [`teamloop`](./microsaas/teamloop.md) | Simple team chat application that helps teams communicate and collaborate with minimal effort | team-chat, collaboration, messaging, productivity |
-| [`tripnest`](./microsaas/tripnest.md) | Simple travel planning assistant that helps you plan trips, create itineraries, and organize travel details | travel, planning, itineraries, trip-management |
-| [`trippilot`](./microsaas/trippilot.md) | Simple travel planning assistant that helps plan trips, organize itineraries, and manage travel details | travel, planning, itineraries, trip-management |
-| [`weatherwise`](./microsaas/weatherwise.md) | Simple web app that provides instant weather summaries and contextual annotations for events, photos, and social posts | weather, context, events, photos, social-media |
+| [`trippilot`](./microsaas/trippilot.md) | Simple web app for trip planning, itinerary creation, travel document management, and trip sharing with freemium model | travel, planning, itineraries, trip-management, web-app |
+| [`weatherwise`](./microsaas/weatherwise.md) | Simple web app for weather summaries, photo annotations, and weather insights with freemium model and API integration | weather, context, events, photos, social-media, insights, web-app |
 
 ## Project Philosophy
 

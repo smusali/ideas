@@ -1,38 +1,52 @@
 # **TripTide** — *Simple Travel Planning CLI*
 
-*A lightweight, open-source command-line tool that helps you plan trips, manage itineraries, and track travel expenses with minimal effort.*
+*A lightweight, open-source command-line tool that helps you plan trips, manage itineraries, track travel expenses, and organize travel checklists with minimal effort.*
 
 ---
 
 ## **What is TripTide?**
 
-TripTide is a simple CLI tool that lets you plan trips, manage itineraries, and track travel expenses directly from your terminal. Perfect for travelers, business professionals, and anyone who wants to organize their travel information without complex applications.
+TripTide is a simple CLI tool that lets you plan trips, manage itineraries, track travel expenses, and organize travel checklists directly from your terminal. Perfect for travelers, travel agents, and anyone who wants to organize their travel plans without complex applications.
 
 ---
 
 ## **Core Features (MVP - 7 Days)**
 
-### **Day 1-2: Basic Setup**
-- CLI interface with command parsing
-- Trip and itinerary management
-- Basic expense tracking
+### **Day 1: Basic CLI Setup**
+- Command-line interface with argument parsing
+- Basic file-based data storage (JSON)
+- User configuration setup
+- Help and version commands
 
-### **Day 3-4: Core Functionality**
-- Create and manage trips
-- Add flights, hotels, and activities
-- Track travel expenses
-- Generate travel reports
+### **Day 2: Trip Management**
+- Create, list, and delete trips
+- Basic trip information (title, destination, dates)
+- Trip status management (planning, booked, completed, cancelled)
 
-### **Day 5-6: Enhanced Features**
-- Export itineraries to various formats
-- Basic travel analytics
-- Reminder system for bookings
-- Expense categorization
+### **Day 3: Itinerary Management**
+- Add flights, hotels, and activities to trips
+- View daily itineraries
+- Basic itinerary export to text format
 
-### **Day 7: Polish & Deploy**
-- Package for npm/pip/cargo
-- Write comprehensive documentation
-- Create installation scripts
+### **Day 4: Expense Tracking**
+- Add and categorize expenses
+- Track total trip costs
+- Basic expense reporting
+
+### **Day 5: Checklist Management**
+- Create and manage travel checklists
+- Add/remove checklist items
+- Mark items as completed
+
+### **Day 6: Export & Reports**
+- Export trips to various formats (JSON, CSV, Markdown)
+- Generate simple trip reports
+- Basic data validation
+
+### **Day 7: Polish & Package**
+- Error handling and user feedback
+- Package for distribution
+- Documentation and examples
 
 ---
 
@@ -47,7 +61,7 @@ TripTide is a simple CLI tool that lets you plan trips, manage itineraries, and 
       "destination": "string",
       "start_date": "datetime",
       "end_date": "datetime",
-      "status": "planned|active|completed",
+      "status": "planning|booked|completed|cancelled",
       "created_at": "datetime"
     }
   ],
@@ -74,13 +88,18 @@ TripTide is a simple CLI tool that lets you plan trips, manage itineraries, and 
       "date": "datetime"
     }
   ],
-  "reminders": [
+  "checklists": [
     {
       "id": "uuid",
       "trip_id": "uuid",
       "title": "string",
-      "due_date": "datetime",
-      "status": "pending|completed"
+      "items": [
+        {
+          "text": "string",
+          "completed": false,
+          "due_date": "datetime"
+        }
+      ]
     }
   ]
 }
@@ -91,24 +110,33 @@ TripTide is a simple CLI tool that lets you plan trips, manage itineraries, and 
 ## **Installation & Usage**
 
 ```bash
-# Install via npm
+# Install via package manager
 npm install -g triptide-cli
-
-# Install via pip
 pip install triptide-cli
-
-# Install via cargo
 cargo install triptide-cli
 
 # Basic usage
-triptide trip create "Paris Vacation" --start 2024-06-01 --end 2024-06-07  # Create trip
-triptide add-flight "Paris Vacation" "JFK-CDG" --date 2024-06-01          # Add flight
-triptide add-hotel "Paris Vacation" "Hotel ABC" --nights 6                # Add hotel
-triptide add-expense "Paris Vacation" 150 "Food" --category dining        # Add expense
-triptide itinerary "Paris Vacation" --date 2024-06-01                     # View itinerary
-triptide expenses "Paris Vacation" --total                                 # Show expenses
-triptide export "Paris Vacation" --format pdf                              # Export trip
-triptide reminder add "Check-in flight" --date 2024-05-30                 # Add reminder
+triptide trip create "Paris Vacation" --start 2024-06-01 --end 2024-06-07
+triptide trip list
+triptide trip show "Paris Vacation"
+
+triptide itinerary add-flight "Paris Vacation" "JFK-CDG" --date 2024-06-01
+triptide itinerary add-hotel "Paris Vacation" "Hotel ABC" --nights 6
+triptide itinerary add-activity "Paris Vacation" "Eiffel Tower" --date 2024-06-02
+triptide itinerary show "Paris Vacation" --date 2024-06-01
+
+triptide expense add "Paris Vacation" 150 "Food" --category dining
+triptide expense list "Paris Vacation"
+triptide expense total "Paris Vacation"
+
+triptide checklist create "Paris Vacation" "Packing List"
+triptide checklist add-item "Packing List" "Passport"
+triptide checklist add-item "Packing List" "Camera"
+triptide checklist complete "Packing List" "Passport"
+triptide checklist show "Packing List"
+
+triptide export "Paris Vacation" --format markdown
+triptide report "Paris Vacation" --output trip-report.md
 ```
 
 ---
@@ -121,10 +149,9 @@ Create a config file at `~/.triptide/config.json`:
 {
   "data_path": "~/.triptide/data.json",
   "default_currency": "USD",
-  "reminder_enabled": true,
-  "reminder_days": 3,
   "export_format": "markdown",
-  "auto_backup": true
+  "auto_backup": true,
+  "date_format": "YYYY-MM-DD"
 }
 ```
 
@@ -143,14 +170,14 @@ Create a config file at `~/.triptide/config.json`:
 ## **Easy Publishing Plan (7 Days)**
 
 ### **Day 1-3: Build & Test**
-- Build the core CLI tool
-- Test all features thoroughly
+- Build the core CLI tool with all features
+- Test all commands thoroughly
 - Create comprehensive documentation
 
-### **Day 4: Prepare Launch**
+### **Day 4: Package Preparation**
 - Create GitHub repository with clear README
 - Write installation instructions
-- Prepare demo video (2-3 minutes)
+- Prepare demo screenshots and examples
 
 ### **Day 5: Package & Publish**
 - Package for npm, pip, and cargo
@@ -158,7 +185,7 @@ Create a config file at `~/.triptide/config.json`:
 - Create GitHub releases
 
 ### **Day 6: Community Launch**
-- Post on Reddit r/opensource, r/travel
+- Post on Reddit r/opensource, r/travel, r/commandline
 - Share on Twitter/X with #opensource #travel #cli
 - Submit to Hacker News
 
@@ -173,13 +200,13 @@ Create a config file at `~/.triptide/config.json`:
 
 ### **Target Audience**
 - Frequent travelers
-- Business professionals
-- Travel enthusiasts
+- Travel agents and planners
+- CLI enthusiasts
 - Open source contributors
 
 ### **Key Messages**
 - "Plan your trips from the terminal"
-- "Simple travel management without complexity"
+- "Simple travel planning without complexity"
 - "Built by travelers, for travelers"
 
 ### **Distribution Channels**
@@ -194,11 +221,11 @@ Create a config file at `~/.triptide/config.json`:
 
 ## **Success Metrics**
 
-- **Downloads**: 1800+ in first week
-- **GitHub Stars**: 250+ in first week
-- **Forks**: 35+ active forks
-- **Issues**: 15+ feature requests
-- **Contributors**: 8+ community contributors
+- **Downloads**: 2000+ in first week
+- **GitHub Stars**: 300+ in first week
+- **Forks**: 40+ active forks
+- **Issues**: 20+ feature requests
+- **Contributors**: 10+ community contributors
 
 ---
 
