@@ -1,0 +1,70 @@
+repositories:
+  - name: authentik
+    fork: smusali/authentik
+    upstream: goauthentik/authentik
+    local_path: /Users/smusali/github/smusali/authentik
+    
+  - name: django
+    fork: smusali/django
+    upstream: django/django
+    local_path: /Users/smusali/github/smusali/django
+    
+  - name: dlt
+    fork: smusali/dlt
+    upstream: dlt-hub/dlt
+    local_path: /Users/smusali/github/smusali/dlt
+    
+  - name: evidently
+    fork: smusali/evidently
+    upstream: evidentlyai/evidently
+    local_path: /Users/smusali/github/smusali/evidently
+    
+  - name: fastapi
+    fork: smusali/fastapi
+    upstream: tiangolo/fastapi
+    local_path: /Users/smusali/github/smusali/fastapi
+    
+  - name: flower
+    fork: smusali/flower
+    upstream: mher/flower
+    local_path: /Users/smusali/github/smusali/flower
+    
+  - name: freeCodeCamp
+    fork: smusali/freeCodeCamp
+    upstream: freeCodeCamp/freeCodeCamp
+    local_path: /Users/smusali/github/smusali/freeCodeCamp
+    
+  - name: grafana
+    fork: smusali/grafana
+    upstream: grafana/grafana
+    local_path: /Users/smusali/github/smusali/grafana
+    
+  - name: langflow
+    fork: smusali/langflow
+    upstream: langflow-ai/langflow
+    local_path: /Users/smusali/github/smusali/langflow
+    
+  - name: logdna-agent-v2
+    fork: smusali/logdna-agent-v2
+    upstream: logdna/logdna-agent-v2
+    local_path: /Users/smusali/github/smusali/logdna-agent-v2
+    
+  - name: notdiamond-python
+    fork: smusali/notdiamond-python
+    upstream: Not-Diamond/notdiamond-python
+    local_path: /Users/smusali/github/smusali/notdiamond-python
+    
+  - name: phoenix
+    fork: smusali/phoenix
+    upstream: Arize-ai/phoenix
+    local_path: /Users/smusali/github/smusali/phoenix
+    
+  - name: pulumi
+    fork: smusali/pulumi
+    upstream: pulumi/pulumi
+    local_path: /Users/smusali/github/smusali/pulumi
+    
+  - name: signoz
+    fork: smusali/signoz
+    upstream: SigNoz/signoz
+    local_path: /Users/smusali/github/smusali/signoz 

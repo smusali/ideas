@@ -18,6 +18,42 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 - [`pulumi`](https://github.com/smusali/pulumi)
 - [`signoz`](https://github.com/smusali/signoz)
 
+## OSS Fork Synchronization Tools
+
+This repository includes automated tools to keep all OSS fork repositories synchronized with their upstream sources:
+
+### Files
+- **`oss-sync-config.yml`** - Configuration file containing all fork repositories with their upstream sources and local paths
+- **`sync-oss-forks.sh`** - Bash script that automatically syncs all forks with upstream repositories
+- **`OSS-SYNC-README.md`** - Detailed documentation for the synchronization system
+
+### Features
+- ✅ **Automatic upstream sync** - Fetches latest changes from upstream repositories
+- ✅ **Branch detection** - Automatically detects default branch (main/master)
+- ✅ **Fork updates** - Resets local forks to match upstream and pushes changes
+- ✅ **Cleanup operations** - Removes merged branches and performs garbage collection
+- ✅ **Error handling** - Comprehensive error handling with colored output
+- ✅ **Batch processing** - Processes all 14 repositories in one command
+
+### Usage
+```bash
+# Prerequisites: Install yq for YAML parsing
+brew install yq
+
+# Run synchronization for all repositories
+./sync-oss-forks.sh
+```
+
+The script will automatically:
+1. Clone missing repositories
+2. Add/update upstream remotes
+3. Fetch from upstream sources
+4. Reset local branches to match upstream
+5. Push updated branches to your forks
+6. Clean up merged branches and optimize repositories
+
+Perfect for keeping your OSS contributions up-to-date before making new contributions! 🚀
+
 ## Open-Source Project Ideas
 
 | Project | Description | Keywords |
@@ -37,7 +73,7 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 | [`eventify`](./oss/eventify.md) | CLI tool that aggregates and searches local events from multiple sources, providing personalized recommendations | events, discovery, aggregation, cli |
 | [`feedloop`](./oss/feedloop.md) | CLI tool for collecting, organizing, and analyzing user feedback with sentiment analysis and trend reporting | feedback, surveys, user-research, insights, analysis |
 | [`finstatecli`](./oss/finstatecli.md) | CLI tool that transforms financial statements into structured data and insights using local processing with optional AI assistance | financial, statements, data-extraction, analytics, cli |
-| [`gearnest`](./oss/gearnest.md) | Outdoor gear management CLI that tracks equipment inventory, maintenance schedules, and creates activity checklists | outdoor, gear, inventory, management |
+| [`gitco`](./oss/gitco.md) | A simple CLI tool for intelligent OSS fork management and contribution discovery | oss, fork-management, ai, contribution-discovery, cli |
 | [`hirereview`](./oss/hirereview.md) | Interview feedback generator CLI that creates structured feedback from transcripts with strengths and improvement suggestions | interviews, feedback, hr, recruitment |
 | [`jobtrail`](./oss/jobtrail.md) | Job application tracking CLI that manages applications, tracks status, and provides statistics for job search organization | job-search, applications, tracking, careers |
 | [`kaleido`](./oss/kaleido.md) | Open-source CLI tool that guides users through idea validation using structured questioning and generates actionable insights | idea-validation, business-planning, cli, analysis |
