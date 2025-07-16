@@ -11,6 +11,7 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 - [`flower`](https://github.com/smusali/flower)
 - [`freeCodeCamp`](https://github.com/smusali/freeCodeCamp)
 - [`grafana`](https://github.com/smusali/grafana)
+- [`langflow`](https://github.com/smusali/langflow)
 - [`logdna-agent-v2`](https://github.com/smusali/logdna-agent-v2)
 - [`notdiamond-python`](https://github.com/smusali/notdiamond-python)
 - [`phoenix`](https://github.com/smusali/phoenix)
