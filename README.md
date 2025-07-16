@@ -173,3 +173,28 @@ All projects are now ready for immediate implementation with:
 - Simple data models and architectures
 - Easy publishing and marketing plans
 - Realistic success metrics and timelines
+
+## OSS-MicroSaaS Relationships
+
+For a comprehensive analysis of how OSS projects can be used to build MicroSaaS applications, see **[OSS-MICROSAAS-RELATIONSHIPS.md](./OSS-MICROSAAS-RELATIONSHIPS.md)**.
+
+This analysis reveals:
+- **30+ OSS projects** that can serve as foundations for MicroSaaS applications
+- **27+ MicroSaaS projects** that can leverage existing OSS tools
+- **14 standalone MicroSaaS projects** that can be built independently
+- **11 specialized OSS tools** that don't have direct MicroSaaS counterparts
+
+The analysis shows a strong correlation between OSS and MicroSaaS projects, with most OSS projects providing command-line or SDK versions of functionality that get packaged into user-friendly web applications for the MicroSaaS market.
+
+## Project Keyword Grouping
+
+For a comprehensive categorization of all projects by their primary keywords and themes, see **[PROJECT-KEYWORD-GROUPING.md](./PROJECT-KEYWORD-GROUPING.md)**.
+
+This analysis organizes all 82 projects into 18 thematic categories, revealing:
+- **AI & Machine Learning** as the largest category with 18 projects
+- **Developer Tools & APIs** with strong representation across both OSS and MicroSaaS
+- **Education & Learning** spanning CLI tools and web applications
+- **Cross-category patterns** showing how projects can serve multiple domains
+- **Market landscape insights** for identifying opportunities and underserved niches
+
+The grouping helps developers and entrepreneurs understand the project ecosystem and identify complementary tools or market gaps within each category.
