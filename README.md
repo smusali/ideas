@@ -3,20 +3,21 @@
 A collection of open-source project ideas and MicroSaaS concepts, all designed to be achievable by a single developer within a week.
 
 ## Open-Source Contributions
-- [`authentik`](https://github.com/smusali/authentik) forked from [`goauthentik/authentik`](https://github.com/goauthentik/authentik)
-- [`django`](https://github.com/smusali/django) forked from [`django/django`](https://github.com/django/django)
-- [`dlt`](https://github.com/smusali/dlt) forked from [`dlt-hub/dlt`](https://github.com/dlt-hub/dlt)
-- [`evidently`](https://github.com/smusali/evidently) forked from [`evidentlyai/evidently`](https://github.com/evidentlyai/evidently)
-- [`fastapi`](https://github.com/smusali/fastapi) forked from [`tiangolo/fastapi`](https://github.com/tiangolo/fastapi)
-- [`flower`](https://github.com/smusali/flower) forked from [`mher/flower`](https://github.com/mher/flower)
-- [`freeCodeCamp`](https://github.com/smusali/freeCodeCamp) forked from [`freeCodeCamp/freeCodeCamp`](https://github.com/freeCodeCamp/freeCodeCamp)
-- [`grafana`](https://github.com/smusali/grafana) forked from [`grafana/grafana`](https://github.com/grafana/grafana)
-- [`langflow`](https://github.com/smusali/langflow) forked from [`langflow-ai/langflow`](https://github.com/langflow-ai/langflow)
-- [`logdna-agent-v2`](https://github.com/smusali/logdna-agent-v2) forked from [`logdna/logdna-agent-v2`](https://github.com/logdna/logdna-agent-v2)
-- [`notdiamond-python`](https://github.com/smusali/notdiamond-python) forked from [`Not-Diamond/notdiamond-python`](https://github.com/Not-Diamond/notdiamond-python)
-- [`phoenix`](https://github.com/smusali/phoenix) forked from [`Arize-ai/phoenix`](https://github.com/Arize-ai/phoenix)
-- [`pulumi`](https://github.com/smusali/pulumi) forked from [`pulumi/pulumi`](https://github.com/pulumi/pulumi)
-- [`signoz`](https://github.com/smusali/signoz) forked from [`SigNoz/signoz`](https://github.com/SigNoz/signoz)
+- [`authentik`](https://github.com/smusali/authentik) forked from [`goauthentik/authentik`](https://github.com/goauthentik/authentik): Identity and access management platform for modern applications
+- [`backstage`](https://github.com/backstage/backstage) forked from [`backstage/backstage`](https://github.com/backstage/backstage): Developer portal platform for building developer portals
+- [`django`](https://github.com/smusali/django) forked from [`django/django`](https://github.com/django/django): High-level Python web framework for rapid development
+- [`dlt`](https://github.com/smusali/dlt) forked from [`dlt-hub/dlt`](https://github.com/dlt-hub/dlt): Data load tool for building data pipelines and ETL processes
+- [`evidently`](https://github.com/smusali/evidently) forked from [`evidentlyai/evidently`](https://github.com/evidentlyai/evidently): ML monitoring and observability platform for data scientists
+- [`fastapi`](https://github.com/smusali/fastapi) forked from [`tiangolo/fastapi`](https://github.com/tiangolo/fastapi): Modern, fast web framework for building APIs with Python
+- [`flower`](https://github.com/smusali/flower) forked from [`mher/flower`](https://github.com/mher/flower): Real-time monitoring and web tool for Celery distributed task queue
+- [`freeCodeCamp`](https://github.com/smusali/freeCodeCamp) forked from [`freeCodeCamp/freeCodeCamp`](https://github.com/freeCodeCamp/freeCodeCamp): Learn to code for free with interactive tutorials and projects
+- [`grafana`](https://github.com/smusali/grafana) forked from [`grafana/grafana`](https://github.com/grafana/grafana): Open source analytics and monitoring solution for databases
+- [`langflow`](https://github.com/smusali/langflow) forked from [`langflow-ai/langflow`](https://github.com/langflow-ai/langflow): UI for LangChain to design and prototype LLM flows
+- [`logdna-agent-v2`](https://github.com/smusali/logdna-agent-v2) forked from [`logdna/logdna-agent-v2`](https://github.com/logdna/logdna-agent-v2): Log collection agent for centralized log management and analysis
+- [`notdiamond-python`](https://github.com/smusali/notdiamond-python) forked from [`Not-Diamond/notdiamond-python`](https://github.com/Not-Diamond/notdiamond-python): Python SDK for Not Diamond's AI model routing and optimization
+- [`phoenix`](https://github.com/smusali/phoenix) forked from [`Arize-ai/phoenix`](https://github.com/Arize-ai/phoenix): ML observability platform for monitoring model performance and data quality
+- [`pulumi`](https://github.com/smusali/pulumi) forked from [`pulumi/pulumi`](https://github.com/pulumi/pulumi): Infrastructure as code platform for cloud-native applications
+- [`signoz`](https://github.com/smusali/signoz) forked from [`SigNoz/signoz`](https://github.com/SigNoz/signoz): Open source APM and observability platform for microservices
 
 ## OSS Fork Synchronization Tools
 

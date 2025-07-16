@@ -3,7 +3,12 @@ repositories:
     fork: smusali/authentik
     upstream: goauthentik/authentik
     local_path: /Users/smusali/github/smusali/authentik
-    
+
+  - name: backstage
+    fork: smusali/backstage
+    upstream: backstage/backstage
+    local_path: /Users/smusali/github/smusali/backstage
+  
   - name: django
     fork: smusali/django
     upstream: django/django
