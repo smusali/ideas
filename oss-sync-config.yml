@@ -38,6 +38,11 @@ repositories:
     fork: smusali/fastapi
     upstream: tiangolo/fastapi
     local_path: /Users/smusali/github/smusali/fastapi
+
+  - name: fern
+    fork: smusali/fern
+    upstream: fern-api/fern
+    local_path: /Users/smusali/github/smusali/fern
     
   - name: flower
     fork: smusali/flower

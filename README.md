@@ -11,6 +11,7 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 - [`dlt`](https://github.com/smusali/dlt) forked from [`dlt-hub/dlt`](https://github.com/dlt-hub/dlt): Data load tool for building data pipelines and ETL processes
 - [`evidently`](https://github.com/smusali/evidently) forked from [`evidentlyai/evidently`](https://github.com/evidentlyai/evidently): ML monitoring and observability platform for data scientists
 - [`fastapi`](https://github.com/smusali/fastapi) forked from [`tiangolo/fastapi`](https://github.com/tiangolo/fastapi): Modern, fast web framework for building APIs with Python
+- [`fern`](https://github.com/smusali/fern) forked from [`fern-api/fern`](https://github.com/fern-api/fern): OpenAPI-based SDK and documentation generator for building type-safe APIs
 - [`flower`](https://github.com/smusali/flower) forked from [`mher/flower`](https://github.com/mher/flower): Real-time monitoring and web tool for Celery distributed task queue
 - [`freeCodeCamp`](https://github.com/smusali/freeCodeCamp) forked from [`freeCodeCamp/freeCodeCamp`](https://github.com/freeCodeCamp/freeCodeCamp): Learn to code for free with interactive tutorials and projects
 - [`free-programming-books`](https://github.com/smusali/free-programming-books) forked from [`EbookFoundation/free-programming-books`](https://github.com/EbookFoundation/free-programming-books): Collection of freely available programming books and resources
@@ -23,6 +24,30 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 - [`pulumi`](https://github.com/smusali/pulumi) forked from [`pulumi/pulumi`](https://github.com/pulumi/pulumi): Infrastructure as code platform for cloud-native applications
 - [`signoz`](https://github.com/smusali/signoz) forked from [`SigNoz/signoz`](https://github.com/SigNoz/signoz): Open source APM and observability platform for microservices
 - [`tech-interview-handbook`](https://www.github.com/smusali/tech-interview-handbook) forked from [`yangshun/tech-interview-handbook`](https://github.com/yangshun/tech-interview-handbook): Comprehensive guide for technical interview preparation and best practices
+
+## Slack Workspaces
+- [Arize AI Community](https://arize-ai.slack.com): Community for Arize AI ML observability platform users and contributors
+- [Cloud Native Computing Foundation](https://cloud-native.slack.com): Open source foundation for cloud-native computing technologies and projects
+- [Docker Community](https://dockercommunity.slack.com): Community for Docker containerization platform users and developers
+- [dltHub community](https://dlthub-community.slack.com): Community for data load tool (dlt) users and contributors
+- [Firebase Community](https://firebase-community.slack.com): Community for Firebase mobile and web development platform
+- [FortyOne Technologies](https://fortyonetechnologies.slack.com): Internal workspace for FortyOne Technologies team collaboration
+- [Grafana Labs Community](https://grafana.slack.com): Community for Grafana monitoring and observability platform users
+- [Kubernetes](https://kubernetes.slack.com): Official community for Kubernetes container orchestration platform
+- [MindtheProduct](https://mindtheproduct.slack.com): Product management community for product managers and product teams
+- [Neurox Customers](https://neuroxhelp.slack.com): Customer support and community for Neurox AI platform users
+- [SweetOps](https://sweetops.slack.com): DevOps and infrastructure automation community
+- [TUM.ai Public](https://tumaipublic.slack.com): Public community for Technical University of Munich AI initiatives and projects
+
+## Discord Workspaces
+- [DigitalOcean Community](https://discord.gg/digitalocean): Community for DigitalOcean cloud platform users and developers
+- [Evidently AI Community](https://discord.gg/evidently): Community for Evidently AI ML monitoring and observability platform
+- [Google Cloud Community (Unofficial)](https://discord.gg/googlecloud): Unofficial community for Google Cloud Platform users and developers
+- [homelab.](https://discord.gg/homelab): Community for home lab enthusiasts and self-hosted infrastructure
+- [Jobright.ai](https://discord.gg/jobright): AI-powered job search and career development community
+- [lablab.ai](https://discord.gg/lablab): AI hackathon and innovation community for developers and creators
+- [Python](https://discord.gg/python): Official Python programming language community
+- [REFACTOR Community](https://discord.gg/refactor): Community for AI development and machine learning projects
 
 ## OSS Fork Synchronization Tools
 
