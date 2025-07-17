@@ -9,6 +9,16 @@ repositories:
     upstream: backstage/backstage
     local_path: /Users/smusali/github/smusali/backstage
   
+  - name: coding-interview-university
+    fork: smusali/coding-interview-university
+    upstream: jwasham/coding-interview-university
+    local_path: /Users/smusali/github/smusali/coding-interview-university
+
+  - name: developer-roadmap
+    fork: smusali/developer-roadmap
+    upstream: kamranahmedse/developer-roadmap
+    local_path: /Users/smusali/github/smusali/developer-roadmap
+
   - name: django
     fork: smusali/django
     upstream: django/django
@@ -38,6 +48,11 @@ repositories:
     fork: smusali/freeCodeCamp
     upstream: freeCodeCamp/freeCodeCamp
     local_path: /Users/smusali/github/smusali/freeCodeCamp
+
+  - name: free-programming-books
+    fork: smusali/free-programming-books
+    upstream: EbookFoundation/free-programming-books
+    local_path: /Users/smusali/github/smusali/free-programming-books
     
   - name: grafana
     fork: smusali/grafana
@@ -64,6 +79,11 @@ repositories:
     upstream: Arize-ai/phoenix
     local_path: /Users/smusali/github/smusali/phoenix
     
+  - name: public-apis
+    fork: smusali/public-apis
+    upstream: public-apis/public-apis
+    local_path: /Users/smusali/github/smusali/public-apis
+
   - name: pulumi
     fork: smusali/pulumi
     upstream: pulumi/pulumi
@@ -73,3 +93,8 @@ repositories:
     fork: smusali/signoz
     upstream: SigNoz/signoz
     local_path: /Users/smusali/github/smusali/signoz 
+
+  - name: tech-interview-handbook
+    fork: smusali/tech-interview-handbook
+    upstream: yangshun/tech-interview-handbook
+    local_path: /Users/smusali/github/smusali/tech-interview-handbook

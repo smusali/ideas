@@ -146,35 +146,110 @@ The analysis reveals strong correlations between many OSS and MicroSaaS projects
   - GitCo provides fork management and contribution discovery
   - Could be used for developer-focused MicroSaaS projects
 
-## 2. MicroSaaS Projects That Can Be Built Without Listed OSS Projects
+## 2. OSS Projects That Can Be Used for Building Other OSS Projects
+
+### **OSS-to-OSS Dependency Map**
+
+- **benchwise** → **chartcraft**
+  - Benchwise can use ChartCraft for visualizing benchmark results and data analysis outputs.
+- **benchwise** → **docsight**
+  - Benchwise can use Docsight for extracting and analyzing data from documents before benchmarking.
+- **benchwise** → **feedloop**
+  - Benchwise can use FeedLoop to collect user feedback on benchmarks and analysis.
+- **benchwise** → **sentimently**
+  - Benchwise can use Sentimently to analyze sentiment in feedback collected during benchmarking.
+- **chartcraft** → **docsight**
+  - ChartCraft can use Docsight to extract data from documents for visualization.
+- **feedloop** → **sentimently**
+  - FeedLoop can use Sentimently to analyze sentiment in collected feedback.
+- **docsight** → **sentimently**
+  - Docsight can use Sentimently to analyze sentiment in extracted document content.
+- **loglens** → **sentimently**
+  - LogLens can use Sentimently to analyze sentiment in log entries.
+- **loglens** → **benchwise**
+  - LogLens can use Benchwise to benchmark log analysis performance.
+- **modelmeter** → **benchwise**
+  - ModelMeter can use Benchwise to benchmark model performance and compare results.
+- **modelmeter** → **chartcraft**
+  - ModelMeter can use ChartCraft to visualize benchmarking results.
+- **questify** → **docsight**
+  - Questify can use Docsight to extract information from job descriptions and company documents.
+- **questify** → **sentimently**
+  - Questify can use Sentimently to analyze sentiment in interview feedback.
+- **openpulse** → **feedloop**
+  - OpenPulse can use FeedLoop to collect and analyze contributor feedback for OSS projects.
+- **openpulse** → **sentimently**
+  - OpenPulse can use Sentimently to analyze sentiment in project feedback and community discussions.
+- **researchnest** → **paperstack**
+  - ResearchNest can use PaperStack for managing research papers and citations within research projects.
+- **researchnest** → **docsight**
+  - ResearchNest can use Docsight to extract and analyze data from research documents.
+- **researchnest** → **benchwise**
+  - ResearchNest can use Benchwise for statistical analysis and benchmarking of research data.
+- **paperstack** → **docsight**
+  - PaperStack can use Docsight to extract metadata and content from research papers.
+- **paperstack** → **benchwise**
+  - PaperStack can use Benchwise to analyze citation and reference data.
+- **rekursia** → **benchwise**
+  - Rekursia can use Benchwise to benchmark database operations and learning exercises.
+- **rekursia** → **docsight**
+  - Rekursia can use Docsight to extract and analyze database documentation.
+- **rekursia** → **sentimently**
+  - Rekursia can use Sentimently to analyze feedback from database learning sessions.
+
+## 3. MicroSaaS Projects That Can Be Built Without Listed OSS Projects
 
 ### **Standalone MicroSaaS Projects:**
-1. **`alertify`** - Notification system (basic web app)
-2. **`axon`** - Dependency management API (specialized backend)
-3. **`dealgroup`** - Group buying platform (basic e-commerce)
-4. **`mailmint`** - Email marketing (standard web app with email service)
-5. **`moodnest`** - Mental health tracking (basic data collection)
-6. **`otterahealth`** - Healthcare data management (specialized healthcare)
-7. **`redactguard`** - Data redaction API (regex-based processing)
-8. **`replycheck`** - AI response testing (simple AI validation)
-9. **`sharesnap`** - File sharing (basic file management)
-10. **`teamloop`** - Team chat (standard messaging app)
-11. **`weatherwise`** - Weather insights (weather API integration)
+1. **alertify** - Notification system (basic web app)
+2. **axon** - Dependency management API (specialized backend)
+3. **dealgroup** - Group buying platform (basic e-commerce)
+4. **mailmint** - Email marketing (standard web app with email service)
+5. **moodnest** - Mental health tracking (basic data collection)
+6. **otterahealth** - Healthcare data management (specialized healthcare)
+7. **redactguard** - Data redaction API (regex-based processing)
+8. **replycheck** - AI response testing (simple AI validation)
+9. **sharesnap** - File sharing (basic file management)
+10. **teamloop** - Team chat (standard messaging app)
+11. **weatherwise** - Weather insights (weather API integration)
 
-## 3. OSS Projects Not Needed by Listed MicroSaaS Projects
+### **MicroSaaS Projects That Can Be Built Using OSS Projects**
 
-### **Specialized OSS Tools:**
-1. **`artisantext`** - ASCII art creation (no corresponding MicroSaaS)
-2. **`campushub`** - Campus information management (no corresponding MicroSaaS)
-3. **`climatescope`** - Climate data analysis (no corresponding MicroSaaS)
-4. **`kaleido`** - Idea validation (no corresponding MicroSaaS)
-5. **`modelmeter`** - Model benchmarking (no corresponding MicroSaaS)
-6. **`moodify`** - Mental health CLI (different from moodnest)
-7. **`rekursia`** - Database learning (educational, no corresponding MicroSaaS)
-8. **`researchnest`** - Research data management (no corresponding MicroSaaS)
-9. **`schemaguard`** - API schema validation (no corresponding MicroSaaS)
-10. **`syspulse`** - System monitoring (no corresponding MicroSaaS)
-11. **`terrametric`** - Environmental impact calculation (no corresponding MicroSaaS)
+- **consentguard** ← **authify**
+- **mailpilot**, **postforge**, **dayscribe**, **authentiscan** ← **chatpilot**
+- **kairo** ← **mycelium**
+- **dataflow**, **insightify** ← **chartcraft**
+- **promptbench** ← **benchwise**
+- **docmint**, **doctravel** ← **docsight**
+- **cardra** ← **finstatecli**
+- **feedbackflow** ← **feedloop**
+- **insightify** ← **sentimently**, **loglens**
+- **storyforge** ← **plotweave**
+- **trippilot**, **doctravel** ← **triptide**
+- **menugenie** ← **menumint**
+- **taskflow** ← **timetally**
+- **configguard**, **dataforge** ← **confcheck**
+- **prepwise** ← **questify**
+- **applytrack** ← **jobtrail**
+- **rewardnest** ← **rewardly**
+- **nomadnav** ← **nomadr**
+- **coursecraft** ← **lessonmint**
+- **coursematch** ← **coursegrid**
+- **socialbridge** ← **socialsync**
+- **discovent** ← **eventify**
+- **lethack** ← **sparkathon**
+- **onboardhq** ← **openpulse**
+
+## 4. OSS Projects Not Needed by Listed MicroSaaS Projects
+
+### **Specialized OSS Tools (Not Used by Any MicroSaaS or OSS Project):**
+1. **artisantext** - ASCII art creation
+2. **campushub** - Campus information management
+3. **climatescope** - Climate data analysis
+4. **kaleido** - Idea validation
+5. **moodify** - Mental health CLI
+6. **schemaguard** - API schema validation
+7. **syspulse** - System monitoring
+8. **terrametric** - Environmental impact calculation
 
 ## Summary Statistics
 
@@ -183,16 +258,13 @@ The analysis reveals strong correlations between many OSS and MicroSaaS projects
 - **OSS Projects with MicroSaaS Counterparts**: ~30
 - **MicroSaaS Projects that can use OSS**: ~27
 - **Standalone MicroSaaS Projects**: ~14
-- **Unused OSS Projects**: ~11
+- **OSS Projects used by other OSS**: ~18
+- **Unused OSS Projects**: ~8
 
 ## Key Insights
 
 1. **Strong Correlation**: There's a strong correlation between many OSS and MicroSaaS projects, with most OSS projects serving as the foundation for corresponding web-based applications.
-
 2. **CLI to Web Pattern**: OSS projects often provide command-line or SDK versions of functionality that get packaged into user-friendly web applications for the MicroSaaS market.
-
 3. **AI Integration**: Many MicroSaaS projects leverage AI/LLM capabilities, with corresponding OSS tools providing the underlying AI infrastructure.
-
-4. **Domain Specialization**: Some OSS projects are highly specialized and don't have direct MicroSaaS counterparts, while some MicroSaaS projects are standalone and don't require specific OSS foundations.
-
-5. **Development Efficiency**: Understanding these relationships can help developers choose the right OSS tools to accelerate MicroSaaS development or identify opportunities to create complementary OSS projects. 
+4. **Domain Specialization**: Some OSS projects are highly specialized and don't have direct MicroSaaS or OSS counterparts, while some MicroSaaS projects are standalone and don't require specific OSS foundations.
+5. **Development Efficiency**: Understanding these relationships can help developers choose the right OSS tools to accelerate MicroSaaS or OSS development, or identify opportunities to create complementary OSS projects. 

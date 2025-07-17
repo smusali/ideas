@@ -5,19 +5,24 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 ## Open-Source Contributions
 - [`authentik`](https://github.com/smusali/authentik) forked from [`goauthentik/authentik`](https://github.com/goauthentik/authentik): Identity and access management platform for modern applications
 - [`backstage`](https://github.com/backstage/backstage) forked from [`backstage/backstage`](https://github.com/backstage/backstage): Developer portal platform for building developer portals
+- [`coding-interview-university`](https://github.com/smusali/coding-interview-university) forked from [`jwasham/coding-interview-university`](https://github.com/jwasham/coding-interview-university): Complete computer science study plan for software engineers and developers
+- [`developer-roadmap`](https://github.com/smusali/developer-roadmap) forked from [`kamranahmedse/developer-roadmap`](https://github.com/kamranahmedse/developer-roadmap): Interactive roadmaps and guides for developers to learn new technologies
 - [`django`](https://github.com/smusali/django) forked from [`django/django`](https://github.com/django/django): High-level Python web framework for rapid development
 - [`dlt`](https://github.com/smusali/dlt) forked from [`dlt-hub/dlt`](https://github.com/dlt-hub/dlt): Data load tool for building data pipelines and ETL processes
 - [`evidently`](https://github.com/smusali/evidently) forked from [`evidentlyai/evidently`](https://github.com/evidentlyai/evidently): ML monitoring and observability platform for data scientists
 - [`fastapi`](https://github.com/smusali/fastapi) forked from [`tiangolo/fastapi`](https://github.com/tiangolo/fastapi): Modern, fast web framework for building APIs with Python
 - [`flower`](https://github.com/smusali/flower) forked from [`mher/flower`](https://github.com/mher/flower): Real-time monitoring and web tool for Celery distributed task queue
 - [`freeCodeCamp`](https://github.com/smusali/freeCodeCamp) forked from [`freeCodeCamp/freeCodeCamp`](https://github.com/freeCodeCamp/freeCodeCamp): Learn to code for free with interactive tutorials and projects
+- [`free-programming-books`](https://github.com/smusali/free-programming-books) forked from [`EbookFoundation/free-programming-books`](https://github.com/EbookFoundation/free-programming-books): Collection of freely available programming books and resources
 - [`grafana`](https://github.com/smusali/grafana) forked from [`grafana/grafana`](https://github.com/grafana/grafana): Open source analytics and monitoring solution for databases
 - [`langflow`](https://github.com/smusali/langflow) forked from [`langflow-ai/langflow`](https://github.com/langflow-ai/langflow): UI for LangChain to design and prototype LLM flows
 - [`logdna-agent-v2`](https://github.com/smusali/logdna-agent-v2) forked from [`logdna/logdna-agent-v2`](https://github.com/logdna/logdna-agent-v2): Log collection agent for centralized log management and analysis
 - [`notdiamond-python`](https://github.com/smusali/notdiamond-python) forked from [`Not-Diamond/notdiamond-python`](https://github.com/Not-Diamond/notdiamond-python): Python SDK for Not Diamond's AI model routing and optimization
 - [`phoenix`](https://github.com/smusali/phoenix) forked from [`Arize-ai/phoenix`](https://github.com/Arize-ai/phoenix): ML observability platform for monitoring model performance and data quality
+- [`public-apis`](https://github.com/smusali/public-apis) forked from [`public-apis/public-apis`](https://github.com/public-apis/public-apis): Curated list of free APIs for software and web developers
 - [`pulumi`](https://github.com/smusali/pulumi) forked from [`pulumi/pulumi`](https://github.com/pulumi/pulumi): Infrastructure as code platform for cloud-native applications
 - [`signoz`](https://github.com/smusali/signoz) forked from [`SigNoz/signoz`](https://github.com/SigNoz/signoz): Open source APM and observability platform for microservices
+- [`tech-interview-handbook`](https://www.github.com/smusali/tech-interview-handbook) forked from [`yangshun/tech-interview-handbook`](https://github.com/yangshun/tech-interview-handbook): Comprehensive guide for technical interview preparation and best practices
 
 ## OSS Fork Synchronization Tools
 
@@ -183,7 +188,8 @@ This analysis reveals:
 - **30+ OSS projects** that can serve as foundations for MicroSaaS applications
 - **27+ MicroSaaS projects** that can leverage existing OSS tools
 - **14 standalone MicroSaaS projects** that can be built independently
-- **11 specialized OSS tools** that don't have direct MicroSaaS counterparts
+- **18 OSS-to-OSS relationships** showing how OSS projects can build on each other
+- **8 specialized OSS tools** that don't have direct MicroSaaS or OSS counterparts
 
 The analysis shows a strong correlation between OSS and MicroSaaS projects, with most OSS projects providing command-line or SDK versions of functionality that get packaged into user-friendly web applications for the MicroSaaS market.
 
