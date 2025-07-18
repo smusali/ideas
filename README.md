@@ -104,7 +104,7 @@ Perfect for keeping your OSS contributions up-to-date before making new contribu
 | [`eventify`](./oss/eventify.md) | CLI tool that aggregates and searches local events from multiple sources, providing personalized recommendations | events, discovery, aggregation, cli |
 | [`feedloop`](./oss/feedloop.md) | CLI tool for collecting, organizing, and analyzing user feedback with sentiment analysis and trend reporting | feedback, surveys, user-research, insights, analysis |
 | [`finstatecli`](./oss/finstatecli.md) | CLI tool that transforms financial statements into structured data and insights using local processing with optional AI assistance | financial, statements, data-extraction, analytics, cli |
-| [`gitco`](./oss/gitco.md) | A simple CLI tool for intelligent OSS fork management and contribution discovery | oss, fork-management, ai, contribution-discovery, cli |
+| [`gitco`](./oss/gitco/idea.md) | A simple CLI tool for intelligent OSS fork management and contribution discovery | oss, fork-management, ai, contribution-discovery, cli |
 | [`hirereview`](./oss/hirereview.md) | Interview feedback generator CLI that creates structured feedback from transcripts with strengths and improvement suggestions | interviews, feedback, hr, recruitment |
 | [`jobtrail`](./oss/jobtrail.md) | Job application tracking CLI that manages applications, tracks status, and provides statistics for job search organization | job-search, applications, tracking, careers |
 | [`kaleido`](./oss/kaleido.md) | Open-source CLI tool that guides users through idea validation using structured questioning and generates actionable insights | idea-validation, business-planning, cli, analysis |
