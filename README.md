@@ -97,7 +97,6 @@ Perfect for keeping your OSS contributions up-to-date before making new contribu
 | [`chatpilot`](./oss/chatpilot.md) | Simple CLI tool for managing AI chat sessions, testing models, and building chat applications from the terminal | ai, chat, cli, conversations, developer-tools |
 | [`climatescope`](./oss/climatescope.md) | Climate data analysis CLI that processes environmental datasets, tracks trends, and generates climate reports with visualization | climate, data-analysis, environmental, research |
 | [`confcheck`](./oss/confcheck.md) | CLI tool for linting, formatting, and simulating infrastructure configurations with optional LLM-powered diagnostics | config-validation, infrastructure, linting, cli, devops |
-| [`costwatch`](./oss/costwatch.md) | LLM cost tracker CLI that monitors API usage, enforces usage policies, and tracks expenses with real-time alerts and webhooks | llm, cost-tracking, api-management, policy-enforcement |
 | [`coursegrid`](./oss/coursegrid.md) | Course management CLI for tracking academic progress, managing assignments, and planning educational journeys | education, course-management, content, academic |
 | [`docsight`](./oss/docsight.md) | Document analysis CLI that extracts text, generates summaries, and analyzes content from PDF, TXT, and DOCX files | document-analysis, insights, text-processing, cli |
 | [`edutrackly`](./oss/edutrackly.md) | Simple CLI tool for tracking student progress, assignments, and learning goals for educators and students | education, student-tracking, progress, cli |
@@ -118,6 +117,7 @@ Perfect for keeping your OSS contributions up-to-date before making new contribu
 | [`openpulse`](./oss/openpulse.md) | OSS project health and funding CLI that tracks project metrics, contributor activity, and manages funding pledges | project-health, funding, analytics, open-source |
 | [`paperstack`](./oss/paperstack.md) | Research paper management CLI that organizes papers, manages citations, generates bibliographies, and tracks academic references | research, papers, citations, academic, bibliography |
 | [`plotweave`](./oss/plotweave.md) | CLI tool that generates structured story outlines and blueprints from simple text inputs for writers and authors | story-outline, writing, cli, blueprint |
+| [`promptco`](./oss/promptco.md) | LLM cost tracker CLI that monitors API usage, enforces usage policies, and tracks expenses with real-time alerts and webhooks | llm, cost-tracking, api-management, policy-enforcement |
 | [`questify`](./oss/questify.md) | CLI tool that generates personalized interview questions and practice sessions based on company and job info | interview-prep, questions, practice, cli |
 | [`rekursia`](./oss/rekursia.md) | Database learning CLI that provides interactive tutorials, transaction examples, and guided lessons for database education | education, databases, interactive, learning |
 | [`researchnest`](./oss/researchnest.md) | Research data management CLI that tracks experiments, organizes datasets, and manages citations for academic research | research, data-management, academic, organization |

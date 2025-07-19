@@ -9,13 +9,13 @@ The analysis reveals the diverse range of applications across different domains,
 ## **AI & Machine Learning**
 - `oss/chatpilot` - AI chat CLI tool
 - `oss/mycelium` - AI agent orchestration CLI
-- `oss/costwatch` - LLM cost tracker
 - `oss/confcheck` - LLM-powered config diagnostics
 - `oss/finstatecli` - AI-assisted financial statement processing
 - `oss/gitco` - AI-powered change analysis
 - `oss/hirereview` - AI interview feedback generation
 - `oss/loglens` - Natural language log queries
 - `oss/nomadr` - LLM-powered recommendations
+- `oss/promptco` - LLM cost tracker
 - `oss/questify` - AI interview question generation
 - `oss/socialsync` - LLM-powered social media insights
 - `microsaas/authentiscan` - AI content detector

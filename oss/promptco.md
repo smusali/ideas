@@ -1,4 +1,4 @@
-# **CostWatch — LLM Cost Tracker & Policy Enforcer**
+# **PromptCo — LLM Cost Tracker & Policy Enforcer**
 
 > **Mission:** A lightweight CLI tool and SDK that helps developers track LLM costs and enforce usage policies in real-time, with support for custom API keys.
 
@@ -6,7 +6,7 @@
 
 ## Overview
 
-CostWatch is a simple, open-source tool that monitors your LLM API usage, tracks costs, and enforces basic policies. It's designed to be built in 7 days by a single developer and can be easily published to package registries.
+PromptCo is a simple, open-source tool that monitors your LLM API usage, tracks costs, and enforces basic policies. It's designed to be built in 7 days by a single developer and can be easily published to package registries.
 
 ---
 
@@ -89,33 +89,33 @@ CostWatch is a simple, open-source tool that monitors your LLM API usage, tracks
 ### Quick Start
 ```bash
 # Install via package manager
-npm install -g costwatch-cli
+npm install -g promptco-cli
 # or
-pip install costwatch-cli
+pip install promptco-cli
 
 # Initialize configuration
-costwatch init
+promptco init
 
 # Set your API keys
-costwatch config set openai_key YOUR_OPENAI_KEY
-costwatch config set anthropic_key YOUR_ANTHROPIC_KEY
+promptco config set openai_key YOUR_OPENAI_KEY
+promptco config set anthropic_key YOUR_ANTHROPIC_KEY
 
 # Start tracking costs
-costwatch track start
+promptco track start
 
 # View dashboard
-costwatch dashboard
+promptco dashboard
 
 # Check costs
-costwatch costs --period daily
+promptco costs --period daily
 ```
 
 ### SDK Usage
 ```python
-import costwatch
+import promptco
 
 # Initialize with your API keys
-tracker = costwatch.Tracker(
+tracker = promptco.Tracker(
     openai_key="your_key",
     anthropic_key="your_key"
 )
@@ -159,10 +159,10 @@ policies:
 ## Publishing Strategy
 
 ### Package Registries
-- **npm**: `costwatch-cli` for Node.js users
-- **PyPI**: `costwatch-cli` for Python users
-- **Homebrew**: `costwatch` for macOS users
-- **Chocolatey**: `costwatch` for Windows users
+- **npm**: `promptco-cli` for Node.js users
+- **PyPI**: `promptco-cli` for Python users
+- **Homebrew**: `promptco` for macOS users
+- **Chocolatey**: `promptco` for Windows users
 
 ### Documentation
 - GitHub README with quick start guide
@@ -255,8 +255,8 @@ graph TD
 
 ### Development Setup
 ```bash
-git clone https://github.com/your-org/costwatch
-cd costwatch
+git clone https://github.com/your-org/promptco
+cd promptco
 npm install
 npm run dev
 ```
@@ -278,4 +278,4 @@ MIT License - Simple and permissive for maximum adoption.
 
 ---
 
-*CostWatch: Simple LLM cost tracking for developers who care about their budget.*
+*PromptCo: Simple LLM cost tracking for developers who care about their budget.*
