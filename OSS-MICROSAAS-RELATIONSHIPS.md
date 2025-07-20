@@ -14,15 +14,15 @@ The analysis reveals strong correlations between many OSS and MicroSaaS projects
   - ConsentGuard needs user authentication and consent management
 
 ### **AI & LLM Integration**
-- **`chatpilot`** (OSS) → **`mailpilot`**, **`postforge`**, **`dayscribe`**, **`authentiscan`** (MicroSaaS)
-  - ChatPilot provides AI chat functionality and LLM integration
+- **`chatco`** (OSS) → **`mailpilot`**, **`postforge`**, **`dayscribe`**, **`authentiscan`** (MicroSaaS)
+  - ChatCo provides AI chat functionality and LLM integration
   - All these MicroSaaS projects need AI/LLM capabilities for content generation
 
 - **`mycelium`** (OSS) → **`kairo`** (MicroSaaS)
   - Mycelium provides AI agent orchestration CLI
   - Kairo is the API version for AI agent orchestration
 
-- **`costwatch`** (OSS) → Multiple AI-powered MicroSaaS projects
+- **`promptco`** (OSS) → Multiple AI-powered MicroSaaS projects
   - CostWatch tracks LLM costs and enforces policies
   - Useful for any MicroSaaS using AI features
 
@@ -215,7 +215,7 @@ The analysis reveals strong correlations between many OSS and MicroSaaS projects
 ### **MicroSaaS Projects That Can Be Built Using OSS Projects**
 
 - **consentguard** ← **authify**
-- **mailpilot**, **postforge**, **dayscribe**, **authentiscan** ← **chatpilot**
+- **mailpilot**, **postforge**, **dayscribe**, **authentiscan** ← **chatco**
 - **kairo** ← **mycelium**
 - **dataflow**, **insightify** ← **chartcraft**
 - **promptbench** ← **benchwise**

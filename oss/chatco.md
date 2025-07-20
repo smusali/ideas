@@ -1,12 +1,12 @@
-# **ChatPilot** — *Simple AI Chat CLI Tool*
+# **ChatCo** — *Simple AI Chat CLI Tool*
 
 *A lightweight, open-source command-line tool that helps you manage AI conversations and build chat applications from the terminal.*
 
 ---
 
-## **What is ChatPilot?**
+## **What is ChatCo?**
 
-ChatPilot is a simple CLI tool that lets you create, manage, and interact with AI chat sessions directly from your terminal. Perfect for developers who want to quickly test AI models, manage conversations, and build chat applications without complex setup.
+ChatCo is a simple CLI tool that lets you create, manage, and interact with AI chat sessions directly from your terminal. Perfect for developers who want to quickly test AI models, manage conversations, and build chat applications without complex setup.
 
 ---
 
@@ -71,27 +71,27 @@ ChatPilot is a simple CLI tool that lets you create, manage, and interact with A
 
 ```bash
 # Install via npm
-npm install -g chatpilot-cli
+npm install -g chatco-cli
 
 # Install via pip
-pip install chatpilot-cli
+pip install chatco-cli
 
 # Install via cargo
-cargo install chatpilot-cli
+cargo install chatco-cli
 
 # Basic usage
-chatpilot start                    # Start new conversation
-chatpilot chat "Hello, AI!"        # Send message
-chatpilot list                     # List conversations
-chatpilot load <id>                # Load conversation
-chatpilot export <id> --format json # Export conversation
+chatco start                    # Start new conversation
+chatco chat "Hello, AI!"        # Send message
+chatco list                     # List conversations
+chatco load <id>                # Load conversation
+chatco export <id> --format json # Export conversation
 ```
 
 ---
 
 ## **Configuration**
 
-Create a config file at `~/.chatpilot/config.json`:
+Create a config file at `~/.chatco/config.json`:
 
 ```json
 {

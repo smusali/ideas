@@ -13,8 +13,8 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 - [`fastapi`](https://github.com/smusali/fastapi) forked from [`tiangolo/fastapi`](https://github.com/tiangolo/fastapi): Modern, fast web framework for building APIs with Python
 - [`fern`](https://github.com/smusali/fern) forked from [`fern-api/fern`](https://github.com/fern-api/fern): OpenAPI-based SDK and documentation generator for building type-safe APIs
 - [`flower`](https://github.com/smusali/flower) forked from [`mher/flower`](https://github.com/mher/flower): Real-time monitoring and web tool for Celery distributed task queue
-- [`freeCodeCamp`](https://github.com/smusali/freeCodeCamp) forked from [`freeCodeCamp/freeCodeCamp`](https://github.com/freeCodeCamp/freeCodeCamp): Learn to code for free with interactive tutorials and projects
 - [`free-programming-books`](https://github.com/smusali/free-programming-books) forked from [`EbookFoundation/free-programming-books`](https://github.com/EbookFoundation/free-programming-books): Collection of freely available programming books and resources
+- [`freeCodeCamp`](https://github.com/smusali/freeCodeCamp) forked from [`freeCodeCamp/freeCodeCamp`](https://github.com/freeCodeCamp/freeCodeCamp): Learn to code for free with interactive tutorials and projects
 - [`grafana`](https://github.com/smusali/grafana) forked from [`grafana/grafana`](https://github.com/grafana/grafana): Open source analytics and monitoring solution for databases
 - [`langflow`](https://github.com/smusali/langflow) forked from [`langflow-ai/langflow`](https://github.com/langflow-ai/langflow): UI for LangChain to design and prototype LLM flows
 - [`logdna-agent-v2`](https://github.com/smusali/logdna-agent-v2) forked from [`logdna/logdna-agent-v2`](https://github.com/logdna/logdna-agent-v2): Log collection agent for centralized log management and analysis
@@ -28,8 +28,8 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 ## Slack Workspaces
 - [Arize AI Community](https://arize-ai.slack.com): Community for Arize AI ML observability platform users and contributors
 - [Cloud Native Computing Foundation](https://cloud-native.slack.com): Open source foundation for cloud-native computing technologies and projects
-- [Docker Community](https://dockercommunity.slack.com): Community for Docker containerization platform users and developers
 - [dltHub community](https://dlthub-community.slack.com): Community for data load tool (dlt) users and contributors
+- [Docker Community](https://dockercommunity.slack.com): Community for Docker containerization platform users and developers
 - [Firebase Community](https://firebase-community.slack.com): Community for Firebase mobile and web development platform
 - [FortyOne Technologies](https://fortyonetechnologies.slack.com): Internal workspace for FortyOne Technologies team collaboration
 - [Grafana Labs Community](https://grafana.slack.com): Community for Grafana monitoring and observability platform users
@@ -94,7 +94,7 @@ Perfect for keeping your OSS contributions up-to-date before making new contribu
 | [`benchwise`](./oss/benchwise.md) | Data analysis and benchmarking CLI tool for statistical analysis, performance measurement, and comprehensive reporting | data-analysis, benchmarking, analytics, cli |
 | [`campushub`](./oss/campushub.md) | Campus information management CLI that organizes events, tracks resources, manages announcements, and handles bookings | education, campus, information, management |
 | [`chartcraft`](./oss/chartcraft.md) | Command-line data visualization tool that analyzes CSV files, creates charts, and generates insights with terminal and image export | data-analysis, visualization, charts, cli |
-| [`chatpilot`](./oss/chatpilot.md) | Simple CLI tool for managing AI chat sessions, testing models, and building chat applications from the terminal | ai, chat, cli, conversations, developer-tools |
+| [`chatco`](./oss/chatco.md) | Simple CLI tool for managing AI chat sessions, testing models, and building chat applications from the terminal | ai, chat, cli, conversations, developer-tools |
 | [`climatescope`](./oss/climatescope.md) | Climate data analysis CLI that processes environmental datasets, tracks trends, and generates climate reports with visualization | climate, data-analysis, environmental, research |
 | [`confcheck`](./oss/confcheck.md) | CLI tool for linting, formatting, and simulating infrastructure configurations with optional LLM-powered diagnostics | config-validation, infrastructure, linting, cli, devops |
 | [`coursegrid`](./oss/coursegrid.md) | Course management CLI for tracking academic progress, managing assignments, and planning educational journeys | education, course-management, content, academic |
