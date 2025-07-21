@@ -4,6 +4,16 @@ repositories:
     upstream: goauthentik/authentik
     local_path: /Users/smusali/github/smusali/authentik
 
+  - name: autogen
+    fork: smusali/autogen
+    upstream: microsoft/autogen
+    local_path: /Users/smusali/github/smusali/autogen
+
+  - name: axolotl
+    fork: smusali/axolotl
+    upstream: axolotl-ai-cloud/axolotl
+    local_path: /Users/smusali/github/smusali/axolotl
+
   - name: backstage
     fork: smusali/backstage
     upstream: backstage/backstage
@@ -68,17 +78,37 @@ repositories:
     fork: smusali/langflow
     upstream: langflow-ai/langflow
     local_path: /Users/smusali/github/smusali/langflow
+
+  - name: llmware
+    fork: smusali/llmware
+    upstream: llmware-ai/llmware
+    local_path: /Users/smusali/github/smusali/llmware
     
   - name: logdna-agent-v2
     fork: smusali/logdna-agent-v2
     upstream: logdna/logdna-agent-v2
     local_path: /Users/smusali/github/smusali/logdna-agent-v2
+
+  - name: MetaGPT
+    fork: smusali/MetaGPT
+    upstream: FoundationAgents/MetaGPT
+    local_path: /Users/smusali/github/smusali/MetaGPT
     
   - name: notdiamond-python
     fork: smusali/notdiamond-python
     upstream: Not-Diamond/notdiamond-python
     local_path: /Users/smusali/github/smusali/notdiamond-python
-    
+
+  - name: ollama
+    fork: smusali/ollama
+    upstream: ollama/ollama
+    local_path: /Users/smusali/github/smusali/ollama
+
+  - name: OpenHands
+    fork: smusali/OpenHands
+    upstream: All-Hands-AI/OpenHands
+    local_path: /Users/smusali/github/smusali/OpenHands    
+
   - name: phoenix
     fork: smusali/phoenix
     upstream: Arize-ai/phoenix
@@ -99,7 +129,17 @@ repositories:
     upstream: SigNoz/signoz
     local_path: /Users/smusali/github/smusali/signoz 
 
+  - name: superagent
+    fork: smusali/superagent
+    upstream: superagent-ai/superagent
+    local_path: /Users/smusali/github/smusali/superagent
+
   - name: tech-interview-handbook
     fork: smusali/tech-interview-handbook
     upstream: yangshun/tech-interview-handbook
     local_path: /Users/smusali/github/smusali/tech-interview-handbook
+
+  - name: vllm
+    fork: smusali/vllm
+    upstream: vllm-project/vllm
+    local_path: /Users/smusali/github/smusali/vllm

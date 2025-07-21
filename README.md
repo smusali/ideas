@@ -4,6 +4,8 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 
 ## Open-Source Contributions
 - [`authentik`](https://github.com/smusali/authentik) forked from [`goauthentik/authentik`](https://github.com/goauthentik/authentik): Identity and access management platform for modern applications
+- [`autogen`](https://github.com/smusali/autogen) forked from [`microsoft/autogen`](https://github.com/microsoft/autogen): Multi-agent conversational AI framework for building cooperative AI agents
+- [`axolotl`](https://github.com/smusali/axolotl) forked from [`axolotl-ai-cloud/axolotl`](https://github.com/axolotl-ai-cloud/axolotl): Tool designed to streamline the fine-tuning of various AI models
 - [`backstage`](https://github.com/backstage/backstage) forked from [`backstage/backstage`](https://github.com/backstage/backstage): Developer portal platform for building developer portals
 - [`coding-interview-university`](https://github.com/smusali/coding-interview-university) forked from [`jwasham/coding-interview-university`](https://github.com/jwasham/coding-interview-university): Complete computer science study plan for software engineers and developers
 - [`developer-roadmap`](https://github.com/smusali/developer-roadmap) forked from [`kamranahmedse/developer-roadmap`](https://github.com/kamranahmedse/developer-roadmap): Interactive roadmaps and guides for developers to learn new technologies
@@ -17,13 +19,19 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 - [`freeCodeCamp`](https://github.com/smusali/freeCodeCamp) forked from [`freeCodeCamp/freeCodeCamp`](https://github.com/freeCodeCamp/freeCodeCamp): Learn to code for free with interactive tutorials and projects
 - [`grafana`](https://github.com/smusali/grafana) forked from [`grafana/grafana`](https://github.com/grafana/grafana): Open source analytics and monitoring solution for databases
 - [`langflow`](https://github.com/smusali/langflow) forked from [`langflow-ai/langflow`](https://github.com/langflow-ai/langflow): UI for LangChain to design and prototype LLM flows
+- [`llmware`](https://github.com/smusali/llmware) forked from [`llmware-ai/llmware`](https://github.com/llmware-ai/llmware): Unified framework for building LLM-based applications including RAG with specialized models
 - [`logdna-agent-v2`](https://github.com/smusali/logdna-agent-v2) forked from [`logdna/logdna-agent-v2`](https://github.com/logdna/logdna-agent-v2): Log collection agent for centralized log management and analysis
+- [`MetaGPT`](https://github.com/smusali/MetaGPT) forked from [`FoundationAgents/MetaGPT`](https://github.com/FoundationAgents/MetaGPT): Multi-agent framework that enables GPT to work in a software company
 - [`notdiamond-python`](https://github.com/smusali/notdiamond-python) forked from [`Not-Diamond/notdiamond-python`](https://github.com/Not-Diamond/notdiamond-python): Python SDK for Not Diamond's AI model routing and optimization
+- [`ollama`](https://github.com/smusali/ollama) forked from [`ollama/ollama`](https://github.com/ollama/ollama): Get up and running with large language models locally
+- [`OpenHands`](https://github.com/smusali/OpenHands) forked from [`All-Hands-AI/OpenHands`](https://github.com/All-Hands-AI/OpenHands): AI software development platform for coding tasks (formerly OpenDevin)
 - [`phoenix`](https://github.com/smusali/phoenix) forked from [`Arize-ai/phoenix`](https://github.com/Arize-ai/phoenix): ML observability platform for monitoring model performance and data quality
 - [`public-apis`](https://github.com/smusali/public-apis) forked from [`public-apis/public-apis`](https://github.com/public-apis/public-apis): Curated list of free APIs for software and web developers
 - [`pulumi`](https://github.com/smusali/pulumi) forked from [`pulumi/pulumi`](https://github.com/pulumi/pulumi): Infrastructure as code platform for cloud-native applications
 - [`signoz`](https://github.com/smusali/signoz) forked from [`SigNoz/signoz`](https://github.com/SigNoz/signoz): Open source APM and observability platform for microservices
+- [`superagent`](https://github.com/smusali/superagent) forked from [`superagent-ai/superagent`](https://github.com/superagent-ai/superagent): Open-source framework for building, managing, and deploying AI assistants
 - [`tech-interview-handbook`](https://www.github.com/smusali/tech-interview-handbook) forked from [`yangshun/tech-interview-handbook`](https://github.com/yangshun/tech-interview-handbook): Comprehensive guide for technical interview preparation and best practices
+- [`vllm`](https://github.com/smusali/vllm) forked from [`vllm-project/vllm`](https://github.com/vllm-project/vllm): High-throughput and memory-efficient inference and serving engine for LLMs
 
 ## Slack Workspaces
 - [Arize AI Community](https://arize-ai.slack.com): Community for Arize AI ML observability platform users and contributors
