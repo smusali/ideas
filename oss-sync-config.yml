@@ -38,6 +38,11 @@ repositories:
     fork: smusali/dlt
     upstream: dlt-hub/dlt
     local_path: /Users/smusali/github/smusali/dlt
+
+  - name: edx-platform
+    fork: smusali/edx-platform
+    upstream: openedx/edx-platform
+    local_path: /Users/smusali/github/smusali/edx-platform
     
   - name: evidently
     fork: smusali/evidently

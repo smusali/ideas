@@ -11,6 +11,7 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 - [`developer-roadmap`](https://github.com/smusali/developer-roadmap) forked from [`kamranahmedse/developer-roadmap`](https://github.com/kamranahmedse/developer-roadmap): Interactive roadmaps and guides for developers to learn new technologies
 - [`django`](https://github.com/smusali/django) forked from [`django/django`](https://github.com/django/django): High-level Python web framework for rapid development
 - [`dlt`](https://github.com/smusali/dlt) forked from [`dlt-hub/dlt`](https://github.com/dlt-hub/dlt): Data load tool for building data pipelines and ETL processes
+- [`edx-platform`](https://github.com/smusali/edx-platform) forked from [`openedx/edx-platform`](https://github.com/openedx/edx-platform): Open-source learning management system platform for massive online courses and education
 - [`evidently`](https://github.com/smusali/evidently) forked from [`evidentlyai/evidently`](https://github.com/evidentlyai/evidently): ML monitoring and observability platform for data scientists
 - [`fastapi`](https://github.com/smusali/fastapi) forked from [`tiangolo/fastapi`](https://github.com/tiangolo/fastapi): Modern, fast web framework for building APIs with Python
 - [`fern`](https://github.com/smusali/fern) forked from [`fern-api/fern`](https://github.com/fern-api/fern): OpenAPI-based SDK and documentation generator for building type-safe APIs
