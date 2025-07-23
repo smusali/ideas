@@ -4,11 +4,6 @@ repositories:
     upstream: goauthentik/authentik
     local_path: /Users/smusali/github/smusali/authentik
 
-  - name: axolotl
-    fork: smusali/axolotl
-    upstream: axolotl-ai-cloud/axolotl
-    local_path: /Users/smusali/github/smusali/axolotl
-
   - name: backstage
     fork: smusali/backstage
     upstream: backstage/backstage
