@@ -4,7 +4,6 @@ A collection of open-source project ideas and MicroSaaS concepts, all designed t
 
 ## Open-Source Contributions
 - [`authentik`](https://github.com/smusali/authentik) forked from [`goauthentik/authentik`](https://github.com/goauthentik/authentik): Identity and access management platform for modern applications
-- [`autogen`](https://github.com/smusali/autogen) forked from [`microsoft/autogen`](https://github.com/microsoft/autogen): Multi-agent conversational AI framework for building cooperative AI agents
 - [`axolotl`](https://github.com/smusali/axolotl) forked from [`axolotl-ai-cloud/axolotl`](https://github.com/axolotl-ai-cloud/axolotl): Tool designed to streamline the fine-tuning of various AI models
 - [`backstage`](https://github.com/backstage/backstage) forked from [`backstage/backstage`](https://github.com/backstage/backstage): Developer portal platform for building developer portals
 - [`coding-interview-university`](https://github.com/smusali/coding-interview-university) forked from [`jwasham/coding-interview-university`](https://github.com/jwasham/coding-interview-university): Complete computer science study plan for software engineers and developers

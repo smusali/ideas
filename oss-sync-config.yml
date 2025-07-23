@@ -4,11 +4,6 @@ repositories:
     upstream: goauthentik/authentik
     local_path: /Users/smusali/github/smusali/authentik
 
-  - name: autogen
-    fork: smusali/autogen
-    upstream: microsoft/autogen
-    local_path: /Users/smusali/github/smusali/autogen
-
   - name: axolotl
     fork: smusali/axolotl
     upstream: axolotl-ai-cloud/axolotl
