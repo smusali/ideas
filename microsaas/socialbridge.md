@@ -24,7 +24,7 @@ SocialBridge is a simple API that connects to your social media accounts and pro
 ## **Core Features**
 
 ### **1. Connection Management**
-```json
+```text
 POST /api/v1/connections/remove
 {
   "platform": "instagram",
@@ -40,7 +40,7 @@ GET /api/v1/connections/export
 ```
 
 ### **2. Cross-Platform Analysis**
-```json
+```text
 GET /api/v1/analysis/overlap
 {
   "platforms": ["linkedin", "twitter", "github"]
@@ -54,7 +54,7 @@ GET /api/v1/analysis/network
 ```
 
 ### **3. Activity Monitoring**
-```json
+```text
 POST /api/v1/monitor/setup
 {
   "platform": "linkedin",
