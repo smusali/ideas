@@ -1,4 +1,3 @@
----
 # **SocialBridge: Social Network Management API**
 
 *A simple API that helps developers and marketers manage social media connections, analyze networks, and automate social media tasks across multiple platforms.*
