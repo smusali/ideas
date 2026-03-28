@@ -1,12 +1,16 @@
-# **TaskFlow** — *Simple Task Automation Platform*
+# **WorkflowMint** — *Simple Task Automation Platform*
 
 *A lightweight web application that helps you automate repetitive tasks and streamline business processes with minimal setup.*
 
+
+> **Brand Rename Note:** The name `taskflow` is used by multiple project management tools and `taskflow.io` and `taskflow.app` are contested. Renamed to `workflowmint` - no active brand conflict found.
+> **Recommended Domain:** `workflowmint.io` (register also `workflowmint.ai` on GoDaddy).
+
 ---
 
-## **What is TaskFlow?**
+## **What is WorkflowMint?**
 
-TaskFlow is a simple web application that helps you create automated workflows for repetitive tasks, saving time and reducing errors. Built for small businesses and professionals who want to automate their work without complex coding or expensive enterprise tools.
+WorkflowMint is a simple web application that helps you create automated workflows for repetitive tasks, saving time and reducing errors. Built for small businesses and professionals who want to automate their work without complex coding or expensive enterprise tools.
 
 ---
 

@@ -1,12 +1,15 @@
-# **SchemaGuard** — *Simple API Validation & Testing CLI*
+# **SpecGuard** — *Simple API Validation & Testing CLI*
 
 *A lightweight, open-source command-line tool that helps you validate API schemas, generate tests, and ensure API quality with minimal effort.*
 
+
+> **Package Rename Note:** The PyPI name `schemaguard` is TAKEN (v0.2.0, Pandas DataFrame validator). This project publishes as `specguard` on PyPI and npm. `specguard` is confirmed available (HTTP 404).
+
 ---
 
-## **What is SchemaGuard?**
+## **What is SpecGuard?**
 
-SchemaGuard is a simple CLI tool that lets you validate API schemas, generate test cases, and ensure API quality directly from your terminal. Perfect for developers who want to maintain high-quality APIs without complex testing frameworks.
+SpecGuard is a simple CLI tool that lets you validate API schemas, generate test cases, and ensure API quality directly from your terminal. Perfect for developers who want to maintain high-quality APIs without complex testing frameworks.
 
 ---
 
@@ -76,28 +79,28 @@ SchemaGuard is a simple CLI tool that lets you validate API schemas, generate te
 
 ```bash
 # Install via npm
-npm install -g schemaguard-cli
+npm install -g specguard-cli
 
 # Install via pip
-pip install schemaguard-cli
+pip install specguard-cli
 
 # Install via cargo
-cargo install schemaguard-cli
+cargo install specguard-cli
 
 # Basic usage
-schemaguard validate swagger.json           # Validate OpenAPI schema
-schemaguard test --endpoint /api/users      # Test specific endpoint
-schemaguard generate-tests swagger.json     # Generate test cases
-schemaguard mock --endpoint /api/users      # Generate mock data
-schemaguard perf --endpoint /api/users      # Performance test
-schemaguard report --format html            # Generate HTML report
+specguard validate swagger.json           # Validate OpenAPI schema
+specguard test --endpoint /api/users      # Test specific endpoint
+specguard generate-tests swagger.json     # Generate test cases
+specguard mock --endpoint /api/users      # Generate mock data
+specguard perf --endpoint /api/users      # Performance test
+specguard report --format html            # Generate HTML report
 ```
 
 ---
 
 ## **Configuration**
 
-Create a config file at `~/.schemaguard/config.json`:
+Create a config file at `~/.specguard/config.json`:
 
 ```json
 {

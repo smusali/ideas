@@ -1,12 +1,16 @@
-# **DataFlow** — *Simple CSV Cleaner & Analyzer*
+# **CsvFlow** — *Simple CSV Cleaner & Analyzer*
 
 *A lightweight web application that helps you clean messy CSV files and get instant insights with minimal effort.*
 
+
+> **Brand Rename Note:** The name `dataflow` conflicts with Google Cloud Dataflow, a major managed data processing service. Renamed to `csvflow` - no active brand conflict found.
+> **Recommended Domain:** `csvflow.io` (register also `csvflow.ai` on GoDaddy).
+
 ---
 
-## **What is DataFlow?**
+## **What is CsvFlow?**
 
-DataFlow is a simple web application that helps you clean messy CSV files, remove duplicates, fix formatting issues, and get basic insights from your data. Built for small businesses, researchers, and anyone who works with spreadsheet data without needing technical skills.
+CsvFlow is a simple web application that helps you clean messy CSV files, remove duplicates, fix formatting issues, and get basic insights from your data. Built for small businesses, researchers, and anyone who works with spreadsheet data without needing technical skills.
 
 ---
 

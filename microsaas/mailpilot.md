@@ -1,12 +1,16 @@
-# **MailPilot** — *Simple AI Email Assistant*
+# **MailCraft** — *Simple AI Email Assistant*
 
 *A lightweight web application that helps you draft, improve, and manage professional emails with AI assistance.*
 
+
+> **Brand Rename Note:** The name `mailpilot` conflicts with MailPilot.co (acquired/discontinued Mac email client). `inboxpilot.co` TAKEN, `mailagent` TAKEN, `inboxcraft.polsia.app` TAKEN. Renamed to `mailcraft` - no active brand conflict found.
+> **Recommended Domain:** `mailcraft.io` (register also `mailcraft.ai` on GoDaddy).
+
 ---
 
-## **What is MailPilot?**
+## **What is MailCraft?**
 
-MailPilot is a simple web application that helps professionals draft better emails, improve existing drafts, and manage their email communications more effectively. Built for busy professionals who want to write clearer, more professional emails without spending hours on each message.
+MailCraft is a simple web application that helps professionals draft better emails, improve existing drafts, and manage their email communications more effectively. Built for busy professionals who want to write clearer, more professional emails without spending hours on each message.
 
 ---
 

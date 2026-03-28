@@ -1,12 +1,16 @@
-# **Alertify** — *Simple Smart Notification System*
+# **NotifyFlow** — *Simple Smart Notification System*
 
 *A lightweight web application that helps you create intelligent notifications and alerts for important events with minimal setup.*
 
+
+> **Brand Rename Note:** The name `alertify` conflicts with `alertify.js` (6K+ GitHub stars), a well-known JavaScript notification library. Renamed to `notifyflow` - no active brand conflict found.
+> **Recommended Domain:** `notifyflow.io` (register also `notifyflow.ai` on GoDaddy).
+
 ---
 
-## **What is Alertify?**
+## **What is NotifyFlow?**
 
-Alertify is a simple web application that lets you set up smart notifications and alerts for important events, deadlines, and activities. Built for busy professionals, teams, and individuals who want to stay on top of critical information without being overwhelmed by notifications.
+NotifyFlow is a simple web application that lets you set up smart notifications and alerts for important events, deadlines, and activities. Built for busy professionals, teams, and individuals who want to stay on top of critical information without being overwhelmed by notifications.
 
 ---
 

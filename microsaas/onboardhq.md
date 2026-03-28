@@ -1,12 +1,16 @@
-# **OnboardHQ — Instant Contributor Onboarding API**
+# **ContributeHQ — Instant Contributor Onboarding API**
 
 > **Mission:** Make every open-source project easy to contribute to by providing an API that generates starter tasks, onboarding guides, and a Q&A bot for new contributors.
+
+
+> **Brand Rename Note:** The name `onboardhq` is adjacent to `onboardlyhq.com` (HR SaaS), `onboardbase.com` (secrets manager), and `onboard.dev` (OSS onboarding). Renamed to `contributehq` - no active brand conflict found.
+> **Recommended Domain:** `contributehq.io` (register also `contributehq.ai` on GoDaddy).
 
 ---
 
 ## What Problem Does This Solve?
 
-Open-source maintainers spend too much time onboarding new contributors. Newcomers struggle to find where to start. OnboardHQ solves this by providing an API that instantly generates onboarding kits and a simple Q&A bot for any public repository.
+Open-source maintainers spend too much time onboarding new contributors. Newcomers struggle to find where to start. ContributeHQ solves this by providing an API that instantly generates onboarding kits and a simple Q&A bot for any public repository.
 
 ---
 
@@ -186,4 +190,4 @@ Open-source maintainers spend too much time onboarding new contributors. Newcome
 4. **Low Competition:** Most tools are manual or require setup
 5. **Recurring Revenue:** API usage creates ongoing value
 
-**OnboardHQ** turns every open-source repo into a welcoming, self-guided playground with a single API call, helping projects grow and thrive while generating sustainable revenue.
+**ContributeHQ** turns every open-source repo into a welcoming, self-guided playground with a single API call, helping projects grow and thrive while generating sustainable revenue.

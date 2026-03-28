@@ -1,12 +1,16 @@
-# **Cardra — Credit Statement Insights API**
+# **StmtParse — Credit Statement Insights API**
 
 *A simple API that turns credit card statements into actionable insights, subscription detection, and spend summaries for developers and fintech apps.*
+
+
+> **Brand Rename Note:** The name `cardra` conflicts with `cardra.webflow.io` (crypto-to-Visa) and `cardra.shop` (Solana NFT). `statementiq` TAKEN (BrightReturn), `finparse` TAKEN (finparse.io). Renamed to `stmtparse` - no active brand conflict found.
+> **Recommended Domain:** `stmtparse.io` (register also `stmtparse.ai` on GoDaddy).
 
 ---
 
 ## 1. Executive Summary
 
-Cardra is a plug-and-play API that ingests credit card statements (PDF, CSV, or text), extracts transactions, and provides instant insights on subscriptions, spend categories, and anomalies. Designed for developers and fintech builders, Cardra makes it easy to add spend intelligence to any app or workflow with a single API call.
+StmtParse is a plug-and-play API that ingests credit card statements (PDF, CSV, or text), extracts transactions, and provides instant insights on subscriptions, spend categories, and anomalies. Designed for developers and fintech builders, StmtParse makes it easy to add spend intelligence to any app or workflow with a single API call.
 
 ---
 
@@ -179,9 +183,9 @@ POST /api/v1/webhook
 
 ## 14. Call to Action
 
-Cardra makes it easy for developers to add credit card statement insights to any app. No complex setup, no sensitive data stored—just upload a statement and get instant results.
+StmtParse makes it easy for developers to add credit card statement insights to any app. No complex setup, no sensitive data stored—just upload a statement and get instant results.
 
-**Start your free trial at api.cardra.com**
+**Start your free trial at api.stmtparse.com**
 
 ---
 

@@ -1,8 +1,8 @@
-# **GitCo** ✨
+# **ForkCo** ✨
 
 **A simple CLI tool for intelligent OSS fork management and contribution discovery.**
 
-GitCo transforms the tedious process of managing multiple OSS forks into an intelligent, context-aware workflow. It combines automated synchronization with AI-powered insights to help developers stay current with upstream changes and discover meaningful contribution opportunities.
+ForkCo transforms the tedious process of managing multiple OSS forks into an intelligent, context-aware workflow. It combines automated synchronization with AI-powered insights to help developers stay current with upstream changes and discover meaningful contribution opportunities.
 
 ---
 
@@ -14,7 +14,7 @@ Developers maintaining multiple OSS forks face several challenges:
 - **Missed opportunities**: Difficulty finding relevant issues to contribute to
 - **Fragmented workflow**: Separate tools for syncing, analyzing, and contributing
 
-GitCo solves these problems with a unified CLI that makes OSS contribution management effortless.
+ForkCo solves these problems with a unified CLI that makes OSS contribution management effortless.
 
 ---
 
@@ -53,41 +53,41 @@ GitCo solves these problems with a unified CLI that makes OSS contribution manag
 
 ```bash
 # Initialize configuration
-gitco init
+forkco init
 
 # Sync all repositories
-gitco sync
+forkco sync
 
 # Sync specific repository
-gitco sync --repo django
+forkco sync --repo django
 
 # Get AI summary of changes
-gitco analyze --repo fastapi
+forkco analyze --repo fastapi
 
 # Find contribution opportunities
-gitco discover
+forkco discover
 
 # Show repository status
-gitco status
+forkco status
 
 # Get help
-gitco help
+forkco help
 ```
 
 ### Advanced Usage
 
 ```bash
 # Sync with detailed analysis
-gitco sync --analyze
+forkco sync --analyze
 
 # Find issues by skill/language
-gitco discover --skill python --label "good first issue"
+forkco discover --skill python --label "good first issue"
 
 # Export sync report
-gitco sync --export report.json
+forkco sync --export report.json
 
 # Schedule sync (cron-friendly)
-gitco sync --quiet --log sync.log
+forkco sync --quiet --log sync.log
 ```
 
 ---
@@ -184,7 +184,7 @@ Supports multiple providers:
 ## Publishing Strategy
 
 ### Package Distribution
-- **PyPI**: Python package with `pip install gitco`
+- **PyPI**: Python package with `pip install forkco`
 - **Homebrew**: macOS formula for easy installation
 - **npm**: Node.js package for broader reach
 - **GitHub Releases**: Binary releases for all platforms
@@ -192,16 +192,16 @@ Supports multiple providers:
 ### Installation Methods
 ```bash
 # Python
-pip install gitco
+pip install forkco
 
 # Homebrew
 brew install gitco
 
 # npm
-npm install -g gitco
+npm install -g forkco
 
 # Binary download
-curl -L https://github.com/user/gitco/releases/latest/download/gitco-linux -o gitco
+curl -L https://github.com/user/forkco/releases/latest/download/gitco-linux -o gitco
 ```
 
 ### Documentation & Marketing
@@ -301,9 +301,9 @@ graph TB
 ## Getting Started
 
 1. **Install**: Choose your preferred installation method
-2. **Initialize**: Run `gitco init` to create configuration
+2. **Initialize**: Run `forkco init` to create configuration
 3. **Configure**: Add your repositories and LLM API key
-4. **Sync**: Run `gitco sync` to update all forks
-5. **Discover**: Use `gitco discover` to find contribution opportunities
+4. **Sync**: Run `forkco sync` to update all forks
+5. **Discover**: Use `forkco discover` to find contribution opportunities
 
-GitCo makes OSS contribution management simple, intelligent, and rewarding. Start contributing more effectively today! 🚀
+ForkCo makes OSS contribution management simple, intelligent, and rewarding. Start contributing more effectively today! 🚀

@@ -2,6 +2,9 @@
 
 *A lightweight, open-source command-line tool that helps you orchestrate AI agents and manage their interactions with minimal effort.*
 
+
+> **Package Rename Note:** The PyPI name `mycelium` is TAKEN (v0.4.9 by Greenbyte, Luigi workflow library, 2019). This project publishes as `mycelium-cli` on both PyPI and npm. `mycelium-cli` is confirmed available (HTTP 404 on both registries).
+
 ---
 
 ## **What is Mycelium?**
@@ -106,8 +109,8 @@ Mycelium is a simple CLI tool that lets you orchestrate AI agents, manage their 
 
 ```bash
 # Install via package manager
-npm install -g mycelium-cli
-pip install mycelium-cli
+npm install -g mycelium-cli-cli
+pip install mycelium-cli-cli
 cargo install mycelium-cli
 
 # Basic usage

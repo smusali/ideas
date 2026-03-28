@@ -2,6 +2,9 @@
 
 *A lightweight, open-source command-line tool that helps you analyze and understand your application logs through natural language queries and traditional analysis methods.*
 
+
+> **Package Rename Note:** The npm name `loglens` is TAKEN (v0.0.13 by spersico, browser log viewer). This project publishes as `loglens` on PyPI (confirmed available) and `loglens-cli` on npm (confirmed available, HTTP 404).
+
 ---
 
 ## **What is LogLens?**
@@ -88,7 +91,7 @@ LogLens is a simple CLI tool that lets you analyze log files, search for pattern
 
 ```bash
 # Install via npm
-npm install -g loglens-cli
+npm install -g loglens-cli-cli
 
 # Install via pip
 pip install loglens-cli

@@ -1,12 +1,16 @@
-# **Kairo** — *Simple AI Agent Orchestration API*
+# **Orchestiq** — *Simple AI Agent Orchestration API*
 
 *A lightweight API service that helps you orchestrate AI agents, manage their interactions, and create dynamic workflows with minimal effort.*
 
+
+> **Brand Rename Note:** The name `kairo` conflicts with 4+ active AI companies (`kairoai.ai`, `kairo.systems`, `kairoaisec.com`, `kairox.io`). Renamed to `orchestiq` - no active brand conflict found.
+> **Recommended Domain:** `orchestiq.io` (register also `orchestiq.ai` on GoDaddy).
+
 ---
 
-## **What is Kairo?**
+## **What is Orchestiq?**
 
-Kairo is a simple API service that helps you orchestrate AI agents, manage their interactions, and create dynamic workflows. Built for AI developers, ML engineers, and anyone who wants to build multi-agent systems without complex orchestration frameworks.
+Orchestiq is a simple API service that helps you orchestrate AI agents, manage their interactions, and create dynamic workflows. Built for AI developers, ML engineers, and anyone who wants to build multi-agent systems without complex orchestration frameworks.
 
 ---
 

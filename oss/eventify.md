@@ -1,12 +1,15 @@
-# **Zynqel — Local Event Discovery CLI**
+# **LocalVents — Local Event Discovery CLI**
 
 *"Find and discover local events from multiple sources with a simple command"*
+
+
+> **Package Rename Note:** The npm name `eventify` is TAKEN (v3.1.0 by Bermi Ferrer, TypeScript event emitter, actively maintained Feb 2026). This project publishes as `localvents` on both PyPI and npm. Both confirmed available (HTTP 404).
 
 ---
 
 ## Executive Summary
 
-**Zynqel** is an open-source CLI tool that aggregates and searches local events from multiple sources, providing personalized event recommendations based on location, interests, and preferences. It helps users discover nearby events, meetups, and activities through a simple command-line interface.
+**LocalVents** is an open-source CLI tool that aggregates and searches local events from multiple sources, providing personalized event recommendations based on location, interests, and preferences. It helps users discover nearby events, meetups, and activities through a simple command-line interface.
 
 The tool is designed to be built in 7 days by a single developer and published as a Python package on PyPI.
 
@@ -25,7 +28,7 @@ The tool is designed to be built in 7 days by a single developer and published a
 
 ## Solution Overview
 
-Zynqel is a simple CLI tool that:
+LocalVents is a simple CLI tool that:
 
 1. **Aggregates events** from multiple sources (Meetup, Eventbrite, local sites)
 2. **Filters and searches** events by location, date, category, and keywords
@@ -66,25 +69,25 @@ Zynqel is a simple CLI tool that:
 
 ```bash
 # Search for events in a city
-eventify search "San Francisco" --date "this weekend"
+localvents search "San Francisco" --date "this weekend"
 
 # Find specific type of events
-eventify search "tech meetups" --location "New York" --radius 10
+localvents search "tech meetups" --location "New York" --radius 10
 
 # Get events for today
-eventify today --location "Austin, TX"
+localvents today --location "Austin, TX"
 
 # Search with filters
-eventify search "music" --date "next week" --price "free" --category "entertainment"
+localvents search "music" --date "next week" --price "free" --category "entertainment"
 
 # Export to calendar
-eventify search "conference" --location "Seattle" --output calendar --file events.ics
+localvents search "conference" --location "Seattle" --output calendar --file events.ics
 
 # Get recommendations
-eventify recommend --location "Boston" --interests "tech,music,food"
+localvents recommend --location "Boston" --interests "tech,music,food"
 
 # Check specific venue
-eventify venue "The Fillmore" --location "San Francisco"
+localvents venue "The Fillmore" --location "San Francisco"
 ```
 
 ---
@@ -138,8 +141,8 @@ eventify venue "The Fillmore" --location "San Francisco"
 ## Project Structure
 
 ```
-eventify/
-├── zynqel/
+localvents/
+├── localvents/
 │   ├── __init__.py
 │   ├── cli.py
 │   ├── sources/
@@ -177,7 +180,7 @@ eventify/
 
 ## Configuration
 
-Users can configure Zynqel using a `config.yaml` file:
+Users can configure LocalVents using a `config.yaml` file:
 
 ```yaml
 # Default settings
@@ -216,7 +219,7 @@ categories:
 
 ## API Key Integration
 
-Zynqel supports API keys for enhanced functionality:
+LocalVents supports API keys for enhanced functionality:
 
 ```bash
 # Set API keys via environment variables
@@ -224,8 +227,8 @@ export MEETUP_API_KEY="your-meetup-api-key"
 export EVENTBRITE_API_KEY="your-eventbrite-api-key"
 
 # Or via config file
-eventify config set meetup_api_key "your-meetup-api-key"
-eventify config set eventbrite_api_key "your-eventbrite-api-key"
+localvents config set meetup_api_key "your-meetup-api-key"
+localvents config set eventbrite_api_key "your-eventbrite-api-key"
 ```
 
 ---
@@ -233,7 +236,7 @@ eventify config set eventbrite_api_key "your-eventbrite-api-key"
 ## Publishing Plan
 
 ### PyPI Package
-- Package name: `eventify-cli`
+- Package name: `localvents-cli`
 - Version: 1.0.0
 - Dependencies: click, requests, beautifulsoup4, pyyaml, tabulate
 - Python versions: 3.8+
@@ -292,4 +295,4 @@ MIT License - see LICENSE file for details
 
 ---
 
-**Zynqel** helps users discover local events and activities by aggregating data from multiple sources and providing powerful search and filtering capabilities through a simple command-line interface.
+**LocalVents** helps users discover local events and activities by aggregating data from multiple sources and providing powerful search and filtering capabilities through a simple command-line interface.

@@ -1,12 +1,16 @@
-# **Axon** — *Simple Dependency Management API*
+# **DepChain** — *Simple Dependency Management API*
 
 *A lightweight API service that helps you manage service dependencies, orchestrate deployments, and prevent deployment failures with minimal effort.*
 
+
+> **Brand Rename Note:** The name `axon` conflicts with Axon Enterprise (NASDAQ: AXON), a multi-billion dollar tech company that owns `axon.com`. Renamed to `depchain` - no active brand conflict found.
+> **Recommended Domain:** `depchain.io` (register also `depchain.ai` on GoDaddy).
+
 ---
 
-## **What is Axon?**
+## **What is DepChain?**
 
-Axon is a simple API service that helps you manage service dependencies, orchestrate deployments, and prevent deployment failures. Built for DevOps engineers, platform teams, and developers who want to ensure their microservices deploy in the correct order without complex orchestration tools.
+DepChain is a simple API service that helps you manage service dependencies, orchestrate deployments, and prevent deployment failures. Built for DevOps engineers, platform teams, and developers who want to ensure their microservices deploy in the correct order without complex orchestration tools.
 
 ---
 

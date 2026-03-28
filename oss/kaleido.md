@@ -1,10 +1,10 @@
-# **Kaleido: Open-Source Idea Validation CLI**
+# **IdeaProbe: Open-Source Idea Validation CLI**
 
 ## Vision & Mission
 
 **Vision:** A simple command-line tool that helps developers and creators validate their ideas through structured questioning and analysis.
 
-**Mission:** Kaleido is an open-source CLI tool that guides users through idea validation using a series of focused questions and generates actionable insights. It's designed to be lightweight, fast, and easily extensible.
+**Mission:** IdeaProbe is an open-source CLI tool that guides users through idea validation using a series of focused questions and generates actionable insights. It's designed to be lightweight, fast, and easily extensible.
 
 ## Core Problem
 
@@ -16,7 +16,7 @@ Developers and creators often have ideas but lack a systematic way to validate t
 
 ## Core Concept: The Validation Framework
 
-Kaleido uses a simple 5-step validation process:
+IdeaProbe uses a simple 5-step validation process:
 
 ### 1. Idea Definition
 - One-sentence description
@@ -69,16 +69,16 @@ Kaleido uses a simple 5-step validation process:
 
 ```bash
 # Initialize a new idea validation
-kaleido init my-idea
+ideaprobe init my-idea
 
 # Start validation process
-kaleido validate
+ideaprobe validate
 
 # Generate report
-kaleido report
+ideaprobe report
 
 # Export to markdown
-kaleido export --format markdown
+ideaprobe export --format markdown
 ```
 
 ## Configuration
@@ -87,15 +87,15 @@ Users can configure their own API keys for enhanced analysis:
 
 ```bash
 # Set API key for enhanced features
-kaleido config set api-key YOUR_API_KEY
+ideaprobe config set api-key YOUR_API_KEY
 
 # Configure analysis depth
-kaleido config set analysis-level basic|detailed
+ideaprobe config set analysis-level basic|detailed
 ```
 
 ## Output Format
 
-Kaleido generates structured reports including:
+IdeaProbe generates structured reports including:
 
 - Executive summary
 - Validation scores

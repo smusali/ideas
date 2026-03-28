@@ -1,12 +1,16 @@
-# **PromptBench** — *Simple Prompt Testing & Benchmarking Platform*
+# **PromptGrade** — *Simple Prompt Testing & Benchmarking Platform*
 
 *A lightweight web application that helps AI builders and prompt engineers test, compare, and benchmark prompts for language models with minimal effort.*
 
+
+> **Brand Rename Note:** The name `promptbench` conflicts with Microsoft Research's `github.com/microsoft/promptbench` (500+ stars). `promptlens.io` TAKEN, `getprompteval.com` TAKEN. Renamed to `promptgrade` - no active brand conflict found.
+> **Recommended Domain:** `promptgrade.io` (register also `promptgrade.ai` on GoDaddy).
+
 ---
 
-## **What is PromptBench?**
+## **What is PromptGrade?**
 
-PromptBench is a simple web application that lets you upload prompts, run tests across different AI models, and compare results side-by-side. Perfect for AI builders, researchers, and anyone who wants to optimize prompt performance without complex tools.
+PromptGrade is a simple web application that lets you upload prompts, run tests across different AI models, and compare results side-by-side. Perfect for AI builders, researchers, and anyone who wants to optimize prompt performance without complex tools.
 
 ---
 
