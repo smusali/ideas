@@ -1,230 +1,185 @@
-# **ModelMeter** — *Simple Model Benchmarking CLI*
+# ModelMeter
 
-*A lightweight, open-source command-line tool that helps you benchmark models, test performance, and compare results with minimal effort.*
+*AI/ML model benchmarking CLI: compare LLMs by cost, latency, and task-specific accuracy with zero infrastructure.*
 
----
-
-## **What is ModelMeter?**
-
-ModelMeter is a simple CLI tool that lets you benchmark models, test performance, and compare results directly from your terminal. Perfect for researchers, developers, and anyone who wants to evaluate model performance without complex benchmarking frameworks.
+> **PyPI:** `modelmeter` (confirmed available, HTTP 404)
+> **npm:** `modelmeter` (confirmed available, HTTP 404)
 
 ---
 
-## **Core Features (MVP - 7 Days)**
+## Problem Statement
 
-### **Day 1-2: Basic Setup**
-- CLI interface with command parsing
-- Model testing and benchmarking engine
-- Basic performance metrics
+- LLM observability is non-optional in production (A16Z 2026), yet no dominant CLI-native benchmarking tool exists
+- Web-hosted platforms (Langfuse, Helicone, Braintrust, Arize Phoenix) require hosting and bundle observability beyond evaluation
+- Engineers need to compare models by cost, latency, and task-specific accuracy before committing to a provider
+- No local tool runs multi-model A/B test suites against user-defined prompt test cases without a cloud subscription
 
-### **Day 3-4: Core Functionality**
-- Run model benchmarks and tests
-- Calculate performance metrics (accuracy, latency, cost)
-- Compare multiple models
-- Generate benchmark reports
-
-### **Day 5-6: Enhanced Features**
-- Export benchmark results to various formats
-- Basic performance visualization
-- Custom metric definitions
-- Test suite management
-
-### **Day 7: Polish & Deploy**
-- Package for npm/pip/cargo
-- Write comprehensive documentation
-- Create installation scripts
+ModelMeter fills the local-first, offline, zero-infrastructure benchmarking gap.
 
 ---
 
-## **Simple Data Model**
+## Core Features
 
-```json
-{
-  "models": [
-    {
-      "id": "uuid",
-      "name": "string",
-      "version": "string",
-      "type": "classification|regression|generation",
-      "parameters": "number",
-      "created_at": "datetime"
-    }
-  ],
-  "benchmarks": [
-    {
-      "id": "uuid",
-      "name": "string",
-      "description": "string",
-      "dataset": "string",
-      "metrics": ["string"],
-      "created_at": "datetime"
-    }
-  ],
-  "results": [
-    {
-      "id": "uuid",
-      "model_id": "uuid",
-      "benchmark_id": "uuid",
-      "accuracy": "number",
-      "latency": "number",
-      "cost": "number",
-      "timestamp": "datetime"
-    }
-  ],
-  "tests": [
-    {
-      "id": "uuid",
-      "name": "string",
-      "model_id": "uuid",
-      "input": "string",
-      "expected_output": "string",
-      "actual_output": "string",
-      "status": "pass|fail",
-      "created_at": "datetime"
-    }
-  ]
-}
+### Multi-Model Benchmarking
+- Run identical prompt test suites against OpenAI, Anthropic, Gemini, and Ollama in one command
+- Measures latency (p50/p95/p99), token usage, and inferred cost per run
+- Configurable concurrency for parallel provider calls
+
+### Accuracy Evaluation
+- User-defined test cases in YAML: input prompt, expected output or criteria
+- Evaluation modes: exact match, fuzzy match, and LLM-as-judge (uses a separate judge model to score quality)
+- Per-test-case pass/fail with detailed diff output
+
+### Results and Reporting
+- Rich comparison table: model, latency, cost, accuracy score side by side
+- Historical benchmark storage in SQLite for trend tracking over time
+- Export to JSON, CSV, and HTML report for sharing with team
+
+---
+
+## Interaction Sequence
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant M as modelmeter
+    participant A as Model APIs
+    U->>M: run suite
+    M->>A: invoke each model
+    A-->>M: outputs
+    M->>M: score and cost
+    M-->>U: report
 ```
 
 ---
 
-## **Installation & Usage**
+## CLI Commands
 
 ```bash
-# Install via npm
-npm install -g modelmeter-cli
+# Run a benchmark suite against multiple models
+modelmeter run my-tests.yml --models gpt-4o,claude-3-5-sonnet,ollama/llama3
 
-# Install via pip
-pip install modelmeter-cli
+# Compare two models head-to-head
+modelmeter compare gpt-4o claude-3-5-sonnet --suite my-tests.yml
 
-# Install via cargo
-cargo install modelmeter-cli
+# Show historical benchmark results
+modelmeter history --model gpt-4o --days 30
 
-# Basic usage
-modelmeter model add "GPT-3.5" --type generation --params 175B              # Add model
-modelmeter benchmark create "Text Generation" --dataset "test_data.csv"     # Create benchmark
-modelmeter run "GPT-3.5" "Text Generation"                                  # Run benchmark
-modelmeter compare "GPT-3.5" "GPT-4" --benchmark "Text Generation"         # Compare models
-modelmeter test "GPT-3.5" --input "Hello" --expected "Hi there"            # Run test
-modelmeter results "GPT-3.5" --benchmark "Text Generation"                 # Show results
-modelmeter export "Text Generation" --format csv                            # Export results
-modelmeter report "Text Generation" --output report.html                    # Generate report
-modelmeter metrics --model "GPT-3.5"                                        # Show metrics
+# Run latency-only benchmark (no accuracy)
+modelmeter latency --models gpt-4o,gpt-4o-mini --prompt "Hello, world" --runs 100
+
+# Export results
+modelmeter export --run-id run-uuid --format html --output report.html
+
+# List available provider configurations
+modelmeter providers list
 ```
 
 ---
 
-## **Configuration**
+## Configuration
 
-Create a config file at `~/.modelmeter/config.json`:
+```yaml
+# ~/.modelmeter/config.yml
+providers:
+  openai:
+    api_key: ${OPENAI_API_KEY}
+  anthropic:
+    api_key: ${ANTHROPIC_API_KEY}
+  ollama:
+    base_url: http://localhost:11434
+
+benchmark:
+  concurrency: 4
+  timeout_seconds: 30
+  judge_model: gpt-4o-mini    # for LLM-as-judge evaluation
+```
+
+---
+
+## 7-Day Build Plan
+
+| Day | Focus | Deliverable |
+|-----|-------|-------------|
+| 1 | Project scaffold | CLI entry point (Typer), SQLite schema for runs + results, config loader |
+| 2 | Provider adapters | OpenAI, Anthropic, Ollama async adapters; latency + token measurement |
+| 3 | YAML test suite runner | YAML test case format; prompt substitution; parallel execution |
+| 4 | Accuracy evaluation | Exact match, fuzzy match, LLM-as-judge scoring; per-test pass/fail |
+| 5 | Rich comparison table | Side-by-side model comparison; p50/p95 latency; cost per 1K tokens |
+| 6 | History + export | Historical trend for a model; HTML/JSON/CSV export; `history` command |
+| 7 | Packaging + publish | `pip install modelmeter`, `npm install -g modelmeter`, README, PyPI + npm release |
+
+---
+
+## Simple Data Model
 
 ```json
+// ~/.modelmeter/benchmarks.db  (SQLite)
 {
-  "data_path": "~/.modelmeter/data.json",
-  "default_metrics": ["accuracy", "latency", "cost"],
-  "export_format": "csv",
-  "auto_save": true,
-  "visualization_enabled": true,
-  "api_keys": {
-    "openai": "your-openai-key",
-    "anthropic": "your-anthropic-key"
+  "runs": {
+    "run-uuid": {
+      "suite": "my-tests.yml",
+      "models": ["gpt-4o", "claude-3-5-sonnet"],
+      "created_at": "2026-03-28T10:00:00Z"
+    }
+  },
+  "results": {
+    "result-uuid": {
+      "run_id": "run-uuid",
+      "model": "gpt-4o",
+      "test_case": "summarize-article",
+      "latency_ms": 1240,
+      "input_tokens": 450,
+      "output_tokens": 120,
+      "cost_usd": 0.0032,
+      "accuracy_score": 0.92,
+      "status": "pass"
+    }
   }
 }
 ```
 
 ---
 
-## **Why Open Source?**
+## Installation
 
-- **Transparency**: See exactly how model benchmarking works
-- **Customization**: Modify to fit your specific model testing needs
-- **Learning**: Great project for developers to learn CLI development
-- **Community**: Others can contribute features they want
-- **Standards**: Establish common benchmarking practices
+```bash
+# PyPI (Python CLI)
+pip install modelmeter
 
----
-
-## **Easy Publishing Plan (7 Days)**
-
-### **Day 1-3: Build & Test**
-- Build the core CLI tool
-- Test all features thoroughly
-- Create comprehensive documentation
-
-### **Day 4: Prepare Launch**
-- Create GitHub repository with clear README
-- Write installation instructions
-- Prepare demo video (2-3 minutes)
-
-### **Day 5: Package & Publish**
-- Package for npm, pip, and cargo
-- Publish to package registries
-- Create GitHub releases
-
-### **Day 6: Community Launch**
-- Post on Reddit r/opensource, r/MachineLearning
-- Share on Twitter/X with #opensource #ml #benchmarking
-- Submit to Hacker News
-
-### **Day 7: Community Engagement**
-- Respond to all comments and feedback
-- Create GitHub issues for feature requests
-- Engage with contributors
+# npm (global binary)
+npm install -g modelmeter
+```
 
 ---
 
-## **Marketing Strategy**
+## Stack
 
-### **Target Audience**
-- Machine learning researchers
-- AI developers
-- Data scientists
-- Open source contributors
-
-### **Key Messages**
-- "Benchmark models from the terminal"
-- "Simple model testing without complexity"
-- "Built by researchers, for researchers"
-
-### **Distribution Channels**
-- GitHub (primary)
-- npm, pip, cargo registries
-- Reddit communities
-- Twitter/X ML community
-- Hacker News
-- ML research forums
+- **Language:** Python 3.11+
+- **CLI framework:** Typer + Rich (benchmark comparison table)
+- **LLM providers:** openai, anthropic, `google-generativeai`, ollama SDK clients
+- **Async execution:** `asyncio` + `httpx` for concurrent provider calls
+- **Storage:** SQLite via stdlib `sqlite3`
+- **Export:** `jinja2` for HTML report; stdlib `json` and `csv`
+- **Packaging:** hatch for PyPI; package.json wrapper for npm binary
 
 ---
 
-## **Success Metrics**
+## Market Positioning
 
-- **Downloads**: 2000+ in first week
-- **GitHub Stars**: 300+ in first week
-- **Forks**: 40+ active forks
-- **Issues**: 20+ feature requests
-- **Contributors**: 10+ community contributors
-
----
-
-## **Future Enhancements**
-
-- Web dashboard for visual benchmarking
-- Advanced performance analytics
-- Distributed benchmarking
-- Custom metric frameworks
-- Integration with model APIs
-- Mobile app companion
+- **Target users:** AI/ML engineers selecting models for production, researchers evaluating model quality, engineering teams running pre-deployment model regression tests
+- **YC/A16Z alignment:** A16Z 2026: LLM observability is non-optional in production; YC W26: AI dev tools evaluation tooling is top batch theme
+- **Key differentiator:** The only CLI-native model benchmarking tool that compares across providers by cost, latency, and accuracy with zero infrastructure required
+- **Closest competitors:**
+  - Langfuse: full web-hosted observability platform; not a local CLI benchmark runner
+  - Braintrust: web SaaS; requires signup; not CLI-native
+  - `lm-evaluation-harness`: academic-focused; complex setup; no cost tracking; no local-first mode
 
 ---
 
-## **Getting Started**
+## Success Metrics (6 months)
 
-1. Install the CLI tool
-2. Configure your model testing preferences
-3. Add your first model
-4. Run your first benchmark
-5. Contribute to the project
-
----
-
-*Built with ❤️ for the machine learning community*
+- PyPI downloads: target 5,000/month
+- GitHub stars: target 500-1,500
+- Active contributors: target 15+
+- LLM providers at launch: OpenAI, Anthropic, Ollama, Gemini; Mistral by month 3

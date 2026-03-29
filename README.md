@@ -1,174 +1,109 @@
 # Ideas
 
-A collection of open-source project ideas, MicroSaaS concepts, and Agentic SaaS conversion paths - all designed to be achievable by a single developer within a week for OSS and MicroSaaS projects, with clear autonomous agent upgrade paths.
+Markdown-first **Product Specs** for **13 OSS Tools**, **13 MicroSaaS APIs/Products**, and **13 Autonomous Agent Builds** (39 idea files), plus per-folder `template.md` scaffolds. OSS and MicroSaaS specs assume a **~7-Day MVP** for a solo builder; agent specs describe **event-driven**, **Human-in-the-Loop** automation layered on APIs where applicable.
 
-## Slack Workspaces
-- [Arize AI Community](https://arize-ai.slack.com): Community for Arize AI ML observability platform users and contributors
-- [Cloud Native Computing Foundation](https://cloud-native.slack.com): Open source foundation for cloud-native computing technologies and projects
-- [dltHub community](https://dlthub-community.slack.com): Community for data load tool (dlt) users and contributors
-- [Docker Community](https://dockercommunity.slack.com): Community for Docker containerization platform users and developers
-- [Firebase Community](https://firebase-community.slack.com): Community for Firebase mobile and web development platform
-- [FortyOne Technologies](https://fortyonetechnologies.slack.com): Internal workspace for FortyOne Technologies team collaboration
-- [Grafana Labs Community](https://grafana.slack.com): Community for Grafana monitoring and observability platform users
-- [Kubernetes](https://kubernetes.slack.com): Official community for Kubernetes container orchestration platform
-- [MindtheProduct](https://mindtheproduct.slack.com): Product management community for product managers and product teams
-- [Neurox Customers](https://neuroxhelp.slack.com): Customer support and community for Neurox AI platform users
-- [SweetOps](https://sweetops.slack.com): DevOps and infrastructure automation community
-- [TUM.ai Public](https://tumaipublic.slack.com): Public community for Technical University of Munich AI initiatives and projects
-
-## Discord Workspaces
-- [DigitalOcean Community](https://discord.gg/digitalocean): Community for DigitalOcean cloud platform users and developers
-- [Evidently AI Community](https://discord.gg/evidently): Community for Evidently AI ML monitoring and observability platform
-- [Google Cloud Community (Unofficial)](https://discord.gg/googlecloud): Unofficial community for Google Cloud Platform users and developers
-- [homelab.](https://discord.gg/homelab): Community for home lab enthusiasts and self-hosted infrastructure
-- [Jobright.ai](https://discord.gg/jobright): AI-powered job search and career development community
-- [lablab.ai](https://discord.gg/lablab): AI hackathon and innovation community for developers and creators
-- [Python](https://discord.gg/python): Official Python programming language community
-- [REFACTOR Community](https://discord.gg/refactor): Community for AI development and machine learning projects
+| Doc | Role |
+|-----|------|
+| [`REPORT.md`](./REPORT.md) | Feasibility analysis, registry/domain notes, tabular comparisons, conversion narratives |
+| [`LICENSE`](./LICENSE) | Repository license |
+| [`oss/README.md`](./oss/README.md) | OSS conventions, full catalog, compound paths |
+| [`microsaas/README.md`](./microsaas/README.md) | MicroSaaS domains, OSS/agent mapping, launch checklist |
+| [`agents/README.md`](./agents/README.md) | Agent triggers, coverage matrix, `applynt` / `microtutor` notes |
 
 ## Open-Source Project Ideas
 
+**Folder Guide:** [`oss/README.md`](./oss/README.md) (conventions, catalog, compound paths, spec anatomy).
+
 | Project | Description | Keywords |
 |---------|-------------|----------|
-| [`artisantext`](./oss/artisantext.md) | CLI tool for creating text-based artwork, ASCII art, and visual content with multiple font styles and export formats | text-art, ascii, creativity, cli |
-| [`authify`](./oss/authify.md) | Simple CLI tool for managing user authentication, sessions, and security policies with minimal effort | authentication, users, permissions, security, cli |
-| [`benchwise`](./oss/benchwise.md) | Data analysis and benchmarking CLI tool for statistical analysis, performance measurement, and comprehensive reporting | data-analysis, benchmarking, analytics, cli |
-| [`campushub`](./oss/campushub.md) | Campus information management CLI that organizes events, tracks resources, manages announcements, and handles bookings | education, campus, information, management |
-| [`chartcraft`](./oss/chartcraft.md) | Command-line data visualization tool that analyzes CSV files, creates charts, and generates insights with terminal and image export | data-analysis, visualization, charts, cli |
-| [`chatco`](./oss/chatco.md) | Simple CLI tool for managing AI chat sessions, testing models, and building chat applications from the terminal | ai, chat, cli, conversations, developer-tools |
-| [`climatescope`](./oss/climatescope.md) | Climate data analysis CLI that processes environmental datasets, tracks trends, and generates climate reports with visualization | climate, data-analysis, environmental, research |
-| [`confcheck`](./oss/confcheck.md) | CLI tool for linting, formatting, and simulating infrastructure configurations with optional LLM-powered diagnostics | config-validation, infrastructure, linting, cli, devops |
-| [`coursegrid`](./oss/coursegrid.md) | Course management CLI for tracking academic progress, managing assignments, and planning educational journeys | education, course-management, content, academic |
-| [`docsight`](./oss/docsight.md) | Document analysis CLI that extracts text, generates summaries, and analyzes content from PDF, TXT, and DOCX files | document-analysis, insights, text-processing, cli |
-| [`edutrackly`](./oss/edutrackly.md) | Simple CLI tool for tracking student progress, assignments, and learning goals for educators and students | education, student-tracking, progress, cli |
-| [`eventify`](./oss/eventify.md) | CLI tool that aggregates and searches local events from multiple sources (published as `localvents`) | events, discovery, aggregation, cli |
-| [`feedloop`](./oss/feedloop.md) | CLI tool for collecting, organizing, and analyzing user feedback with sentiment analysis and trend reporting | feedback, surveys, user-research, insights, analysis |
-| [`finstatecli`](./oss/finstatecli.md) | CLI tool that transforms financial statements into structured data and insights using local processing with optional AI assistance | financial, statements, data-extraction, analytics, cli |
-| [`gitco`](./oss/gitco/idea.md) | AI-powered OSS fork management CLI (published as `forkco`) | oss, fork-management, ai, contribution-discovery, cli |
-| [`hirereview`](./oss/hirereview.md) | Interview feedback generator CLI that creates structured feedback from transcripts with strengths and improvement suggestions | interviews, feedback, hr, recruitment |
-| [`jobtrail`](./oss/jobtrail.md) | Job application tracking CLI that manages applications, tracks status, and provides statistics for job search organization | job-search, applications, tracking, careers |
-| [`kaleido`](./oss/kaleido.md) | Open-source CLI tool for idea validation using structured questioning (published as `ideaprobe`) | idea-validation, business-planning, cli, analysis |
-| [`lessonmint`](./oss/lessonmint.md) | CLI lesson planning tool for teachers to create, organize, and manage lesson plans with templates and schedule management | education, lesson-planning, teachers, cli |
-| [`loglens`](./oss/loglens.md) | Log analysis CLI with natural language queries (published as `loglens` on PyPI, `loglens-cli` on npm) | log-analysis, conversational, debugging, monitoring |
-| [`menumint`](./oss/menumint.md) | Restaurant menu management CLI that creates menus, manages categories and items, exports to multiple formats, and tracks basic analytics | restaurants, menu-management, food-service, hospitality |
-| [`modelmeter`](./oss/modelmeter.md) | Model benchmarking CLI that tests AI/ML models, compares performance metrics, and generates detailed benchmark reports | ai, ml, benchmarking, model-comparison |
-| [`moodify`](./oss/moodify.md) | Simple CLI tool for tracking your daily mood, mental health symptoms, and wellness activities with privacy and simplicity | mental-health, wellness, tracking, mood, cli |
-| [`mycelium`](./oss/mycelium.md) | Simple CLI tool for AI agent orchestration, workflow management, and agent interactions (published as `mycelium-cli`) | ai, orchestration, agents, cli |
-| [`nomadr`](./oss/nomadr.md) | Open-source CLI/SDK that connects mobile individuals with local businesses offering day passes, micro-memberships, and flexible access | nomad-services, local-business, cli, sdk |
-| [`openpulse`](./oss/openpulse.md) | OSS project health and funding CLI that tracks project metrics, contributor activity, and manages funding pledges | project-health, funding, analytics, open-source |
-| [`paperstack`](./oss/paperstack.md) | Research paper management CLI that organizes papers, manages citations, generates bibliographies, and tracks academic references | research, papers, citations, academic, bibliography |
-| [`plotweave`](./oss/plotweave.md) | CLI tool that generates structured story outlines and blueprints from simple text inputs for writers and authors | story-outline, writing, cli, blueprint |
-| [`promptco`](./oss/promptco.md) | LLM cost tracker CLI that monitors API usage, enforces usage policies, and tracks expenses with real-time alerts and webhooks | llm, cost-tracking, api-management, policy-enforcement |
-| [`questify`](./oss/questify.md) | CLI tool that generates personalized interview questions and practice sessions based on company and job info | interview-prep, questions, practice, cli |
-| [`rekursia`](./oss/rekursia.md) | Database learning CLI that provides interactive tutorials, transaction examples, and guided lessons for database education | education, databases, interactive, learning |
-| [`researchnest`](./oss/researchnest.md) | Research data management CLI that tracks experiments, organizes datasets, and manages citations for academic research | research, data-management, academic, organization |
-| [`rewardly`](./oss/rewardly.md) | Customer loyalty CLI that manages loyalty programs, tracks purchases, and analyzes customer engagement with reward systems | loyalty, rewards, customers, business |
-| [`schemaguard`](./oss/schemaguard.md) | API schema validation CLI (published as `specguard`) | api, validation, testing, cli, developer-tools |
-| [`sentimently`](./oss/sentimently.md) | Feedback analysis CLI that processes user feedback, tracks sentiment trends, and generates actionable insights | feedback, analysis, user-research, insights |
-| [`socialsync`](./oss/socialsync.md) | CLI tool for unified social media connection management, cross-platform analysis, and activity monitoring with LLM-powered insights | social-media, cli, connections, analysis, automation |
-| [`sparkathon`](./oss/sparkathon.md) | Open-source CLI tool that streamlines hackathon organization through automated planning, participant management, and event coordination | hackathon, event-management, cli, organization |
-| [`syspulse`](./oss/syspulse.md) | System monitoring CLI that tracks CPU, memory, disk, and network metrics with alerts and performance visualization | monitoring, servers, performance, workflows, infrastructure |
-| [`terrametric`](./oss/terrametric.md) | Open-source CLI tool that provides quick environmental impact calculations for various transportation modes | environmental-impact, transportation, cli, sustainability |
-| [`timetally`](./oss/timetally.md) | Lightweight CLI tool for time tracking, schedule management, and productivity analytics with terminal-based interface | time-tracking, productivity, scheduling, cli |
-| [`triptide`](./oss/triptide.md) | Simple CLI tool for trip planning, itinerary management, expense tracking, and travel checklists with 7-day build plan | travel, planning, itineraries, trip-management, cli |
+| [`chatco`](./oss/chatco.md) | Terminal LLM chat: sessions, model testing, prompt workflows | ai, chat, cli, conversations, developer-tools |
+| [`checkOwners`](./oss/checkOwners.md) | CLI + GitHub Action: infer `CODEOWNERS` from git history, drift detection, CI-native outputs, structured reports | codeowners, git-history, github-actions, ownership-inference, cli |
+| [`clusterkit`](./oss/clusterkit.md) | Node.js cluster library: SIGHUP rolling restarts, singleton workers, crash backoff, systemd `sd_notify` | nodejs, cluster, pm2-migration, systemd, zero-downtime |
+| [`confcheck`](./oss/confcheck.md) | Lint, format, simulate infra configs; optional LLM diagnostics | config-validation, infrastructure, linting, cli, devops |
+| [`docsight`](./oss/docsight.md) | Document analysis CLI for PDF, TXT, DOCX: extract, summarize, analyze | document-analysis, insights, text-processing, cli |
+| [`finstatecli`](./oss/finstatecli.md) | Financial statements → structured data; local processing, optional AI | financial, statements, data-extraction, analytics, cli |
+| [`forkco`](./oss/forkco.md) | OSS fork management: sync, upstream AI summaries, contribution discovery | oss, fork-management, ai, contribution-discovery, cli |
+| [`loglens`](./oss/loglens.md) | Log parsing, patterns, optional natural-language queries | log-analysis, nlq, debugging, monitoring, devops |
+| [`modelmeter`](./oss/modelmeter.md) | Model benchmarking CLI: runs, metrics, comparison reports | ai, ml, benchmarking, model-comparison |
+| [`mycelium`](./oss/mycelium.md) | Terminal-first multi-agent orchestration: register, route, run workflows | ai, orchestration, agents, multi-agent, workflow |
+| [`openpulse`](./oss/openpulse.md) | OSS health, contributors, funding pledges | project-health, funding, analytics, open-source |
+| [`promptco`](./oss/promptco.md) | LLM cost tracking, policies, alerts, webhooks (local-first) | llm, cost-tracking, api-management, policy-enforcement |
+| [`specguard`](./oss/specguard.md) | OpenAPI/Swagger validation, diffs, CI integration | api, validation, testing, cli, developer-tools |
 
 ## MicroSaaS Project Ideas
 
+**Folder Guide:** [`microsaas/README.md`](./microsaas/README.md) (domains, catalog, OSS/agent mapping, operational checklist).
+
+Thirteen MicroSaaS specs: revenue tiers, API sketches, domains, and 7-day launch plans. **Twelve** have a matching file under `agents/`; [`microtutor`](./microsaas/microtutor.md) is MicroSaaS-only here until an agent spec is added.
+
 | Project | Description | Keywords |
 |---------|-------------|----------|
-| [`alertify`](./microsaas/alertify.md) | Smart notification system (renamed to `notifyflow`) | notifications, monitoring, alerts, automation |
-| [`applytrack`](./microsaas/applytrack.md) | Simple job application tracker that helps job seekers track applications, follow-ups, and interviews | job-search, applications, tracking, careers |
-| [`axon`](./microsaas/axon.md) | Dependency management API (renamed to `depchain`) | dependencies, deployment, orchestration, api |
-| [`authentiscan`](./microsaas/authentiscan.md) | Simple AI content detector that helps detect AI-generated text and images with minimal effort | ai-detection, content-verification, authenticity |
-| [`cardra`](./microsaas/cardra.md) | Credit card statement insights API (renamed to `stmtparse`) | credit-cards, api, fintech, spend-analysis, subscriptions |
-| [`configguard`](./microsaas/configguard.md) | Simple API for instant YAML/JSON config validation, error explanation, and best practice checks | config-validation, api, developer-tools, linting |
-| [`consentguard`](./microsaas/consentguard.md) | Simple user authentication and consent manager that helps teams manage login, sessions, and privacy with minimal effort | authentication, consent, privacy, user-management |
-| [`coursematch`](./microsaas/coursematch.md) | Simple course recommendation app that helps students discover, compare, and plan academic courses | education, course-recommendation, planning, students |
-| [`coursecraft`](./microsaas/coursecraft.md) | Simple learning management system that helps you create, organize, and deliver online courses with minimal effort | education, lms, online-courses, e-learning |
-| [`dataflow`](./microsaas/dataflow.md) | CSV cleaner and analyzer (renamed to `csvflow`) | csv, data-cleaning, analysis, data-processing |
-| [`dataforge`](./microsaas/dataforge.md) | Simple data validation and API generator that lets you create, validate, and deploy APIs from data models with minimal effort | api-generation, data-validation, backend, developer-tools |
-| [`dayscribe`](./microsaas/dayscribe.md) | Simple daily journaling app that helps you journal daily and get AI-powered insights for personal growth and reflection | journaling, ai-insights, personal-growth, reflection |
-| [`dealgroup`](./microsaas/dealgroup.md) | Simple group-buying deals platform that helps clubs and small retailers organize and manage group deals and exclusive offers | group-buying, deals, clubs, retail |
-| [`discovent`](./microsaas/discovent.md) | Smart event discovery web app that helps people find local events using natural language search and intelligent filtering | events, discovery, local, search, recommendations |
-| [`doctravel`](./microsaas/doctravel.md) | Simple travel document organizer that helps you manage travel documents, itineraries, and bookings in one place | travel, document-management, organization, trips |
-| [`docmint`](./microsaas/docmint.md) | Simple document generator that helps you create worksheets, forms, and structured documents in minutes | document-generation, forms, worksheets, productivity |
-| [`feedbackflow`](./microsaas/feedbackflow.md) | Simple feedback collection and analysis tool that helps you collect, analyze, and act on customer feedback | feedback, analysis, customer-insights, business |
-| [`inboxflow`](./microsaas/inboxflow.md) | Simple email management tool that helps you organize, prioritize, and respond to emails efficiently | email, productivity, organization, communication |
-| [`insightify`](./microsaas/insightify.md) | Simple data insight generator that helps you extract trends, patterns, and actionable insights from logs and feedback | text-analysis, insights, logs, feedback, data-mining |
-| [`kairo`](./microsaas/kairo.md) | AI agent orchestration API (renamed to `orchestiq`) | ai, orchestration, agents, api |
-| [`lethack`](./microsaas/lethack.md) | API-only MicroSaaS that provides endpoints for organizing, managing, and analyzing hackathons | api, hackathon, event-management, developer-tools |
-| [`mailmint`](./microsaas/mailmint.md) | Simple email marketing automation that helps you create, send, and automate email campaigns with minimal effort | email-marketing, automation, small-business, campaigns |
-| [`mailpilot`](./microsaas/mailpilot.md) | AI email assistant (renamed to `mailcraft`) | email, ai-assistant, productivity, communication |
-| [`menugenie`](./microsaas/menugenie.md) | Simple menu digitization tool that helps restaurants create digital menus and QR codes for instant customer access | menu-digitization, qr-codes, restaurants, digital-transformation |
-| [`moodnest`](./microsaas/moodnest.md) | Simple mental health tracker that helps you monitor your mood, habits, and wellness patterns | mental-health, wellness, tracking, mood |
-| [`nomadnav`](./microsaas/nomadnav.md) | API-only MicroSaaS that provides endpoints for searching, booking, and paying for short-term access to local businesses | api, nomad-services, local-business, booking |
-| [`onboardhq`](./microsaas/onboardhq.md) | Contributor onboarding API (renamed to `contributehq`) | onboarding, open-source, api, developer-tools |
-| [`otterahealth`](./microsaas/otterahealth.md) | Simple healthcare data manager that helps providers and patients organize health records, track symptoms, and share information securely | healthcare, data-management, patient-records |
-| [`postforge`](./microsaas/postforge.md) | Simple AI social media content generator that helps you create engaging posts for any platform with minimal effort | social-media, content-generation, ai, marketing |
-| [`prepwise`](./microsaas/prepwise.md) | Web app for job seekers to generate personalized interview prep kits and practice sessions from company and job info | interview-prep, job-search, practice, web-app |
-| [`promptbench`](./microsaas/promptbench.md) | Prompt testing and benchmarking platform (renamed to `promptgrade`) | prompt-testing, ai, benchmarking, language-models |
-| [`redactguard`](./microsaas/redactguard.md) | Simple data redaction API that helps developers remove sensitive data from text before sending to AI models or databases | data-redaction, privacy, api, compliance |
-| [`replycheck`](./microsaas/replycheck.md) | Simple AI response quality tester that lets you instantly assess and improve AI-generated responses with actionable feedback | ai-testing, quality-assessment, content-evaluation |
-| [`rewardnest`](./microsaas/rewardnest.md) | Simple loyalty rewards platform that helps small businesses create and manage customer loyalty programs | loyalty, rewards, small-business, customer-engagement |
-| [`sharesnap`](./microsaas/sharesnap.md) | Simple file sharing app that lets you share files with auto-expiring links for secure, temporary access | file-sharing, security, expiration, collaboration |
-| [`socialbridge`](./microsaas/socialbridge.md) | API for unified social media management, cross-platform connection analysis, and automated activity monitoring for developers and marketers | social-media, api, automation, analytics, connections |
-| [`storyforge`](./microsaas/storyforge.md) | Simple web app that turns public domain stories into illustrated comics or novels in any language, ready to publish in minutes | story-adaptation, comics, novels, public-domain, web-app |
-| [`taskflow`](./microsaas/taskflow.md) | Task automation platform (renamed to `workflowmint`) | automation, workflows, productivity, business-processes |
-| [`teamloop`](./microsaas/teamloop.md) | Simple team chat application that helps teams communicate and collaborate with minimal effort | team-chat, collaboration, messaging, productivity |
-| [`trippilot`](./microsaas/trippilot.md) | Simple web app for trip planning, itinerary creation, travel document management, and trip sharing with freemium model | travel, planning, itineraries, trip-management, web-app |
-| [`weatherwise`](./microsaas/weatherwise.md) | Simple web app for weather summaries, photo annotations, and weather insights with freemium model and API integration | weather, context, events, photos, social-media, insights, web-app |
+| [`configguard`](./microsaas/configguard.md) | API for instant YAML/JSON config validation, error explanation, and best practice checks | config-validation, api, developer-tools, linting |
+| [`contributehq`](./microsaas/contributehq.md) | Contributor onboarding API for OSS projects via GitHub URL intake with skill matching and starter task assignment | onboarding, open-source, api, developer-tools, oss |
+| [`depchain`](./microsaas/depchain.md) | Dependency management and SBOM/CVE supply chain security API for microservices and monorepos | dependencies, deployment, devops, sbom, cve, api |
+| [`feedbackflow`](./microsaas/feedbackflow.md) | Feedback collection and analysis tool for SMBs with VoC reporting and agentic triage path | feedback, analysis, customer-insights, voc, business |
+| [`fundos`](./microsaas/fundos.md) | VC deal intake and pitch deck scoring API for emerging managers and solo GPs | vc, deal-flow, fintech, api, pitch-deck |
+| [`insightify`](./microsaas/insightify.md) | Data insight generator that extracts trends and actionable signals from logs, feedback, and survey text | text-analysis, insights, logs, feedback, data-mining |
+| [`mailcraft`](./microsaas/mailcraft.md) | AI email assistant for cold outreach drafting, follow-up scheduling, and inbox zero automation | email, ai-assistant, productivity, communication, outreach |
+| [`microtutor`](./microsaas/microtutor.md) | Tutor administrative API for AI-generated exercises, session note summarization, and lesson plan management | edtech, tutoring, api, ai, lesson-planning |
+| [`orchestiq`](./microsaas/orchestiq.md) | AI agent orchestration API for multi-agent workflows and autonomous task routing | ai, orchestration, agents, api, workflow |
+| [`postforge`](./microsaas/postforge.md) | AI social media content generator for creators and SMBs with brand calendar and multi-platform support | social-media, content-generation, ai, marketing |
+| [`promptgrade`](./microsaas/promptgrade.md) | Prompt testing and benchmarking platform with side-by-side comparison and LLM observability | prompt-testing, ai, benchmarking, language-models, llm |
+| [`redactguard`](./microsaas/redactguard.md) | PII redaction API that removes sensitive data from text before sending to AI models or external services | data-redaction, privacy, api, compliance, pii |
+| [`stmtparse`](./microsaas/stmtparse.md) | Credit card statement insights and subscription detection API for fintech builders | credit-cards, api, fintech, spend-analysis, subscriptions |
 
 ## Agentic SaaS Projects
 
-11 MicroSaaS ideas with direct autonomous agent conversion paths, aligned with the $30B orchestration market by 2027.
+**Folder Guide:** [`agents/README.md`](./agents/README.md) (triggers, Human-in-the-Loop patterns, coverage matrix, `applynt` vs MicroSaaS note).
 
-| Agent | Description | Domain | Tier |
-|-------|-------------|--------|------|
-| [`orchestiq`](./agents/orchestiq.md) | Autonomous AI agent lifecycle management platform | `orchestiq.io` | Tier 1 |
-| [`redactguard`](./agents/redactguard.md) | Transparent PII redaction proxy for every AI API call | `redactguard.io` | Tier 1 |
-| [`configguard`](./agents/configguard.md) | Autonomous CI/CD config guardrail agent | `configguard.io` | Tier 1 |
-| [`feedbackflow`](./agents/feedbackflow.md) | Autonomous voice-of-customer agent | `feedbackflow.io` | Tier 1 |
-| [`insightify`](./agents/insightify.md) | Autonomous data analyst agent | `insightify.io` | Tier 2 |
-| [`promptgrade`](./agents/promptgrade.md) | Autonomous prompt optimization agent | `promptgrade.io` | Tier 2 |
-| [`mailcraft`](./agents/mailcraft.md) | Autonomous inbox zero agent | `mailcraft.io` | Tier 2 |
-| [`postforge`](./agents/postforge.md) | Autonomous brand content agent | `postforge.io` | Tier 2 |
-| [`stmtparse`](./agents/stmtparse.md) | Autonomous financial monitoring agent | `stmtparse.io` | Tier 3 |
-| [`depchain`](./agents/depchain.md) | Autonomous deployment orchestration agent | `depchain.io` | Tier 3 |
-| [`contributehq`](./agents/contributehq.md) | Autonomous OSS contributor onboarding agent | `contributehq.io` | Tier 3 |
+Thirteen autonomous agent specs (event-driven, durable where noted). **[`applynt`](./agents/applynt.md)** is specified only under `agents/` (no `microsaas/applynt.md` in this repo). See [`REPORT.md`](./REPORT.md) Section 8 for narrative detail.
+
+| Agent | Description | Domain |
+|-------|-------------|--------|
+| [`applynt`](./agents/applynt.md) | Temporal-backed CandidateOps agent with alias inbox, durable workflows, and approval-gated follow-ups | `applynt.io` |
+| [`configguard`](./agents/configguard.md) | Autonomous CI/CD config guardrail agent | `configguard.io` |
+| [`contributehq`](./agents/contributehq.md) | Autonomous OSS contributor onboarding agent | `contributehq.io` |
+| [`depchain`](./agents/depchain.md) | Autonomous deployment orchestration agent | `depchain.io` |
+| [`feedbackflow`](./agents/feedbackflow.md) | Autonomous voice-of-customer agent | `feedbackflow.io` |
+| [`fundos`](./agents/fundos.md) | Multi-squad VC deal flow agent (Radar, Gatekeeper, Dossier, IC memo, portfolio) | `fundos.io` |
+| [`insightify`](./agents/insightify.md) | Autonomous data analyst agent | `insightify.io` |
+| [`mailcraft`](./agents/mailcraft.md) | Autonomous inbox automation agent | `mailcraft.io` |
+| [`orchestiq`](./agents/orchestiq.md) | Autonomous workflow and sub-agent orchestration | `orchestiq.io` |
+| [`postforge`](./agents/postforge.md) | Autonomous brand content agent | `postforge.io` |
+| [`promptgrade`](./agents/promptgrade.md) | Autonomous prompt regression and benchmarking agent | `promptgrade.io` |
+| [`redactguard`](./agents/redactguard.md) | Transparent PII redaction proxy for AI and vendor calls | `redactguard.io` |
+| [`stmtparse`](./agents/stmtparse.md) | Autonomous financial monitoring agent | `stmtparse.io` |
 
 ## Project Philosophy
 
-All projects in this repository are designed with the following principles:
-
-- **Week-long development** - Each OSS and MicroSaaS project can be completed by a single developer in about a week
-- **Simple and focused** - Clear problem statements with straightforward solutions
-- **Open source first** - All OSS projects are designed for community contribution
-- **Revenue potential** - MicroSaaS projects have clear monetization strategies
-- **No tech stack lock-in** - Projects focus on functionality rather than specific technologies
-- **CLI-first approach** - OSS projects are command-line tools for maximum simplicity
-- **Clear MVP scope** - Each project has a well-defined minimum viable product
-- **Easy publishing** - Simple distribution and marketing strategies included
-- **Agentic upgrade path** - 11 MicroSaaS projects have documented autonomous agent conversion paths
+- **Spec-First:** Markdown files are the source of truth before code; copy the relevant `template.md` when adding ideas.
+- **Week-Long OSS/MicroSaaS MVPs:** Each OSS and MicroSaaS spec includes a phased ~7-day plan sized for a solo builder.
+- **Simple and Focused:** One primary job per product; competitors and gaps are named explicitly.
+- **CLI-First OSS:** OSS entries are terminal- or library-first for fast adoption.
+- **Revenue-Ready MicroSaaS:** Pricing tables, usage limits, and GTM notes are part of the spec.
+- **Agents as a Layer:** Agent specs add triggers, persistence, and human gates; they assume or reference APIs from `microsaas/` where those files exist.
+- **No Mandatory Stack:** Implementation sections suggest stacks but are swappable.
 
 ## Project Status
 
 ### Completed Revisions
-- **All 41 OSS projects** - Revised into simple CLI tools with 7-day build plans; all name collisions resolved
-- **All 41 MicroSaaS projects** - Revised into week-long projects with clear revenue models; all brand collisions resolved with GoDaddy domain picks
-- **11 Agentic SaaS projects** - Full feasibility analysis and individual agent spec files in `agents/`
-- **Comprehensive REPORT.md** - Deep feasibility analysis, tabular comparisons, collision checks, and agentic conversion pathways
+- **`oss/`:** Thirteen tool specs + [`oss/template.md`](./oss/template.md); registry names per project; [`oss/README.md`](./oss/README.md) catalog.
+- **`microsaas/`:** Thirteen API/product specs + [`microsaas/template.md`](./microsaas/template.md); domains and endpoints; [`microsaas/README.md`](./microsaas/README.md).
+- **`agents/`:** Thirteen agent specs + [`agents/template.md`](./agents/template.md); [`agents/README.md`](./agents/README.md) coverage matrix (`applynt`, `microtutor`).
+- **[`REPORT.md`](./REPORT.md):** Feasibility analysis, tables, registry/domain checks, OSS→MicroSaaS→agent narrative (appendices at end of file).
 
 ### Ready for Implementation
-All projects are now ready for immediate implementation with:
-- Clear 7-day development roadmaps
-- Simple data models and architectures
-- Easy publishing and marketing plans
-- Realistic success metrics and timelines
+Each spec is intended to be actionable on its own: 7-day tables, minimal data models, install/publish notes, and success metrics. **Registry Verification** (especially npm for `clusterkit`) and **Live Domain Purchase** remain your pre-flight steps; see [`REPORT.md`](./REPORT.md) Sections 3 and 7.
 
-## OSS-MicroSaaS Relationships
+## OSS → MicroSaaS → Agent Pipelines
 
-For a comprehensive analysis of how OSS projects can be used to build MicroSaaS applications, see **[OSS-MICROSAAS-RELATIONSHIPS.md](./OSS-MICROSAAS-RELATIONSHIPS.md)**.
+Documented compound paths (full list and context: [`REPORT.md`](./REPORT.md) Appendix B):
 
-## Project Keyword Grouping
-
-For a comprehensive categorization of all projects by their primary keywords and themes, see **[PROJECT-KEYWORD-GROUPING.md](./PROJECT-KEYWORD-GROUPING.md)**.
+| OSS | MicroSaaS | Agent spec |
+|-----|-----------|------------|
+| `mycelium` | [`orchestiq`](./microsaas/orchestiq.md) | [`orchestiq`](./agents/orchestiq.md) |
+| `promptco` | [`promptgrade`](./microsaas/promptgrade.md) | [`promptgrade`](./agents/promptgrade.md) |
+| `loglens` | [`insightify`](./microsaas/insightify.md) | [`insightify`](./agents/insightify.md) |
+| `confcheck` | [`configguard`](./microsaas/configguard.md) | [`configguard`](./agents/configguard.md) |
+| `forkco` | [`contributehq`](./microsaas/contributehq.md) | [`contributehq`](./agents/contributehq.md) |
+| N/A | [`fundos`](./microsaas/fundos.md) | [`fundos`](./agents/fundos.md) (same product line; no OSS twin in-repo) |

@@ -1,82 +1,100 @@
-# **Insightify** - Autonomous Data Analyst Agent (Agentic SaaS)
+# InsightIfy Agent
 
-*Connects to your data sources, monitors for anomalies and trends, and delivers proactive insight reports without human initiation.*
+*SRE bot that correlates deploys with metric shifts, posts rollback shortcuts to Slack, opens tickets with top log lines, and auto mutes noisy services until a human confirms.*
 
-> **Parent MicroSaaS:** `insightify`
-> **Domain:** `insightify.io` (primary), `insightify.ai` (secondary)
-> **Agentic Tier:** Tier 2 - Score 8/10
-> **Market:** SMB data teams; replaces ThoughtSpot Sage-equivalent value at $99-499/month vs. $20K+/year enterprise tools
+> **Domain:** `insightify.io` (primary), `insightify.dev` (secondary)
+> **Agentic Tier:** Tier 1, score 8/10
+> **Market:** Teams that outgrew grep but want lighter cost than full APM (2026)
 
 ---
 
 ## Agentic Opportunity
 
-The MicroSaaS parent requires users to upload data and ask questions. The Agentic SaaS layer connects directly to data sources, monitors continuously, detects anomalies proactively, generates scheduled insight reports, and answers natural language questions via a chat interface - all without requiring users to manually upload or query.
+InsightIfy Agent listens to deploy hooks from Vercel, GitHub Actions, or Argo, aligns deployment timestamps with error-rate z-scores from the ingest pipeline, threads correlated log snippets into one Slack message with mute and rollback buttons, creates Linear or Jira issues prefilled with query IDs, and applies temporary mute rules when repeated false positives hit a service until on-call acknowledges.
 
 ---
 
 ## Problem Statement
 
-- SMB data teams lack the engineering resources to build BI pipelines and maintain dashboards
-- Most analytics tools are reactive (you query, they answer) not proactive (they alert you first)
-- Enterprise AI analytics (ThoughtSpot Sage, Amazon Q) cost $20K+/year - out of reach for SMBs
-- NL-to-SQL requires data modeling expertise that most small teams don't have
+- Full APM bills climb while small services only need cheap anomaly hints
+- Cron parsers over logs are fragile; static thresholds rot
+- Developers want one POST for events plus actionable context for pages
+- On call wants example lines, not a bare threshold breach
 
 ---
 
-## Autonomy Architecture
+## Interaction Sequence
 
 ```mermaid
-flowchart TD
-    DS1[PostgreSQL] --> DC[Data Connectors]
-    DS2[Google Sheets] --> DC
-    DS3[BigQuery] --> DC
-    DS4[S3 CSVs] --> DC
-    DC --> MON[Monitor Agent]
-    MON --> |"anomaly detected"| ALT[Alert Generator]
-    MON --> |"scheduled"| RPT[Report Generator]
-    ALT --> NOTIF[Slack/Email Alert]
-    RPT --> DASH[Dashboard Update]
-    USER[User] --> |"NL question"| NLQ[NL-to-SQL Agent]
-    NLQ --> DC
-    DC --> ANS[Answer + Chart]
+sequenceDiagram
+    participant D as Deploy hook
+    participant A as InsightIfy
+    participant S as Slack
+    participant J as Jira
+    participant H as OnCall
+    D->>A: deploy event
+    A->>A: correlate metrics
+    A->>S: incident card
+    S->>A: rollback click
+    A->>J: open ticket
+    A->>H: mute confirm
 ```
 
-**Continuous monitoring:** Baseline metrics learned from first 7 days of data; anomaly = deviation beyond 2 sigma from rolling mean.
+**Event Triggers:**
+- Telemetry
+  - Existing ingest API batches and rollups
+  - Webhook alerts from parent rules engine
+- Change
+  - Deploy started or finished events from CI or CD
+  - Optional Kubernetes rollout signals on Enterprise
+
+**Human-in-the-Loop Gates:** Correlation and ticketing can run unattended. Rollback buttons execute only after explicit Slack confirmation. Auto mute expires after a window unless a human extends the policy.
 
 ---
 
 ## 7-Day Agentic MVP Build Plan
 
 | Day | Focus | Deliverable |
-|---|---|---|
-| 1 | Data connector scaffolding | Read-only PostgreSQL + Google Sheets connectors |
-| 2 | Schema explorer | Auto-detect tables, columns, data types; generate semantic index |
-| 3 | NL-to-SQL agent | GPT-4o with structured output; safe read-only query guardrails |
-| 4 | Anomaly detection | Baseline calculation; z-score alerting with configurable thresholds |
-| 5 | Scheduled report generator | Weekly/daily insights email with auto-generated charts |
-| 6 | Slack integration | Alert + report delivery to Slack channels |
-| 7 | Workspace UI | Connector management; query history; report schedule settings |
+|-----|-------|-------------|
+| 1 | Deploy webhook | Normalized deploy event schema |
+| 2 | Correlator | Join deploy ids to metric windows |
+| 3 | Slack app | Block kit card with snippet and links |
+| 4 | Ticketing | Linear or Jira OAuth plus template body |
+| 5 | Mute policy | Flap counter with decaying mute state |
+| 6 | Runbooks | Store markdown links per service |
+| 7 | Distribution | SRE Discord template, sample Terraform module |
 
 ---
 
 ## Simple Data Model
 
 ```
-DataSource:
-  id, workspace_id, type (postgres|sheets|bigquery|s3), credentials_encrypted, schema_cache, last_synced
+User:
+  id, email, password_hash, created_at
 
-MetricBaseline:
-  id, datasource_id, metric_name, query, mean, std_dev, last_updated
+Project:
+  id, user_id, name, created_at
 
-AnomalyEvent:
-  id, baseline_id, detected_at, observed_value, expected_range, severity, alerted_at
+IngestBatch:
+  id, project_id, bytes, created_at
 
-InsightReport:
-  id, workspace_id, generated_at, delivery_channel, content_json, charts_urls[]
+MetricBucket:
+  id, project_id, key, ts, value
 
-NLQuery:
-  id, workspace_id, question, generated_sql, result_preview, latency_ms, timestamp
+Alert:
+  id, project_id, rule_id, payload_json, created_at
+
+Rule:
+  id, project_id, config_json, created_at
+
+DeployEvent:
+  id, project_id, service, version, ts, source, created_at
+
+MuteWindow:
+  id, project_id, service, until_ts, reason, created_at
+
+APIKey:
+  id, user_id, key_hash, tier, created_at
 ```
 
 ---
@@ -84,31 +102,29 @@ NLQuery:
 ## Revenue Model
 
 | Tier | Price | Includes |
-|---|---|---|
-| Starter | $14.99/month | 1 data source, 10 NL queries/day, weekly reports |
-| Growth | $39.99/month | 5 data sources, unlimited NL queries, daily reports, anomaly alerts |
-| Team | $99/month | 20 data sources, multi-user, custom metrics, Slack integration |
-| Business | $499/month | Unlimited sources, API access, white-label reports, SLA |
-
-**vs. ThoughtSpot Sage ($20K+/year):** Insightify targets SMBs with self-serve onboarding. Revenue multiple vs. MicroSaaS parent: 5-10x for Business tier.
+|-----|-------|----------|
+| Free | $0 | One project, agent in read only digest mode |
+| Pro | $39/month | Slack plus ticketing, standard ingest |
+| Team | $119/month | Higher volume, SSO roadmap |
+| Enterprise | Custom | VPC, unlimited retention options |
 
 ---
 
-## Stack Recommendations
+## Stack
 
-- **Backend:** Python (FastAPI) + SQLAlchemy for multi-database abstraction
-- **NL-to-SQL:** OpenAI GPT-4o with function calling; Vanna.ai as open-source alternative
-- **Anomaly Detection:** statsmodels for baseline computation; Prophet for time-series
-- **Connectors:** SQLAlchemy (PostgreSQL), gspread (Google Sheets), google-cloud-bigquery, boto3 (S3)
-- **Charts:** Plotly (server-side PNG generation); Chart.js (client-side)
-- **Frontend:** React + Recharts for dashboard UI
+- **API:** Go or Python service extending parent ingest paths
+- **Time series:** ClickHouse or TimescaleDB for rollups
+- **Queue:** Redis lists for alert fanout
+- **Chat:** Slack Bolt with signing secret
+- **Issue trackers:** REST clients with OAuth
+- **Deploy:** Fly.io or AWS with regional workers
 
 ---
 
 ## Success Metrics
 
-- Data sources connected (target: 500 by month 6)
-- NL queries answered per day (target: 5,000 by month 6)
-- NL-to-SQL accuracy (target: over 85% correct on first try)
-- Anomalies detected before user noticed (target: over 60% proactive)
-- Active workspaces (target: 100 by month 6)
+- Projects with agent features on: target 120 by month 2
+- Median time from alert to ticket with context: target under 3 minutes
+- Rollback button clicks that succeed: track and target 80% of attempts
+- Thumbs down on alert noise: target under 15% of delivered cards
+- Paid accounts: target 16 by day 30

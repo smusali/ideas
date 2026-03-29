@@ -1,203 +1,192 @@
-# **ChatCo** — *Simple AI Chat CLI Tool*
+# ChatCo
 
-*A lightweight, open-source command-line tool that helps you manage AI conversations and build chat applications from the terminal.*
+*Terminal-native LLM chat CLI with persistent conversation history, multi-model support, and system prompt management.*
 
----
-
-## **What is ChatCo?**
-
-ChatCo is a simple CLI tool that lets you create, manage, and interact with AI chat sessions directly from your terminal. Perfect for developers who want to quickly test AI models, manage conversations, and build chat applications without complex setup.
+> **PyPI:** `chatco` (confirm availability before publish, HTTP 404 check recommended)
+> **npm:** `chatco` (confirm availability before publish, HTTP 404 check recommended)
 
 ---
 
-## **Core Features (MVP - 7 Days)**
+## Problem Statement
 
-### **Day 1-2: Basic Setup**
-- CLI interface with command parsing
-- Configuration management for API keys
-- Basic conversation storage
+- shell_gpt, aichat, and Simon Willison's `llm` tool all work but lack conversation threading, cost tracking, and system prompt versioning in a single cohesive tool
+- Developers using LLMs daily need a terminal-native chat tool that stores full conversation history locally for review and replay
+- Switching between models mid-conversation requires restarting most CLI tools; no tool supports in-session model switching
+- No local CLI chat tool tracks token usage and inferred cost per session without a separate observability platform
 
-### **Day 3-4: Core Functionality**
-- Start new chat sessions with AI models
-- Send messages and receive responses
-- Save and load conversation history
-- Export conversations to various formats
-
-### **Day 5-6: Enhanced Features**
-- Multiple AI model support (OpenAI, Anthropic, etc.)
-- Conversation search and filtering
-- Basic conversation analytics
-- Template system for common prompts
-
-### **Day 7: Polish & Deploy**
-- Package for npm/pip/cargo
-- Write comprehensive documentation
-- Create installation scripts
+ChatCo is the developer-first LLM terminal chat: persistent threads, multi-model, cost tracking, and system prompt management.
 
 ---
 
-## **Simple Data Model**
+## Core Features
+
+### Persistent Conversation Management
+- Named conversation threads stored in local SQLite with full message history
+- Resume any conversation by name: `chatco chat my-project-planning`
+- Branch conversations: fork from any message point to explore alternatives
+
+### Multi-Model Support
+- Switch models within a session: `chatco model switch claude-3-5-sonnet`
+- Supported at launch: OpenAI (GPT-4o, GPT-4o-mini), Anthropic (Claude 3.5), Ollama (local)
+- Per-conversation model override with global default in config
+
+### System Prompt Management
+- Define and version named system prompts as reusable templates
+- `chatco prompt use coding-assistant` sets the system prompt for a new thread
+- Prompt library stored locally; import/export as YAML
+
+---
+
+## Interaction Sequence
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant C as chatco
+    participant P as Provider API
+    U->>C: prompt
+    C->>P: chat completion
+    P-->>C: tokens
+    C-->>U: reply
+```
+
+---
+
+## CLI Commands
+
+```bash
+# Start a new conversation
+chatco new "planning the ForkCo CLI"
+
+# Resume an existing conversation
+chatco chat forkco-planning
+
+# Send a one-shot message (no history)
+chatco ask "What is the capital of France?"
+
+# Switch model for current session
+chatco model switch gpt-4o-mini
+
+# Save a system prompt
+chatco prompt save "coding-assistant" --file system-prompts/coding.txt
+
+# Use a system prompt in a new chat
+chatco new "code review session" --prompt coding-assistant
+
+# Show token usage and cost for a conversation
+chatco stats forkco-planning
+
+# List all conversations
+chatco list
+```
+
+---
+
+## Configuration
+
+```yaml
+# ~/.chatco/config.yml
+default_model: gpt-4o-mini
+
+providers:
+  openai:
+    api_key: ${OPENAI_API_KEY}
+  anthropic:
+    api_key: ${ANTHROPIC_API_KEY}
+  ollama:
+    base_url: http://localhost:11434
+
+cost_tracking:
+  enabled: true
+  alert_per_session_usd: 1.00
+
+display:
+  markdown_render: true
+  stream: true
+```
+
+---
+
+## 7-Day Build Plan
+
+| Day | Focus | Deliverable |
+|-----|-------|-------------|
+| 1 | Project scaffold | CLI entry point (Typer), SQLite schema for conversations + messages, config loader |
+| 2 | OpenAI + Anthropic integration | Streaming responses; multi-turn conversation context management |
+| 3 | Ollama local model support | Ollama API client; local model streaming |
+| 4 | Conversation threading | `new/chat/list`; named threads; resume from last message |
+| 5 | System prompt library | `prompt save/use/list`; YAML import/export; per-thread prompt |
+| 6 | Cost tracking + stats | Token + cost tracking per message; `stats` command; alert on threshold |
+| 7 | Packaging + publish | `pip install chatco`, `npm install -g chatco`, README, PyPI + npm release |
+
+---
+
+## Simple Data Model
 
 ```json
+// ~/.chatco/conversations.db  (SQLite)
 {
-  "conversations": [
-    {
-      "id": "uuid",
-      "title": "string",
-      "model": "string",
-      "messages": [
-        {
-          "role": "user|assistant",
-          "content": "string",
-          "timestamp": "datetime"
-        }
-      ],
-      "created_at": "datetime"
+  "conversations": {
+    "conv-uuid": {
+      "name": "forkco-planning",
+      "model": "gpt-4o-mini",
+      "system_prompt": "coding-assistant",
+      "total_tokens": 12450,
+      "total_cost_usd": 0.0186,
+      "created_at": "2026-03-28T10:00:00Z"
     }
-  ],
-  "config": {
-    "api_keys": {
-      "openai": "string",
-      "anthropic": "string"
-    },
-    "default_model": "string"
+  },
+  "messages": {
+    "msg-uuid": {
+      "conversation_id": "conv-uuid",
+      "role": "user",
+      "content": "How should I structure the CLI commands for ForkCo?",
+      "timestamp": "2026-03-28T10:00:00Z"
+    }
   }
 }
 ```
 
 ---
 
-## **Installation & Usage**
+## Installation
 
 ```bash
-# Install via npm
-npm install -g chatco-cli
+# PyPI (Python CLI)
+pip install chatco
 
-# Install via pip
-pip install chatco-cli
-
-# Install via cargo
-cargo install chatco-cli
-
-# Basic usage
-chatco start                    # Start new conversation
-chatco chat "Hello, AI!"        # Send message
-chatco list                     # List conversations
-chatco load <id>                # Load conversation
-chatco export <id> --format json # Export conversation
+# npm (global binary)
+npm install -g chatco
 ```
 
 ---
 
-## **Configuration**
+## Stack
 
-Create a config file at `~/.chatco/config.json`:
-
-```json
-{
-  "api_keys": {
-    "openai": "your-openai-api-key",
-    "anthropic": "your-anthropic-api-key"
-  },
-  "default_model": "gpt-3.5-turbo",
-  "max_tokens": 1000,
-  "temperature": 0.7
-}
-```
+- **Language:** Python 3.11+
+- **CLI framework:** Typer + Rich (markdown-rendered chat output, streaming)
+- **LLM:** openai, anthropic SDK clients; Ollama REST API via `httpx`
+- **Storage:** SQLite via stdlib `sqlite3`
+- **Config:** PyYAML
+- **Packaging:** hatch for PyPI; package.json wrapper for npm binary
 
 ---
 
-## **Why Open Source?**
+## Market Positioning
 
-- **Transparency**: See exactly how AI interactions are handled
-- **Customization**: Modify to fit your specific AI needs
-- **Learning**: Great project for developers to learn AI integration
-- **Community**: Others can contribute features they want
-- **Privacy**: Your conversations stay on your own machine
-
----
-
-## **Easy Publishing Plan (7 Days)**
-
-### **Day 1-3: Build & Test**
-- Build the core CLI tool
-- Test all features thoroughly
-- Create comprehensive documentation
-
-### **Day 4: Prepare Launch**
-- Create GitHub repository with clear README
-- Write installation instructions
-- Prepare demo video (2-3 minutes)
-
-### **Day 5: Package & Publish**
-- Package for npm, pip, and cargo
-- Publish to package registries
-- Create GitHub releases
-
-### **Day 6: Community Launch**
-- Post on Reddit r/opensource, r/commandline
-- Share on Twitter/X with #opensource #cli #ai
-- Submit to Hacker News
-
-### **Day 7: Community Engagement**
-- Respond to all comments and feedback
-- Create GitHub issues for feature requests
-- Engage with contributors
+- **Target users:** Developers using LLMs daily from the terminal, AI engineers testing prompts across multiple models, indie hackers who live in the terminal
+- **YC/A16Z alignment:** YC W26: AI developer tools are the top batch theme (60% of batch is AI); A16Z 2026: terminal-native AI tools growing as developer workflow layer
+- **Key differentiator:** The only terminal LLM chat tool with named persistent threads, in-session model switching, system prompt versioning, and per-session cost tracking in one local tool
+- **Closest competitors:**
+  - shell_gpt: one-shot only; no persistent threads; no cost tracking
+  - Simon Willison's `llm`: excellent for one-shots; conversation management is secondary; no system prompt library
+  - aichat: good multi-model support; no system prompt versioning; no cost tracking
 
 ---
 
-## **Marketing Strategy**
+## Success Metrics (6 months)
 
-### **Target Audience**
-- Developers building AI applications
-- CLI enthusiasts and power users
-- AI researchers and enthusiasts
-- Open source contributors
-
-### **Key Messages**
-- "AI chat management from your terminal"
-- "Simple, fast, and extensible"
-- "Built by developers, for developers"
-
-### **Distribution Channels**
-- GitHub (primary)
-- npm, pip, cargo registries
-- Reddit communities
-- Twitter/X developer community
-- Hacker News
-- Developer forums
-
----
-
-## **Success Metrics**
-
-- **Downloads**: 1000+ in first week
-- **GitHub Stars**: 200+ in first week
-- **Forks**: 30+ active forks
-- **Issues**: 15+ feature requests
-- **Contributors**: 8+ community contributors
-
----
-
-## **Future Enhancements**
-
-- Web interface for conversation management
-- Advanced conversation analytics
-- Multi-modal chat support
-- Custom AI model integration
-- Conversation sharing and collaboration
-- Plugin system for extensions
-
----
-
-## **Getting Started**
-
-1. Install the CLI tool
-2. Configure your API keys
-3. Start your first conversation
-4. Explore the features
-5. Contribute to the project
-
----
-
-*Built with ❤️ for the AI and CLI community* 
+- PyPI downloads: target 1,000/month
+- GitHub stars: target 200-600
+- Active contributors: target 8+
+- LLM providers at launch: OpenAI, Anthropic, Ollama; Gemini by month 2

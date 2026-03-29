@@ -1,66 +1,67 @@
-# **FeedbackFlow** - Autonomous Voice-of-Customer Agent (Agentic SaaS)
+# FeedbackFlow Agent
 
-*Continuously ingests, triages, clusters, and drafts responses to all customer feedback channels without human involvement in the processing loop.*
+*24/7 ingestion and triage across support, reviews, and forms: classify, cluster, route, and draft replies behind an approval queue.*
 
-> **Parent MicroSaaS:** `feedbackflow`
-> **Domain:** `feedbackflow.io` (primary)
-> **Agentic Tier:** Tier 1 - Score 9/10
-> **Market:** Every SaaS company with a support function; replaces 10-20 hours/week of manual triage
+> **Domain:** `feedbackflow.io` (primary), `feedbackflow.dev` (secondary)
+> **Agentic Tier:** Tier 1, score 9/10
+> **Market:** Every SaaS team with multi-channel feedback; PM and CX time on triage remains high (2026)
 
 ---
 
 ## Agentic Opportunity
 
-The MicroSaaS parent collects and analyzes feedback manually. The Agentic SaaS layer runs 24/7: it connects to all feedback channels (Zendesk, Intercom, App Store reviews, Typeform, email), classifies every incoming piece of feedback, clusters related items into themes, routes to the right team, and drafts responses for human review on a unified approval queue.
+FeedbackFlow Agent connects to Zendesk, Intercom, app reviews, and webhooks, classifies each feedback item as it arrives, clusters themes automatically, routes findings to the right Slack channel or queue, drafts customer-safe replies, and holds public sends until a human approves in a single unified inbox.
 
 ---
 
 ## Problem Statement
 
-- Customer feedback arrives in 5+ channels simultaneously: email, support tickets, App Store reviews, social media, NPS surveys
-- Support and product teams spend 10-20 hours/week manually reading, categorizing, and routing feedback
-- No tool connects all channels, clusters by theme, and drafts responses in one autonomous workflow
-- Product managers lack real-time signal on top issues blocking their users
+- Feedback splinters across five or more surfaces so nobody sees the full trend line
+- Manual tagging burns 10 to 20 hours per week for small teams before anyone prioritizes a roadmap
+- Drafting answers twice (internal notes, then customer text) doubles handle time
+- Executives discover spikes days late because no job watches volumes overnight
 
 ---
 
-## Autonomy Architecture
+## Interaction Sequence
 
 ```mermaid
-flowchart LR
-    C1[Zendesk] --> ING[Ingestion Layer]
-    C2[Intercom] --> ING
-    C3[App Store] --> ING
-    C4[Email] --> ING
-    C5[Typeform] --> ING
-    ING --> CLS[Classifier Agent]
-    CLS --> CLU[Clustering Engine]
-    CLU --> |"bug report"| ENG[Engineering Queue]
-    CLU --> |"feature request"| PM[Product Queue]
-    CLU --> |"needs response"| DFT[Draft Response Agent]
-    DFT --> AQ[Approval Queue]
-    AQ --> |"human approves"| SEND[Send Response]
+sequenceDiagram
+    participant Z as Channel
+    participant A as FeedbackFlow
+    participant H as Human
+    participant S as Customer
+    Z->>A: new item
+    A->>A: classify
+    alt needs reply
+        A->>A: draft
+        A->>H: approval queue
+        H->>A: approve
+        A->>S: send reply
+    else internal only
+        A->>A: route and metrics
+    end
 ```
 
-**Autonomy levels:**
-- Classification + clustering: fully autonomous
-- Response drafting: autonomous (human approves before send)
-- Routing to internal teams: autonomous
-- Public response publishing: requires human approval
+**Event Triggers:**
+- Webhooks from Zendesk, Intercom, and custom HTTP sources
+- Polling jobs for app stores or RSS where APIs allow compliant use
+
+**Human-in-the-Loop Gates:** Classification, clustering, and internal routing run unattended. Any outbound message to customers requires explicit approval unless you allowlist low-risk auto-replies with caps.
 
 ---
 
 ## 7-Day Agentic MVP Build Plan
 
 | Day | Focus | Deliverable |
-|---|---|---|
-| 1 | Integration connectors | Zendesk + Intercom webhook receivers; App Store RSS parser |
-| 2 | Classification engine | LLM-based classification: bug/feature/compliment/question/spam |
-| 3 | Clustering engine | Embedding-based semantic clustering; auto-label themes |
-| 4 | Routing rules engine | YAML-defined routing: bug -> eng@, feature -> product@, urgent -> slack |
-| 5 | Draft response agent | GPT-4o generates contextually appropriate draft responses |
-| 6 | Approval queue UI | Web UI: review drafts, 1-click approve/edit/reject; batch mode |
-| 7 | Dashboard + insights | Theme trend chart; volume by channel; top issues by week |
+|-----|-------|-------------|
+| 1 | Connectors | Two webhook receivers plus secret verification |
+| 2 | Classifier | LLM JSON schema for bug, idea, question, praise, spam |
+| 3 | Clustering | Embeddings plus daily theme rollup job |
+| 4 | Routing | YAML rules mapping labels to Slack destinations |
+| 5 | Draft agent | Grounded reply draft with ticket context |
+| 6 | Approval UI | Single queue with approve, edit, reject |
+| 7 | Distribution | Trend dashboard export, template onboarding doc |
 
 ---
 
@@ -68,16 +69,16 @@ flowchart LR
 
 ```
 FeedbackItem:
-  id, channel, external_id, content, author, created_at, classification, cluster_id, sentiment_score
+  id, workspace_id, channel, external_id, text_hash, classification, cluster_id, sentiment, created_at
 
 Cluster:
-  id, label, item_count, top_themes[], first_seen, last_seen, trend (rising|stable|falling)
+  id, workspace_id, label, item_count, first_seen, last_seen, trend, created_at
 
 DraftResponse:
-  id, feedback_id, draft_text, model_used, approved_by, approved_at, sent_at, status
+  id, item_id, draft_text, model, status, approved_by, sent_at, created_at
 
 Integration:
-  id, workspace_id, channel_type, credentials_encrypted, last_synced_at, items_ingested
+  id, workspace_id, channel_type, credentials_enc, last_synced_at, created_at
 ```
 
 ---
@@ -85,31 +86,29 @@ Integration:
 ## Revenue Model
 
 | Tier | Price | Includes |
-|---|---|---|
-| Starter | $19.99/month | 2 channels, 500 items/month, clustering |
-| Growth | $49.99/month | All channels, 5,000 items/month, draft responses |
-| Team | $149/month | Unlimited channels, 50K items/month, routing rules, Slack integration |
-| Enterprise | $299-999/month | White-label, API access, SLA, custom routing, compliance export |
-
-**vs. Hotjar/UserVoice ($99-399/month for manual tools):** Autonomous processing justifies Team and Enterprise pricing. Revenue multiple vs. MicroSaaS parent: 6-15x.
+|-----|-------|----------|
+| Free | $0 | Two channels, capped items, branding |
+| Pro | $49/month | More channels, drafts, routing |
+| Team | $149/month | High volume, Slack, shared workspace |
+| Enterprise | Custom | SSO, DPA, custom models, SLA |
 
 ---
 
-## Stack Recommendations
+## Stack
 
-- **Backend:** Python (FastAPI) + Celery for async ingestion
-- **Embeddings:** OpenAI `text-embedding-3-small` for clustering; FAISS for vector search
-- **LLM:** GPT-4o for classification and draft response generation
-- **Database:** PostgreSQL for structured data; pgvector extension for embeddings
-- **Frontend:** React + Tailwind for approval queue UI
-- **Queue:** Redis + Celery beat for scheduled polling integrations
+- **Backend:** Python (FastAPI) plus Celery for ingestion and clustering
+- **Embeddings:** OpenAI `text-embedding-3-small` or equivalent; pgvector storage
+- **LLM:** GPT-4o class for classify and draft with policy prompts
+- **Database:** PostgreSQL with pgvector
+- **Frontend:** React approval queue or embeddable widget
+- **Deploy:** Fly.io or Railway with worker dynos
 
 ---
 
 ## Success Metrics
 
-- Feedback items processed per day (target: 10,000 by month 6)
-- Classification accuracy (target: over 92% on standard categories)
-- Draft response acceptance rate (target: over 75% approved without edit)
-- Time-to-triage reduction vs. baseline (target: 80% reduction)
-- Active workspaces (target: 50 by month 6)
+- Items processed per day: target 10k by month 6
+- Classifier agreement with human spot checks: target 92% or higher
+- Draft acceptance without edit: target 75% or higher
+- Median time from arrival to triage label: target under 5 minutes
+- Paying workspaces: target 50 by month 6

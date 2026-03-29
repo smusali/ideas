@@ -1,281 +1,183 @@
-# **PromptCo — LLM Cost Tracker & Policy Enforcer**
+# PromptCo
 
-> **Mission:** A lightweight CLI tool and SDK that helps developers track LLM costs and enforce usage policies in real-time, with support for custom API keys.
+*LLM cost tracker and policy enforcer: local-first, zero infrastructure.*
 
----
-
-## Overview
-
-PromptCo is a simple, open-source tool that monitors your LLM API usage, tracks costs, and enforces basic policies. It's designed to be built in 7 days by a single developer and can be easily published to package registries.
+> **PyPI:** `promptco` (confirmed available, HTTP 404)
+> **npm:** `promptco` (confirmed available, HTTP 404)
 
 ---
 
-## Core Features (7-Day Build)
+## Problem Statement
 
-### 1. Cost Tracking
-- Real-time token counting for popular LLM APIs
-- Cost calculation based on current pricing
-- Daily/weekly/monthly cost summaries
-- Export data to CSV/JSON
+- LLM inference accounts for ~85% of enterprise AI operations budgets (A16Z 2026)
+- A single autonomous agent can consume 1.5M tokens in one run; token prices shift multiple times per quarter
+- Existing observability tools (Langfuse, Helicone, Portkey) are web-hosted, require server setup, and bundle far more than cost control
+- No CLI-native tool enforces LLM usage policies locally via a simple YAML DSL
 
-### 2. Policy Enforcement
-- Basic policy DSL for usage limits
-- PII detection and redaction
-- Rate limiting enforcement
-- Model allowlist/blocklist
-
-### 3. CLI Interface
-- Simple command-line interface
-- Interactive cost dashboard
-- Policy management commands
-- Configuration wizard
-
-### 4. SDK/Integration
-- Language-agnostic SDK
-- Webhook support for real-time alerts
-- Plugin system for custom policies
-- Easy integration with existing workflows
+PromptCo is the lean CLI alternative: run locally, track costs, enforce policies, no server needed.
 
 ---
 
-## 7-Day Development Plan
+## Core Features
 
-### Day 1: Project Setup & Core Structure
-- Initialize project with basic CLI framework
-- Set up configuration management
-- Create basic project structure
-- Set up testing framework
+### Cost Tracking Engine
+- Tracks token usage and inferred cost per LLM call across OpenAI, Anthropic, and Ollama
+- Maintains a local SQLite history of all tracked calls with timestamps
+- Configurable cost-per-token overrides for custom or fine-tuned models
 
-### Day 2: Cost Tracking Engine
-- Implement token counting logic
-- Add cost calculation based on API pricing
-- Create data storage layer (SQLite for simplicity)
-- Build basic CLI commands for cost tracking
+### Policy DSL
+- YAML-based policy rules: daily token budgets, per-model spend caps, cost-per-call alerts
+- Non-zero exit code on policy violation (CI-compatible)
+- Auto-generated policy violation reports with Rich table output
 
-### Day 3: Policy Engine
-- Design simple policy DSL
-- Implement basic policy evaluators
-- Add PII detection (using simple regex patterns)
-- Create policy management commands
-
-### Day 4: API Integrations
-- Add support for major LLM APIs
-- Implement API key management
-- Create webhook handlers
-- Add rate limiting logic
-
-### Day 5: CLI & Dashboard
-- Build interactive CLI dashboard
-- Add export functionality (CSV/JSON)
-- Implement configuration wizard
-- Create help and documentation
-
-### Day 6: SDK & Plugins
-- Design plugin architecture
-- Create basic SDK interfaces
-- Add webhook support
-- Implement custom policy support
-
-### Day 7: Testing & Publishing
-- Comprehensive testing
-- Documentation completion
-- Package for distribution
-- Publish to package registries
+### PII Detection
+- Optional regex-based PII scan before prompt submission (email, phone, SSN, card patterns)
+- Optional spaCy NER for named entity detection in prompts
+- `--pii-strict` flag to block calls containing detected PII
 
 ---
 
-## Installation & Usage
+## Interaction Sequence
 
-### Quick Start
-```bash
-# Install via package manager
-npm install -g promptco-cli
-# or
-pip install promptco-cli
-
-# Initialize configuration
-promptco init
-
-# Set your API keys
-promptco config set openai_key YOUR_OPENAI_KEY
-promptco config set anthropic_key YOUR_ANTHROPIC_KEY
-
-# Start tracking costs
-promptco track start
-
-# View dashboard
-promptco dashboard
-
-# Check costs
-promptco costs --period daily
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant P as promptco
+    participant DB as Local store
+    U->>P: track call
+    P->>P: cost math
+    P->>DB: append row
+    P-->>U: OK or block
 ```
 
-### SDK Usage
-```python
-import promptco
+---
 
-# Initialize with your API keys
-tracker = promptco.Tracker(
-    openai_key="your_key",
-    anthropic_key="your_key"
-)
+## CLI Commands
 
-# Track an API call
-cost = tracker.track_call(
-    provider="openai",
-    model="gpt-4",
-    tokens_used=1500
-)
+```bash
+# Initialize PromptCo in a project directory
+promptco init
 
-# Enforce policies
-tracker.enforce_policy("max_daily_cost", 50.0)
+# Track a single LLM call cost
+promptco track --model gpt-4o --input-tokens 1200 --output-tokens 450
+
+# Show cost summary (today / week / month)
+promptco summary --period week
+
+# Check prompt against policies
+promptco check --prompt "Your prompt text here"
+
+# Run PII detection on a prompt
+promptco pii-scan --prompt "Your prompt text here"
+
+# Show policy violations from history
+promptco violations
+
+# Export cost history to JSON
+promptco export --format json --output costs.json
 ```
 
 ---
 
 ## Configuration
 
-### API Keys
-Users provide their own API keys for all LLM services:
-- OpenAI API Key
-- Anthropic API Key
-- Google AI API Key
-- Custom API endpoints
-
-### Policy Configuration
 ```yaml
-policies:
-  max_daily_cost: 50.0
-  max_tokens_per_request: 4000
-  allowed_models:
-    - gpt-4
-    - claude-3
-  pii_redaction: true
-  rate_limit: 100_requests_per_hour
+# ~/.promptco/policy.yml
+llm:
+  provider: openai
+  model: gpt-4o-mini
+
+budgets:
+  daily_tokens: 100000
+  daily_usd: 5.00
+  per_call_usd: 0.50
+
+models:
+  gpt-4o:
+    input_cost_per_1k: 0.005
+    output_cost_per_1k: 0.015
+
+pii:
+  enabled: true
+  strict: false             # true = block; false = warn only
 ```
 
 ---
 
-## Publishing Strategy
+## 7-Day Build Plan
 
-### Package Registries
-- **npm**: `promptco-cli` for Node.js users
-- **PyPI**: `promptco-cli` for Python users
-- **Homebrew**: `promptco` for macOS users
-- **Chocolatey**: `promptco` for Windows users
-
-### Documentation
-- GitHub README with quick start guide
-- API documentation with examples
-- Video tutorials for common use cases
-- Community forum for support
-
-### Marketing
-- Open source showcase platforms
-- Developer community posts
-- Cost management blog posts
-- Conference talks and workshops
+| Day | Focus | Deliverable |
+|-----|-------|-------------|
+| 1 | Project scaffold | CLI entry point (Typer), config loader, SQLite cost history schema |
+| 2 | Cost tracking engine | Token counting + cost calculation for OpenAI, Anthropic, Ollama |
+| 3 | Policy engine | YAML policy DSL parser; budget checks; non-zero exit on violation |
+| 4 | PII detection | Regex pattern scanner; optional spaCy NER integration; `pii-scan` command |
+| 5 | Summary + violations dashboard | Rich table output for `summary` and `violations` commands |
+| 6 | Export + CI integration | JSON/CSV export; GitHub Actions example; `check` command for pre-call validation |
+| 7 | Packaging + publish | `pip install promptco`, `npm install -g promptco`, README, PyPI + npm release |
 
 ---
 
-## Architecture
+## Simple Data Model
 
-```mermaid
-graph TD
-    A[CLI Interface] --> B[Cost Tracker]
-    A --> C[Policy Engine]
-    B --> D[API Integrations]
-    C --> E[Policy Evaluators]
-    D --> F[Data Storage]
-    E --> F
-    F --> G[Export/Reports]
-    A --> H[SDK Interface]
-    H --> B
-    H --> C
+```json
+// ~/.promptco/state.json  (auto-maintained, backed by SQLite)
+{
+  "calls": {
+    "call-uuid": {
+      "model": "gpt-4o-mini",
+      "input_tokens": 1200,
+      "output_tokens": 450,
+      "cost_usd": 0.0075,
+      "pii_detected": false,
+      "policy_status": "pass",
+      "created_at": "2026-03-28T10:00:00Z"
+    }
+  }
+}
 ```
 
 ---
 
-## Extensibility
+## Installation
 
-### Plugin System
-- Custom policy evaluators
-- Additional API integrations
-- Custom cost calculators
-- Export formats
-
-### Webhooks
-- Real-time cost alerts
-- Policy violation notifications
-- Integration with monitoring tools
-- Custom notification channels
-
----
-
-## Success Metrics
-
-### Week 1 Launch Goals
-- 100+ GitHub stars
-- 50+ initial downloads
-- 10+ community contributions
-- 5+ blog posts/tutorials
-
-### Month 1 Goals
-- 500+ active users
-- 1000+ GitHub stars
-- 20+ community plugins
-- Featured on open source showcases
-
----
-
-## Future Enhancements
-
-### Phase 2 (Month 2-3)
-- Advanced policy DSL
-- Machine learning cost predictions
-- Team collaboration features
-- Enterprise integrations
-
-### Phase 3 (Month 4-6)
-- Cloud dashboard
-- Advanced analytics
-- Custom model support
-- API marketplace
-
----
-
-## Contributing
-
-### Getting Started
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests
-5. Submit a pull request
-
-### Development Setup
 ```bash
-git clone https://github.com/your-org/promptco
-cd promptco
-npm install
-npm run dev
+# PyPI (Python CLI)
+pip install promptco
+
+# npm (global binary)
+npm install -g promptco
 ```
 
 ---
 
-## License
+## Stack
 
-MIT License - Simple and permissive for maximum adoption.
-
----
-
-## Support
-
-- GitHub Issues for bug reports
-- GitHub Discussions for questions
-- Community Discord for real-time help
-- Documentation wiki for guides
+- **Language:** Python 3.11+
+- **CLI framework:** Typer + Rich (interactive cost dashboard)
+- **Storage:** SQLite (local cost history, zero dependencies)
+- **PII detection:** Regex patterns + optional spaCy NER
+- **LLM providers:** openai, anthropic, ollama SDK clients
+- **Config:** PyYAML (policy DSL)
+- **Packaging:** hatch for PyPI; package.json wrapper for npm binary
 
 ---
 
-*PromptCo: Simple LLM cost tracking for developers who care about their budget.*
+## Market Positioning
+
+- **Target users:** AI/ML engineers building LLM-powered applications, indie developers controlling API spend, enterprise teams enforcing LLM usage policies
+- **YC/A16Z alignment:** A16Z 2026: inference costs as 85% of enterprise AI ops budgets; YC W26: AI dev tools extending the "Cursor for X" thesis to cost governance
+- **Key differentiator:** The only CLI-native LLM cost tracker with a local YAML policy DSL, PII detection via regex, and support for OpenAI, Anthropic, and Ollama without any hosted service
+- **Closest competitors:**
+  - Langfuse (12K GitHub stars): web-hosted; requires self-hosting or cloud; bundles full observability
+  - Helicone: SaaS-only; no local mode; no policy enforcement DSL
+  - Portkey: SaaS gateway; not a local tracker
+
+---
+
+## Success Metrics (6 months)
+
+- PyPI downloads: target 5,000/month
+- GitHub stars: target 500-1,500
+- Active contributors: target 15+
+- LLM providers supported at launch: OpenAI, Anthropic, Ollama

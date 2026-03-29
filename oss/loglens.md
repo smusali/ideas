@@ -1,226 +1,179 @@
-# **LogLens** — *Simple Log Analysis CLI*
+# LogLens
 
-*A lightweight, open-source command-line tool that helps you analyze and understand your application logs through natural language queries and traditional analysis methods.*
+*Log analysis CLI with multi-format parsing, pattern detection, and optional natural language queries.*
 
-
-> **Package Rename Note:** The npm name `loglens` is TAKEN (v0.0.13 by spersico, browser log viewer). This project publishes as `loglens` on PyPI (confirmed available) and `loglens-cli` on npm (confirmed available, HTTP 404).
-
----
-
-## **What is LogLens?**
-
-LogLens is a simple CLI tool that lets you analyze log files, search for patterns, and get insights about your application's behavior directly from your terminal. Perfect for developers and DevOps engineers who want to understand their logs without complex monitoring tools.
+> **PyPI:** `loglens` (confirmed available, HTTP 404)
+> **npm:** `loglens` (confirmed available, HTTP 404)
 
 ---
 
-## **Core Features (MVP - 7 Days)**
+## Problem Statement
 
-### **Day 1-2: Basic Setup**
-- CLI interface with command parsing
-- Log file parsing and validation
-- Basic analysis engine
+- Log analysis is a constant DevOps need; A16Z 2026 cybersecurity theme specifically calls out AI automating level-1 log review
+- Existing tools (grep, awk, jq) are powerful but require expertise; no single tool covers multi-format parsing + natural language queries
+- Log management SaaS (Datadog, Splunk) is expensive and requires shipping logs off-premise
+- Developers debugging locally have no structured log analysis tool without a server setup
 
-### **Day 3-4: Core Functionality**
-- Parse and analyze log files (text, JSON, CSV)
-- Basic log analysis (error counts, frequency patterns)
-- Natural language query interface
-- Generate log reports
-
-### **Day 5-6: Enhanced Features**
-- Pattern recognition and grouping
-- Export analysis results to various formats
-- Basic search and filtering
-- Log visualization in terminal
-
-### **Day 7: Polish & Deploy**
-- Package for npm/pip/cargo
-- Write comprehensive documentation
-- Create installation scripts
+LogLens runs locally, supports text/JSON/CSV/syslog formats, and adds optional LLM natural language queries without shipping data.
 
 ---
 
-## **Simple Data Model**
+## Core Features
 
-```json
-{
-  "log_files": [
-    {
-      "id": "uuid",
-      "name": "string",
-      "file_path": "string",
-      "line_count": "number",
-      "format": "text|json|csv",
-      "created_at": "datetime"
-    }
-  ],
-  "log_entries": [
-    {
-      "id": "uuid",
-      "file_id": "uuid",
-      "timestamp": "datetime",
-      "level": "debug|info|warn|error|fatal",
-      "message": "string",
-      "parsed_data": "object",
-      "line_number": "number"
-    }
-  ],
-  "analyses": [
-    {
-      "id": "uuid",
-      "file_id": "uuid",
-      "type": "error_count|frequency|pattern",
-      "results": "object",
-      "created_at": "datetime"
-    }
-  ],
-  "queries": [
-    {
-      "id": "uuid",
-      "question": "string",
-      "filters": "object",
-      "results": "object",
-      "created_at": "datetime"
-    }
-  ]
-}
+### Multi-Format Log Parsing
+- Parses plain text, JSON, CSV, and syslog formats
+- Auto-detects format from file content
+- Extracts timestamp, level, message, and structured fields
+
+### Pattern Detection
+- Error rate analysis: counts and charts ERROR/WARN frequency over time
+- Spike detection: flags time windows with abnormal error density
+- Repeating pattern identification across log files
+
+### Natural Language Queries
+- Optional LLM mode: ask questions like "What caused the most errors?" in plain English
+- User-supplied API key for OpenAI or Anthropic (no data sent without explicit opt-in)
+- Structured JSON export of query results for downstream processing
+
+---
+
+## Interaction Sequence
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant L as loglens
+    participant F as Log file
+    U->>L: analyze path
+    L->>F: stream read
+    F-->>L: lines
+    L->>L: parse and stats
+    L-->>U: summary JSON
 ```
 
 ---
 
-## **Installation & Usage**
+## CLI Commands
 
 ```bash
-# Install via npm
-npm install -g loglens-cli-cli
+# Parse and summarize a log file
+loglens analyze <logfile>
 
-# Install via pip
-pip install loglens-cli
+# Filter by level
+loglens filter <logfile> --level error
 
-# Install via cargo
-cargo install loglens-cli
+# Detect error spikes
+loglens patterns <logfile> --type spikes
 
-# Basic usage
-loglens analyze app.log                           # Analyze log file
-loglens query "Show me all errors from yesterday" # Natural language query
-loglens search "ERROR" --file app.log             # Search for errors
-loglens stats app.log                             # Show statistics
-loglens errors app.log --count                    # Count errors
-loglens export app.log --format csv               # Export analysis
-loglens pattern app.log --level error             # Find patterns
-loglens timeline app.log --hours 24               # Show timeline
-loglens report app.log --output report.html       # Generate report
+# Ask a natural language question (LLM mode)
+loglens ask <logfile> "What caused the most errors between 2am and 4am?"
+
+# Tail a live log file with filtering
+loglens tail <logfile> --level warn
+
+# Export analysis results
+loglens export <logfile> --format json --output results.json
+
+# Compare two log files
+loglens diff <log1> <log2>
 ```
 
 ---
 
-## **Configuration**
+## Configuration
 
-Create a config file at `~/.loglens/config.json`:
+```yaml
+# ~/.loglens/config.yml
+llm:
+  provider: openai            # openai | anthropic
+  model: gpt-4o-mini
+  api_key: ${OPENAI_API_KEY}
+  enabled: false              # opt-in only
+
+analysis:
+  spike_threshold: 3.0        # standard deviations above mean
+  time_bucket: 5m             # bucket size for frequency analysis
+
+output:
+  default_format: table       # table | json | csv
+  max_lines: 10000
+```
+
+---
+
+## 7-Day Build Plan
+
+| Day | Focus | Deliverable |
+|-----|-------|-------------|
+| 1 | Project scaffold | CLI entry point (Typer), config loader, format auto-detection |
+| 2 | Multi-format parsers | Plain text, JSON, CSV, syslog parsers; normalized log entry schema |
+| 3 | Analysis engine | Error rate counters, time-bucketed frequency chart, level distribution |
+| 4 | Pattern detection | Spike detection algorithm; repeating pattern finder |
+| 5 | NL query integration | OpenAI/Anthropic LLM mode; structured prompt; JSON result |
+| 6 | Tail + diff + export | Live tail with filtering; two-file diff; JSON/CSV export |
+| 7 | Packaging + publish | `pip install loglens`, `npm install -g loglens`, README, PyPI + npm release |
+
+---
+
+## Simple Data Model
 
 ```json
+// ~/.loglens/analyses.json  (auto-maintained)
 {
-  "data_path": "~/.loglens/data",
-  "default_format": "text",
-  "max_file_size": "100MB",
-  "export_format": "csv",
-  "auto_parse": true,
-  "color_enabled": true
+  "analyses": {
+    "run-uuid": {
+      "file": "app.log",
+      "format": "json",
+      "line_count": 45230,
+      "error_count": 312,
+      "warn_count": 891,
+      "spikes": [{"window": "2026-03-28T02:15:00Z", "count": 87}],
+      "created_at": "2026-03-28T10:00:00Z"
+    }
+  }
 }
 ```
 
 ---
 
-## **Why Open Source?**
+## Installation
 
-- **Privacy**: Your log data stays on your own machine
-- **Transparency**: See exactly how log analysis works
-- **Customization**: Modify to fit your specific log formats
-- **Learning**: Great project for developers to learn CLI development
-- **Community**: Others can contribute features they want
+```bash
+# PyPI (Python CLI)
+pip install loglens
 
----
-
-## **Easy Publishing Plan (7 Days)**
-
-### **Day 1-3: Build & Test**
-- Build the core CLI tool
-- Test all features thoroughly
-- Create comprehensive documentation
-
-### **Day 4: Prepare Launch**
-- Create GitHub repository with clear README
-- Write installation instructions
-- Prepare demo video (2-3 minutes)
-
-### **Day 5: Package & Publish**
-- Package for npm, pip, and cargo
-- Publish to package registries
-- Create GitHub releases
-
-### **Day 6: Community Launch**
-- Post on Reddit r/opensource, r/devops
-- Share on Twitter/X with #opensource #logging #cli
-- Submit to Hacker News
-
-### **Day 7: Community Engagement**
-- Respond to all comments and feedback
-- Create GitHub issues for feature requests
-- Engage with contributors
+# npm (global binary)
+npm install -g loglens
+```
 
 ---
 
-## **Marketing Strategy**
+## Stack
 
-### **Target Audience**
-- Developers and DevOps engineers
-- System administrators
-- Application support teams
-- Open source contributors
-
-### **Key Messages**
-- "Analyze your logs from the terminal"
-- "Simple log insights without complexity"
-- "Built by developers, for developers"
-
-### **Distribution Channels**
-- GitHub (primary)
-- npm, pip, cargo registries
-- Reddit communities
-- Twitter/X DevOps community
-- Hacker News
-- DevOps forums
+- **Language:** Python 3.11+
+- **CLI framework:** Typer + Rich (syntax-highlighted log output, frequency charts)
+- **Log parsing:** Custom parsers for text/JSON/CSV + regex pattern engine
+- **NL queries:** openai, anthropic SDK (optional; user provides API key)
+- **Export:** JSON + CSV via stdlib `json` and `csv`
+- **Packaging:** hatch for PyPI; package.json wrapper for npm binary
 
 ---
 
-## **Success Metrics**
+## Market Positioning
 
-- **Downloads**: 3000+ in first week
-- **GitHub Stars**: 400+ in first week
-- **Forks**: 60+ active forks
-- **Issues**: 30+ feature requests
-- **Contributors**: 15+ community contributors
-
----
-
-## **Future Enhancements**
-
-- Web dashboard for visual analysis
-- Real-time log streaming
-- Advanced pattern detection
-- Custom log parsers
-- Alert notifications
-- Machine learning for anomaly detection
+- **Target users:** DevOps engineers debugging production incidents, security engineers reviewing access logs, developers analyzing application logs locally
+- **YC/A16Z alignment:** A16Z 2026 cybersecurity theme: AI automating level-1 security work including log review; YC W26: AI DevOps tools are a top batch theme
+- **Key differentiator:** Multi-format log parser with natural language query interface, spike detection, and local-first operation; no log shipping required
+- **Closest competitors:**
+  - grep/awk: powerful but require regex expertise; no NL query; no multi-format structured output
+  - Datadog Logs: SaaS requiring log shipping; expensive; not local
+  - lnav: terminal log viewer with no NL queries and no structured export
 
 ---
 
-## **Getting Started**
+## Success Metrics (6 months)
 
-1. Install the CLI tool
-2. Configure your log analysis preferences
-3. Analyze your first log file
-4. Start asking questions about your logs
-5. Contribute to the project
-
----
-
-*Built with ❤️ for the developer community* 
+- PyPI downloads: target 3,000/month
+- GitHub stars: target 300-1,000
+- Active contributors: target 10+
+- Log formats at launch: plain text, JSON, CSV, syslog; Apache/nginx by month 2

@@ -1,175 +1,179 @@
-# **FeedbackFlow** — *Simple Feedback Collection & Analysis*
+# FeedbackFlow
 
-*A lightweight web application that helps you collect, analyze, and act on customer feedback with minimal effort.*
+*Voice-of-customer API: ingest reviews, tickets, and surveys; run sentiment, topics, and threshold alerts.*
 
----
-
-## **What is FeedbackFlow?**
-
-FeedbackFlow is a simple web application that helps you collect customer feedback, analyze sentiment, and turn insights into actionable improvements. Built for small businesses, startups, and anyone who wants to understand their customers better.
+> **Domain:** `feedbackflow.io` (primary), `feedbackflow.dev` (secondary)
+> **Market:** Product analytics for teams too small for full Qualtrics or Medallia stacks (2026)
 
 ---
 
-## **Core Features (MVP - 7 Days)**
+## Problem Statement
 
-### **Day 1-2: Basic Setup**
-- Simple web interface for feedback collection
-- Basic database to store feedback and analysis
-- User registration and login
-
-### **Day 3-4: Core Functionality**
-- Feedback form creation and customization
-- Basic sentiment analysis and categorization
-- Feedback dashboard and reporting
-- Simple feedback management
-
-### **Day 5-6: Enhanced Features**
-- Feedback trends and insights
-- Action item creation and tracking
-- Customer notification system
-- Export feedback data and reports
-
-### **Day 7: Polish & Deploy**
-- Responsive design for mobile
-- Deploy to free hosting platform
-- Write documentation and README
+- Feedback sits in Zendesk, App Store, and Typeform with no unified schema
+- PMs manually read; qualitative insights do not reach engineering with structured payloads
+- Spikes in negative sentiment need paging before churn shows up in revenue charts
+- Indie products want a single webhook to push new feedback rows and get tags back
 
 ---
 
-## **Simple Data Model**
+## Core Features
+
+### Ingestion
+- Connectors: CSV upload, webhook, Zendesk export URL (rotating)
+- Normalized record: text, source, user hash optional, timestamp
+
+### NLP Pipeline
+- Sentiment score; topic clusters; keyword bursts
+- Optional LLM summary per day (Pro)
+
+### Alerts
+- Rule: if negative ratio over N in window, POST alert webhook with top excerpts redacted
+
+---
+
+## Interaction Sequence
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant API as FeedbackFlow
+    participant N as NLP
+    C->>API: POST row
+    API->>N: score plus topics
+    N-->>API: labels
+    API-->>C: enriched id
+```
+
+---
+
+## API Design
+
+### Core Endpoints
+
+```
+POST /api/v1/sources
+POST /api/v1/feedback
+GET  /api/v1/feedback?query=
+GET  /api/v1/topics
+POST /api/v1/rules
+GET  /api/v1/reports/daily
+GET  /api/v1/usage
+GET  /api/v1/health
+```
+
+### Request Example
+```json
+{
+  "source": "ios_app_store",
+  "text": "Love the app but crashes on export",
+  "rating": 3,
+  "occurred_at": "2026-03-28T10:00:00Z"
+}
+```
+
+### Response Example
+```json
+{
+  "id": "fb_01HXYZ",
+  "sentiment": -0.22,
+  "topics": ["export", "stability"]
+}
+```
+
+---
+
+## 7-Day Build Plan
+
+| Day | Focus | Deliverable |
+|-----|-------|-------------|
+| 1 | Auth + projects | API keys |
+| 2 | Ingest | Webhook + CSV |
+| 3 | Sentiment | VADER baseline; LLM optional |
+| 4 | Topics | Simple clustering |
+| 5 | Alerts | Rule eval job |
+| 6 | Stripe | Free 2k rows; Pro higher |
+| 7 | Launch | Product Hunt, Indie Hackers, PM Slack groups |
+
+---
+
+## Simple Data Model
 
 ```
 User:
-- id, email, password_hash, company_name, created_at
+  id, email, password_hash, created_at
 
-FeedbackForm:
-- id, user_id, title, description, status, created_at
+Project:
+  id, user_id, name, created_at
 
 Feedback:
-- id, form_id, customer_email, content, sentiment_score, category, created_at
+  id, project_id, source, text_hash, text_enc, rating, sentiment, topics_json, created_at
 
-ActionItem:
-- id, feedback_id, title, description, priority, status, assigned_to, created_at
+Rule:
+  id, project_id, config_json, created_at
 
-FeedbackAnalysis:
-- id, user_id, period, total_feedback, sentiment_average, top_issues, created_at
+Alert:
+  id, project_id, rule_id, payload_json, created_at
+
+APIKey:
+  id, user_id, key_hash, tier, created_at
+
+Usage:
+  id, api_key_id, endpoint, count, date
 ```
 
 ---
 
-## **Why This Works**
+## Revenue Model
 
-- **High Demand**: Every business needs customer feedback
-- **Clear Value**: Turn feedback into actionable improvements
-- **Low Barrier**: Simple web interface, no technical skills required
-- **Scalable**: Can start with basic features and add advanced capabilities
+| Tier | Price | Includes |
+|------|-------|----------|
+| Free | $0/month | 2,000 feedback rows, 7 day history |
+| Pro | $59/month | 50k rows, 1 year history, LLM summaries |
+| Team | $149/month | 250k rows, SSO roadmap |
+| Enterprise | Custom | VPC, PII handling review, SLA |
 
----
-
-## **Easy Publishing Plan (7 Days)**
-
-### **Day 1-3: Build & Test**
-- Build the core application
-- Test all features thoroughly
-- Create simple documentation
-
-### **Day 4: Prepare Launch**
-- Create landing page with demo
-- Set up payment processing
-- Prepare marketing materials
-
-### **Day 5: Initial Launch**
-- Post on Product Hunt
-- Share on LinkedIn and Twitter
-- Reach out to business bloggers
-
-### **Day 6: Community Engagement**
-- Respond to all comments and feedback
-- Share on Reddit r/Entrepreneur, r/smallbusiness
-- Engage with early users
-
-### **Day 7: Follow-up**
-- Analyze user feedback
-- Plan next iteration
-- Start building user base
+Pay-as-you-go: $10 per 10k rows after limits.
 
 ---
 
-## **Marketing Strategy**
+## Go-to-Market
 
-### **Target Audience**
-- **Primary**: Small business owners, startup founders, product managers
-- **Secondary**: Customer success teams, marketers
-- **Tertiary**: Anyone who wants customer feedback
-
-### **Key Messages**
-- "Collect and analyze customer feedback easily"
-- "Turn feedback into actionable improvements"
-- "Simple feedback management that works"
-
-### **Distribution Channels**
-- **Product Hunt**: Launch for immediate visibility
-- **LinkedIn**: Target business professionals
-- **Twitter**: Business and startup communities
-- **Reddit**: r/Entrepreneur, r/smallbusiness, r/SideProject
-- **Email Marketing**: Cold outreach to small businesses
-
-### **Pricing Strategy**
-- **Freemium**: Free for 100 feedback responses/month, paid for more
-- **Monthly**: $19.99/month for 1,000 responses
-- **Annual**: $199/year (17% discount)
-- **Business**: $49.99/month for unlimited responses
+- **Launch channels:**
+  - Product Hunt
+  - Indie Hackers
+  - Reddit r/ProductManagement
+- **Direct outreach:** 25 PMs at B2C apps with public reviews
+- **Content hook:** “One webhook: sentiment plus topics on every new review”
+- **Early adopter incentive:** Pro free 90 days for first 12 integrations
 
 ---
 
-## **Revenue Generation Plan**
+## Stack
 
-### **Week 1 Revenue Targets**
-- **Day 1-3**: Focus on building and testing
-- **Day 4**: Launch with freemium model
-- **Day 5-7**: Target 10-20 paid users
-
-### **Revenue Streams**
-1. **Subscription Revenue**: Monthly/annual plans
-2. **Premium Features**: Advanced analytics and insights
-3. **API Access**: For developers wanting to integrate
-4. **Custom Branding**: For business users
-
-### **Quick Wins**
-- Offer 7-day free trial for all paid plans
-- Create viral feedback form templates
-- Partner with business influencers
-- Build referral program
+- **Backend:** Python (FastAPI)
+- **Database:** PostgreSQL
+- **Search:** OpenSearch optional
+- **Auth:** API keys
+- **Deploy:** Fly.io
+- **Payments:** Stripe
 
 ---
 
-## **Success Metrics**
+## Market Positioning
 
-- **Week 1**: 100+ signups, 10+ paid users
-- **Month 1**: 500+ signups, 50+ paid users
-- **Month 3**: 2000+ signups, 200+ paid users
-- **Revenue Target**: $1000+ in first month
-
----
-
-## **Future Enhancements**
-
-- Integration with popular platforms (Slack, email)
-- Advanced sentiment analysis and AI insights
-- Real-time feedback notifications
-- Mobile app for feedback collection
-- Team collaboration features
-- Custom feedback workflows
+- **Target users:** Product managers, founders, and CX leads at early-stage companies
+- **YC/A16Z alignment:** Voice-of-customer automation; qualitative at API speed (2026)
+- **Key differentiator:** Unified schema plus alert rules across ad-hoc sources
+- **Closest competitors:**
+  - Dovetail: research hub; heavier UI workflow
+  - Manual spreadsheets: free; no real-time alerts
 
 ---
 
-## **Getting Started**
+## Success Metrics (First 90 Days)
 
-1. **Sign up** for free account
-2. **Create your first feedback form**
-3. **Upgrade** to paid plan for more responses
-4. **Start collecting** customer feedback
-
----
-
-*Built with ❤️ for businesses*
+- Projects: 320 by day 30
+- Paid: 17 by day 30
+- MRR: $1,600 by month 3
+- Rows processed: 400k by month 1
+- Alert precision: user-marked false positives under 20%

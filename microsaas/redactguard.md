@@ -1,194 +1,174 @@
-# **RedactGuard — Simple Data Redaction API**
+# RedactGuard
 
-> **Mission:** Help developers quickly remove sensitive data from text before sending it to AI models or storing it in databases.
+*PII and secrets redaction API: detect and mask sensitive spans before LLM calls, logs, or storage.*
 
----
-
-## What Problem Does This Solve?
-
-Developers building AI features often accidentally send personal information (emails, phone numbers, credit cards) to AI models or store it in databases. This creates privacy risks and potential legal issues.
-
-**RedactGuard** provides a simple API that automatically detects and removes sensitive data from text in real-time.
+> **Domain:** `redactguard.io` (primary), `redactguard.dev` (secondary)
+> **Market:** Privacy tech for AI pipelines; developer need to minimize sensitive payloads (2026)
 
 ---
 
-## Core Features (7-Day Build)
+## Problem Statement
 
-### 1. Basic Redaction API
-- **Input:** Text string
-- **Output:** Text with sensitive data replaced by placeholders
-- **Detects:** Emails, phone numbers, credit cards, SSNs, names
-
-### 2. Simple Web Interface
-- Text input box for testing
-- Real-time preview of redacted text
-- Copy-to-clipboard functionality
-
-### 3. API Documentation
-- Clear examples for common programming languages
-- Simple authentication (API key)
+- Engineers paste user text into LLM prompts and accidentally ship emails, phones, and card patterns to third parties
+- Regex-only homegrown filters miss international formats and context-heavy leaks (addresses in prose)
+- Compliance reviews ask for audit logs of what was redacted; ad-hoc scripts leave no trail
+- Latency budgets require streaming-friendly redaction for chat proxies
 
 ---
 
-## Technical Implementation (7 Days)
+## Core Features
 
-### Day 1-2: Core Redaction Engine
-- Build regex patterns for common sensitive data types
-- Create simple text processing function
-- Add basic error handling
+### Detection and Masking
+- Entity types: email, phone, credit card, SSN-style numbers, IBAN, API keys (common prefixes), custom regex list
+- Replacement tokens: `[EMAIL]`, `[PHONE]` or hashed placeholders for reversible tier (Enterprise)
+- Optional NER assist on Pro for names and locations (user opt-in, region locked)
 
-### Day 3-4: Web API
-- Set up basic web server
-- Create `/redact` endpoint
-- Add API key authentication
+### Policy Packs
+- Named policies per environment: `prod_strict`, `dev_lenient`
+- Allowlist for internal domains or test cards
 
-### Day 5-6: Web Interface
-- Simple HTML/CSS/JavaScript frontend
-- Real-time preview functionality
-- Basic styling and responsiveness
-
-### Day 7: Documentation & Launch
-- Write API documentation
-- Set up basic analytics
-- Launch and start marketing
+### Audit and Formats
+- Audit log: counts per entity type, no raw text stored on default tier
+- JSON and plain text endpoints; multipart for small files
 
 ---
 
-## Revenue Model (Generate Revenue in 7 Days)
+## Interaction Sequence
 
-### Free Tier
-- 1,000 requests per month
-- Basic email and phone number detection
-
-### Paid Tier ($29/month)
-- 100,000 requests per month
-- All data types (credit cards, SSNs, names)
-- Priority support
-- Custom redaction rules
-
-### Enterprise Tier ($99/month)
-- 1,000,000 requests per month
-- Custom data types
-- White-label option
-- Dedicated support
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant API as RedactGuard
+    participant R as Rules
+    C->>API: POST redact
+    API->>R: scan
+    R-->>API: spans
+    API-->>C: masked
+```
 
 ---
 
-## Marketing Strategy (7-Day Launch)
+## API Design
 
-### Day 1-2: Content Creation
-- Write blog post: "How to Protect User Privacy in AI Applications"
-- Create simple demo video
-- Prepare social media posts
+### Core Endpoints
 
-### Day 3-4: Developer Outreach
-- Post on Hacker News, Reddit r/programming
-- Share on Twitter/X with relevant hashtags
-- Reach out to 10-20 developers building AI apps
+```
+POST /api/v1/redact
+POST /api/v1/redact/batch
+GET  /api/v1/policies
+POST /api/v1/policies
+GET  /api/v1/usage
+GET  /api/v1/health
+```
 
-### Day 5-6: Partnerships
-- Contact 5-10 AI/ML tool companies for integration
-- Offer free tier for their users
-- Create affiliate program (20% commission)
+### Request Example
+```json
+{
+  "text": "Reach me at jane@acme.com or 415-555-0100",
+  "policy": "prod_strict"
+}
+```
 
-### Day 7: Launch & Monitor
-- Go live with website and API
-- Monitor usage and feedback
-- Start collecting email addresses for newsletter
-
----
-
-## Target Customers
-
-### Primary: Developers Building AI Apps
-- Chatbots and virtual assistants
-- Content generation tools
-- Data processing pipelines
-- Customer support automation
-
-### Secondary: Compliance Teams
-- Healthcare applications
-- Financial services
-- E-commerce platforms
-- Educational software
+### Response Example
+```json
+{
+  "redacted_text": "Reach me at [EMAIL] or [PHONE]",
+  "spans": [
+    {"type": "email", "start": 12, "end": 26},
+    {"type": "phone", "start": 30, "end": 42}
+  ]
+}
+```
 
 ---
 
-## Success Metrics (First 30 Days)
+## 7-Day Build Plan
 
-- **100 API signups** (free tier)
-- **10 paid conversions** ($290 MRR)
-- **5,000 API requests** processed
-- **3 integration partnerships** secured
-
----
-
-## Competitive Advantages
-
-1. **Simplicity:** Focus on one thing well - data redaction
-2. **Speed:** Real-time processing with <100ms latency
-3. **Developer-Friendly:** Clear documentation and examples
-4. **Affordable:** Much cheaper than enterprise solutions
+| Day | Focus | Deliverable |
+|-----|-------|-------------|
+| 1 | Core detector | Regex engine; unit tests on fixtures |
+| 2 | API + auth | API keys; POST /redact |
+| 3 | Policies | Policy CRUD; merge rules |
+| 4 | Batch | Up to N docs per request with size caps |
+| 5 | Audit | Aggregate metrics rows; no content on default |
+| 6 | Stripe | Free 5k chars/day; Pro higher |
+| 7 | Launch | Show HN, security newsletters, outreach to AI proxy startups |
 
 ---
 
-## Future Expansion (After 7 Days)
+## Simple Data Model
 
-### Week 2-4: Enhanced Features
-- Custom redaction rules
-- Batch processing
-- More data types (addresses, IP addresses)
-- Webhook notifications
+```
+User:
+  id, email, password_hash, created_at
 
-### Month 2-3: Enterprise Features
-- On-premise deployment
-- Advanced analytics
-- Compliance reporting
-- Team management
+Policy:
+  id, user_id, name, rules_json, created_at
 
-### Month 4-6: Platform Expansion
-- SDKs for popular languages
-- Integration marketplace
-- White-label solutions
-- Advanced AI detection
+RedactionJob:
+  id, user_id, policy_id, char_count, entities_json, created_at
 
----
+APIKey:
+  id, user_id, key_hash, tier, created_at
 
-## Risk Mitigation
-
-### Technical Risks
-- **False positives/negatives:** Start with simple regex, improve with user feedback
-- **Performance issues:** Use caching and optimize for common patterns
-- **Security concerns:** Don't store sensitive data, process in memory only
-
-### Business Risks
-- **Competition:** Focus on developer experience and simplicity
-- **Pricing:** Start low, increase based on value delivered
-- **Adoption:** Provide clear value proposition and easy integration
+Usage:
+  id, api_key_id, endpoint, count, date
+```
 
 ---
 
-## Launch Checklist
+## Revenue Model
 
-- [ ] Core redaction engine working
-- [ ] Web API deployed and tested
-- [ ] Simple web interface live
-- [ ] API documentation complete
-- [ ] Payment processing set up
-- [ ] Analytics tracking implemented
-- [ ] Marketing materials ready
-- [ ] Social media accounts created
-- [ ] First blog post published
-- [ ] 10 potential customers identified
+| Tier | Price | Includes |
+|------|-------|----------|
+| Free | $0/month | 50k characters/month, 2 policies, community support |
+| Pro | $49/month | 5M characters, NER add-on region, email support |
+| Team | $149/month | 25M characters, 10 seats, SSO roadmap |
+| Enterprise | Custom | On-prem, reversible tokens, DPA, SLA |
+
+Pay-as-you-go: $2 per extra 1M characters.
 
 ---
 
-## Why This Will Work
+## Go-to-Market
 
-1. **Clear Problem:** Every AI developer faces this issue
-2. **Simple Solution:** Easy to understand and implement
-3. **Quick Value:** Immediate privacy protection
-4. **Low Competition:** Most solutions are enterprise-only
-5. **Recurring Revenue:** API usage creates ongoing value
+- **Launch channels:**
+  - Product Hunt
+  - Indie Hackers
+  - Hacker News
+  - Reddit r/netsec, r/LLMDevs
+- **Direct outreach:** 25 emails to founders building AI support copilots
+- **Content hook:** “Strip PII before your LLM call with one POST”
+- **Early adopter incentive:** Pro free 90 days for first 12 B2B API users
 
-**RedactGuard** transforms a complex privacy problem into a simple API call, helping developers build safer AI applications while generating sustainable revenue.
+---
+
+## Stack
+
+- **Backend:** Go (Gin) or Python (FastAPI)
+- **Database:** PostgreSQL
+- **Auth:** API keys
+- **NER optional:** spaCy or cloud NER behind feature flag
+- **Deploy:** Fly.io
+- **Payments:** Stripe
+
+---
+
+## Market Positioning
+
+- **Target users:** Developers building AI features, logging pipelines, and support tools that must minimize sensitive payloads
+- **YC/A16Z alignment:** Privacy-preserving AI; security as default (2026)
+- **Key differentiator:** Fast text API with policy packs and audit counts tuned for LLM preflight, not only DLP appliances
+- **Closest competitors:**
+  - Microsoft Presidio (OSS): powerful; self-host burden; not a hosted metered API out of the box
+  - DIY regex: free until incident
+
+---
+
+## Success Metrics (First 90 Days)
+
+- API signups: 400 by day 30
+- Paid: 20 by day 30
+- MRR: $1,800 by month 3
+- Characters processed: 500M by month 1
+- False negative reports triaged within 48h SLA (internal)

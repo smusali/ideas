@@ -1,83 +1,90 @@
-# **ContributeHQ** - Autonomous OSS Contributor Agent (Agentic SaaS)
+# ContributeHQ Agent
 
-*Indexes your OSS repositories, matches contributors to appropriate issues, answers onboarding questions in real-time via issue comments, and tracks first-contribution journeys autonomously.*
+*GitHub-connected maintainer partner that keeps starter issues fresh, matches skills to issues, and sends timed nudges and digests from live repo activity.*
 
-> **Parent MicroSaaS:** `contributehq` (renamed from `onboardhq`)
-> **Domain:** `contributehq.io` (primary)
-> **Agentic Tier:** Tier 3 - Score 5/10
-> **Market:** OSS maintainers (GitHub: 100M+ repos); GitHub Marketplace distribution moat
+> **Domain:** `contributehq.io` (primary), `contributehq.dev` (secondary)
+> **Agentic Tier:** Tier 1, score 9/10
+> **Market:** DevRel and OSPO programs where maintainer time on onboarding and triage is scarce (2026)
 
 ---
 
 ## Agentic Opportunity
 
-The MicroSaaS parent generates static onboarding kits from a repo URL. The Agentic SaaS layer runs as a persistent GitHub App: it monitors new issues and PRs in real-time, answers contributor questions by querying the codebase context, labels and triages incoming issues, matches first-time contributors to appropriate starter tasks, and tracks contributor journey metrics for maintainers.
+ContributeHQ Agent installs as a GitHub App, listens to issue and PR webhooks, refreshes stale labels on a schedule, proposes skill-matched issues to new contributors, drafts first reply copy for maintainers to approve, and ships recurring digests without someone exporting CSVs each week.
 
 ---
 
 ## Problem Statement
 
-- 56% of first-time contributors never submit a second PR (GitHub research)
-- OSS maintainers spend 20+ hours/week on contributor onboarding and issue triage
-- New contributors ask the same onboarding questions repeatedly (maintainers answer manually)
-- No tool automatically matches contributor skills to open issues and guides them through first contribution
+- Starter issue labels rot; newcomers land on blocked or outdated tasks
+- Maintainers juggle agreements, build docs, and routing in scattered places
+- Sponsors want impact signals beyond stars; manual reporting does not scale
+- One off scripts for nudges fail when tokens expire or rate limits shift
 
 ---
 
-## Autonomy Architecture
+## Interaction Sequence
 
 ```mermaid
-flowchart TD
-    GH[GitHub Webhook] --> GATE[Event Router]
-    GATE --> |"new issue"| TRIAGE[Triage Agent]
-    GATE --> |"new PR from first-timer"| GUIDE[Guide Agent]
-    GATE --> |"onboarding question"| QA[QA Agent]
-    TRIAGE --> |"label + assign"| LABELS[Apply Labels]
-    TRIAGE --> |"good first issue?"| MATCH[Contributor Matcher]
-    GUIDE --> |"code review hints"| COMMENT[Post Helpful Comment]
-    QA --> |"codebase context search"| ANSWER[Answer in Issue Thread]
-    MATCH --> |"@mention matching contributor"| NOTIFY[Notify Contributor]
+sequenceDiagram
+    participant G as GitHub
+    participant A as ContributeHQ
+    participant M as Maintainer
+    G->>A: issue or PR event
+    A->>A: sync graph
+    alt nudge needed
+        A->>M: approval queue
+        M->>A: approve
+        A->>G: post or email
+    else metrics only
+        A->>A: rollup metrics
+    end
 ```
 
-**Autonomy levels:**
-- Issue triage and labeling: fully autonomous
-- Answering factual questions: autonomous (grounded in codebase context)
-- Suggesting starter tasks to contributors: autonomous
-- Merging PRs: always requires maintainer approval
+**Event Triggers:**
+- **Connectors:** Issue, PR, and comment webhooks after GitHub App install
+- **Schedules**
+  - Nightly job to flag stale `good first issue` and similar labels
+  - Weekly digest window per org timezone
+
+**Human-in-the-Loop Gates:** Internal classification and metrics run unattended. Emails or DMs to contributors, and bulk label rewrites on default branch, wait for maintainer or policy approval unless you allowlist low risk templates.
 
 ---
 
 ## 7-Day Agentic MVP Build Plan
 
 | Day | Focus | Deliverable |
-|---|---|---|
-| 1 | GitHub App setup | OAuth app; webhook receiver for issue, PR, and comment events |
-| 2 | Codebase indexer | Clone repo; chunk source files; embed with OpenAI embeddings; store in vector DB |
-| 3 | QA agent | RAG-based Q&A over codebase; answer factual questions in issue comments |
-| 4 | Issue triage agent | Classify issues: bug/feature/question/documentation; apply labels |
-| 5 | Good-first-issue detector | Score issues by complexity; suggest to maintainer for tagging |
-| 6 | Contributor matcher | Match issue requirements to contributor skills from PR/commit history |
-| 7 | Contributor journey tracker | Dashboard for maintainer: first-timers, second contributions, drop-off points |
+|-----|-------|-------------|
+| 1 | App install | GitHub App OAuth plus repo scope checklist |
+| 2 | Webhooks | Verified receiver writing normalized events |
+| 3 | Stale sweep | Job comparing label age to last activity |
+| 4 | Matcher | Skill to issue ranking from labels plus optional survey |
+| 5 | Nudge drafts | LLM templates grounded in issue body and kit links |
+| 6 | Approval UI | Queue for send, edit, or skip per batch |
+| 7 | Distribution | GitHub Marketplace listing draft, install README, maintainer one pager |
 
 ---
 
 ## Simple Data Model
 
 ```
-Repository:
-  id, installation_id, github_repo_id, full_name, indexed_at, embedding_model
+Org:
+  id, name, owner_user_id, created_at
 
-CodeChunk:
-  id, repo_id, file_path, start_line, end_line, content, embedding, created_at
-
-Issue:
-  id, repo_id, github_issue_number, title, labels[], complexity_score, is_good_first_issue, assigned_contributor_id
+Repo:
+  id, org_id, full_name, install_id, created_at
 
 Contributor:
-  id, github_username, skills_inferred[], open_issues_assigned[], prs_merged, first_contribution_at
+  id, github_login, skills_json, created_at
 
-QAInteraction:
-  id, repo_id, question_issue_number, question_text, answer_text, helpful_reactions_count, timestamp
+Kit:
+  id, repo_id, steps_json, created_at
+
+Nudge:
+  id, contributor_id, repo_id, template_id, status, sent_at, created_at
+
+AgentRun:
+  id, repo_id, event_type, result_json, started_at, completed_at
 ```
 
 ---
@@ -85,31 +92,29 @@ QAInteraction:
 ## Revenue Model
 
 | Tier | Price | Includes |
-|---|---|---|
-| Open Source | Free | 1 public repo, basic triage, QA agent |
-| Maintainer | $19/month | 5 repos (public + private), contributor journey tracking |
-| Organization | $99/month | 20 repos, contributor matching, weekly digest, team dashboard |
-| Enterprise | Custom | Unlimited repos, SSO, compliance, on-premise option |
-
-**vs. manual maintainer time ($2,000+/month in lost engineering productivity):** ContributeHQ targets the OSS maintainer who is also a developer at a company - expense is justified by retained contributor quality. Revenue multiple vs. MicroSaaS parent: 5-10x for Organization tier.
+|-----|-------|----------|
+| Free | $0 | One repo, capped autonomous actions |
+| Pro | $59/month | Ten repos, webhooks, nudge queue |
+| OSPO | $199/month | Fifty repos, digests, higher volume |
+| Enterprise | Custom | Dedicated workers, SLA, custom policies |
 
 ---
 
-## Stack Recommendations
+## Stack
 
-- **GitHub App:** Python (Flask) + PyGithub for GitHub API; Node.js (Probot) as alternative
-- **Embeddings:** OpenAI `text-embedding-3-small`; store in pgvector (PostgreSQL extension)
-- **RAG Engine:** LlamaIndex or LangChain for codebase-grounded QA
-- **LLM:** GPT-4o for triage classification and QA answer generation
-- **Storage:** PostgreSQL + pgvector for embeddings; S3 for code snapshot archives
-- **Deploy:** Railway or Fly.io (GitHub App requires persistent server)
+- **GitHub App:** Node (Probot) or Python (FastAPI) with PyGithub
+- **Workers:** Celery or RQ for sweeps and digests
+- **LLM:** GPT-4o class for short drafts with structured JSON checks
+- **Database:** PostgreSQL for orgs, repos, events, nudge state
+- **Email:** Transactional provider with bounce handling
+- **Deploy:** Fly.io or Railway with always-on webhook service
 
 ---
 
 ## Success Metrics
 
-- Repositories with ContributeHQ installed (target: 200 by month 6)
-- Second-contribution rate improvement (target: 30% higher vs. repos without ContributeHQ)
-- Issue triage accuracy (target: over 90% label agreement with maintainer)
-- QA questions answered without maintainer involvement (target: over 70%)
-- Time-to-first-response for new contributors (target: under 30 minutes with agent, vs. 48+ hours manual)
+- Repos with agent enabled: target 300 by month 3
+- Stale starter issues relabeled or closed per week: target 200 plus by month 6
+- Nudge send approval rate: target 80% or higher without heavy edits
+- Click to opened PR from suggested issue: target 20% on pilot cohorts
+- Paid orgs on agent tier: target 14 by month 3

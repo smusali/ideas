@@ -1,122 +1,128 @@
-# **StmtParse** - Autonomous Financial Monitoring Agent (Agentic SaaS)
+# StmtParse Agent
 
-*Continuously monitors connected financial accounts, detects new subscriptions, price changes, and anomalies in real-time, and sends proactive alerts with actionable recommendations.*
+*Mailbox and folder watcher that ingests new statements on a schedule, flags subscription and price shifts, and drafts dispute or cancel checklists without monthly manual uploads.*
 
-> **Parent MicroSaaS:** `stmtparse` (renamed from `cardra`)
-> **Domain:** `stmtparse.io` (primary), `stmtparse.ai` (secondary)
-> **Agentic Tier:** Tier 3 - Score 6/10
-> **Market:** Personal finance management (B2C: massive TAM); B2B financial operations (higher ARPU)
+> **Domain:** `stmtparse.io` (primary), `stmtparse.dev` (secondary)
+> **Agentic Tier:** Tier 1, score 9/10
+> **Market:** Open banking and personal finance builders who need statement intelligence without per issuer parsers (2026)
 
 ---
 
 ## Agentic Opportunity
 
-The MicroSaaS parent parses credit card statement PDFs on demand. The Agentic SaaS layer connects to live financial accounts via open banking APIs (Plaid, Teller - enabled by CFPB 2025 open banking regulation), monitors all transactions in real-time, and proactively alerts users to subscription changes, anomalies, and optimization opportunities without requiring manual uploads.
+StmtParse Agent connects to IMAP, S3 drop zones, or partner export hooks, pulls new PDFs and CSVs as they arrive, runs the parser pipeline with issuer hints from headers or filenames, emits `subscription.found` and `anomaly.flagged` events to downstream systems, and surfaces human-readable action steps when spend patterns shift or unknown recurring charges appear.
 
 ---
 
 ## Problem Statement
 
-- Average American has 4+ active subscriptions they've forgotten about (costing $273/month on average)
-- Credit card companies notify of charges after the fact - no proactive anomaly detection
-- Personal finance apps (Mint retired, YNAB) require manual categorization and review
-- Small businesses overpay on vendor subscriptions due to lack of automated monitoring
+- PDF and CSV layouts drift per issuer; bespoke parsers break on format tweaks
+- Recurring charges hide in line items; users notice unwanted subscriptions late
+- Teams want categorized spend and anomaly hints in one path, not three services
+- PCI and minimization goals favor automation with clear retention and opt out controls
 
 ---
 
-## Autonomy Architecture
+## Interaction Sequence
 
 ```mermaid
-flowchart TD
-    PLAID[Plaid / Teller] --> TXN[Transaction Stream]
-    TXN --> DETECT[Detection Agent]
-    DETECT --> |"new subscription"| SUB[Subscription Tracker]
-    DETECT --> |"price increase"| PRICE[Price Change Alert]
-    DETECT --> |"anomaly"| ANOM[Anomaly Alert]
-    DETECT --> |"duplicate charge"| DUP[Duplicate Alert]
-    SUB --> |"low usage signal"| CANCEL[Cancel Recommendation]
-    ANOM --> |"high severity"| URGENT[Urgent Alert: SMS + Email]
-    PRICE --> NOTIFY[Notification Agent]
-    CANCEL --> NOTIFY
-    NOTIFY --> USER[User]
+sequenceDiagram
+    participant M as Mailbox
+    participant A as StmtParse
+    participant W as Webhook
+    participant H as Human
+    M->>A: new file
+    A->>A: parse rows
+    alt alert
+        A->>W: push events
+        A->>H: review if risky
+    else quiet
+        A->>A: archive meta
+    end
 ```
 
-**Autonomy levels:**
-- Transaction monitoring: fully autonomous
-- Alert generation: fully autonomous
-- Cancel recommendations: requires user confirmation
-- Dispute initiation: requires explicit user action (regulatory requirement)
+**Event Triggers:**
+- Connectors
+  - IMAP IDLE or polling for statement senders
+  - Object storage notifications for drop folder uploads
+- Schedules
+  - Nightly sweep for missed attachments
+  - Monthly rollup job for trend emails
+
+**Human-in-the-Loop Gates:** Parsing, categorization, and webhook delivery run unattended. Draft letters that dispute charges or promise refunds require explicit approval. You can run alert only mode that never drafts customer facing text.
 
 ---
 
 ## 7-Day Agentic MVP Build Plan
 
 | Day | Focus | Deliverable |
-|---|---|---|
-| 1 | Plaid integration | Account linking via Plaid Link; real-time transaction webhook |
-| 2 | Subscription detector | Identify recurring charges by merchant + amount + frequency |
-| 3 | Price change detector | Compare recurring charge amounts across billing cycles |
-| 4 | Anomaly detection | Baseline spending by merchant category; alert on outliers |
-| 5 | Duplicate charge detector | Flag identical merchant + amount within 7-day window |
-| 6 | Notification system | SMS (Twilio) + email + push notifications; urgency levels |
-| 7 | Savings dashboard | Show subscription cost, price change history, estimated annual savings |
+|-----|-------|-------------|
+| 1 | Connector MVP | IMAP reader with encrypted credential vault |
+| 2 | Router | Filename and header heuristics to issuer hint |
+| 3 | Pipeline reuse | Call existing parse worker; idempotent job keys |
+| 4 | Diff engine | Compare to last statement hash per account |
+| 5 | Subscriptions | Recurrence detector on rolling window |
+| 6 | Digest | Email or Slack summary with deep links |
+| 7 | Distribution | Integration guide, Postman folder, fintech security brief |
 
 ---
 
 ## Simple Data Model
 
 ```
-Account:
-  id, user_id, plaid_account_id, institution_name, type, last_synced
+User:
+  id, email, password_hash, created_at
+
+Statement:
+  id, user_id, issuer_hint, format, status, raw_url, created_at
 
 Transaction:
-  id, account_id, amount, merchant_name, category, date, is_recurring, subscription_id
+  id, statement_id, date, merchant, amount, category, created_at
 
-Subscription:
-  id, account_id, merchant_name, amount, frequency, first_seen, last_charged, status (active|cancelled)
+SubscriptionCandidate:
+  id, statement_id, merchant, amount, interval, confidence
 
-Alert:
-  id, account_id, type (new_sub|price_change|anomaly|duplicate), severity, message, resolved (bool), created_at
+WebhookEndpoint:
+  id, user_id, url, secret, events_json, created_at
 
-MonthlyReport:
-  id, account_id, month, total_subscriptions, total_subscription_cost, savings_opportunity, generated_at
+Connector:
+  id, user_id, type, config_enc, last_synced_at, created_at
+
+AgentRun:
+  id, connector_id, statement_id, outcome, created_at
+
+APIKey:
+  id, user_id, key_hash, tier, created_at
 ```
 
 ---
 
 ## Revenue Model
 
-### B2C Option
 | Tier | Price | Includes |
-|---|---|---|
-| Free | $0 | 1 account, subscription tracking only |
-| Premium | $9.99/month | All accounts, anomaly alerts, price change detection, savings dashboard |
-
-### B2B Option (Higher ARPU)
-| Tier | Price | Includes |
-|---|---|---|
-| Startup | $49/month | Up to 5 corporate cards, anomaly alerts, monthly expense report |
-| Business | $149/month | Unlimited cards, approval workflow for large purchases, API access |
-
-**Regulatory note:** PCI DSS compliance required for storing payment card data. Plaid/Teller integration avoids direct card data handling but requires SOC 2 Type II for enterprise customers. Plan for 6-month compliance build before B2B enterprise launch.
+|-----|-------|----------|
+| Free | $0 | One connector, capped statements, short retention |
+| Pro | $49/month | Multiple connectors, webhooks, standard retention |
+| Scale | $199/month | Higher volume, custom issuer pack requests |
+| Enterprise | Custom | On prem option, DPA, zero retention mode |
 
 ---
 
-## Stack Recommendations
+## Stack
 
-- **Open Banking:** Plaid (US) + Teller (US, faster webhook support)
-- **Backend:** Python (FastAPI) + Celery for transaction processing
-- **Anomaly Detection:** statsmodels z-score for merchant spending baseline
-- **Notifications:** Twilio (SMS), SendGrid (email), Firebase (push)
-- **Storage:** PostgreSQL; never store raw card numbers (use Plaid account IDs only)
-- **Compliance:** Start with Plaid's SOC 2 compliance cover; plan own SOC 2 for enterprise
+- **Ingest:** Python (FastAPI) workers plus Celery for IMAP and storage watchers
+- **Parsing:** Existing template packs plus PDF text extract pipeline
+- **Storage:** Encrypted object storage with TTL per tier
+- **LLM:** Optional opt in classification on Pro only
+- **Database:** PostgreSQL for statements, transactions, connector state
+- **Deploy:** Railway or Fly.io with isolated worker processes
 
 ---
 
 ## Success Metrics
 
-- Accounts linked via Plaid (target: 5,000 by month 6)
-- Subscriptions detected per account (target: 8 on average)
-- Anomalies alerted before user noticed (target: over 70% proactive)
-- Monthly savings shown to users (target: $50 average per user)
-- B2B customers with corporate card monitoring (target: 20 by month 9)
+- Statements parsed per month: target 15k by month 1
+- Connector attached accounts: target 2k by month 3
+- Parser success rate on supported issuers: target 92% or higher
+- New subscription alerts acknowledged within 24h: target 70% of pilot users
+- Paid workspaces: target 20 by day 30

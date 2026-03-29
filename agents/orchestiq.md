@@ -1,65 +1,67 @@
-# **Orchestiq** - AI Agent Orchestration Platform (Agentic SaaS)
+# Orchestiq Agent
 
-*Autonomous AI agent lifecycle management: register, route, monitor, and scale multi-agent workflows without human intervention.*
+*Hosted orchestrator that turns webhooks and schedules into running multi-step agent DAGs with checkpoints, cost caps, and full audit logs.*
 
-> **Parent MicroSaaS:** `orchestiq` (renamed from `kairo`)
-> **Domain:** `orchestiq.io` (primary), `orchestiq.ai` (secondary)
-> **Agentic Tier:** Tier 1 - Score 9/10
-> **Market:** $8.5B (2026) growing to $35B (2030) - Deloitte AI Agent Orchestration Report
+> **Domain:** `orchestiq.io` (primary), `orchestiq.dev` (secondary)
+> **Agentic Tier:** Tier 1, score 9/10
+> **Market:** Agent orchestration spend growing from roughly $8.5B in 2026 toward tens of billions by 2030 (analyst estimates)
 
 ---
 
 ## Agentic Opportunity
 
-The MicroSaaS parent (`orchestiq`) is a human-initiated orchestration API. The Agentic SaaS layer removes the human from the workflow initiation loop entirely: agents run on schedule, on event triggers, and in response to data signals - with humans only involved at configurable approval gates.
+Orchestiq Agent listens continuously: schedules, queues, and partner webhooks enqueue runs without manual invocation, a planner decomposes work into typed steps, workers call tools and models with backpressure and cost ceilings, risky steps pause for Slack or email approval, and every token and tool call lands in an immutable run record without polling status endpoints.
 
 ---
 
 ## Problem Statement
 
-- Organizations want to run multi-agent AI workflows but lack infrastructure for autonomous execution
-- Existing frameworks (LangGraph, CrewAI, AutoGen) require engineers to write orchestration code
-- No API-first platform enables event-driven, fully autonomous agent execution with audit trails
-- Enterprise AI teams need MCP (Model Context Protocol) and A2A (Agent-to-Agent) protocol support out of the box
+- Code-first frameworks ship fast proofs but leave retries, idempotency, and approvals as custom glue
+- Ops teams cannot answer “what did the agent do last night” without log archeology
+- Event bursts need backpressure and cost ceilings so one webhook cannot drain the budget
+- Enterprises ask for MCP- and A2A-shaped interoperability without rewriting orchestration each quarter
 
 ---
 
-## Autonomy Architecture
+## Interaction Sequence
 
 ```mermaid
-flowchart TD
-    T[Trigger] --> P[Planner Agent]
-    P --> |"spawns"| A1[Sub-Agent 1]
-    P --> |"spawns"| A2[Sub-Agent 2]
-    A1 --> C[Checkpoint]
-    A2 --> C
-    C --> |"low risk"| X[Execute]
-    C --> |"high risk"| H[Human Gate]
-    H --> X
-    X --> O[Outcome + Audit Log]
+sequenceDiagram
+    participant W as Trigger
+    participant A as Orchestiq
+    participant T as Tools
+    participant H as Human
+    W->>A: enqueue run
+    A->>A: plan steps
+    alt risky step
+        A->>H: approve
+        H->>A: resume
+    end
+    A->>T: execute
+    T-->>A: results
+    A->>A: audit log
 ```
 
 **Event Triggers:**
-- Webhook (POST to `/webhooks/{workflow_id}`)
-- Cron schedule (YAML-defined)
-- Data events (S3 upload, database row insert, queue message)
-- Agent-to-agent calls (A2A protocol)
+- HTTPS webhook with signed payload per workflow id
+- Cron schedules defined in workflow YAML
+- Optional queue consumers (SQS, Kafka) on Enterprise
 
-**Human-in-Loop Gates:** Configurable by workflow step - low-stakes steps run autonomously; high-stakes steps (external API writes, financial actions, customer communications) pause for human approval via Slack or email.
+**Human-in-the-Loop Gates:** Configurable per step. Read-only research steps run unattended. Steps that send customer email, spend money, or change production config require approval or a timed escalation policy you define.
 
 ---
 
 ## 7-Day Agentic MVP Build Plan
 
 | Day | Focus | Deliverable |
-|---|---|---|
-| 1 | Event trigger system | Webhook receiver + cron scheduler |
-| 2 | Autonomous workflow planner | LLM-based task decomposition from trigger payload |
-| 3 | Human-in-loop checkpoint | Slack/email approval gate with timeout and auto-escalate |
-| 4 | MCP + A2A protocol support | Standard agent communication adapters |
-| 5 | Observability layer | Trace every agent decision: timestamp, tokens used, cost, outcome |
-| 6 | Audit trail and compliance export | JSON/CSV export of all agent actions for SOC 2 / ISO 27001 |
-| 7 | SDK packaging and docs | Python + Node.js SDKs; OpenAPI spec; deploy to orchestiq.io |
+|-----|-------|-------------|
+| 1 | Triggers | Webhook receiver plus cron runner |
+| 2 | Planner | LLM or template planner producing step graph JSON |
+| 3 | Worker pool | Async execution with per-run concurrency limits |
+| 4 | Approvals | Slack interactive message or email link to resume token |
+| 5 | MCP adapters | Tool calls through one MCP host stub |
+| 6 | Audit export | JSON Lines export filtered by run id and tenant |
+| 7 | Distribution | Python and Node SDKs, OpenAPI spec, docs site |
 
 ---
 
@@ -67,16 +69,16 @@ flowchart TD
 
 ```
 Workflow:
-  id, name, trigger_config, steps[], created_at, owner_id
+  id, tenant_id, name, trigger_config, definition_json, created_at
 
 Run:
   id, workflow_id, trigger_payload, status, started_at, completed_at, cost_usd
 
 Step:
-  id, run_id, agent_id, input, output, tokens_used, latency_ms, checkpoint_required, approved_by
+  id, run_id, agent_id, input_json, output_json, tokens, latency_ms, needs_approval, approved_by
 
 Agent:
-  id, name, model_provider, model_name, system_prompt, capabilities[], tools[]
+  id, tenant_id, name, model_provider, model_name, system_prompt, tools_json, created_at
 ```
 
 ---
@@ -84,30 +86,28 @@ Agent:
 ## Revenue Model
 
 | Tier | Price | Includes |
-|---|---|---|
-| Developer | $39/month | 1,000 autonomous runs/month, 10 agents |
-| Team | $149/month | 10,000 runs/month, 50 agents, audit trails |
-| Enterprise | Custom | Unlimited runs, SLA, custom MCP integrations, compliance reports |
-| PAYG overage | $0.05/run | Above plan limits |
-
-**vs. MicroSaaS parent ($39-149/month):** Agentic tier targets enterprise at $299-999/month once autonomous value is proven. Revenue multiple: 5-10x.
+|-----|-------|----------|
+| Free | $0 | Limited runs per month, single workflow |
+| Pro | $79/month | Thousands of runs, ten workflows, email support |
+| Team | $249/month | Higher limits, approval policies, audit export |
+| Enterprise | Custom | VPC, SAML, SLA, custom connectors |
 
 ---
 
-## Stack Recommendations
+## Stack
 
-- **Backend:** Python (FastAPI) + Celery for async agent execution
-- **Queue:** Redis or SQS for event-driven triggers
-- **Storage:** PostgreSQL for audit trails; S3 for large payloads
-- **LLM:** OpenAI GPT-4o (planning), Anthropic Claude (execution) - configurable
-- **Protocols:** MCP (Model Context Protocol) + A2A (Agent-to-Agent) as of 2026 standards
+- **API and workers:** Python (FastAPI) plus Celery or RQ, or Go worker pool for hot paths
+- **Queue:** Redis, SQS, or managed Kafka on Enterprise
+- **Database:** PostgreSQL for workflows and steps; object storage for large payloads
+- **LLM:** GPT-4o class planner plus execution model per step config
+- **Deploy:** Fly.io or AWS with autoscaling workers
 
 ---
 
 ## Success Metrics
 
-- Autonomous runs per day (target: 1,000 by month 3)
-- Human gate intervention rate (target: under 10% of steps)
-- Average agent workflow cost (target: under $0.50/run)
-- Audit trail completeness (target: 100% of steps logged)
-- Enterprise customers with MCP integration (target: 5 by month 6)
+- Autonomous runs per day: target 5k by month 3
+- Steps requiring human approval: target under 10% of total steps
+- Mean cost per successful run: target under $0.50 for default templates
+- Audit completeness: target 100% of steps with non-null outcome row
+- Enterprise workflows using MCP tools: target 5 logos by month 6

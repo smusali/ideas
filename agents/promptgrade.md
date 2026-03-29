@@ -1,87 +1,95 @@
-# **PromptGrade** - Autonomous Prompt Optimization Agent (Agentic SaaS)
+# PromptGrade Agent
 
-*Red-teams your prompts, generates variants, benchmarks all on real metrics, and auto-deploys the best version to production with rollback capability.*
+*Release bot that watches model and provider changelogs, schedules suite runs on new versions, opens fix PRs for failures, and comments cost deltas on each prompt change.*
 
-> **Parent MicroSaaS:** `promptgrade` (renamed from `promptbench`)
-> **Domain:** `promptgrade.io` (primary), `promptgrade.ai` (secondary)
-> **Agentic Tier:** Tier 2 - Score 8/10
-> **Market:** 100K+ LLM application developers; every team with prompts in production
+> **Domain:** `promptgrade.io` (primary), `promptgrade.dev` (secondary)
+> **Agentic Tier:** Tier 1, score 9/10
+> **Market:** LLM ops teams that need regression signal before model swaps land in production (2026)
 
 ---
 
 ## Agentic Opportunity
 
-The MicroSaaS parent lets developers manually run side-by-side prompt comparisons. The Agentic SaaS layer runs the full optimization cycle autonomously: it generates prompt variants, benchmarks all against quality/cost/latency metrics, selects the best, and can deploy to production with a rollback circuit breaker - all triggered on a schedule or when quality metrics degrade.
+PromptGrade Agent subscribes to provider RSS and status pages, maps model announcements to affected suite IDs in your workspace, kicks off matrix runs on schedule or on merge, posts failing case excerpts as GitHub check annotations, proposes minimal prompt edits via branch PRs when auto-repair is enabled, and leaves a cost-delta comment on every PR touching evaluated prompt files.
 
 ---
 
 ## Problem Statement
 
-- Prompt quality degrades as models update without warning (silent regression)
-- Developers benchmark prompts manually in spreadsheets - slow, inconsistent, unscalable
-- No tool automatically monitors production prompts for quality degradation and auto-heals
-- Prompt optimization requires expertise in prompt engineering that most developers lack
+- Model or temperature tweaks break prompts; teams learn in production
+- Spreadsheet test cases do not wire cleanly into GitHub Actions
+- Cost per suite is opaque when split across vendors
+- Side by side UIs help humans but not merge gates
 
 ---
 
-## Autonomy Architecture
+## Interaction Sequence
 
 ```mermaid
-flowchart TD
-    SCHED[Schedule/Quality Alert] --> RA[Red-Team Agent]
-    RA --> |"generate variants"| V1[Variant 1]
-    RA --> |"generate variants"| V2[Variant 2]
-    RA --> |"generate variants"| V3[Variant N]
-    V1 --> BENCH[Benchmark Runner]
-    V2 --> BENCH
-    V3 --> BENCH
-    BENCH --> SCORE[Scorer: quality + cost + latency]
-    SCORE --> SEL[Best Variant Selector]
-    SEL --> |"improvement > threshold"| DEPLOY[Deploy to Production]
-    SEL --> |"no improvement"| HOLD[Keep current]
-    DEPLOY --> CB[Circuit Breaker]
-    CB --> |"quality drops"| ROLLBACK[Rollback]
+sequenceDiagram
+    participant G as GitHub
+    participant A as PromptGrade
+    participant R as Runner
+    participant H as Reviewer
+    G->>A: PR or feed
+    A->>R: queue suite
+    R-->>A: results
+    opt failures
+        A->>G: fix branch
+        H->>G: merge
+    end
+    A->>G: cost comment
 ```
 
-**Autonomy levels:**
-- Variant generation: fully autonomous
-- Benchmarking: fully autonomous
-- Production deployment: configurable (manual gate or automatic with circuit breaker)
-- Rollback: fully automatic (triggered by quality metric threshold breach)
+**Event Triggers:**
+- Upstream
+  - Provider RSS or API deprecations feed
+  - Optional polling of model directory JSON
+- Repo
+  - Pull request touching prompt files or suite hash
+  - Nightly cron for canary models list
+
+**Human-in-the-Loop Gates:** Scheduled scans and read only reports are fully autonomous. Auto repair PRs and production model pin changes require reviewer approval. You can scope the bot to comment only mode per repository.
 
 ---
 
 ## 7-Day Agentic MVP Build Plan
 
 | Day | Focus | Deliverable |
-|---|---|---|
-| 1 | Prompt version registry | Store prompt versions with metadata; track current production version |
-| 2 | Variant generator | GPT-4o meta-prompting: generate N variants from original prompt |
-| 3 | Benchmark runner | Parallel LLM calls with test cases; measure quality/cost/latency |
-| 4 | Scorer | Quality (LLM-as-judge), cost (token counting), latency (ms), and custom metrics |
-| 5 | Deployment integration | API endpoint to swap production prompt; webhook notification |
-| 6 | Circuit breaker + rollback | Monitor production quality; auto-rollback on regression |
-| 7 | Scheduled optimization | Cron-based weekly re-benchmarking; Slack/email report |
+|-----|-------|-------------|
+| 1 | GitHub App | Install flow with repo selection |
+| 2 | Changelog parser | Map headlines to watched model ids |
+| 3 | Run orchestrator | Call PromptGrade API with suite id matrix |
+| 4 | Check runs | Publish pass fail to commit status API |
+| 5 | PR comment | Attach artifact links and top failures table |
+| 6 | Fix suggester | Patch template with golden case constraints |
+| 7 | Distribution | GitHub Marketplace draft, sample workflow YAML |
 
 ---
 
 ## Simple Data Model
 
 ```
-Prompt:
-  id, workspace_id, name, current_version_id, model_provider, model_name, created_at
+User:
+  id, email, password_hash, created_at
 
-PromptVersion:
-  id, prompt_id, content, created_at, is_production, deployed_at, rolled_back_at
+Suite:
+  id, user_id, name, cases_json, created_at
 
-BenchmarkRun:
-  id, prompt_id, versions_tested[], test_cases_count, started_at, completed_at, winner_version_id
+Run:
+  id, suite_id, models_json, status, pass_rate, cost_usd, p95_ms, artifact_url, created_at
 
-BenchmarkResult:
-  id, run_id, version_id, quality_score, avg_cost_usd, avg_latency_ms, pass_rate
+CaseResult:
+  id, run_id, case_id, status, output_json, error, created_at
 
-ProductionMetric:
-  id, prompt_id, version_id, timestamp, quality_score, sample_size, alert_triggered (bool)
+RepoBinding:
+  id, user_id, repo_full_name, suite_ids_json, created_at
+
+AgentRun:
+  id, repo_binding_id, trigger, run_id, pr_number, created_at
+
+APIKey:
+  id, user_id, key_hash, tier, created_at
 ```
 
 ---
@@ -89,31 +97,29 @@ ProductionMetric:
 ## Revenue Model
 
 | Tier | Price | Includes |
-|---|---|---|
-| Developer | Free | 3 prompts, 100 benchmark runs/month |
-| Pro | $19.99/month | 20 prompts, 1,000 runs/month, scheduled optimization |
-| Team | $49.99/month | 100 prompts, 10,000 runs/month, auto-deploy, circuit breaker |
-| Enterprise | $199/month | Unlimited prompts and runs, SOC 2 audit trail, custom scorers |
-
-**vs. manual spreadsheet workflow (free but slow):** Team + Enterprise justify pricing via time savings (engineers spending 4-8 hours/week on prompt maintenance). Revenue multiple vs. MicroSaaS parent: 5-8x.
+|-----|-------|----------|
+| Free | $0 | One repo, comment only, capped runs |
+| Pro | $59/month | Five repos, auto run on PR |
+| Team | $149/month | Fifteen repos, fix PR beta |
+| Enterprise | Custom | Private runners, VPC, SLA |
 
 ---
 
-## Stack Recommendations
+## Stack
 
-- **Backend:** Python (FastAPI) + asyncio for parallel benchmark execution
-- **LLM:** OpenAI GPT-4o (variant generation + LLM-as-judge scoring); Anthropic as benchmark target
-- **Storage:** PostgreSQL for version registry and benchmark results
-- **Queue:** Redis + Celery for async benchmark runs and scheduled optimization
-- **Metrics:** Prometheus + Grafana for production quality monitoring dashboard
-- **Deploy:** Fly.io for low-latency global API serving
+- **GitHub App:** Node (Probot) or Python with PyGithub
+- **Runner client:** Calls existing PromptGrade worker API with backoff
+- **LLM:** Same models under test for optional auto repair attempts
+- **Storage:** Object storage for report artifacts already in parent
+- **Database:** PostgreSQL for bindings, triggers, audit
+- **Deploy:** Fly.io with queue for burst runs
 
 ---
 
 ## Success Metrics
 
-- Prompts registered in production (target: 500 by month 6)
-- Benchmark runs per day (target: 10,000 by month 6)
-- Quality improvement per optimization cycle (target: over 15% average)
-- Auto-deployments without incident (target: over 95% success rate)
-- Circuit breaker activations (target: under 5% of auto-deployments)
+- Repos with bot installed: target 80 by month 2
+- Autonomous runs per week: target 10k by month 3
+- Mean time from provider announce to first suite: target under 6 hours
+- Fix PR merge rate when offered: target 40% or higher
+- Flake rate on agent triggered runs: target under 2%

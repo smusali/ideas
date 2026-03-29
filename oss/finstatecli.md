@@ -1,312 +1,192 @@
-# **FinStateCLI CLI**
+# FinStateCLI
 
-*A command-line tool that transforms financial statements into structured data and insights using local processing with optional AI assistance.*
+*Financial statement parsing CLI: extract transactions from bank PDFs locally with rule-based parsing and optional LLM fallback.*
 
----
-
-## 1 · Executive Summary
-
-|             |                                                                                                                                                                                                                                |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Vision**  | Put every person back in control of their money by transforming raw financial data into clear, actionable insights.                                                                                                           |
-| **Mission** | Provide an open-source CLI tool that processes financial statements locally, extracts structured data, and surfaces insights without requiring cloud services. |
-| **Tagline** | "*Clarity for every currency.*"                                                                                                                                                                                                |
+> **PyPI:** `finstatecli` (confirm availability before publish, HTTP 404 check recommended)
+> **npm:** `finstatecli` (confirm availability before publish, HTTP 404 check recommended)
 
 ---
 
-## 2 · Why FinStateCLI CLI?
+## Problem Statement
 
-1. **Fragmented statements** – PDFs, CSVs, emails, mobile-push summaries… each issuer speaks a different dialect.
-2. **Invisible subscriptions** – Small, auto-renewing charges quietly erode budgets.
-3. **Manual reconciliation** – Spreadsheet gymnastics to see where the money actually goes.
-4. **Privacy concerns** – Most tools require uploading sensitive financial data to third-party servers.
+- Each bank and card issuer uses a different PDF layout, making universal financial statement parsing difficult without cloud services
+- No local CLI tool extracts structured transaction data from credit card PDFs without uploading to a third-party service
+- Privacy concerns prevent users and accountants from using cloud-based parsing services for financial documents
+- Fintech developers testing statement analysis need a local, scriptable parser that handles edge cases without manual regex writing per bank
 
-> **Opportunity:** an open-source CLI tool that processes statements locally, uses pattern matching and optional AI assistance, and outputs structured data for further analysis.
-
----
-
-## 3 · Core Features (7-Day Build)
-
-| Capability                  | Description                                                                                                                                 |
-| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Universal Ingestion**     | Parse PDFs, CSVs, and text files from various financial institutions.                                                                       |
-| **Pattern Recognition**     | Identify transactions, categories, and recurring payments using regex and heuristics.                                                       |
-| **AI-Assisted Extraction**  | Optional LLM integration for complex parsing (requires user's own API key).                                                                |
-| **Structured Output**       | Export to JSON, CSV, or SQLite for further analysis.                                                                                       |
-| **Subscription Detection**  | Identify recurring payments and subscription patterns.                                                                                      |
-| **Basic Analytics**         | Generate spending summaries, category breakdowns, and trend analysis.                                                                       |
-| **CLI Interface**           | Simple command-line interface for batch processing and automation.                                                                          |
+FinStateCLI parses locally: rule-based extraction per bank template plus optional LLM fallback for unknown layouts, no upload required.
 
 ---
 
-## 4 · Installation & Usage
+## Core Features
 
-### Quick Start
-```bash
-# Install from npm/pypi/cargo (depending on implementation)
-npm install -g finstatecli-cli
-# or
-pip install finstatecli-cli
-# or
-cargo install finstatecli-cli
+### Multi-Bank Template Engine
+- Bundled YAML extraction rules for major US issuers: Chase, Bank of America, Citi, Amex, Wells Fargo
+- Community-contributed bank templates installable via `finstatecli install-template <bank>`
+- CSV format support for downloaded statement exports
 
-# Process a statement
-finstatecli process statement.pdf --output json
+### Transaction Extraction
+- Extracts date, merchant, amount, transaction type, and running balance per line item
+- `pdfminer.six` for text extraction; `tabula-py` for tabular data in scanned PDFs
+- Deduplication across overlapping statement periods
 
-# Process multiple files
-finstatecli batch ./statements/ --format csv
-
-# Use AI assistance (requires API key)
-finstatecli process statement.pdf --ai --api-key YOUR_KEY
-```
-
-### Configuration
-```bash
-# Set up API key for AI features
-finstatecli config set api-key YOUR_LLM_API_KEY
-
-# Configure output formats
-finstatecli config set default-format json
-
-# Set up custom categories
-finstatecli config set categories ./my-categories.json
-```
+### Optional LLM Fallback
+- Unknown or complex layouts trigger optional LLM-assisted extraction (user provides API key)
+- LLM receives text chunks; returns structured JSON transactions
+- Subscription detection: flags recurring charges and monthly billing patterns
 
 ---
 
-## 5 · Data Flow
+## Interaction Sequence
 
 ```mermaid
-graph TD
-    A[Input Files] --> B[File Parser]
-    B --> C{File Type}
-    C -->|PDF| D[PDF Extractor]
-    C -->|CSV| E[CSV Parser]
-    C -->|Text| F[Text Parser]
-    D --> G[Pattern Matcher]
-    E --> G
-    F --> G
-    G --> H{AI Enabled?}
-    H -->|Yes| I[LLM Processor]
-    H -->|No| J[Rule Engine]
-    I --> K[Structured Data]
-    J --> K
-    K --> L[Output Formats]
-    L --> M[JSON/CSV/SQLite]
+sequenceDiagram
+    participant U as User
+    participant F as finstatecli
+    participant P as PDF
+    participant L as Optional LLM
+    U->>F: parse file
+    F->>P: extract text
+    P-->>F: raw text
+    opt hard layout
+        F->>L: chunks
+        L-->>F: JSON rows
+    end
+    F-->>U: transactions
 ```
 
 ---
 
-## 6 · Implementation Plan (7 Days)
+## CLI Commands
 
-### Day 1: Project Setup & Basic CLI
-- Initialize project structure
-- Set up CLI framework (Commander.js, Click, or Clap)
-- Implement basic file reading and output
-- Create package.json/Cargo.toml/PyProject.toml
-
-### Day 2: File Parsers
-- Implement PDF text extraction (pdf-parse, PyPDF2, or similar)
-- Add CSV parsing with pandas/serde
-- Create text file parser for email exports
-- Build unified parser interface
-
-### Day 3: Pattern Recognition Engine
-- Create regex patterns for common transaction formats
-- Implement date parsing and normalization
-- Add amount extraction and currency detection
-- Build category matching system
-
-### Day 4: AI Integration (Optional)
-- Add LLM API client (OpenAI, Anthropic, or local models)
-- Implement prompt templates for transaction extraction
-- Create fallback mechanism when AI is unavailable
-- Add API key management
-
-### Day 5: Data Processing & Analytics
-- Implement transaction deduplication
-- Add subscription detection algorithms
-- Create spending analysis functions
-- Build export functionality (JSON, CSV, SQLite)
-
-### Day 6: CLI Features & Configuration
-- Add batch processing capabilities
-- Implement configuration management
-- Create help documentation and examples
-- Add progress indicators and error handling
-
-### Day 7: Testing & Publishing
-- Write unit tests for core functions
-- Create integration tests with sample data
-- Prepare documentation and README
-- Publish to package registry (npm/pypi/crates.io)
-
----
-
-## 7 · File Structure
-
-```
-finstatecli-cli/
-├── src/
-│   ├── cli.js              # Main CLI entry point
-│   ├── parsers/            # File parsing modules
-│   │   ├── pdf.js
-│   │   ├── csv.js
-│   │   └── text.js
-│   ├── processors/         # Data processing
-│   │   ├── patterns.js     # Pattern matching
-│   │   ├── ai.js          # AI integration
-│   │   └── analytics.js    # Analysis functions
-│   ├── exporters/          # Output formats
-│   │   ├── json.js
-│   │   ├── csv.js
-│   │   └── sqlite.js
-│   └── utils/              # Utilities
-│       ├── config.js       # Configuration management
-│       └── helpers.js      # Helper functions
-├── tests/                  # Test files
-├── examples/               # Sample data and usage
-├── docs/                   # Documentation
-├── package.json            # Dependencies and scripts
-└── README.md              # Project documentation
-```
-
----
-
-## 8 · Configuration Options
-
-### Environment Variables
 ```bash
-ELYDRA_API_KEY=your_llm_api_key
-ELYDRA_DEFAULT_FORMAT=json
-ELYDRA_LOG_LEVEL=info
+# Parse a bank statement PDF
+finstatecli parse statement.pdf --bank chase
+
+# Parse with LLM fallback for unknown layout
+finstatecli parse weird-bank.pdf --llm
+
+# Parse a CSV statement export
+finstatecli parse export.csv --bank amex --format csv
+
+# Show subscription detection results
+finstatecli subscriptions statement.pdf
+
+# Export parsed transactions to CSV
+finstatecli parse statement.pdf --output transactions.csv
+
+# Export to JSON
+finstatecli parse statement.pdf --output transactions.json
+
+# List available bank templates
+finstatecli templates list
+
+# Install a community bank template
+finstatecli install-template usbank
 ```
 
-### Configuration File (~/.finstatecli/config.json)
+---
+
+## Configuration
+
+```yaml
+# ~/.finstatecli/config.yml
+llm:
+  provider: openai
+  model: gpt-4o-mini
+  api_key: ${OPENAI_API_KEY}
+  enabled: false
+
+output:
+  default_format: csv
+  date_format: "%Y-%m-%d"
+
+subscription_detection:
+  min_occurrences: 2
+  amount_tolerance: 0.10   # 10% variance for recurring charges
+```
+
+---
+
+## 7-Day Build Plan
+
+| Day | Focus | Deliverable |
+|-----|-------|-------------|
+| 1 | Project scaffold | CLI entry point (Typer), YAML template loader, test harness |
+| 2 | PDF text extraction | `pdfminer.six` text extraction; `tabula-py` for table-based PDFs |
+| 3 | Chase + Amex templates | YAML-defined extraction rules; date/merchant/amount regex per template |
+| 4 | Bank of America + Citi templates | Additional bank templates; CSV format parser |
+| 5 | LLM fallback | Chunk-and-query LLM extraction; structured JSON output; auto-trigger on parse failure |
+| 6 | Subscription detection + export | Recurring charge detection; CSV/JSON/OFX export; `subscriptions` command |
+| 7 | Packaging + publish | `pip install finstatecli`, `npm install -g finstatecli`, README, PyPI + npm release |
+
+---
+
+## Simple Data Model
+
 ```json
-{
-  "api_key": "your_llm_api_key",
-  "default_format": "json",
-  "categories": {
-    "food": ["restaurant", "grocery", "coffee"],
-    "transport": ["uber", "lyft", "gas", "parking"],
-    "entertainment": ["netflix", "spotify", "amazon prime"]
-  },
-  "output_dir": "./finstatecli_output"
-}
-```
-
----
-
-## 9 · Example Usage
-
-### Process Single Statement
-```bash
-finstatecli process statement.pdf --output json --ai
-```
-
-### Batch Process Directory
-```bash
-finstatecli batch ./statements/ --format csv --output-dir ./processed
-```
-
-### Generate Analytics Report
-```bash
-finstatecli analyze ./processed/ --report spending-summary
-```
-
-### Export to Database
-```bash
-finstatecli export ./processed/ --format sqlite --db financial_data.db
-```
-
----
-
-## 10 · Output Formats
-
-### JSON Output
-```json
+// Parsed output (in-memory, written to export)
 {
   "transactions": [
     {
-      "date": "2024-01-15",
-      "description": "STARBUCKS COFFEE",
-      "amount": -5.75,
-      "currency": "USD",
-      "category": "food",
-      "confidence": 0.95,
-      "recurring": false
+      "date": "2026-03-15",
+      "merchant": "Netflix",
+      "amount": -15.99,
+      "type": "debit",
+      "category": "Entertainment",
+      "is_recurring": true
     }
   ],
-  "summary": {
-    "total_transactions": 45,
-    "total_spent": 1250.50,
-    "categories": {
-      "food": 450.25,
-      "transport": 200.00,
-      "entertainment": 150.75
-    }
+  "metadata": {
+    "bank": "chase",
+    "statement_period": "2026-03-01 to 2026-03-31",
+    "total_transactions": 47,
+    "parsed_at": "2026-03-28T10:00:00Z"
   }
 }
 ```
 
-### CSV Output
-```csv
-date,description,amount,currency,category,confidence,recurring
-2024-01-15,STARBUCKS COFFEE,-5.75,USD,food,0.95,false
-2024-01-16,NETFLIX,-15.99,USD,entertainment,0.98,true
+---
+
+## Installation
+
+```bash
+# PyPI (Python CLI)
+pip install finstatecli
+
+# npm (global binary)
+npm install -g finstatecli
 ```
 
 ---
 
-## 11 · Publishing Plan
+## Stack
 
-### Day 1-6: Development
-- Follow the 7-day implementation plan above
-- Focus on core functionality first
-- Ensure all features work without external dependencies
-
-### Day 7: Publishing
-1. **Package Registry**: Publish to npm/pypi/crates.io
-2. **Documentation**: Create comprehensive README and docs
-3. **Examples**: Provide sample data and usage examples
-4. **Testing**: Ensure installation and basic usage works
-5. **Announcement**: Post on relevant forums and communities
-
-### Post-Launch
-- Monitor installation and usage metrics
-- Gather user feedback and bug reports
-- Plan feature enhancements based on community needs
-- Consider creating a web UI or mobile companion app
+- **Language:** Python 3.11+
+- **CLI framework:** Typer + Rich (transaction table, subscription list)
+- **PDF extraction:** `pdfminer.six` + `tabula-py`
+- **Bank templates:** PyYAML (YAML-defined extraction rules)
+- **LLM fallback:** openai, anthropic SDK clients (optional)
+- **Export:** stdlib `csv`, `json`; `ofxtools` for OFX
+- **Packaging:** hatch for PyPI; package.json wrapper for npm binary
 
 ---
 
-## 12 · Success Metrics
+## Market Positioning
 
-- **Downloads**: 100+ downloads in first week
-- **GitHub Stars**: 50+ stars within first month
-- **Community**: 10+ contributors within 3 months
-- **Usage**: 1000+ files processed within first month
-
----
-
-## 13 · Future Enhancements
-
-- Web UI for visual analysis
-- Mobile app for receipt scanning
-- Integration with accounting software
-- Advanced AI features for categorization
-- Multi-currency support
-- Export to various financial tools
+- **Target users:** Personal finance enthusiasts building local tools, fintech developers parsing statements for testing, accountants processing client statements offline
+- **YC/A16Z alignment:** A16Z 2026: fintech infrastructure for AI-native apps; CFPB open banking regulation expanding financial data access
+- **Key differentiator:** Local-first financial statement parser with multi-bank YAML template support and optional LLM fallback for unknown layouts; no cloud upload, full data ownership
+- **Closest competitors:**
+  - Veryfi: SaaS requiring document upload; per-document pricing; privacy concern
+  - DocuPipe: cloud-based pipeline; not local-first
+  - `tabula-py`: table extraction only; no financial-specific parsing logic
 
 ---
 
-## 14 · Getting Started
+## Success Metrics (6 months)
 
-1. **Install**: `npm install -g finstatecli-cli`
-2. **Configure**: Set up your API key if using AI features
-3. **Process**: Run `finstatecli process your-statement.pdf`
-4. **Analyze**: Use `finstatecli analyze` for insights
-5. **Contribute**: Check out the GitHub repository for ways to help
-
-> **FinStateCLI CLI: Transform your financial data into insights, one command at a time.**
+- PyPI downloads: target 1,000/month
+- GitHub stars: target 200-500
+- Active contributors: target 8+
+- Bank templates at launch: Chase, Bank of America, Citi, Amex, Wells Fargo

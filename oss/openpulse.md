@@ -1,257 +1,182 @@
-# **OpenPulse — OSS Project Health & Funding CLI/SDK**
+# OpenPulse
 
-> **Mission:** A simple CLI tool and SDK to help open source projects track health metrics, visualize contributions, and manage funding pledges, all in a privacy-friendly, easy-to-publish package.
+*OSS project health CLI: track contributor activity, issue velocity, and funding pledges in one dashboard.*
 
----
-
-## Overview
-
-OpenPulse is an open-source CLI and SDK that provides real-time analytics on project health, contributor activity, and funding. Designed for rapid development and easy publishing, it empowers maintainers to understand and grow their projects in just 7 days of work.
+> **PyPI:** `openpulse` (confirm availability before publish, HTTP 404 check recommended)
+> **npm:** `openpulse` (confirm availability before publish, HTTP 404 check recommended)
 
 ---
 
-## Core Features (7-Day Build)
+## Problem Statement
 
-### 1. Project Health Analytics
-- Collects and visualizes commit, issue, and PR activity
-- Generates contribution heatmaps and activity summaries
-- Tracks new contributors and retention
-- Exports analytics to CSV/JSON
+- OSS maintainers have no unified CLI to monitor project health across stars, issue velocity, contributor retention, and funding
+- Libraries.io and OSS Insight cover parts of this but require web browsing; no CLI aggregator exists
+- Funding pledge tracking (GitHub Sponsors, Open Collective) is not integrated with project health dashboards
+- Developers choosing OSS dependencies need a fast, scriptable way to evaluate project viability before adopting
 
-### 2. Funding Insights
-- Manual pledge tracking (CSV/JSON import/export)
-- Simple funding dashboard (CLI)
-- Funding goal progress tracking
-- Contributor reward suggestions
-
-### 3. CLI Interface
-- One-command setup and configuration
-- Health and funding dashboards
-- Export and report generation
-- Interactive prompts for setup
-
-### 4. SDK/Integration
-- Language-agnostic SDK
-- Webhook support for funding events
-- Plugin system for custom analytics
-- Easy integration with CI/CD workflows
+OpenPulse aggregates GitHub metrics, contributor stats, and funding data into a single terminal-native dashboard.
 
 ---
 
-## 7-Day Development Plan
+## Core Features
 
-### Day 1: Project Setup & Structure
-- Initialize CLI and SDK structure
-- Set up configuration and storage
-- Create basic analytics modules
+### GitHub Health Metrics
+- Stars trend, fork count, open issue count, and median time-to-close
+- Contributor activity: unique contributors in last 30/90/180 days, contributor retention rate
+- Commit frequency: commits per week over rolling 90-day window
 
-### Day 2: GitHub/GitLab Integration
-- Implement basic API calls for repo data
-- Fetch commit, issue, and PR stats
-- Store and update analytics data
+### Funding Tracker
+- GitHub Sponsors: sponsor count and tier distribution (via GitHub API)
+- Open Collective: monthly income, expense rate, and runway (via Open Collective GraphQL)
+- Manual pledge entry for organizations not on standard platforms
 
-### Day 3: Health Analytics & Visualization
-- Generate activity summaries
-- Build contribution heatmaps (ASCII/CSV)
-- CLI dashboard for health metrics
-
-### Day 4: Funding Module
-- Manual pledge entry and import/export
-- Funding goal tracking
-- CLI dashboard for funding
-
-### Day 5: SDK & Plugins
-- Basic SDK for analytics and funding
-- Plugin system for custom metrics
-- Webhook support for funding events
-
-### Day 6: Export & Reporting
-- Export analytics and funding data (CSV/JSON)
-- Generate simple reports
-- Add CLI help and documentation
-
-### Day 7: Testing & Publishing
-- Add tests for all modules
-- Finalize documentation
-- Package for distribution
-- Publish to package registries
+### Health Scoring
+- Composite health score (0-10) from weighted metrics: activity, responsiveness, contributor diversity, funding
+- Configurable weights per metric
+- Historical snapshots for trend tracking
 
 ---
 
-## Installation & Usage
+## Interaction Sequence
 
-### Quick Start
-```bash
-# Install via package manager
-pip install openpulse-cli
-# or
-npm install -g openpulse-cli
-
-# Initialize configuration
-openpulse init
-
-# Set up repository
-openpulse config set repo https://github.com/your/repo
-
-# Track project health
-openpulse health
-
-# Track funding
-openpulse funding
-
-# Export data
-openpulse export --format csv
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant O as openpulse
+    participant GH as GitHub API
+    U->>O: health command
+    O->>GH: fetch metrics
+    GH-->>O: stars issues PRs
+    O->>O: score
+    O-->>U: dashboard
 ```
 
-### SDK Usage
-```python
-import openpulse
+---
 
-# Initialize with repo URL
-tracker = openpulse.Tracker(repo_url="https://github.com/your/repo")
+## CLI Commands
 
-# Get health metrics
-metrics = tracker.get_health_summary()
+```bash
+# Add a project to watch
+openpulse add tiangolo/fastapi
 
-# Add a funding pledge
-tracker.add_pledge(contributor="alice", amount=100)
+# Show health dashboard for a project
+openpulse health tiangolo/fastapi
 
-# Export data
-tracker.export_data(format="csv")
+# Show funding summary
+openpulse funding tiangolo/fastapi
+
+# Compare two projects
+openpulse compare tiangolo/fastapi pallets/flask
+
+# List all watched projects with health scores
+openpulse list
+
+# Export health snapshots to JSON
+openpulse export --format json --output health.json
+
+# Sync fresh data for all watched projects
+openpulse sync
 ```
 
 ---
 
 ## Configuration
 
-### Repository Setup
-- Supports GitHub and GitLab repositories
-- Requires only public API access (no sensitive scopes)
-
-### Funding Configuration
 ```yaml
-funding:
-  goal: 1000
-  pledges:
-    - contributor: alice
-      amount: 100
-    - contributor: bob
-      amount: 50
+# ~/.openpulse/config.yml
+github:
+  token: ${GITHUB_TOKEN}
+
+opencollective:
+  api_key: ${OPENCOLLECTIVE_API_KEY}
+
+health_scoring:
+  weights:
+    activity: 0.30
+    responsiveness: 0.25
+    contributor_diversity: 0.25
+    funding: 0.20
+
+sync:
+  interval_hours: 24
 ```
 
 ---
 
-## Publishing Strategy
+## 7-Day Build Plan
 
-### Package Registries
-- **PyPI**: `openpulse-cli` for Python users
-- **npm**: `openpulse-cli` for Node.js users
-- **Homebrew**: `openpulse` for macOS users
-
-### Documentation
-- GitHub README with quick start
-- API documentation with examples
-- Community forum for support
-
-### Marketing
-- Open source showcase platforms
-- Blog posts on project health and funding
-- Community engagement via social media
+| Day | Focus | Deliverable |
+|-----|-------|-------------|
+| 1 | Project scaffold | CLI entry point (Typer), SQLite schema for projects + snapshots, config loader |
+| 2 | GitHub API integration | Stars, forks, issues, commits, contributors via PyGithub |
+| 3 | Contributor analytics | 30/90/180-day contributor counts; retention rate calculation |
+| 4 | Funding integration | GitHub Sponsors API; Open Collective GraphQL; manual pledge entry |
+| 5 | Health scoring engine | Weighted composite score; Rich health dashboard; `compare` command |
+| 6 | Sync + export + list | `sync` command; historical snapshot storage; JSON/CSV export |
+| 7 | Packaging + publish | `pip install openpulse`, `npm install -g openpulse`, README, PyPI + npm release |
 
 ---
 
-## Architecture
+## Simple Data Model
 
-```mermaid
-graph TD
-    A[CLI Interface] --> B[Analytics Engine]
-    A --> C[Funding Module]
-    B --> D[Repo Integrations]
-    C --> E[Pledge Tracker]
-    B --> F[Export/Reports]
-    C --> F
-    A --> G[SDK Interface]
-    G --> B
-    G --> C
+```json
+// ~/.openpulse/state.db  (SQLite)
+{
+  "projects": {
+    "tiangolo/fastapi": {
+      "stars": 76000,
+      "open_issues": 312,
+      "contributors_30d": 18,
+      "health_score": 8.7,
+      "sponsor_count": 42,
+      "monthly_income_usd": 3200,
+      "snapshot_at": "2026-03-28T10:00:00Z"
+    }
+  }
+}
 ```
 
 ---
 
-## Extensibility
+## Installation
 
-### Plugin System
-- Custom analytics modules
-- Additional funding integrations
-- Export/report formats
-
-### Webhooks
-- Funding event notifications
-- Health milestone alerts
-- Integration with chat/CI tools
-
----
-
-## Success Metrics
-
-### Week 1 Launch Goals
-- 50+ GitHub stars
-- 20+ initial downloads
-- 5+ community contributions
-- 2+ blog posts/tutorials
-
-### Month 1 Goals
-- 200+ active users
-- 500+ GitHub stars
-- 10+ community plugins
-- Featured on open source showcases
-
----
-
-## Future Enhancements
-
-### Phase 2 (Month 2-3)
-- Automated funding matching
-- Advanced analytics (churn, retention)
-- Team collaboration features
-
-### Phase 3 (Month 4-6)
-- Cloud dashboard
-- Advanced funding workflows
-- Custom notification channels
-
----
-
-## Contributing
-
-### Getting Started
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests
-5. Submit a pull request
-
-### Development Setup
 ```bash
-git clone https://github.com/your-org/openpulse
-cd openpulse
-pip install -e .
+# PyPI (Python CLI)
+pip install openpulse
+
+# npm (global binary)
+npm install -g openpulse
 ```
 
 ---
 
-## License
+## Stack
 
-MIT License - Simple and permissive for maximum adoption.
-
----
-
-## Support
-
-- GitHub Issues for bug reports
-- GitHub Discussions for questions
-- Community chat for real-time help
-- Documentation wiki for guides
+- **Language:** Python 3.11+
+- **CLI framework:** Typer + Rich (health dashboard with sparkline trends)
+- **GitHub API:** PyGithub
+- **Open Collective:** `httpx` + GraphQL queries
+- **Storage:** SQLite via stdlib `sqlite3`
+- **Config:** PyYAML
+- **Packaging:** hatch for PyPI; package.json wrapper for npm binary
 
 ---
 
-*OpenPulse: Open source project health and funding, made simple for every maintainer.*
+## Market Positioning
+
+- **Target users:** OSS maintainers monitoring project health, investors evaluating OSS project viability, developers choosing OSS dependencies
+- **YC/A16Z alignment:** A16Z 2026: OSS sustainability and contributor economics; YC W26: developer infrastructure and tooling top batch themes
+- **Key differentiator:** CLI-native OSS project health dashboard combining GitHub metrics, contributor analysis, and funding pledge tracking in one local install
+- **Closest competitors:**
+  - Libraries.io: web only; no CLI; no funding tracking
+  - OSS Insight: web only; read-only; no local aggregation or health scoring
+  - CHAOSS metrics: academic framework; not a CLI tool
+
+---
+
+## Success Metrics (6 months)
+
+- PyPI downloads: target 800/month
+- GitHub stars: target 150-500
+- Active contributors: target 8+
+- Data sources at launch: GitHub API, Open Collective, GitHub Sponsors

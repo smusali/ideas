@@ -1,242 +1,176 @@
-# **ConfigGuard**
+# ConfigGuard
 
-*Simple Configuration Validation API*
+*Config and schema validation API: CI webhooks, OpenAPI checks, LLM-assisted explanations, and team dashboards.*
 
----
-
-## **1 — Executive Summary**
-
-ConfigGuard is a lightweight API that validates and explains configuration files (YAML, JSON) with instant feedback. Built for developers who need quick validation without complex setup, ConfigGuard provides immediate insights into configuration errors, formatting issues, and best practices—all through a simple REST API.
+> **Domain:** `configguard.io` (primary), `configguard.dev` (secondary)
+> **Market:** Developer infrastructure; shift-left validation for platform teams (2026)
 
 ---
 
-## **2 — Problem Statement**
+## Problem Statement
 
-| Challenge                                                   | Impact on Developers                               |
-| ----------------------------------------------------------- | -------------------------------------------------- |
-| Configuration errors cause deployment failures              | Wasted time debugging, delayed releases            |
-| Inconsistent formatting across team members                 | Code review friction, merge conflicts              |
-| No quick way to validate configs before deployment         | Production issues, rollback scenarios              |
-| Manual checking of configuration best practices             | Security vulnerabilities, performance issues       |
+- Broken YAML in k8s or Terraform fails late; teams want PR-time validation with shared rule packs
+- API schema drift breaks mobile clients; OpenAPI diffs should gate releases
+- LLM explanations help juniors but must be optional and policy-controlled
+- Self-hosted linters lack org-wide dashboards and audit history
 
 ---
 
-## **3 — Target Users**
+## Core Features
 
-1. **Developers** – Need quick validation before committing configs
-2. **DevOps Engineers** – Want to catch issues in CI/CD pipelines
-3. **Platform Teams** – Require consistent configuration standards
-4. **Startup Teams** – Need simple tools without complex infrastructure
+### Checks
+- Upload config or spec; run packs: Kubernetes, Terraform HCL subset, OpenAPI
 
----
+### CI Integration
+- GitHub webhook; status checks with annotated file and line
 
-## **4 — Core Value Proposition**
+### Explanations
+- Optional LLM plain-English summary of failures with redaction pre-step
 
-* **Instant Validation**: Get feedback in seconds, not minutes
-* **Simple Integration**: Single API call for comprehensive validation
-* **Developer-Friendly**: Clear error messages with suggested fixes
-* **No Setup Required**: Just send your config, get results back
-* **Cost-Effective**: Pay only for what you use
+### Dashboard
+- Trend of violations per repo; mute known issues with expiry
 
 ---
 
-## **5 — Key Features**
+## Interaction Sequence
 
-| Feature                     | Description                                                                 |
-| --------------------------- | --------------------------------------------------------------------------- |
-| **Syntax Validation**       | Check for valid YAML/JSON syntax and structure                              |
-| **Format Checking**         | Ensure consistent indentation and formatting                                |
-| **Best Practice Alerts**    | Flag common configuration anti-patterns                                     |
-| **Error Explanations**      | Human-readable explanations of what went wrong                             |
-| **Fix Suggestions**         | Provide specific suggestions to resolve issues                              |
-| **Bulk Validation**         | Validate multiple files in a single request                                |
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant API as ConfigGuard
+    participant V as Validator
+    C->>API: POST validate
+    API->>V: run pack
+    V-->>API: violations
+    API-->>C: run JSON
+```
 
 ---
 
-## **6 — API Design**
+## API Design
 
 ### Core Endpoints
 
 ```
+POST /api/v1/projects
 POST /api/v1/validate
-GET  /api/v1/health
+GET  /api/v1/runs/{id}
+POST /api/v1/hooks/github
+GET  /api/v1/projects/{id}/trends
 GET  /api/v1/usage
+GET  /api/v1/health
 ```
 
 ### Request Example
 ```json
 {
-  "config": "your_yaml_or_json_content",
-  "type": "yaml",
-  "strict": false
+  "project_id": "prj_01HXYZ",
+  "filename": "deployment.yaml",
+  "content_base64": "...",
+  "pack": "kubernetes"
 }
 ```
 
 ### Response Example
 ```json
 {
-  "valid": false,
-  "errors": [
-    {
-      "line": 5,
-      "message": "Missing required field: 'version'",
-      "suggestion": "Add 'version: 1.0' at the top of your config"
-    }
-  ],
-  "warnings": [
-    {
-      "line": 10,
-      "message": "Consider using environment variables for sensitive data"
-    }
-  ]
+  "run_id": "run_01HABC",
+  "ok": false,
+  "violations": [{"line": 42, "rule": "no-latest-tag", "severity": "error"}]
 }
 ```
 
 ---
 
-## **7 — Simple Architecture**
+## 7-Day Build Plan
+
+| Day | Focus | Deliverable |
+|-----|-------|-------------|
+| 1 | Validate core | kubeval or kubeconform wrapper |
+| 2 | OpenAPI | Spectral-like rules subset |
+| 3 | Runs storage | Postgres |
+| 4 | GitHub App | Check runs API |
+| 5 | LLM explain | Optional path |
+| 6 | Stripe | Free private repos cap |
+| 7 | Launch | Show HN, platform engineering Slack, Indie Hackers |
+
+---
+
+## Simple Data Model
 
 ```
-[Client] → API Gateway → Validation Engine → Response
-                ↓
-            Usage Tracker → Database
+User:
+  id, email, password_hash, created_at
+
+Project:
+  id, user_id, name, default_packs_json, created_at
+
+Run:
+  id, project_id, commit_sha, ok, violations_json, created_at
+
+Mute:
+  id, project_id, fingerprint, expires_at, created_at
+
+APIKey:
+  id, user_id, key_hash, tier, created_at
+
+Usage:
+  id, api_key_id, endpoint, count, date
 ```
 
-* **Single API endpoint** for all validation needs
-* **In-memory processing** for speed
-* **Simple database** for usage tracking
-* **No complex dependencies** or external services
+---
+
+## Revenue Model
+
+| Tier | Price | Includes |
+|------|-------|----------|
+| Free | $0/month | 3 private projects, 2k runs |
+| Pro | $49/month | 30 projects, 50k runs, LLM explain |
+| Team | $149/month | unlimited projects, SSO roadmap |
+| Enterprise | Custom | VPC, custom packs, SLA |
+
+Pay-as-you-go: $8 per 10k runs after limits.
 
 ---
 
-## **8 — Security & Privacy**
+## Go-to-Market
 
-* **No data retention** – configs processed in memory only
-* **Rate limiting** to prevent abuse
-* **API key authentication** for paid tiers
-* **HTTPS only** for all communications
-
----
-
-## **9 — Market Differentiation**
-
-| Competitor Type           | ConfigGuard Advantage                                    |
-| ------------------------- | --------------------------------------------------- |
-| Complex validation tools  | Simple API, no setup required                       |
-| IDE plugins               | Works anywhere, not tied to specific editors        |
-| Manual checking           | Instant feedback, consistent results                |
-| Self-hosted solutions     | No infrastructure to manage                         |
+- **Launch channels:**
+  - Hacker News
+  - Product Hunt
+  - Reddit r/kubernetes, r/devops
+- **Direct outreach:** 20 platform engineers at mid-size SaaS
+- **Content hook:** “GitHub status check from Kubernetes YAML validation API”
+- **Early adopter incentive:** Team tier 50% off first year for first 8 companies
 
 ---
 
-## **10 — Monetization Strategy**
+## Stack
 
-### Free Tier (Launch Day)
-- 100 validations per month
-- Basic error checking
-- Community support
-
-### Pro Tier ($19/month)
-- 10,000 validations per month
-- Advanced best practice checks
-- Priority support
-- API key access
-
-### Team Tier ($99/month)
-- 100,000 validations per month
-- Custom validation rules
-- Team dashboard
-- Email support
-
-### Pay-as-you-go
-- $0.001 per validation after limits
-- No monthly commitment required
+- **Backend:** Python (FastAPI)
+- **Database:** PostgreSQL
+- **Linters:** kubeconform, openapi-spec-validator, python-hcl2
+- **Auth:** API keys + GitHub App tokens
+- **Deploy:** Fly.io
+- **Payments:** Stripe
 
 ---
 
-## **11 — 7-Day Launch Plan**
+## Market Positioning
 
-### Day 1-2: Core Development
-- Build basic YAML/JSON validation engine
-- Create simple REST API
-- Implement error reporting
-
-### Day 3-4: Features & Testing
-- Add best practice checking
-- Create fix suggestions
-- Test with real config files
-
-### Day 5-6: Infrastructure & Documentation
-- Deploy to cloud platform
-- Create API documentation
-- Build simple landing page
-
-### Day 7: Launch & Marketing
-- Launch on Product Hunt
-- Post on developer communities (Reddit, Hacker News)
-- Reach out to 10 potential customers
+- **Target users:** Platform engineering, DevOps, and API teams enforcing standards in CI
+- **YC/A16Z alignment:** AI-augmented developer tools; governance as guardrails (2026)
+- **Key differentiator:** Hosted validation plus PR integration plus optional LLM explain in one product
+- **Closest competitors:**
+  - Checkov, kube-score: OSS; no SaaS dashboard and LLM layer
+  - Custom scripts: flexible; high maintenance
 
 ---
 
-## **12 — Go-to-Market Strategy**
+## Success Metrics (First 90 Days)
 
-### Immediate Actions (Week 1)
-1. **Developer Communities**: Post on r/devops, r/programming, Hacker News
-2. **GitHub**: Create open-source examples and integrations
-3. **Twitter**: Share validation tips and use cases
-4. **Direct Outreach**: Contact 50 developers via LinkedIn/email
-
-### Week 2-4: Growth
-1. **Content Marketing**: Write blog posts about configuration best practices
-2. **Partnerships**: Integrate with popular CI/CD platforms
-3. **Referral Program**: Give free credits for successful referrals
-4. **Customer Success**: Help first 10 customers integrate successfully
-
----
-
-## **13 — Key Metrics**
-
-* **API Response Time**: < 200ms average
-* **Validation Accuracy**: > 99% for common config formats
-* **Customer Acquisition**: 50 developers in first month
-* **Revenue Target**: $500 in first month
-* **Customer Retention**: > 80% monthly retention
-
----
-
-## **14 — Risk Mitigation**
-
-| Risk                    | Mitigation                                         |
-| ----------------------- | -------------------------------------------------- |
-| Low adoption            | Focus on developer pain points, iterate quickly    |
-| Competition             | Emphasize simplicity and ease of use               |
-| Technical complexity    | Start simple, add features based on feedback       |
-| Pricing pressure        | Offer generous free tier, focus on value           |
-
----
-
-## **15 — Success Criteria**
-
-### Week 1 Success Metrics
-- 100 API calls in first week
-- 10 developer signups
-- 5 paying customers
-- $100 in revenue
-
-### Month 1 Success Metrics
-- 1,000 API calls per day
-- 100 developer accounts
-- 25 paying customers
-- $1,000 monthly recurring revenue
-
----
-
-## **16 — Call to Action**
-
-ConfigGuard makes configuration validation simple and accessible. No complex setup, no infrastructure to manage—just send your config and get instant feedback. Perfect for developers who want to catch issues before they reach production.
-
-**Start validating your configs today at api.configguard.com**
-
----
-
-*Built for developers, by developers.*
+- Projects: 350 by month 1
+- Paid: 18 by day 30
+- MRR: $1,900 by month 3
+- Runs: 400k by month 1
+- False positive rate feedback: under 25% of flagged runs

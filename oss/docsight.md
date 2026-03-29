@@ -1,226 +1,191 @@
-# **DocSight** — *Simple Document Analysis CLI*
+# DocSight
 
-*A lightweight, open-source command-line tool that helps you analyze documents, extract information, and organize content with minimal effort.*
+*Local document analysis CLI: extract, summarize, and query PDF, DOCX, and TXT files without cloud uploads.*
 
----
-
-## **What is DocSight?**
-
-DocSight is a simple CLI tool that lets you analyze documents, extract information, and organize content directly from your terminal. Perfect for researchers, analysts, and anyone who wants to process documents without complex analysis tools.
+> **PyPI:** `docsight` (confirm availability before publish, HTTP 404 check recommended)
+> **npm:** `docsight` (confirm availability before publish, HTTP 404 check recommended)
 
 ---
 
-## **Core Features (MVP - 7 Days)**
+## Problem Statement
 
-### **Day 1-2: Basic Setup**
-- CLI interface with command parsing
-- Document parsing and validation
-- Basic text extraction engine
+- A16Z 2026: 80% of corporate knowledge lives in unstructured formats (PDFs, DOCX, TXT) that LLMs cannot access without extraction
+- Enterprise tools (Adobe Extract API, AWS Textract) are expensive, require cloud uploads, and create privacy risks for sensitive documents
+- Manual copy-paste from documents into LLM prompts is error-prone, truncated, and leaks PII to third-party services
+- No open-source CLI runs locally, extracts structured content from multiple formats, and enables natural language queries without a cloud call
 
-### **Day 3-4: Core Functionality**
-- Parse and analyze documents (PDF, TXT, DOCX)
-- Extract text and basic information
-- Generate document summaries
-- Track document metadata
-
-### **Day 5-6: Enhanced Features**
-- Export analysis results to various formats
-- Basic content categorization
-- Keyword extraction and analysis
-- Document comparison tools
-
-### **Day 7: Polish & Deploy**
-- Package for npm/pip/cargo
-- Write comprehensive documentation
-- Create installation scripts
+DocSight extracts, summarizes, and queries documents entirely locally with optional LLM using the user's own API key.
 
 ---
 
-## **Simple Data Model**
+## Core Features
 
-```json
-{
-  "documents": [
-    {
-      "id": "uuid",
-      "filename": "string",
-      "file_path": "string",
-      "file_type": "pdf|txt|docx",
-      "size": "number",
-      "created_at": "datetime",
-      "last_modified": "datetime"
-    }
-  ],
-  "extractions": [
-    {
-      "id": "uuid",
-      "document_id": "uuid",
-      "text_content": "string",
-      "word_count": "number",
-      "page_count": "number",
-      "extracted_at": "datetime"
-    }
-  ],
-  "analyses": [
-    {
-      "id": "uuid",
-      "document_id": "uuid",
-      "summary": "string",
-      "keywords": ["string"],
-      "topics": ["string"],
-      "sentiment": "positive|negative|neutral",
-      "created_at": "datetime"
-    }
-  ],
-  "metadata": [
-    {
-      "id": "uuid",
-      "document_id": "uuid",
-      "key": "string",
-      "value": "string",
-      "extracted_at": "datetime"
-    }
-  ]
-}
+### Multi-Format Extraction
+- Full text extraction from PDF (with `pdfminer.six` and `pymupdf`), DOCX (`python-docx`), TXT, and Markdown
+- Metadata extraction: title, author, page count, word count, creation date
+- Table detection and extraction for structured data within documents
+
+### LLM-Powered Analysis
+- Summarization per document or per section with configurable summary length
+- Natural language query mode: "What are the contract termination clauses?" against extracted text
+- Topic and keyword extraction; named entity recognition (person, org, date)
+
+### Document Library
+- Local SQLite database of extracted documents with full-text search
+- Tag documents for project-based organization
+- Cache extracted text to avoid re-processing unchanged files
+
+---
+
+## Interaction Sequence
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant D as docsight
+    participant F as File
+    participant S as SQLite
+    U->>D: extract path
+    D->>F: read doc
+    F-->>D: bytes
+    D->>D: OCR or parse
+    D->>S: index text
+    D-->>U: output
 ```
 
 ---
 
-## **Installation & Usage**
+## CLI Commands
 
 ```bash
-# Install via npm
-npm install -g docsight-cli
+# Extract text from a document
+docsight extract report.pdf
 
-# Install via pip
-pip install docsight-cli
+# Summarize a document
+docsight summarize contract.pdf --length short
 
-# Install via cargo
-cargo install docsight-cli
+# Query a document with natural language
+docsight ask contract.pdf "What are the termination clauses?"
 
-# Basic usage
-docsight analyze document.pdf                           # Analyze document
-docsight extract document.pdf --output text.txt         # Extract text
-docsight summary document.pdf                           # Generate summary
-docsight keywords document.pdf --top 10                 # Extract keywords
-docsight compare doc1.pdf doc2.pdf                      # Compare documents
-docsight metadata document.pdf                          # Show metadata
-docsight search "keyword" --directory ./docs            # Search documents
-docsight export document.pdf --format json              # Export analysis
-docsight batch ./documents --output results.csv         # Batch process
-docsight stats ./documents                              # Show statistics
+# Add a document to the local library
+docsight add report.pdf --tags finance,q1-2026
+
+# Search across all documents in the library
+docsight search "renewal terms"
+
+# Extract tables from a PDF
+docsight tables financials.pdf
+
+# Batch analyze a folder of documents
+docsight batch ./contracts/ --command summarize --output summaries/
 ```
 
 ---
 
-## **Configuration**
+## Configuration
 
-Create a config file at `~/.docsight/config.json`:
+```yaml
+# ~/.docsight/config.yml
+llm:
+  provider: openai
+  model: gpt-4o-mini
+  api_key: ${OPENAI_API_KEY}
+  token_budget: 4000
+  chunk_size: 2000           # tokens per chunk for long documents
+
+analysis:
+  default_summary_length: medium   # short | medium | long
+  ner_entities: [person, org, date, location]
+
+library:
+  db_path: ~/.docsight/documents.db
+```
+
+---
+
+## 7-Day Build Plan
+
+| Day | Focus | Deliverable |
+|-----|-------|-------------|
+| 1 | Project scaffold | CLI entry point (Typer), SQLite schema for documents + extractions, config loader |
+| 2 | PDF extraction | `pdfminer.six` + `pymupdf` text extraction; metadata; page-by-page chunking |
+| 3 | DOCX + TXT extraction | `python-docx` DOCX parser; TXT/Markdown reader; unified extraction schema |
+| 4 | LLM summarization | Chunk-and-summarize with OpenAI/Anthropic/Ollama; `summarize` command |
+| 5 | NL query mode | `ask` command; chunk retrieval; LLM answer from relevant sections |
+| 6 | Table extraction + library | `tabula-py` table extraction; SQLite document library; full-text search |
+| 7 | Packaging + publish | `pip install docsight`, `npm install -g docsight`, README, PyPI + npm release |
+
+---
+
+## Simple Data Model
 
 ```json
+// ~/.docsight/documents.db  (SQLite)
 {
-  "data_path": "~/.docsight/data.json",
-  "supported_formats": ["pdf", "txt", "docx"],
-  "export_format": "csv",
-  "auto_save": true,
-  "max_file_size": "10MB",
-  "extraction_engine": "basic"
+  "documents": {
+    "doc-uuid": {
+      "filename": "contract.pdf",
+      "file_type": "pdf",
+      "word_count": 12450,
+      "page_count": 28,
+      "tags": ["legal", "q1-2026"],
+      "extracted_at": "2026-03-28T10:00:00Z"
+    }
+  },
+  "analyses": {
+    "analysis-uuid": {
+      "doc_id": "doc-uuid",
+      "type": "summary",
+      "content": "The contract establishes a 12-month SaaS agreement...",
+      "created_at": "2026-03-28T10:00:00Z"
+    }
+  }
 }
 ```
 
 ---
 
-## **Why Open Source?**
+## Installation
 
-- **Privacy**: Your documents stay on your own machine
-- **Transparency**: See exactly how document analysis works
-- **Customization**: Modify to fit your specific analysis needs
-- **Learning**: Great project for developers to learn CLI development
-- **Community**: Others can contribute features they want
+```bash
+# PyPI (Python CLI)
+pip install docsight
 
----
-
-## **Easy Publishing Plan (7 Days)**
-
-### **Day 1-3: Build & Test**
-- Build the core CLI tool
-- Test all features thoroughly
-- Create comprehensive documentation
-
-### **Day 4: Prepare Launch**
-- Create GitHub repository with clear README
-- Write installation instructions
-- Prepare demo video (2-3 minutes)
-
-### **Day 5: Package & Publish**
-- Package for npm, pip, and cargo
-- Publish to package registries
-- Create GitHub releases
-
-### **Day 6: Community Launch**
-- Post on Reddit r/opensource, r/dataprocessing
-- Share on Twitter/X with #opensource #documents #cli
-- Submit to Hacker News
-
-### **Day 7: Community Engagement**
-- Respond to all comments and feedback
-- Create GitHub issues for feature requests
-- Engage with contributors
+# npm (global binary)
+npm install -g docsight
+```
 
 ---
 
-## **Marketing Strategy**
+## Stack
 
-### **Target Audience**
-- Researchers and analysts
-- Data scientists
-- Document processors
-- Open source contributors
-
-### **Key Messages**
-- "Analyze documents from the terminal"
-- "Simple document processing without complexity"
-- "Built by researchers, for researchers"
-
-### **Distribution Channels**
-- GitHub (primary)
-- npm, pip, cargo registries
-- Reddit communities
-- Twitter/X research community
-- Hacker News
-- Research forums
+- **Language:** Python 3.11+
+- **CLI framework:** Typer + Rich (extraction progress, query output)
+- **PDF extraction:** `pdfminer.six` + `pymupdf` (fallback for scanned PDFs)
+- **DOCX parsing:** `python-docx`
+- **Table extraction:** `tabula-py`
+- **LLM:** openai, anthropic, ollama SDK clients (optional)
+- **Storage:** SQLite via stdlib `sqlite3`
+- **Config:** PyYAML
+- **Packaging:** hatch for PyPI; package.json wrapper for npm binary
 
 ---
 
-## **Success Metrics**
+## Market Positioning
 
-- **Downloads**: 1800+ in first week
-- **GitHub Stars**: 280+ in first week
-- **Forks**: 35+ active forks
-- **Issues**: 18+ feature requests
-- **Contributors**: 9+ community contributors
-
----
-
-## **Future Enhancements**
-
-- Web dashboard for visual document analysis
-- Advanced OCR capabilities
-- Machine learning for content classification
-- Integration with document databases
-- Real-time document processing
-- Mobile app companion
+- **Target users:** Researchers extracting data from academic papers, analysts processing financial reports, compliance teams reviewing contracts locally
+- **YC/A16Z alignment:** A16Z Big Ideas 2026: multimodal data management and unstructured data taming as a generational opportunity; YC W26: AI document intelligence top batch theme
+- **Key differentiator:** Local-first document extraction CLI supporting PDF/DOCX/TXT with optional LLM summarization using the user's own API key; zero cloud upload; full data privacy
+- **Closest competitors:**
+  - AWS Textract: cloud-only; expensive; requires AWS credentials; privacy risk
+  - Adobe Extract API: SaaS; per-page pricing; privacy concerns
+  - `pdfminer.six`: Python library only; no CLI; no NL query interface
 
 ---
 
-## **Getting Started**
+## Success Metrics (6 months)
 
-1. Install the CLI tool
-2. Configure your analysis preferences
-3. Analyze your first document
-4. Extract information and generate summaries
-5. Contribute to the project
-
----
-
-*Built with ❤️ for the research community*
+- PyPI downloads: target 2,000/month
+- GitHub stars: target 200-800
+- Active contributors: target 10+
+- Document formats at launch: PDF, DOCX, TXT, Markdown; PowerPoint (PPTX) by month 3

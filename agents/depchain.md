@@ -1,83 +1,89 @@
-# **DepChain** - Autonomous Deployment Orchestration Agent (Agentic SaaS)
+# DepChain Agent
 
-*Monitors service health in real-time, determines safe deployment windows, executes rolling deployments in dependency order, and auto-rolls back on failure - with human approval gates for enterprise trust.*
+*CI watcher that ingests lockfiles and SBOMs on every push, joins OSV data, opens safe bump PRs, and escalates zero days to on call.*
 
-> **Parent MicroSaaS:** `depchain` (renamed from `axon`)
 > **Domain:** `depchain.io` (primary), `depchain.dev` (secondary)
-> **Agentic Tier:** Tier 3 - Score 6/10
-> **Market:** Platform engineering teams; enterprise DevOps with microservices; $5B+ TAM
+> **Agentic Tier:** Tier 1, score 8/10
+> **Market:** Supply chain security and SBOM expectations in regulated and growth stage SaaS (2026)
 
 ---
 
 ## Agentic Opportunity
 
-The MicroSaaS parent provides a REST API for defining service dependencies and checking deployment gates. The Agentic SaaS layer monitors health continuously, determines optimal deployment windows autonomously, executes rolling deployments in safe dependency order, and rolls back automatically when health metrics degrade - without requiring a human to manually coordinate services.
+DepChain Agent wires into GitHub or GitLab events, rebuilds the dependency graph on each default branch update, evaluates policy YAML continuously, posts concise risk comments on dependency PRs, opens patch-level bump PRs when CI is green, and pages or Slack-alerts when severity crosses thresholds you configure.
 
 ---
 
 ## Problem Statement
 
-- Microservice deployments fail because services are deployed in wrong order
-- Platform engineers manually coordinate deployments across 10-50 services - error-prone and slow
-- Current tools (Argo CD, Flux) handle GitOps but not intelligent dependency-aware ordering
-- No tool uses real-time health data to determine if now is a safe time to deploy
+- Raw `npm ls` style output is noisy; teams want summarized risk per commit
+- License clashes surface late; legal review then blocks release
+- Transitive upgrades break builds without a small diff story for reviewers
+- Full SCA suites price out indie services that still need continuous signal
 
 ---
 
-## Autonomy Architecture
+## Interaction Sequence
 
 ```mermaid
-flowchart TD
-    HEALTH[Health Monitor] --> RISK[Risk Assessor]
-    RISK --> |"safe window"| PLAN[Deploy Planner]
-    RISK --> |"unsafe"| WAIT[Queue and Wait]
-    PLAN --> |"dependency order"| D1[Deploy Service 1]
-    D1 --> |"health check"| D2[Deploy Service 2]
-    D2 --> |"health check"| D3[Deploy Service N]
-    D3 --> |"all healthy"| DONE[Deployment Complete]
-    D3 --> |"degraded"| ROLLBACK[Auto-Rollback]
-    PLAN --> |"high-risk change"| HG[Human Approval Gate]
-    HG --> D1
+sequenceDiagram
+    participant GH as Git host
+    participant A as DepChain
+    participant O as OSV
+    participant S as Slack
+    GH->>A: push or PR
+    A->>A: parse lockfile
+    A->>O: vuln lookup
+    O-->>A: findings
+    A->>GH: PR or comment
+    A->>S: notify
 ```
 
-**Autonomy levels (configurable by environment):**
-- Development: fully autonomous (no gates)
-- Staging: autonomous with notification
-- Production: human approval gate on deployment plan; autonomous execution and rollback
+**Event Triggers:**
+- Git
+  - Push to default branch, PR opened or updated, merge queue success
+- Schedules
+  - Nightly full rescan for long running branches
+  - OSV feed poll for new CVEs against last known SBOM
+
+**Human-in-the-Loop Gates:** Patch and minor bumps with passing checks can auto merge per repo policy. Major upgrades, license denials, and first time contributors to `package.json` style files route to required reviewers. Alert only mode never opens PRs without opt in.
 
 ---
 
 ## 7-Day Agentic MVP Build Plan
 
 | Day | Focus | Deliverable |
-|---|---|---|
-| 1 | Health monitoring integration | Prometheus metrics scraper; health endpoint polling |
-| 2 | Dependency graph engine | YAML-defined service dependencies; topological sort for deploy order |
-| 3 | Risk assessor | ML-based deployment risk score from health metrics, time of day, recent incidents |
-| 4 | Deployment executor | Sequential rolling deployment via Kubernetes API or custom webhooks |
-| 5 | Health gate and rollback | Post-deploy health checks with configurable thresholds; auto-rollback trigger |
-| 6 | Human approval gate | Slack slash command for deploy plan approval; timeout with escalation |
-| 7 | Audit trail + DORA metrics | Track deployment frequency, change failure rate, MTTR, lead time |
+|-----|-------|-------------|
+| 1 | Ingest | Webhook plus upload path writing `Scan` rows |
+| 2 | Parsers | npm lockfile v2 plus one second ecosystem |
+| 3 | OSV | Client with caching and severity normalization |
+| 4 | Policy | YAML evaluator hooked to scan results |
+| 5 | PR bot | Comment template with top findings table |
+| 6 | Auto PR | Patch bump flow behind feature flag |
+| 7 | Distribution | GitHub Action sample, docs site, security one pager |
 
 ---
 
 ## Simple Data Model
 
 ```
-Service:
-  id, name, health_endpoint, metrics_endpoint, dependencies[], deploy_webhook, environment
+User:
+  id, email, password_hash, created_at
 
-HealthSnapshot:
-  id, service_id, timestamp, status (healthy|degraded|down), error_rate, latency_p99, cpu_pct
+Scan:
+  id, user_id, ecosystem, hash, result_json, created_at
 
-DeploymentPlan:
-  id, services_ordered[], created_at, risk_score, approved_by, status (pending|approved|executing|complete|rolled_back)
+Policy:
+  id, user_id, yaml, created_at
 
-DeploymentStep:
-  id, plan_id, service_id, order, started_at, completed_at, health_before, health_after, rolled_back (bool)
+Diff:
+  id, user_id, from_scan_id, to_scan_id, delta_json, created_at
 
-Incident:
-  id, service_id, deployment_id, started_at, resolved_at, cause, resolution
+AgentRun:
+  id, repo_id, trigger, action, pr_url, status, created_at
+
+APIKey:
+  id, user_id, key_hash, tier, created_at
 ```
 
 ---
@@ -85,31 +91,29 @@ Incident:
 ## Revenue Model
 
 | Tier | Price | Includes |
-|---|---|---|
-| Starter | $29/month | Up to 10 services, 1 environment, basic health checks |
-| Team | $99/month | Up to 50 services, 3 environments, auto-rollback, DORA metrics |
-| Enterprise | $299/month | Unlimited services, all environments, SOC 2 audit trail, SLA, Slack integration |
-| Enterprise Plus | Custom | Multi-cloud, on-premise deployment, custom integrations, dedicated support |
-
-**vs. manual coordination (free but slow and error-prone):** Prevents even one failed production deployment per quarter - worth $10K+ in engineering time saved. Revenue multiple vs. MicroSaaS parent: 10-20x for Enterprise tier with compliance audit trails.
+|-----|-------|----------|
+| Free | $0 | Fifty scans, public repos, comment only bot |
+| Pro | $49/month | Two thousand scans, private repos, PR comments |
+| Team | $149/month | Ten thousand scans, org policies, auto PR flag |
+| Enterprise | Custom | SSO, air gapped export, SLA |
 
 ---
 
-## Stack Recommendations
+## Stack
 
-- **Kubernetes:** kubernetes Python client for rolling deployments
-- **Health Monitoring:** Prometheus client + Grafana for metrics; custom health endpoint polling
-- **Risk Model:** scikit-learn logistic regression on deployment history features
-- **Alerts + Approval:** Slack Bolt SDK for interactive approval messages
-- **Backend:** Python (FastAPI); Go alternative for lower latency in hot path
-- **Storage:** PostgreSQL + TimescaleDB for time-series health data
+- **Ingest and policy:** Go or Rust service behind signed webhooks
+- **Vuln data:** OSV API with disk cache
+- **Database:** PostgreSQL for scans, diffs, policies, audit runs
+- **Git host:** GitHub App or GitLab token with least privilege
+- **Notifications:** Slack webhooks plus optional PagerDuty on Enterprise
+- **Deploy:** Fly.io or similar with worker queue for rescans
 
 ---
 
 ## Success Metrics
 
-- Services monitored (target: 500 by month 6)
-- Deployments orchestrated (target: 1,000/month by month 6)
-- Zero deployment ordering failures (target: 100% correct ordering)
-- Auto-rollback accuracy (target: over 95% of degradations caught within 5 minutes)
-- DORA metric improvement for customers (target: 50% improvement in deployment frequency)
+- Scans per month: target 25k by month 1
+- Auto opened PRs merged without revert: target 60% or higher on pilot repos
+- Mean time from CVE publish to repo alert: target under 4 hours for watched packages
+- Paid orgs: target 18 by day 30
+- False positive reports per 1k findings: target under 30

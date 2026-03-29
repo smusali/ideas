@@ -1,271 +1,188 @@
-# **ConfCheck CLI** — Configuration Guardian
+# ConfCheck
 
-*A command-line tool and SDK for linting, formatting, and simulating infrastructure configurations, with optional LLM-powered diagnostics using your own API key.*
+*Multi-format infrastructure config linter with optional LLM diagnostics: YAML, JSON, HCL for AWS/GCP/k8s.*
 
----
-
-## 1. Executive Summary
-
-ConfCheck CLI is an open-source tool and SDK that helps developers and DevOps teams lint, format, and simulate infrastructure configuration files (YAML, JSON, etc.) locally. It optionally leverages LLM APIs for advanced diagnostics, using your own API key. Designed for rapid setup and easy publishing to package registries, ConfCheck can be built and shipped by a single developer in 7 days.
+> **PyPI:** `confcheck` (confirmed available, HTTP 404)
+> **npm:** `confcheck` (confirmed available, HTTP 404)
 
 ---
 
-## 2. Why ConfCheck CLI?
+## Problem Statement
 
-- **Misconfigurations** in cloud and infrastructure files are common and costly.
-- Existing tools are often provider-specific, hard to extend, or require cloud access.
-- ConfCheck CLI works locally, supports multiple formats, and can use LLMs for deeper insights if the user provides an API key.
+- Configuration errors are among the most expensive failure modes in cloud infrastructure
+- Existing tools (yamllint, jsonschema, kubeval) are single-format, single-provider, or require cloud access
+- No local, multi-format, multi-provider config linter exists with optional LLM-powered diagnostics
+- DevOps teams write one-off validation scripts per project rather than using a reusable, extensible linting tool
 
----
-
-## 3. Core Features (7-Day Build)
-
-| Feature                  | Description                                                                                   |
-|--------------------------|-----------------------------------------------------------------------------------------------|
-| **Multi-Format Linting** | Lint YAML, JSON, and HCL files for syntax and common mistakes.                                |
-| **Formatting**           | Auto-format files to a consistent style.                                                      |
-| **Rule Packs**           | Basic, extensible rule packs for common providers (AWS, GCP, Kubernetes, generic).           |
-| **LLM Diagnostics**      | Optional: Use LLM API for advanced error explanations and suggestions (user provides API key). |
-| **Simulation**           | Dry-run config changes and show resource diffs (static analysis, not live cloud calls).       |
-| **CLI & SDK**            | Use as a command-line tool or import as a library in your own scripts.                        |
-| **Easy Publishing**      | Ready for npm/pypi/cargo publication.                                                         |
+ConfCheck is fully local: multi-format (YAML/JSON/HCL), multi-provider (AWS/GCP/k8s), with optional LLM insights using the user's own API key.
 
 ---
 
-## 4. Installation & Usage
+## Core Features
 
-### Quick Start
+### Multi-Format Linting
+- Validates YAML, JSON, and HCL (Terraform) files for syntax errors and structural issues
+- Provider-specific rule packs: AWS CloudFormation, GCP Deployment Manager, Kubernetes manifests, generic
+- Auto-format mode that applies consistent indentation and style without changing semantics
+
+### Extensible Rule Engine
+- Rule packs defined in JSON Schema + custom rule YAML
+- Community rule packs installable via `confcheck install-pack <pack-name>`
+- Custom rule authoring with YAML DSL for org-specific standards
+
+### Optional LLM Diagnostics
+- Optional mode using OpenAI or Anthropic to explain errors in plain English and suggest fixes
+- User provides API key; no config content sent to any service without explicit opt-in
+- LLM suggestions stored locally alongside validation results for review
+
+---
+
+## Interaction Sequence
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant CC as confcheck
+    participant L as Linter
+    participant O as Optional LLM
+    U->>CC: lint file
+    CC->>L: validate
+    L-->>CC: errors
+    opt explain mode
+        CC->>O: error text
+        O-->>CC: hints
+    end
+    CC-->>U: report
+```
+
+---
+
+## CLI Commands
+
 ```bash
-# Install from npm/pypi/cargo (choose your language)
-npm install -g confcheck-cli
-# or
-pip install confcheck-cli
-# or
-cargo install confcheck-cli
-
 # Lint a config file
 confcheck lint myconfig.yaml
 
-# Format a file
-confcheck format myconfig.json
+# Lint with a specific provider rule pack
+confcheck lint deployment.yml --provider kubernetes
 
-# Simulate changes
-confcheck simulate myconfig.yaml --diff
+# Auto-format a config file
+confcheck format terraform.tf
 
-# Use LLM diagnostics (requires API key)
-confcheck lint myconfig.yaml --ai --api-key YOUR_KEY
-```
+# Get LLM-powered fix explanation
+confcheck explain myconfig.yaml --llm
 
-### Configuration
-```bash
-# Set your LLM API key for AI features
-confcheck config set api-key YOUR_LLM_API_KEY
+# Simulate config changes (static diff)
+confcheck diff old-config.yaml new-config.yaml
 
-# Set default output format
-confcheck config set output-format json
-```
+# Install a community rule pack
+confcheck install-pack aws-security
 
----
-
-## 5. Data Flow
-
-```mermaid
-graph TD
-    A[Config Files] --> B[Parser]
-    B --> C{File Type}
-    C -->|YAML| D[YAML Linter]
-    C -->|JSON| E[JSON Linter]
-    C -->|HCL| F[HCL Linter]
-    D --> G[Rule Engine]
-    E --> G
-    F --> G
-    G --> H{AI Enabled?}
-    H -->|Yes| I[LLM Diagnostics]
-    H -->|No| J[Static Analysis]
-    I --> K[Diagnostics]
-    J --> K
-    K --> L[Output]
+# List active rule packs
+confcheck packs list
 ```
 
 ---
 
-## 6. Implementation Plan (7 Days)
+## Configuration
 
-### Day 1: Project Setup & CLI Skeleton
-- Initialize project and CLI framework
-- Set up config file and environment variable support
-- Implement basic file reading and output
+```yaml
+# .confcheck.yml
+providers:
+  - kubernetes
+  - aws
 
-### Day 2: Parsers & Linters
-- Implement YAML, JSON, and HCL parsers
-- Add basic syntax linting for each format
-- Build unified linter interface
+rule_packs:
+  - generic
+  - aws-security
 
-### Day 3: Formatting Engine
-- Implement auto-formatting for YAML and JSON
-- Add style configuration (indentation, quotes, etc.)
+llm:
+  provider: openai
+  model: gpt-4o-mini
+  api_key: ${OPENAI_API_KEY}
+  enabled: false            # opt-in only
 
-### Day 4: Rule Packs
-- Create basic rule packs for AWS, GCP, Kubernetes, and generic configs
-- Allow user to select or extend rule packs
-
-### Day 5: LLM Integration (Optional)
-- Add LLM API client (OpenAI, Anthropic, etc.)
-- Implement prompt templates for config diagnostics
-- Add API key management and fallback to static analysis
-
-### Day 6: Simulation & Diff
-- Implement static dry-run simulation (no live cloud calls)
-- Show resource diffs based on config changes
-
-### Day 7: Testing & Publishing
-- Write unit and integration tests
-- Prepare documentation and README
-- Publish to npm/pypi/cargo
-
----
-
-## 7. File Structure
-
-```
-confcheck-cli/
-├── src/
-│   ├── cli.js              # Main CLI entry point
-│   ├── parsers/            # File parsing modules
-│   │   ├── yaml.js
-│   │   ├── json.js
-│   │   └── hcl.js
-│   ├── linters/            # Linting logic
-│   ├── formatters/         # Formatting logic
-│   ├── rules/              # Rule packs
-│   ├── ai/                 # LLM integration
-│   ├── simulators/         # Static simulation/diff
-│   └── utils/              # Utilities
-├── tests/                  # Test files
-├── examples/               # Sample configs
-├── docs/                   # Documentation
-├── package.json            # Dependencies and scripts
-└── README.md               # Project documentation
+output:
+  format: table             # table | json | sarif
+  max_warnings: 50
 ```
 
 ---
 
-## 8. Configuration Options
+## 7-Day Build Plan
 
-### Environment Variables
-```bash
-TRIVYX_API_KEY=your_llm_api_key
-TRIVYX_OUTPUT_FORMAT=json
-TRIVYX_LOG_LEVEL=info
-```
+| Day | Focus | Deliverable |
+|-----|-------|-------------|
+| 1 | Project scaffold | CLI entry point (Typer), config loader, test harness; YAML/JSON/HCL parsers |
+| 2 | Core lint engine | Syntax validation; JSON Schema rule application; colored error output with line numbers |
+| 3 | Provider rule packs | AWS, GCP, Kubernetes rule packs; extensible pack loader |
+| 4 | Auto-format command | Safe in-place formatting for YAML/JSON/HCL |
+| 5 | Static diff + custom rules | `diff` command; custom rule YAML DSL; `install-pack` command |
+| 6 | LLM diagnostics mode | OpenAI/Anthropic error explanation; suggestion storage; `explain` command |
+| 7 | Packaging + publish | `pip install confcheck`, `npm install -g confcheck`, README, PyPI + npm release |
 
-### Configuration File (~/.confcheck/config.json)
+---
+
+## Simple Data Model
+
 ```json
+// ~/.confcheck/state.json  (auto-maintained)
 {
-  "api_key": "your_llm_api_key",
-  "output_format": "json",
-  "rule_packs": ["aws", "gcp", "kubernetes"],
-  "style": {
-    "indent": 2,
-    "quote": "double"
-  }
-}
-```
-
----
-
-## 9. Example Usage
-
-### Lint a File
-```bash
-confcheck lint myconfig.yaml
-```
-
-### Format a File
-```bash
-confcheck format myconfig.json
-```
-
-### Simulate Changes
-```bash
-confcheck simulate myconfig.yaml --diff
-```
-
-### Use LLM Diagnostics
-```bash
-confcheck lint myconfig.yaml --ai --api-key YOUR_KEY
-```
-
----
-
-## 10. Output Formats
-
-### JSON Output
-```json
-{
-  "file": "myconfig.yaml",
-  "errors": [
-    {
-      "line": 12,
-      "message": "Unknown property 'typoo' in resource block.",
-      "suggestion": "Did you mean 'type'?"
+  "validations": {
+    "myconfig.yaml": {
+      "last_validated": "2026-03-28T10:00:00Z",
+      "status": "fail",
+      "error_count": 3,
+      "warning_count": 7,
+      "format": "yaml",
+      "provider": "kubernetes"
     }
-  ],
-  "summary": {
-    "total_errors": 1,
-    "total_warnings": 0
-  }
+  },
+  "rule_packs": ["aws", "kubernetes", "generic", "aws-security"]
 }
 ```
 
 ---
 
-## 11. Publishing Plan
+## Installation
 
-### Day 1-6: Development
-- Follow the 7-day implementation plan above
-- Focus on core CLI and SDK features
-- Ensure all features work without external dependencies
+```bash
+# PyPI (Python CLI)
+pip install confcheck
 
-### Day 7: Publishing
-1. **Package Registry**: Publish to npm/pypi/cargo
-2. **Documentation**: Write comprehensive README and docs
-3. **Examples**: Provide sample configs and usage
-4. **Testing**: Ensure installation and basic usage works
-5. **Announcement**: Share on relevant forums and communities
-
-### Post-Launch
-- Monitor downloads and user feedback
-- Fix bugs and improve based on community input
-- Plan enhancements for future releases
+# npm (global binary)
+npm install -g confcheck
+```
 
 ---
 
-## 12. Success Metrics
+## Stack
 
-- **Downloads**: 100+ in first week
-- **GitHub Stars**: 50+ in first month
-- **Community**: 10+ contributors in 3 months
-- **Usage**: 1000+ files linted in first month
-
----
-
-## 13. Future Enhancements
-
-- More provider-specific rule packs
-- Visual diff explorer (CLI-based)
-- Multi-language diagnostics
-- Offline LLM support
-- IDE plugin wrappers
+- **Language:** Python 3.11+
+- **CLI framework:** Typer + Rich (lint output with line numbers and colored severity)
+- **Parsers:** `PyYAML`, `json` (stdlib), `python-hcl2` for HCL/Terraform
+- **Rule engine:** `jsonschema` + custom rule YAML loader
+- **LLM optional:** openai, anthropic SDK clients (user provides API key)
+- **Config:** PyYAML (`.confcheck.yml`)
+- **Packaging:** hatch for PyPI; npm publish for npm binary
 
 ---
 
-## 14. Getting Started
+## Market Positioning
 
-1. **Install**: `npm install -g confcheck-cli`
-2. **Configure**: Set up your API key if using AI features
-3. **Lint**: Run `confcheck lint your-config.yaml`
-4. **Format**: Use `confcheck format` for style
-5. **Contribute**: Visit the GitHub repo for ways to help
+- **Target users:** DevOps engineers validating cloud configs before deployment, platform teams enforcing configuration standards in CI, SREs auditing infrastructure configs
+- **YC/A16Z alignment:** YC W26: infrastructure automation tools are top batch theme; A16Z 2026: AI-augmented DevOps in top developer-tools priorities
+- **Key differentiator:** The only multi-format (YAML/JSON/HCL), multi-provider (AWS/GCP/k8s) local config linter with optional LLM-powered diagnostics, no cloud calls required for core validation
+- **Closest competitors:**
+  - yamllint: YAML-only; no provider-specific rule packs; no LLM diagnostics
+  - kubeval: Kubernetes-only; requires schema downloads; no HCL or AWS support
+  - Checkov: cloud-dependent; complex setup; not local-first
 
-> **ConfCheck CLI: Confident configs, one command at a time.**
+---
+
+## Success Metrics (6 months)
+
+- PyPI downloads: target 5,000/month
+- GitHub stars: target 300-1,000
+- Active contributors: target 15+
+- Config formats at launch: YAML, JSON, HCL; provider packs: AWS, GCP, Kubernetes

@@ -1,173 +1,185 @@
-# **PostForge** — *Simple AI Social Media Content Generator*
+# PostForge
 
-*A lightweight web application that helps you generate engaging social media posts using AI with minimal effort.*
+*Social content API: generate, schedule, and publish posts across networks with brand voice presets and approval workflow.*
 
----
-
-## **What is PostForge?**
-
-PostForge is a simple web application that helps you create engaging social media content by describing your topic and getting AI-generated posts with relevant hashtags. Built for small businesses, creators, and anyone who needs fresh content ideas without spending hours writing.
+> **Domain:** `postforge.io` (primary), `postforge.dev` (secondary)
+> **Market:** Creator tools and B2B marketing ops; multi-channel posting remains fragmented (2026)
 
 ---
 
-## **Core Features (MVP - 7 Days)**
+## Problem Statement
 
-### **Day 1-2: Basic Setup**
-- Simple web interface for content generation
-- Basic database to store generated content
-- User registration and login
-
-### **Day 3-4: Core Functionality**
-- Topic-based content generation
-- Platform-specific formatting (Twitter, Instagram, LinkedIn)
-- Relevant hashtag suggestions
-- Multiple post variations
-
-### **Day 5-6: Enhanced Features**
-- Content history and favorites
-- Export content to various formats
-- Basic content scheduling tips
-- Share content via links
-
-### **Day 7: Polish & Deploy**
-- Responsive design for mobile
-- Deploy to free hosting platform
-- Write documentation and README
+- Copy-pasting the same campaign into LinkedIn, X, and Meta wastes time and drifts tone
+- Agencies need client approval logs; Notion threads are not audit-friendly
+- Developers building vertical apps want posting primitives without OAuth maze per network on day one
+- API rate limits and retries differ per platform; teams reinvent backoff logic
 
 ---
 
-## **Simple Data Model**
+## Core Features
 
-```
-User:
-- id, email, password_hash, created_at
+### Content Generation
+- Template prompts with brand voice YAML; optional image brief for paired creative tools
+- Variant generation: A/B captions per platform constraints (length, hashtag rules)
 
-ContentGeneration:
-- id, user_id, topic, platform, content, hashtags, created_at
+### Scheduling and Publishing
+- Unified schedule table; timezone aware
+- Adapters: LinkedIn, X, Meta Pages (expand over time); webhook on publish success or failure
 
-Platforms:
-- Twitter, Instagram, LinkedIn
+### Approvals
+- Multi-step approval state machine per post; comment thread stored as structured messages
 
-ContentHistory:
-- id, user_id, generation_id, favorited, created_at
+---
+
+## Interaction Sequence
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant API as PostForge
+    participant N as Social API
+    C->>API: POST publish
+    API->>N: OAuth call
+    N-->>API: post id
+    API-->>C: ok
 ```
 
 ---
 
-## **Why This Works**
+## API Design
 
-- **High Demand**: Everyone needs social media content
-- **Clear Value**: Save hours of writing time with AI-generated content
-- **Low Barrier**: Simple web interface, no complex setup required
-- **Scalable**: Can start with basic features and add advanced capabilities
+### Core Endpoints
 
----
+```
+POST /api/v1/campaigns
+POST /api/v1/posts
+POST /api/v1/posts/{id}/schedule
+POST /api/v1/posts/{id}/approve
+GET  /api/v1/calendar?from=&to=
+GET  /api/v1/usage
+GET  /api/v1/health
+```
 
-## **Easy Publishing Plan (7 Days)**
+### Request Example
+```json
+{
+  "campaign_id": "cmp_01HXYZ",
+  "platforms": ["linkedin", "twitter"],
+  "topic": "Launching PostForge API",
+  "voice_id": "brand_default"
+}
+```
 
-### **Day 1-3: Build & Test**
-- Build the core application
-- Test all features thoroughly
-- Create simple documentation
-
-### **Day 4: Prepare Launch**
-- Create landing page with demo
-- Set up payment processing
-- Prepare marketing materials
-
-### **Day 5: Initial Launch**
-- Post on Product Hunt
-- Share on LinkedIn and Twitter
-- Reach out to content creator bloggers
-
-### **Day 6: Community Engagement**
-- Respond to all comments and feedback
-- Share on Reddit r/socialmedia, r/Entrepreneur
-- Engage with early users
-
-### **Day 7: Follow-up**
-- Analyze user feedback
-- Plan next iteration
-- Start building user base
-
----
-
-## **Marketing Strategy**
-
-### **Target Audience**
-- **Primary**: Small business owners, content creators, freelancers
-- **Secondary**: Startup founders, marketers
-- **Tertiary**: Anyone who posts on social media
-
-### **Key Messages**
-- "Generate engaging social media content in seconds"
-- "Never run out of post ideas again"
-- "AI-powered content that actually works"
-
-### **Distribution Channels**
-- **Product Hunt**: Launch for immediate visibility
-- **LinkedIn**: Target business professionals
-- **Twitter**: Social media and business communities
-- **Reddit**: r/socialmedia, r/Entrepreneur, r/SideProject
-- **Email Marketing**: Cold outreach to content creators
-
-### **Pricing Strategy**
-- **Freemium**: Free for 10 posts/month, paid for unlimited
-- **Monthly**: $14.99/month for unlimited posts
-- **Annual**: $149/year (17% discount)
-- **Team**: $34.99/month for up to 5 users
+### Response Example
+```json
+{
+  "post_id": "pst_01HABC",
+  "variants": [
+    {"platform": "linkedin", "text": "We shipped ..."},
+    {"platform": "twitter", "text": "Shipped: ..."}
+  ],
+  "status": "draft"
+}
+```
 
 ---
 
-## **Revenue Generation Plan**
+## 7-Day Build Plan
 
-### **Week 1 Revenue Targets**
-- **Day 1-3**: Focus on building and testing
-- **Day 4**: Launch with freemium model
-- **Day 5-7**: Target 10-20 paid users
-
-### **Revenue Streams**
-1. **Subscription Revenue**: Monthly/annual plans
-2. **Premium Templates**: Advanced content templates
-3. **API Access**: For developers wanting to integrate
-4. **Custom Brand Voices**: For specific business needs
-
-### **Quick Wins**
-- Offer 7-day free trial for all paid plans
-- Create viral demos with popular topics
-- Partner with content creator influencers
-- Build referral program
+| Day | Focus | Deliverable |
+|-----|-------|-------------|
+| 1 | OAuth vault | Encrypt tokens; workspace model |
+| 2 | LinkedIn adapter | Post create MVP |
+| 3 | X adapter | Post create MVP |
+| 4 | Scheduler | Cron worker; retry policy |
+| 5 | Approvals | State transitions; email notifications |
+| 6 | Stripe | Free 10 posts; Pro unlimited |
+| 7 | Launch | Product Hunt, creator Twitter, agency outreach |
 
 ---
 
-## **Success Metrics**
+## Simple Data Model
 
-- **Week 1**: 100+ signups, 10+ paid users
-- **Month 1**: 500+ signups, 50+ paid users
-- **Month 3**: 2000+ signups, 200+ paid users
-- **Revenue Target**: $750+ in first month
+```
+Workspace:
+  id, name, owner_user_id, created_at
+
+VoiceProfile:
+  id, workspace_id, yaml, created_at
+
+Campaign:
+  id, workspace_id, title, created_at
+
+Post:
+  id, campaign_id, status, scheduled_at, published_at, platforms_json, created_at
+
+Approval:
+  id, post_id, step, approver_email, status, comment, created_at
+
+Connection:
+  id, workspace_id, provider, tokens_enc, created_at
+
+APIKey:
+  id, workspace_id, key_hash, tier, created_at
+
+Usage:
+  id, api_key_id, endpoint, count, date
+```
 
 ---
 
-## **Future Enhancements**
+## Revenue Model
 
-- Content scheduling and automation
-- Integration with social media platforms
-- Advanced AI features and customization
-- Team collaboration features
-- Mobile app
-- Content analytics and insights
+| Tier | Price | Includes |
+|------|-------|----------|
+| Free | $0/month | 10 scheduled posts, 1 user, community support |
+| Pro | $34/month | Unlimited posts, 3 users, both adapters |
+| Agency | $99/month | 10 workspaces, approvals, priority email |
+| Enterprise | Custom | SLA, custom networks, dedicated IPs |
 
----
-
-## **Getting Started**
-
-1. **Sign up** for free account
-2. **Describe your topic** for content generation
-3. **Upgrade** to paid plan for unlimited posts
-4. **Start creating** engaging social media content
+Pay-as-you-go: $0.05 per published post after fair use on Free.
 
 ---
 
-*Built with ❤️ for content creators* 
- 
+## Go-to-Market
+
+- **Launch channels:**
+  - Product Hunt
+  - Indie Hackers
+  - Hacker News
+  - Reddit r/marketing, r/SocialMediaMarketing
+- **Direct outreach:** 20 DMs to micro agencies posting manually today
+- **Content hook:** “One POST: LinkedIn + X copy variants with schedule”
+- **Early adopter incentive:** Agency tier 2 months free for first 10 shops
+
+---
+
+## Stack
+
+- **Backend:** Node.js (Express) or Python (FastAPI)
+- **Database:** PostgreSQL
+- **Auth:** JWT + API keys
+- **Secrets:** KMS or libsodium for OAuth tokens
+- **Deploy:** Fly.io
+- **Payments:** Stripe
+
+---
+
+## Market Positioning
+
+- **Target users:** Indie creators, small agencies, and developers embedding social in vertical SaaS
+- **YC/A16Z alignment:** Creator economy infra; API-first GTM (2026)
+- **Key differentiator:** Variant generation plus approvals plus publish adapters in one API, not only Buffer-style UI
+- **Closest competitors:**
+  - Buffer, Hootsuite: strong UIs; API as secondary; pricing ladders fast
+  - Raw network APIs: flexible; heavy OAuth and policy upkeep
+
+---
+
+## Success Metrics (First 90 Days)
+
+- Workspaces: 300 by day 30
+- Paid: 18 by day 30
+- MRR: $1,000 by month 3
+- Successful publishes: 15k by month 1
+- Publish failure rate under 3% excluding user revoked tokens
