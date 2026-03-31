@@ -2,14 +2,6 @@
 
 Markdown-first **Product Specs** for **13 OSS Tools**, **13 MicroSaaS APIs/Products**, and **13 Autonomous Agent Builds** (39 idea files), plus per-folder `template.md` scaffolds. OSS and MicroSaaS specs assume a **~7-Day MVP** for a solo builder; agent specs describe **event-driven**, **Human-in-the-Loop** automation layered on APIs where applicable.
 
-| Doc | Role |
-|-----|------|
-| [`REPORT.md`](./REPORT.md) | Feasibility analysis, registry/domain notes, tabular comparisons, conversion narratives |
-| [`LICENSE`](./LICENSE) | Repository license |
-| [`oss/README.md`](./oss/README.md) | OSS conventions, full catalog, compound paths |
-| [`microsaas/README.md`](./microsaas/README.md) | MicroSaaS domains, OSS/agent mapping, launch checklist |
-| [`agents/README.md`](./agents/README.md) | Agent triggers, coverage matrix, `applynt` / `microtutor` notes |
-
 ## Open-Source Project Ideas
 
 **Folder Guide:** [`oss/README.md`](./oss/README.md) (conventions, catalog, compound paths, spec anatomy).
